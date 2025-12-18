@@ -1,16 +1,15 @@
 The portfolio x15 stocks-- subject to test
-Hiostorical data (daily)
+Collect Historical data (daily)
 
-News with shocks (data) -> sentinemt -> score
+Collect news with shocks (data) -> use ai from chat gpt to extract sentinemt -> calculate score
 
-Manager assesment of the situation (UI to collect data) -- Microsoft forms
+Collect manager assesment of the same news (UI to collect data) -- Microsoft forms
 
-Compare descisions with mutulka fund portfolio dynamics
+Compare managerial descisions with mutual fund portfolio dynamics -- are descisions really reflected in portfolio compositions.
 
 Compare descisions with score -> simulate 2 portfolio: 
     with manager reactions -- CAPM, conventional portfolio; 
-        try to see if behavioral finance can provide behavioral correction tools 
-        and incorporate them into conventional model
+        also try to see if behavioral finance can provide behavioral correction tools and incorporate them into conventional model
     with manager reactions and score
     with score correction only
 
