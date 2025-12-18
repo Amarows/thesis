@@ -1,5 +1,141 @@
-Digital Transformation of Decision-Making in Finance
-    V0.2 – title updated, simplified. shifts thesis from “finance only” → into managerial innovation
+---------------------------TITLES---------------------------------------
+Influence of External Valuation Shocks on Equity Portfolio Manager Decision-Making
+Equity Portfolio Manager Decision-Making in Response to External Information Events
+Behavioral Biases in Equity Managers’ Responses to External Information Shocks
+AI-Assisted Decision Support for Equity Managers Facing External Market Shocks
+Mitigating Behavioral Overreactions in Equity Manager Decisions During External Information Shocks
+
+---------------------------RESEARCH---------------------------------------
+Does an sentiment-derived (AI-derived?) shock score, based on external financial news, 
+improve managerial decision quality and portfolio outcomes compared 
+with conventional manager-driven investment decisions alone?
+
+---------------------------HYPOTHESIS-----------------------------------
+Draft Hypothesis (that we discussed):
+H: Equity manager descisions influenced by external valuation shocks
+H: score does correct survey respondents with value added
+
+Hypothesis Set (short, Very SBS-Safe, does not contain "and")
+H₁: Do shocks influence decisions?
+H₂: Does the score improve outcomes?
+H₃: Does the score change how managers decide?
+
+Full Hypothesis Set:
+H₁ – Influence of Information Shocks on Decisions. Tested using survey responses collected without displaying the Shock Score, examining how different shocks lead to different managerial decisions.
+    H₀₁: External financial information shocks do not significantly influence managerial investment decisions.
+    Hₐ₁: External financial information shocks significantly influence managerial investment decisions.
+H₂ – Value Added of the Shock Score. Tested through portfolio simulations comparing manager-only strategies with Shock Score–supported strategies.
+    H₀₂: Investment decisions supported by the Shock Score do not differ in quality or outcomes from decisions based solely on managerial judgement.
+    Hₐ₂: Investment decisions supported by the Shock Score demonstrate improved quality or outcomes compared with decisions based solely on managerial judgement.
+H₃ – Behavioral Impact of the Shock Score (Optional). Tested by comparing survey responses before and after displaying the Shock Score for the same events.
+    H₀₃: The Shock Score does not change the consistency or dispersion of managerial responses to financial information shocks.
+    Hₐ₃: The Shock Score changes the consistency or reduces the dispersion of managerial responses to financial information shocks.
+
+
+---------------------------SURVEY DESIGN---------------------------
+An online survey will be conducted using Microsoft Forms, targeting portfolio managers and members of investment management teams.
+Respondents will evaluate a set of real historical news events related to a predefined portfolio of stocks.
+For each company, respondents will be shown one version of a similar information shock (e.g., comparable news type or severity), rather than the same event repeated.
+Events will be randomly assigned so that different respondents receive comparable events with and without the Shock Score, avoiding anchoring or learning effects.
+For each event, respondents will indicate:
+    recommended action,
+    perceived severity,
+    expected impact horizon,
+    confidence level.
+Responses to events without the Shock Score will be used to test whether information shocks influence managerial decisions (H₁).
+Responses to comparable events with versus without the Shock Score will be used to assess the behavioral impact of the decision-support system (H₃).
+The survey is intentionally concise to encourage participation while enabling robust statistical analysis.
+
+---------------------------SHORT RESEARCH PLAN--------------------------
+
+The portfolio x15 stocks-- subject to test
+Collect Historical data (daily)
+
+Collect news with shocks (data) -> use ai from chat gpt to extract sentinemt -> calculate score
+
+Collect manager assesment of the same news (UI to collect data) -- Microsoft forms
+
+Compare managerial descisions with mutual fund portfolio dynamics -- are descisions really reflected in portfolio compositions.
+
+Compare descisions with score -> simulate 2 portfolio: 
+    with manager reactions -- CAPM, conventional portfolio; 
+        also try to see if behavioral finance can provide behavioral correction tools and incorporate them into conventional model
+    with manager reactions and score
+    with score correction only
+
+Make conclusion if score can statistically improve decision making on the example of investment portfolio.
+
+----------------------------FULL RESEARCH PLAN------------------------------------
+
+1) Construct test object
+    Construct a 15-stock portfolio (fixed universe; daily frequency).
+    Collect historical daily prices for stocks and a benchmark (e.g., sector ETF + broad index) for risk adjustment.
+2) Shock event dataset (primary data)
+    Build a database of news events linked to the 15 stocks (headline, timestamp, source, type).
+    Use ChatGPT-assisted NLP to extract:
+        sentiment (positive/neutral/negative)
+        event type (earnings, regulation, political, management, legal, etc.)
+        optional: “urgency” or “fundamental vs transient” label
+        Combine these into a Shock Score.
+3) Manager assessment dataset (primary data)
+    Use Microsoft Forms to collect manager assessments for the same news items:
+        perceived severity (Likert 1–7)
+        expected direction (up/down/uncertain)
+        expected horizon (hours/days/weeks)
+        recommended action (hold/reduce/add/hedge)
+        confidence
+    Target audience: portfolio managers / investment team members (aim ≥ 50 responses, as Stefano suggested).
+4) “Do decisions show up in real portfolios?”
+    Choose a mutual fund or strategy proxy (or a set of funds) and test whether public portfolio composition changes (holdings/weights when available) align with:
+    manager assessments (your Forms data)
+    the Shock Score
+    Where holdings frequency is quarterly, treat this as medium-term validation, not “same-day reaction.”
+5) Portfolio simulations (three strategies)
+    Simulate and compare three portfolios:
+        Manager-only decisions -- rebalancing driven by the survey decisions (aggregated rule).
+        Manager + Shock Score support --  decisions informed by managers but adjusted/filtered by the score (decision-support layer).
+        Shock Score only -- rule-based score strategy (baseline automation).
+    Evaluate performance and risk, and test whether the score improves outcomes and/or decision consistency.
+6) Conclusion
+Test whether the Shock Score:
+    improves risk-adjusted performance and drawdown behavior, and/or
+    reduces decision noise and increases consistency relative to manager-only responses.
+
+-----------------------------PROBLERMS------------------------------------------------------------------------------
+Nuances to handle (so the design is defensible):
+
+Mutual fund portfolio dynamics data is slow
+Holdings are often quarterly/monthly, so use it as a separate validation track (“does anything persistent show up?”) 
+rather than as proof of immediate reaction. For short-term reaction, rely on price/volatility event windows.
+
+Define the unit of analysis clearly
+Use event-level observations: each news item is one observation with:
+    score features,
+    manager response metrics,
+    realized outcome metrics (abnormal return, volatility jump, drawdown impact).
+
+Make “decision quality” measurable without philosophy
+Operationalize it as:
+    abnormal volatility capture after decision,
+    reduction in adverse moves (drawdown / tail risk),
+    improved risk-adjusted metrics,
+    and optionally, “alignment” between manager expectation and realized direction.
+
+“Behavioral correction tools” should be framed simply
+Rather than deep behavioral modelling, use practical corrections like:
+    thresholding (do not act unless severity exceeds X),
+    confirmation delay (cool-off period),
+    asymmetric response rules (loss aversion proxy),
+    attention filter (ignore low-credibility/high-noise sources).
+
+
+-----------------------------INSTRUMENTS-----------------------------
+Benzinga Breaking News via API (NP) - Trader Workstation
+
+USD 35.00 / Month Free Trial 
+Real-time newsfeed breaks market-moving news and rumours, while providing non-biased analysis. Pre/post market earning reports. Ratings coverage gathered from hundreds of research firms. IPOs, splits and all important economic numbers.
+
+-----------------------------OTHER------------------------------------------
 
 The Question
     “How can portfolio manager react to sudden information shocks without falling into cognitive traps?”
@@ -41,44 +177,6 @@ Why It Matters
     Bridges behavioral economics, decision science, AI applications, and risk management.
     Offers a scalable model that can be extended to other domains (supply chain, marketing, operations).
 
-High-Level Approach / Research Plan
-    Phase 1 – Conceptual Foundation
-    •	Review literature on behavioral biases, managerial overreaction, decision-support systems, AI in decision processes, and announcement effects.
-    •	Define constructs: external information shock, decision response, performance indicator, overreaction, etc.
-    Phase 2 – Primary Data Collection
-    •	Collect and classify a large set of external information shocks (news, announcements, filings, public statements).
-    •	Use AI tools to extract sentiment, severity, and categories of shocks.
-    •	Label shocks with metadata (timing, type, source credibility).
-    Phase 3 – Development of the Shock Impact Score
-    •	Combine variables such as sentiment, shock type, similarity to historical events, and market reaction patterns.
-    •	Create the SIS as a composite indicator.
-    Phase 4 – Empirical Evaluation with a Portfolio Testbed
-    •	Apply SIS to a financial portfolio as an experimental environment.
-    •	Measure short-term abnormal returns, volatility changes, and deviations from expected behavior.
-    •	Compare performance under:
-    •	No decision support
-    •	SIS-assisted decisions
-    •	Simple rule-based hedging or adjustment
-    Phase 5 – Managerial Decision Analysis
-    •	Evaluate how SIS could help prevent behavioral overreaction.
-    •	Optionally collect expert opinions or a small survey validating perceived usefulness.
-    •	Phase 6 – Conclusions and Recommendations
-    •	Summarize insights for managerial practice.
-    •	Discuss ethical and SDG implications (AI transparency, responsible decision-making).
-    •	Provide a framework for integrating SIS into broader management processes.
-
-Backtesting
-    To see how the system actually works in practice, I will run two kinds of backtests. 
-    First, I’ll use a real financial portfolio to compare decisions made normally versus decisions made with the Shock Impact Score guiding reactions to unexpected news. This will show whether the system helps avoid overreactions and improves short-term outcomes. 
-    Second, I’ll create a hypothetical company—based on Vostok Finance Group—to model how a real organization might behave when external shocks hit. By simulating its decisions with and without the system, I can demonstrate how the framework could support managers, stabilize reactions, and make the company more resilient overall. This two-step approach keeps the idea practical and easy to understand.
-    Is the research new?
-    The combination of elements we are proposing is new because it integrates four domains that are rarely combined:
-    •	AI-assisted text processing of external information shocks
-    •	A composite scoring system designed to guide managerial behavior
-    •	An explicit focus on reducing behavioral biases (overreaction, anchoring, availability)
-    •	A dual backtesting approach: portfolio + hypothetical company
-    •	Most existing research isolates one of these dimensions, but not the full system.
-    Academically, this qualifies as original applied methodology, which is exactly what an EMBA thesis requires.
 
 List of Crazy Ideas
 Core Thesis Ideas
