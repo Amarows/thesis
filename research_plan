@@ -1,9 +1,50 @@
 ---------------------------TITLES---------------------------------------
+Influence of External Valuation Shocks on Equity Portfolio Manager Decision-Making
+Equity Portfolio Manager Decision-Making in Response to External Information Events
+Behavioral Biases in Equity Managers’ Responses to External Information Shocks
+AI-Assisted Decision Support for Equity Managers Facing External Market Shocks
+Mitigating Behavioral Overreactions in Equity Manager Decisions During External Information Shocks
+
+---------------------------RESEARCH---------------------------------------
+Does an sentiment-derived (AI-derived?) shock score, based on external financial news, 
+improve managerial decision quality and portfolio outcomes compared 
+with conventional manager-driven investment decisions alone?
 
 ---------------------------HYPOTHESIS-----------------------------------
-
+Draft Hypothesis (that we discussed):
 H: Equity manager descisions influenced by external valuation shocks
 H: score does correct survey respondents with value added
+
+Hypothesis Set (short, Very SBS-Safe, does not contain "and")
+H₁: Do shocks influence decisions?
+H₂: Does the score improve outcomes?
+H₃: Does the score change how managers decide?
+
+Full Hypothesis Set:
+H₁ – Influence of Information Shocks on Decisions. Tested using survey responses collected without displaying the Shock Score, examining how different shocks lead to different managerial decisions.
+    H₀₁: External financial information shocks do not significantly influence managerial investment decisions.
+    Hₐ₁: External financial information shocks significantly influence managerial investment decisions.
+H₂ – Value Added of the Shock Score. Tested through portfolio simulations comparing manager-only strategies with Shock Score–supported strategies.
+    H₀₂: Investment decisions supported by the Shock Score do not differ in quality or outcomes from decisions based solely on managerial judgement.
+    Hₐ₂: Investment decisions supported by the Shock Score demonstrate improved quality or outcomes compared with decisions based solely on managerial judgement.
+H₃ – Behavioral Impact of the Shock Score (Optional). Tested by comparing survey responses before and after displaying the Shock Score for the same events.
+    H₀₃: The Shock Score does not change the consistency or dispersion of managerial responses to financial information shocks.
+    Hₐ₃: The Shock Score changes the consistency or reduces the dispersion of managerial responses to financial information shocks.
+
+
+---------------------------SURVEY DESIGN---------------------------
+An online survey will be conducted using Microsoft Forms, targeting portfolio managers and members of investment management teams.
+Respondents will evaluate a set of real historical news events related to a predefined portfolio of stocks.
+For each company, respondents will be shown one version of a similar information shock (e.g., comparable news type or severity), rather than the same event repeated.
+Events will be randomly assigned so that different respondents receive comparable events with and without the Shock Score, avoiding anchoring or learning effects.
+For each event, respondents will indicate:
+    recommended action,
+    perceived severity,
+    expected impact horizon,
+    confidence level.
+Responses to events without the Shock Score will be used to test whether information shocks influence managerial decisions (H₁).
+Responses to comparable events with versus without the Shock Score will be used to assess the behavioral impact of the decision-support system (H₃).
+The survey is intentionally concise to encourage participation while enabling robust statistical analysis.
 
 ---------------------------SHORT RESEARCH PLAN--------------------------
 
