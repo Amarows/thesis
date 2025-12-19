@@ -54,37 +54,46 @@ plt.show()
 
 
 #=============================================== download news #=============================================
-
-from ibkr_news_toolkit import IBKRConnectionConfig, IBKRBenzingaNewsToolkit
-
-
+# -----------------------------
+# Example usage
+# -----------------------------
 if __name__ == "__main__":
     symbols = ["AAPL", "MSFT", "NVDA"]
+
+    # Put here the provider codes that you verified return headlines in your test.
+    providers = ["BZ", "BRFG", "BRFUPDN", "DJNL", "DJ-RT", "FLY"]
+
     start_date = "2025-12-15"
     end_date = "2025-12-18"
 
     cfg = IBKRConnectionConfig(host="127.0.0.1", port=7496, client_id=7)
 
-    toolkit = IBKRBenzingaNewsToolkit(cfg=cfg, data_dir="data", currency="USD")
+    toolkit = IBKRNewsToolkit(cfg=cfg, data_dir="data", currency="USD")
 
     try:
         toolkit.connect()
-        results = toolkit.run_for_symbols(
+
+        # 1) Headlines only (fast)
+        toolkit.run(
             symbols=symbols,
+            providers=providers,
             start_date=start_date,
             end_date=end_date,
-            top_n=200,
+            top_n=10,
             force_refresh=True,
+            include_article_text=False,
         )
 
-        # Print each symbol’s top headlines
-        for sym, df in results.items():
-            print(f"\n{sym} – top headlines in range {start_date} to {end_date}")
-            if df.empty:
-                print("(no headlines in window)")
-            else:
-                for _, row in df.iterrows():
-                    print(row["time_utc"], row["headline"])
+        # 2) Headlines + article bodies (slow; many providers may return empty/denied)
+        # toolkit.run(
+        #     symbols=symbols,
+        #     providers=providers,
+        #     start_date=start_date,
+        #     end_date=end_date,
+        #     top_n=10,
+        #     force_refresh=True,
+        #     include_article_text=True,
+        # )
 
     finally:
         toolkit.disconnect()
