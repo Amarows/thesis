@@ -55,6 +55,7 @@ This project provides a set of tools to:
 
 ### Entry Points
 
+- **`2_market_data_process.py`**: A script for estimations and simulations. It loads local market data and news from the `data/` folder, merging them into pandas time series for offline analysis.
 - **`demo.py`**: The primary demonstration script. It connects to IBKR, downloads historical data for a list of symbols, plots normalized prices, and fetches recent news headlines.
   ```bash
   python demo.py
@@ -88,14 +89,16 @@ This project provides a set of tools to:
 │   └── market_data_toolkit.py
 ├── demo.py                     # Main entry point / demonstration
 ├── drafts.py                   # Development drafts
-├── research_plan               # Project documentation/plan
+├── research_plan.md            # Project documentation/plan
 └── README.md                   # Project documentation
 ```
 
 ## Scripts
 
+- `2_market_data_process.py`: Process and merge local price and news data for analysis.
 - `demo.py`: Run this to verify your connection and data downloading.
 - `drafts.py`: General scratchpad for new features.
+- `research_plan.md`: A detailed Markdown document outlining the research objectives, hypotheses, survey design, and project plan.
 
 ## Env Vars
 - Currently, no `.env` file is used. Configuration is handled within the scripts (e.g., `IBKRConnectionConfig`).

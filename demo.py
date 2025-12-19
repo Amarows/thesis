@@ -80,7 +80,7 @@ if __name__ == "__main__":
             start_date=start_date,
             end_date=end_date,
             top_n=10,
-            force_refresh=True,
+            force_refresh=False,
             include_article_text=False,
         )
 
