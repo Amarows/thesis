@@ -1,15 +1,8 @@
-1. share prop form
-2. prepare one-pager for proposal
-3. come up with statement definition for Shock score and add it to proposal form 
-4. read 3 papers on behavioral finance and behavioral bias
-
-
-
-Research Plan: Reducing Emotional Biases in Investment Portfolio Management
+# Research Plan: Reducing Emotional Biases in Investment Portfolio Management
 
 ## Titles
 
-> Reducing Emotional Bias in Equity (Financial) Portfolio Management.
+> Reducing Emotional Bias in Investment Portfolio Management.
 
 Other titles I do not like because they are either too complex or too vague:
 - Decision Support Systems for Reducing Emotional Biases in Equity Portfolio Management
@@ -29,11 +22,6 @@ Does a decision-support system reduce emotional biases and improve the consisten
 ---
 
 ## Hypotheses
-
-### Draft Hypotheses
-
-- **Statement 1**: Equity manager decisions are influenced by external valuation shocks.
-- **Statement 2**: The score corrects survey respondents with value added.
 
 ### Hypothesis Set (Short)
 
@@ -57,9 +45,9 @@ Does a decision-support system reduce emotional biases and improve the consisten
   - **Hₐ₂**: Introducing Shock Score for investment decision-making have 
   - statistically significant effect on the risk return ratio of the portfolio.
 
+**Definition of the Shock Score**: A numerical indicator derived from news headlines using sentiment and event-type classification, designed to quantify the emotional and informational intensity of external news and events. The Score enables managers to reduce behavioral overreaction.
 
-
-- **H₃ (extension) – Behavioral Impact of the Shock Score (Optional -- do not turn this into a hypothesis, let's try to convert this into practical recommendation)**
+- **H₃ (last chapter extension) – Behavioral Impact of the Shock Score (Optional -- do not turn this into a hypothesis, let's try to convert this into practical recommendation)**
   - Tested by comparing survey responses before and after displaying the Shock Score for the same events.
   - **H₀₃**: The Shock Score does not change the consistency or dispersion of managerial responses to financial information shocks.
   - **Hₐ₃**: The Shock Score changes the consistency or reduces the dispersion of managerial responses to financial information shocks.
