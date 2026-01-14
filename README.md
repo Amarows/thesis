@@ -55,7 +55,8 @@ This project provides a set of tools to:
 
 ### Entry Points
 
-- **`2_market_data_process.py`**: A script for estimations and simulations. It loads local market data and news from the `data/` folder, merging them into pandas time series for offline analysis.
+- **`market_data_process.py`**: A script for estimations and simulations. It loads local market data and news from the `data/` folder, merging them into pandas time series for offline analysis.
+- **`3_news_sentiment.py`**: Performs sentiment analysis on news headlines and aggregates sentiment scores by symbol and time.
 - **`demo.py`**: The primary demonstration script. It connects to IBKR, downloads historical data for a list of symbols, plots normalized prices, and fetches recent news headlines.
   ```bash
   python demo.py
@@ -87,6 +88,8 @@ This project provides a set of tools to:
 │   └── ibkr_webapi.py
 ├── src_api_yahoo/              # Yahoo Finance integration
 │   └── market_data_toolkit.py
+├── market_data_process.py      # Process and merge local data
+├── 3_news_sentiment.py         # Sentiment analysis pipeline
 ├── demo.py                     # Main entry point / demonstration
 ├── drafts.py                   # Development drafts
 ├── research_plan.md            # Project documentation/plan
@@ -95,7 +98,8 @@ This project provides a set of tools to:
 
 ## Scripts
 
-- `2_market_data_process.py`: Process and merge local price and news data for analysis.
+- `market_data_process.py`: Process and merge local price and news data for analysis.
+- `3_news_sentiment.py`: Analyze sentiment from news and aggregate it.
 - `demo.py`: Run this to verify your connection and data downloading.
 - `drafts.py`: General scratchpad for new features.
 - `research_plan.md`: A detailed Markdown document outlining the research objectives, hypotheses, survey design, and project plan.
