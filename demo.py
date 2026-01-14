@@ -54,9 +54,9 @@ plt.show()
 
 
 #=============================================== download news #=============================================
-# -----------------------------
-# Example usage
-# -----------------------------
+
+from src_api_ibkr.ibkr_news_toolkit import IBKRNewsToolkit, IBKRConnectionConfig
+
 if __name__ == "__main__":
     symbols = ["AAPL", "MSFT", "NVDA"]
 
@@ -97,3 +97,39 @@ if __name__ == "__main__":
 
     finally:
         toolkit.disconnect()
+
+# =============================================== Import news #=============================================
+from market_data_processor_toolkit import load_market_data
+
+prices, news = load_market_data("data")
+
+
+# =============================================== Calculate Sentiment #=============================================
+
+from news_sentiment_toolkit  import calculate_vader_sentiment, aggregate_sentiment, openai_sentiment_hint
+
+if __name__ == "__main__":
+    if news.empty:
+        print("No news data found to process.")
+    else:
+        # 2. Calculate Sentiment
+        news = calculate_vader_sentiment(news)
+
+        # 3. Aggregate
+        daily_sentiment = aggregate_sentiment(news, freq='D')
+
+        print("\n--- Sentiment Results (First 5) ---")
+        print(news[['headline', 'sentiment_score']].head())
+
+        if daily_sentiment is not None:
+            print("\n--- Daily Aggregate Sentiment ---")
+            print(daily_sentiment)
+
+        # 4. Show OpenAI hint
+        #print("\n--- How to use ChatGPT for Sentiment ---")
+        # openai_sentiment_hint()
+
+        # 5. Suggestion for next steps
+        print("\nSuggestion: You can now join 'daily_sentiment' with 'prices' to see correlations.")
+
+#olama

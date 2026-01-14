@@ -1,41 +1,131 @@
-# Research Plan: Influence of External Valuation Shocks on Equity Portfolio Manager Decision-Making
+1. share prop form
+2. prepare one-pager for proposal
+3. come up with statement definition for Shock score and add it to proposal form 
+4. read 3 papers on behavioral finance and behavioral bias
+
+
+
+Research Plan: Reducing Emotional Biases in Investment Portfolio Management
 
 ## Titles
+
+> Reducing Emotional Bias in Equity (Financial) Portfolio Management.
+
+Other titles I do not like because they are either too complex or too vague:
+- Decision Support Systems for Reducing Emotional Biases in Equity Portfolio Management
 - Influence of External Valuation Shocks on Equity Portfolio Manager Decision-Making
 - Equity Portfolio Manager Decision-Making in Response to External Information Events
 - Behavioral Biases in Equity Managers’ Responses to External Information Shocks
 - AI-Assisted Decision Support for Equity Managers Facing External Market Shocks
 - Mitigating Behavioral Overreactions in Equity Manager Decisions During External Information Shocks
+- Digital Intervention into Decision Making for Equity Managers Facing External Market Shocks
+
+---
 
 ## Research Question
-Does an sentiment-derived (AI-derived?) shock score, based on external financial news, improve managerial decision quality and portfolio outcomes compared with conventional manager-driven investment decisions alone?
+
+Does a decision-support system reduce emotional biases and improve the consistency and quality of portfolio managers’ investment decisions in response to emotionally charged public information?
+
+---
 
 ## Hypotheses
 
 ### Draft Hypotheses
-- **H**: Equity manager decisions are influenced by external valuation shocks.
-- **H**: The score corrects survey respondents with value added.
+
+- **Statement 1**: Equity manager decisions are influenced by external valuation shocks.
+- **Statement 2**: The score corrects survey respondents with value added.
 
 ### Hypothesis Set (Short)
-- **H₁**: Do shocks influence decisions?
-- **H₂**: Does the score improve outcomes?
-- **H₃**: Does the score change how managers decide?
+
+> H₁: Do news-driven emotions influence investment decisions?  
+> H₂: Does support improve decision outcomes?  
+> H₃: Does support reduce decision inconsistency?
 
 ### Full Hypothesis Set
+
 - **H₁ – Influence of Information Shocks on Decisions**
   - Tested using survey responses collected without displaying the Shock Score, examining how different shocks lead to different managerial decisions.
-  - **H₀₁**: External financial information shocks do not significantly influence managerial investment decisions.
-  - **Hₐ₁**: External financial information shocks significantly influence managerial investment decisions.
-- **H₂ – Value Added of the Shock Score**
+  - **H₀₁**: External financial information shocks have no statistically significant effect on managerial investment decisions 
+  - measured by the risk-return ratio of the portfolio. 
+  - **Hₐ₁**: External financial information shocks have statistically significant effect on managerial investment decisions 
+  - measured by the risk-return ratio of the portfolio.
+  
+- **H₂ – Value Added of the Shock Score (the main one)**
   - Tested through portfolio simulations comparing manager-only strategies with Shock Score–supported strategies.
-  - **H₀₂**: Investment decisions supported by the Shock Score do not differ in quality or outcomes from decisions based solely on managerial judgement.
-  - **Hₐ₂**: Investment decisions supported by the Shock Score demonstrate improved quality or outcomes compared with decisions based solely on managerial judgement.
-- **H₃ – Behavioral Impact of the Shock Score (Optional)**
+  - **H₀₂**: Introducing Shock Score for investment decision-making have no 
+  - statistically significant effect on the risk return ratio of the portfolio.
+  - **Hₐ₂**: Introducing Shock Score for investment decision-making have 
+  - statistically significant effect on the risk return ratio of the portfolio.
+
+
+
+- **H₃ (extension) – Behavioral Impact of the Shock Score (Optional -- do not turn this into a hypothesis, let's try to convert this into practical recommendation)**
   - Tested by comparing survey responses before and after displaying the Shock Score for the same events.
   - **H₀₃**: The Shock Score does not change the consistency or dispersion of managerial responses to financial information shocks.
   - **Hₐ₃**: The Shock Score changes the consistency or reduces the dispersion of managerial responses to financial information shocks.
 
+---
+
+## Biases
+
+     Affect Heuristic (or Affect Bias)
+- This refers to decisions being driven by emotional responses to stimuli (e.g., fear, excitement, media tone) rather than rational evaluation.
+- In investment, it causes overreaction to emotionally charged events (e.g., panic-selling after a negative news headline).
+
+Closely related concepts
+- Framing bias – when the way information is presented alters the decision. May contribute, but it's secondary.
+- Availability bias – when recent or vivid events dominate judgement. Often overlaps, but is more cognitive.
+- Loss aversion / regret aversion – affect outcomes but are not the core mechanism in your case.
+
+
+---
+
+## Literature Review
+
+- Behavioral Biases in Investment Decisions (80% of papers should be within last 10 years)
+  - **Tversky & Kahneman (1974)** – Identified key heuristics (e.g. availability, representativeness) that lead to biased decision-making under uncertainty.
+  - **Kahneman & Tversky (1979)** – Introduced Prospect Theory, showing how people overweight losses relative to gains.
+  - **Shefrin & Statman (1985)** – Described the disposition effect, where investors irrationally sell winners and hold losers.
+  - [**De Bondt & Thaler (1985)**](https://www.jstor.org/stable/2327804)– *Key Source*  
+    Empirically demonstrated that investors overreact to public information, causing extreme price movements followed by reversals. This landmark study was among the first to show that investor psychology—particularly overreaction to emotionally charged news—leads to predictable return anomalies. It directly supports the thesis argument that emotionally influenced decisions deviate from rational valuation and should be corrected.
+  - **Barberis & Thaler (2003)** – Reviewed the main behavioral finance biases and their effects on investor and market behavior.
+  - Shefrin, H., & Statman, M. (1985) – introduce concepts like disposition effect and affective reaction to explain irrational trading.
+  - Lo, A. W. (2012) – Adaptive Markets Hypothesis highlights emotion-driven behavior under uncertainty.
+  - Da, Z., Engelberg, J., & Gao, P. (2011) – show how media sentiment (measured via news tone) predicts abnormal investor reaction.
+  - Shiller, R. J. (2000) – explains market volatility via narrative and emotion, not just fundamentals.
+
+- Managerial Decision-Making Under Uncertainty
+  - **Simon (1955)** – Introduced bounded rationality: managers satisfice rather than optimize under complexity.
+  - **March & Shapira (1987)** – Showed how managers frame risk relative to targets and survival thresholds.
+  - **Kahneman & Lovallo (1993)** – Identified a bias pattern: cautious decision-making paired with over-optimistic forecasts.
+  - **Malmendier & Tate (2005)** – Linked CEO overconfidence to systematic overinvestment and misallocation of capital.
+  - **Knight (1921)** – Distinguished between measurable risk and unquantifiable uncertainty in economic behavior.
+
+- Tools to Mitigate Emotional Bias
+  - **Shefrin (2002)** – Proposed practical techniques to reduce investment bias: pre-commitment, rules-based discipline, diversification.
+  - **Thaler & Sunstein (2008)** – Introduced nudging: small interventions in decision architecture to improve behavior without restricting choice.
+  - [**Lo (2004)**](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=602222) – *Key Source*  
+    Proposed the Adaptive Markets Hypothesis, bridging efficient markets with behavioral finance by suggesting investor behavior evolves with context. Lo’s model supports flexible decision-support systems (DSS) that adapt to changing environments, helping mitigate emotional bias through structured, data-driven guidance.
+  - **Statman (2019)** – Shifted behavioral finance from diagnosis to prescription: advisors as behavioral coaches, goal-based planning, and decision framing.
+  - [**Kendzia & Lemke (2025)**](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5498599) – Outlined evidence-based debiasing tools: rules-based trading, cognitive training, and digital interventions.
+
+- Market Reactions to Public Information
+  - **Fama (1970)** – Defined market efficiency: asset prices reflect all available information instantly and rationally.
+  - **Shiller (1981)** – Challenged EMH by showing that price volatility exceeds what fundamentals (like dividends) justify.
+  - **Tetlock (2007)** – Found that negative news tone predicts short-term market underperformance and investor reaction.
+  - **Baker & Wurgler (2007)** – Created a sentiment index showing how optimism and pessimism distort prices—especially in hard-to-value stocks.
+  - **Engelberg & Parsons (2011)** – Proved that mere exposure to news (not necessarily content) drives localized price and volume reactions.
+
+ - Decision-Support Systems in Investment
+   - **Markowitz (1952)** – Laid the foundation for quantitative portfolio selection and rational diversification strategies.
+   - **D’Acunto et al. (2019)** – Evaluated robo-advisors and found improved outcomes with limitations on personalization.
+   - **Krieger & Lausberg (2015)** – Described how DSS frameworks support complex real-estate and investment decisions under uncertainty.
+   - **Cardillo & Chiappini (2024)** – Reviewed AI-driven investment tools, showing how technology shapes modern decision support.
+
+---
+
 ## Survey Design
+
 An online survey will be conducted using Microsoft Forms, targeting portfolio managers and members of investment management teams.
 - Respondents will evaluate a set of real historical news events related to a predefined portfolio of stocks.
 - For each company, respondents will be shown one version of a similar information shock (e.g., comparable news type or severity), rather than the same event repeated.
@@ -50,6 +140,7 @@ An online survey will be conducted using Microsoft Forms, targeting portfolio ma
 - The survey is intentionally concise to encourage participation while enabling robust statistical analysis.
 
 ## Short Research Plan
+
 1. **Portfolio selection**: 15 stocks subject to test.
 2. **Data collection**: Collect historical daily data.
 3. **Shock calculation**: Collect news with shocks -> use AI (ChatGPT) to extract sentiment -> calculate score.
@@ -62,6 +153,7 @@ An online survey will be conducted using Microsoft Forms, targeting portfolio ma
 7. **Conclusion**: Determine if the score statistically improves decision making.
 
 ## Full Research Plan
+
 1. **Construct test object**
     - Construct a 15-stock portfolio (fixed universe; daily frequency).
     - Collect historical daily prices for stocks and a benchmark (e.g., sector ETF + broad index) for risk adjustment.
@@ -83,12 +175,14 @@ An online survey will be conducted using Microsoft Forms, targeting portfolio ma
     - Test if the Shock Score improves risk-adjusted performance/drawdown and/or reduces decision noise.
 
 ## Problems & Nuances
+
 - **Data Latency**: Mutual fund holdings are often quarterly/monthly; use for medium-term validation, not immediate reaction. Use price/volatility event windows for short-term.
 - **Unit of Analysis**: Use event-level observations (score features, manager response, realized outcome).
 - **Measurable Quality**: Operationalize as abnormal volatility capture, reduction in adverse moves, and risk-adjusted metrics.
 - **Behavioral Correction**: Use practical framing like thresholding, confirmation delay, asymmetric response rules, and attention filters.
 
 ## Instruments
+
 - **Benzinga (BZ)** – Real-time market and equity news covering earnings, sector trends, and macroeconomic developments. Well suited for identifying short-horizon market-moving events.
 - **Dow Jones Real-Time News (DJ-RT)** – Institutional news feed with high editorial standards, covering corporate disclosures, macroeconomic data, and global financial markets.
 - **Fly on the Wall (FLY)** – Event-driven market intelligence focused on analyst actions, earnings reactions, and short-term trading catalysts.
