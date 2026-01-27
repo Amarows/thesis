@@ -78,28 +78,120 @@
 # Chapter 3. Literature Review
 
 ## 3.1 Chapter Introduction
+### 3.1.1 Purpose and Scope of the Literature Review
+### 3.1.2 Positioning of the Study within Existing Research
+### 3.1.3 Link Between Literature and Research Hypotheses
 
-## 3.2 Behavioral Finance and Emotional Biases
-### 3.2.1 Heuristics and Cognitive Biases in Financial Decisions
-### 3.2.2 Overconfidence, Loss Aversion, and Herding
+## 3.2 Behavioral Biases in Investment Decision-Making
 
-## 3.3 Information Shocks and Market Reactions
-### 3.3.1 Definition and Classification of Information Shocks
-### 3.3.2 Market Volatility and News Announcements
+### 3.2.1 Heuristics and Judgment Under Uncertainty
+- Cognitive heuristics and systematic biases
+- Availability, representativeness, anchoring
 
-## 3.4 Investor Overreaction and Underreaction
-### 3.4.1 Empirical Evidence of Overreaction
-### 3.4.2 Delayed Adjustment and Price Reversals
+### 3.2.2 Prospect Theory and Loss Aversion
+- Asymmetric valuation of gains and losses
+- Risk-seeking behavior in the domain of losses
 
-## 3.5 Decision Support Tools in Portfolio Management
-### 3.5.1 Quantitative Signals and Rule-Based Strategies
-### 3.5.2 Algorithmic and AI-Based Decision Support
+### 3.2.3 Emotion-Driven Trading and the Disposition Effect
+- Pride, regret aversion, and suboptimal rebalancing
+- Holding losers and selling winners too early
 
-## 3.6 Quantification of News and Sentiment in Finance
-### 3.6.1 Sentiment Analysis Techniques
-### 3.6.2 Event Classification in Financial News
+### 3.2.4 Market Overreaction to Public Information
+- Psychological drivers of excessive optimism and pessimism
+- Price reversals following extreme reactions
 
-## 3.7 Summary of Key Literature Findings
+### 3.2.5 Synthesis: Behavioral Biases and Portfolio Outcomes
+
+## 3.3 Managerial Decision-Making Under Uncertainty
+
+### 3.3.1 Bounded Rationality and Satisficing Behavior
+- Cognitive constraints in complex decision environments
+- Limits of optimization under uncertainty
+
+### 3.3.2 Managerial Risk Perception and Framing Effects
+- Aspiration levels and survival thresholds
+- Deviations from expected utility behavior
+
+### 3.3.3 Optimism, Overconfidence, and Forecasting Errors
+- Overestimation of returns and underestimation of risk
+- Empirical evidence from corporate investment decisions
+
+### 3.3.4 Risk Versus Uncertainty in Managerial Decisions
+- Measurable risk versus fundamental uncertainty
+- Implications for judgment-based decision-making
+
+### 3.3.5 Implications for Portfolio and Investment Management
+
+## 3.4 Tools and Methods to Mitigate Emotional and Behavioral Bias
+
+### 3.4.1 Behavioral Finance Prescriptions and Practical Guidance
+- Recognition of emotional pitfalls
+- Rules-based discipline and pre-commitment mechanisms
+
+### 3.4.2 Choice Architecture and Nudging in Financial Decisions
+- Structuring decision environments
+- Defaults, reminders, and framing effects
+
+### 3.4.3 Adaptive Markets and Evolutionary Perspectives
+- Context-dependent investor behavior
+- Flexible strategies and adaptive decision tools
+
+### 3.4.4 From Bias Diagnosis to Bias Mitigation
+- Behavioral coaching and decision support
+- Education, training, and digital interventions
+
+### 3.4.5 Structured Approaches to Reducing Emotional Bias
+
+## 3.5 Market Reactions to Public Information
+
+### 3.5.1 Efficient Market Hypothesis as a Benchmark
+- Rational and instantaneous information processing
+- Limitations of market efficiency assumptions
+
+### 3.5.2 Excess Volatility and Sentiment-Driven Markets
+- Price movements beyond fundamental justification
+- Role of narratives and collective emotion
+
+### 3.5.3 Media Tone, Attention, and Investor Sentiment
+- Quantification of news tone and pessimism
+- Short-term price and volume reactions
+
+### 3.5.4 Investor Sentiment Indices and Mispricing
+- Broad optimism and pessimism cycles
+- Differential impact across asset types
+
+### 3.5.5 Information Exposure and Non-Fundamental Trading
+- Attention effects independent of content
+- Causal impact of media dissemination
+
+## 3.6 Decision-Support Systems in Investment Management
+
+### 3.6.1 Quantitative Foundations of Portfolio Decision Support
+- Mean–variance optimization
+- Formal risk–return trade-off frameworks
+
+### 3.6.2 Algorithmic and Robo-Advisory Systems
+- Automation of portfolio advice
+- Benefits and limitations of standardized solutions
+
+### 3.6.3 Decision-Support System Design Principles
+- Integration of dynamic data
+- Scenario analysis and complexity management
+
+### 3.6.4 Advanced Automated Decision-Support Models
+- Information-theoretic asset screening
+- Multi-criteria portfolio allocation systems
+
+### 3.6.5 Role of Decision Support in Reducing Emotional Bias
+
+## 3.7 Literature Gap and Research Positioning
+
+### 3.7.1 Limitations of Existing Behavioral Finance Research
+### 3.7.2 Gaps in Ex-Ante Decision Support for Information Shocks
+### 3.7.3 Positioning of the Shock Score within Existing Literature
+### 3.7.4 Summary of Theoretical and Empirical Contributions
+
+-------
 
 # Chapter 4. Collection of Primary Data
 
