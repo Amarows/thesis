@@ -38,6 +38,7 @@
 
 ## 1.6 Structure of the Thesis
 
+-------------------------------
 # Chapter 2. Objectives of the Study
 
 ## 2.1 Chapter Introduction
@@ -75,32 +76,86 @@
 
 ## 2.9 Chapter Conclusion
 
+-------------------------------
 # Chapter 3. Literature Review
 
 ## 3.1 Chapter Introduction
 ### 3.1.1 Purpose and Scope of the Literature Review
 ### 3.1.2 Positioning of the Study within Existing Research
 ### 3.1.3 Link Between Literature and Research Hypotheses
+The research hypotheses developed in this study rely on several core concepts that are grounded in the behavioral finance and decision-making literature. 
+First, the notion of an information shock refers to publicly available news or updates related to individual stocks that generate a material short-term market reaction, 
+typically observable at a daily frequency. Such shocks are characterized by their ability to affect short-term price dynamics and volatility without necessarily 
+altering the long-term fundamental value or risk–return characteristics of the underlying firm.
+
+Second, the literature reviewed in this chapter suggests that the primary transmission mechanism through which information shocks influence market prices operates via behavioral and emotional biases. Empirical evidence demonstrates that investors and managers frequently overreact to salient or emotionally charged news due to cognitive and affective biases, leading to temporary price distortions rather than rational revaluation based on fundamentals.
+
+Third, the concept of the Shock Score introduced in this thesis is motivated by existing research on sentiment, attention, and volatility-based measures of market reaction. The Shock Score is designed to quantify the emotional intensity of an information shock by capturing abnormal short-term market responses, such as excess daily volatility, that arise from behavioral reactions rather than fundamental reassessment.
+
+Finally, while the literature contains several indices and measures aimed at capturing market sentiment or uncertainty, such as sentiment indices or news-based volatility indicators, there is limited evidence of tools specifically designed to support managerial decision-making at the time of an information shock. This gap motivates the development and empirical testing of the Shock Score as a decision-support mechanism intended to improve investment decisions by reducing behavioral overreaction.
 
 ## 3.2 Behavioral Biases in Investment Decision-Making
 
 ### 3.2.1 Heuristics and Judgment Under Uncertainty
-- Cognitive heuristics and systematic biases
-- Availability, representativeness, anchoring
+
+Professional investors, despite their expertise, are not immune to the cognitive shortcuts and biases that affect human judgment under uncertainty. In fact, several prevalent biases – **overconfidence**, **availability and recency bias**, **herding**, and **emotional/physiological biases** – can cause even expert decision-makers to react in ways that amplify short-term market volatility and lead to overreactions to financial information shocks. Below we discuss each of these biases and their impact on short-term market dynamics.
+
+### Overconfidence
+
+Overconfidence is a well-documented bias wherein individuals exhibit an unwarranted faith in the accuracy of their own information and judgment. In finance, overconfident investors consistently overestimate their ability to predict outcomes and the precision of their private signals ([Barber & Odean, 2001](https://doi.org/10.1162/003355301556400)). This bias manifests even among professionals – for example, successful traders and fund managers can become overconfident in their skill, particularly after a streak of good performance ([Gervais & Odean, 2001](https://doi.org/10.1111/0022-1082.00338)). Overconfidence leads investors to underweight risks and to trade more aggressively than rational benchmarks would predict, often to their own detriment ([Odean, 1999](https://doi.org/10.1093/rfs/12.4.785)). Theoretical models show that overconfident investors introduce **excess volatility** into markets by overreacting to new information: prices can jump more than fundamentals justify due to overly aggressive trading on one’s private views, creating short-run momentum or “drift” that later corrects ([Daniel et al., 1998](https://doi.org/10.1093/rfs/11.4.921)). In essence, overconfidence can cause initial **overreactions** to news (as overconfident traders push prices away from equilibrium) followed by subsequent reversals once reality catches up, thus contributing significantly to short-term market volatility.
+
+### Availability and Recency Bias
+
+Another class of bias arises from the heuristics investors use to judge the importance of information. The **availability heuristic** refers to the tendency to assess the probability or relevance of an event based on how easily examples come to mind ([Tversky & Kahneman, 1974](https://www.science.org/doi/10.1126/science.185.4157.1124)). In practice, this means that **vivid or recent information** often dominates decision-making because it is readily recalled, even if it is not objectively more important. A closely related phenomenon is **recency bias** – the inclination to give disproportionately high weight to the most recent events or data points when forming judgments. Studies have found that decision-makers (including investors) often overweight recent market events relative to earlier information, skewing their expectations ([Hirshleifer, 2020](https://doi.org/10.1146/annurev-financial-012820-025654)). Even seasoned professionals are susceptible: for example, mutual fund managers have been shown to extrapolate their fund’s **recent performance** into their outlook for the overall market, effectively basing forecasts on the very latest returns rather than long-term fundamentals ([Azimi, 2019](https://doi.org/10.1016/j.irfa.2019.101400)). Such availability and recency biases can produce **short-term volatility** by fueling overreactions to the news of the day. When a dramatic new information shock occurs, investors relying on what is most salient in memory may trade on that news en masse, causing prices to **overshoot** (deviating from intrinsic value) before cooler heads prevail. In sum, the dominance of recent, readily-available information in professional judgment can lead to exaggerated market moves in the short run, as initial reactions are not sufficiently tempered by historical perspective.
+
+### Herding
+
+Herding describes the tendency of investors to **mimic the actions of others** instead of relying on their own independent analysis. In uncertain environments, even professional investors often follow the crowd – for instance, by buying or selling a stock simply because many of their peers are doing so – assuming that the collective might know better or as a form of career risk management (it may feel safer to err in a crowd than to err alone) ([Scharfstein & Stein, 1990](https://doi.org/10.1086/261653); [Bikhchandani et al., 1992](https://doi.org/10.1086/261849)). In formal terms, *herd behavior occurs when investors follow or copy others’ investment decisions rather than act on their private information*. This bias is prevalent among institutional money managers and analysts, who sometimes converge on the same trades or forecasts (“crowding” into assets), effectively reducing the diversity of opinions in the market. The herding heuristic can severely amplify short-term market movements. When many investors herd into purchasing an asset, their collective action drives the price **above** what fundamentals warrant (and conversely, herd selling drives prices **below** fair value). Empirical research shows that such herding-induced price pressures tend to be short-lived: assets that are aggressively bought by herds often become **temporarily overvalued**, only to experience negative subsequent returns as prices correct, whereas heavily sold assets bounce back with positive future returns once the overreaction abates ([Dasgupta et al., 2011](https://doi.org/10.1093/rfs/hhq068); [Brown et al., 2014](https://doi.org/10.1016/j.jempfin.2013.09.001)). Notably, herding by professional investors (e.g. mutual fund herding) has been directly linked to destabilizing price dynamics, as synchronized trading by large players pushes the market away from equilibrium in the short run. This further underscores how social or institutional pressures to herd can lead to volatility spikes around information events, as many decision-makers move in lockstep rather than counterbalancing each other.
+
+### Emotional and Physiological Biases
+
+Beyond cognitive heuristics, emotional and physiological factors can heavily influence investors’ judgment under stress. Professional decision-makers are not emotionless robots; feelings such as fear, greed, anxiety, or over-excitement can bias their choices, especially during market shocks. Research in behavioral finance and neurofinance documents that acute **stress and arousal** can impair rational decision-making even in expert traders ([Lo et al., 2005](https://doi.org/10.1016/j.jpsychores.2005.07.002); [Coates & Herbert, 2008](https://doi.org/10.1073/pnas.0704025105)). For instance, during periods of market turmoil or following negative news, **fear** can set in and trigger a stress response that inclines investors to flee from risk. Elevated levels of cortisol (the body’s primary stress hormone) have been shown to correspond with such fearful market conditions. Under high cortisol, traders become more risk-averse and prone to **panic selling**, which can exaggerate a market’s downward movement in a crash. On the flip side, in euphoric market environments, **greed and excitement** can take over. Surges of testosterone (associated with confidence and risk-seeking) have been observed in traders during market rallies; while moderate testosterone can boost optimism and risk appetite, excessive levels can foster reckless overconfidence and **addictive risk-taking** ([Coates et al., 2010](https://doi.org/10.1038/464122a)). This hormonal effect can exacerbate speculative bubbles – traders under its sway keep pushing prices up beyond intrinsic values, expecting the good times to continue unabated. Empirical studies support the impact of emotions on performance: for example, **traders who exhibit extremely intense emotional reactions** to gains or losses (e.g. palpable euphoria on wins or despair on losses) tend to make poorer trading decisions and achieve worse outcomes on average ([Lo et al., 2005](https://doi.org/10.1016/j.jpsychores.2005.07.002)). In contrast, those who maintain more moderate emotional responses perform better, indicating that unchecked emotion often leads to judgment errors. In sum, emotional and physiological biases like fear and over-excitement contribute to **short-term market instability** by causing investors to overreact – either selling off too aggressively in stressful times or buying too exuberantly in frothy times. These human factors can turn information shocks into outsized price swings, as visceral reactions temporarily override analytic reasoning among professional investors.
+
+
 
 ### 3.2.2 Prospect Theory and Loss Aversion
-- Asymmetric valuation of gains and losses
-- Risk-seeking behavior in the domain of losses
+
+
+Prospect theory, as developed by Kahneman and Tversky, posits that individuals exhibit **loss aversion**, meaning losses are felt more acutely than equivalent gains. This framework has important implications in behavioral finance, particularly in how decision-makers react to financial news shocks.
+
+Recent empirical research suggests that **market participants, including professionals**, tend to exhibit **asymmetric overreactions** to negative versus positive information. For example, [Tetlock (2007)](https://academic.oup.com/rfs/article-lookup/doi/10.1093/rfs/hhl079) found that negative media sentiment predicts a temporary drop in daily market returns, with prices typically rebounding shortly afterward—consistent with overreaction to pessimistic news.
+
+Furthermore, [Löffler et al. (2021)](https://onlinelibrary.wiley.com/doi/full/10.1002/jcaf.22493) analyzed reactions to credit rating changes and observed that **downgrades caused price movements up to five times larger** than upgrades. This disproportion highlights how markets penalize bad news more than they reward good news, even in contexts where information is ostensibly symmetric.
+
+Finally, [Neel (2024)](https://doi.org/10.2139/ssrn.4721420) provided cross-country evidence that institutional investors in more loss-averse cultures tend to react more strongly to **negative earnings surprises** than to positive ones. This cultural lens reinforces the systematic nature of asymmetrical reaction patterns and supports the hypothesis that overreaction—particularly in response to loss-related stimuli—is a persistent behavioral feature in financial markets.
+
+Taken together, these findings validate the assumption that **negative financial shocks tend to provoke more immediate and intense market reactions**, a factor highly relevant to the construction and interpretation of the Shock Score.
+
+
 
 ### 3.2.3 Emotion-Driven Trading and the Disposition Effect
-- Pride, regret aversion, and suboptimal rebalancing
-- Holding losers and selling winners too early
+
+The **disposition effect** refers to the tendency of investors to sell assets that have performed well while retaining assets that have incurred losses, a behavior that leads to **suboptimal portfolio rebalancing**. While initially documented among retail investors, subsequent empirical research demonstrates that the disposition effect is also present among **professional decision-makers**, including mutual fund managers and institutional investors. Using detailed trading records, [Grinblatt and Keloharju (2001)](https://doi.org/10.1111/0022-1082.00308) show that professional investors are more likely to sell winning positions than losing ones, even after controlling for tax considerations and liquidity needs. Similarly, [Frazzini (2006)](https://doi.org/10.1093/rfs/hhj005) finds that mutual fund managers systematically hold on to losing stocks longer than is optimal, leading to predictable underperformance. These findings indicate that emotional attachment to losses and regret avoidance interfere with rational rebalancing decisions, even in institutional settings.
+
+Importantly, the literature suggests that **overreaction to information shocks can reinforce the disposition effect**, rather than correct it. When investors overreact to negative news, prices often decline sharply in the short term, turning previously neutral or profitable positions into paper losses. Loss-averse managers may then delay selling these positions in anticipation of a rebound, thereby locking in exposure to underperforming assets. Conversely, positive news-induced overreaction can inflate short-term gains, prompting premature profit-taking. Empirical evidence supports this mechanism: [Da, Engelberg, and Gao (2011)](https://doi.org/10.1093/rfs/hhq137) show that attention-driven trading around news events increases turnover in winning stocks while leaving losing positions under-adjusted. As a result, emotion-driven trading following information shocks not only amplifies short-term volatility but also **induces systematic rebalancing inefficiencies**, consistent with the disposition effect observed among professional investors.
+
 
 ### 3.2.4 Market Overreaction to Public Information
-- Psychological drivers of excessive optimism and pessimism
-- Price reversals following extreme reactions
+
+Recent empirical studies find that stock prices frequently **overshoot in reaction to public news**, especially around earnings announcements and sentiment shocks. For example, [Meng et al. (2024)](https://doi.org/10.1016/j.irfa.2024.101321) document pronounced short-term overreactions to information “jumps” in Chinese stocks, earning sizable profits from contrarian trades as prices subsequently mean-revert. Similarly, [Bahcivan, Dam, and Gonenc (2023)](https://doi.org/10.1016/j.irfa.2023.101297) show a “clear overreaction pattern” following unexpected overnight price jumps in U.S. markets, with statistically significant reversals in the ensuing days. These sharp price swings prove largely temporary: post-shock return predictability is high and contrarian strategies are profitable, indicating partial or full price reversals in the short run. Event studies around earnings and sentiment also confirm this pattern: [Bird et al. (2024)](https://doi.org/10.1016/j.irfa.2023.101314) find that shifts in aggregate investor emotion after earnings news drive persistent price deviations (mispricing), and [McCarthy (2025)](https://doi.org/10.2139/ssrn.4716412) shows that positive surprises that contradict consensus sentiment generate abnormally large drift returns (up to 5–7% over 90 days), reflecting strong confirmation bias and overreaction.
+
+Professional traders and institutional investors often **amplify these misreactions**. [Cremers et al. (2021)](https://doi.org/10.1016/j.jfineco.2021.02.014) report that stocks held by many short-term institutions have especially large announcement-day jumps and subsequent reversals: their outperformance (underperformance) is followed by large negative (positive) future abnormal returns, consistent with overreaction to analyst recommendation changes. In line with this, [Ben-Rephael et al. (2021)](https://doi.org/10.1016/j.jfineco.2020.11.010) find that institutional net buying is positively related to earnings-surprise magnitude (high “REG” scores), implying that funds trade in the same direction as the initial price shock. The resulting volatility can push portfolios away from target allocations and force rebalancing. Indeed, [Harvey, Mazzoleni, and Melone (2025)](https://doi.org/10.2139/ssrn.4716766) show that systematic rebalancing flows by large funds have measurable price effects – for example, when portfolios become overweight equities, selling pressure can depress prices by roughly 17 basis points the next day. In sum, the evidence indicates that news-driven overreactions produce transient mispricings and heightened volatility, creating **significant pressure on portfolio allocation and rebalancing** as managers adjust to the temporary distortions.
+
+
 
 ### 3.2.5 Synthesis: Behavioral Biases and Portfolio Outcomes
+
+The reviewed literature consistently shows that behavioral biases—particularly overconfidence, availability heuristics, herding, and loss aversion—can distort professional investors’ judgment during information shocks. These biases impair rational processing of news, leading to **overreactions in asset prices**, characterized by short-term volatility spikes and predictable reversals. Even experienced institutional investors are not immune: emotional and cognitive biases alter risk perceptions, induce crowd behavior, and lead to premature or delayed trading decisions.
+
+These distortions have clear implications for portfolio management. Emotional overreactions often result in **suboptimal rebalancing**—such as selling winners too early, holding onto losers too long, or overexposing portfolios to assets that have already experienced sharp price moves. The disposition effect, in particular, illustrates how reluctance to realize losses and eagerness to lock in gains can drag on long-term performance. Moreover, market-wide overreactions propagate through institutional flows, creating **systematic mispricing** that challenges the efficiency of portfolio allocation.
+
+In sum, behavioral biases not only shape price dynamics but also introduce persistent **frictions into the portfolio decision-making process**. Left unmanaged, they reduce the efficiency of risk–return optimization, increase exposure to transient volatility, and ultimately erode investment performance. This synthesis underscores the importance of structured tools—such as Shock Scores or behavioral filters—to mitigate the impact of biases in professional investment settings.
+
 
 ## 3.3 Managerial Decision-Making Under Uncertainty
 
