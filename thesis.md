@@ -41,42 +41,87 @@
 -------------------------------
 # Chapter 2. Objectives of the Study
 
+> This chapter defines the research problem, objectives, research questions, hypotheses, key terms, assumptions, and limitations that frame the empirical analysis.
+
 ## 2.1 Chapter Introduction
 
+> Briefly explain the purpose of Chapter 2 and its role in structuring the empirical study.
+
 ## 2.2 Problem Statement
+
+> State the core managerial and research problem, identifying the decision context and the need for systematic evaluation.
+
+
+
+
 ### 2.2.1 Emotional Bias as a Source of Suboptimal Portfolio Decisions
+
 ### 2.2.2 Impact of External Information Shocks on Risk–Return Outcomes
 
+External financial information shocks, such as earnings announcements, macroeconomic releases, or geopolitical events, introduce new information into markets over short time horizons. This study assumes that such events can create conditions of heightened uncertainty and urgency that may amplify behavioral responses in portfolio decision-making. As a result, portfolio actions taken in response to these shocks may differ from decisions made under more stable conditions.
+
+A practical illustration of an external information shock is provided by the intraday price dynamics of Meta Platforms Inc. on 2 February 2026, coinciding with the public release of quarterly earnings results. The announcement was widely interpreted as outperforming market expectations, triggering a rapid price adjustment and elevated trading volume. Despite the positive informational content, the immediate price response was followed by pronounced short-term volatility and partial reversal, highlighting the conditions under which emotionally salient news may influence short-horizon investment decisions.
+![img.png](img.png)
+![Figure 2.1: Intraday price movement of Meta Platforms Inc. on 2 February 2026 following the release of quarterly earnings results, illustrating a short-horizon market reaction to an external information shock.](figures/meta_2026_02_02_intraday.png)
+
 ## 2.3 Objectives of the Study
+
+> Present the specific and measurable objectives that guide the empirical investigation.
+
 ### 2.3.1 Assessing the Effect of Information Shocks on Investment Decisions
+
 ### 2.3.2 Evaluating the Value Added of the Shock Score
+
 ### 2.3.3 Measuring Changes in Portfolio Risk–Return Characteristics
 
 ## 2.4 Research Questions
+
+> Formulate research questions that directly correspond to the objectives and hypotheses.
+
 ### 2.4.1 Do External Information Shocks Affect Portfolio Risk–Return Ratios?
+
 ### 2.4.2 Does the Shock Score Improve Investment Decision Outcomes?
 
 ## 2.5 Hypothesis Statement(s)
+
+> Present the finalized null and alternative hypotheses exactly as approved.
+
 ### 2.5.1 Hypothesis H₁ – Influence of Information Shocks
+
 ### 2.5.2 Hypothesis H₂ – Value Added of the Shock Score
 
 ## 2.6 Definitions of Key Terms
+
+> Provide concise operational definitions of key concepts used in the study.
+
 ### 2.6.1 Emotional Bias
+
 ### 2.6.2 External Financial Information Shock
+
 ### 2.6.3 Shock Score
+
 ### 2.6.4 Risk–Return Ratio
 
 ## 2.7 Assumptions
+
+> State the key conditions assumed to hold for the research design and interpretation.
+
 ### 2.7.1 Availability and Timeliness of Information
+
 ### 2.7.2 Consistency of Portfolio Decision Rules
 
 ## 2.8 Limitations
+
+> Identify the main constraints affecting measurement, inference, or generalizability.
+
 ### 2.8.1 Measurement of Emotional Intensity
+
 ### 2.8.2 Generalizability Across Market Conditions
 
 ## 2.9 Chapter Conclusion
 
--------------------------------
+> Summarize the chapter and introduce the transition to the literature review in Chapter 3.
+
 -------------------------------
 # Chapter 3. Literature Review
 
@@ -112,9 +157,9 @@ Overconfidence is a well-documented cognitive bias in which individuals exhibit 
 
 This bias manifests even among professionals; for example, successful traders and fund managers may become overconfident in their skill, particularly after a streak of good performance ([Gervais & Odean, 2001](https://doi.org/10.1093/rfs/14.1.1)). Overconfidence leads investors to underweight risks and trade more aggressively than rational benchmarks would predict, often to their own detriment ([Odean, 1999](https://doi.org/10.1257/aer.89.5.1279)). Theoretical models show that overconfident investors can introduce excess volatility into markets by overreacting to new information. Prices may move more than fundamentals justify due to overly aggressive trading on private signals, generating short-run momentum that later reverses ([Daniel et al., 1998](https://doi.org/10.1111/0022-1082.00077)). In short, overconfidence can cause initial overreactions to news followed by subsequent reversals once information is corrected, contributing significantly to short-term market volatility.
 
-Another class of bias arises from the heuristics investors use to judge the importance of information. The availability heuristic refers to the tendency to assess the probability or relevance of an event based on how easily examples come to mind ([Tversky & Kahneman, 1974](https://doi.org/10.1126/science.185.4157.1124)). This implies that vivid or recent information often dominates decision-making because it is readily recalled, even if it is not objectively more informative. A closely related phenomenon is recency bias, the inclination to give disproportionately high weight to the most recent events or data points when forming judgments. Evidence in behavioral finance indicates that investors and other decision-makers overweight recent outcomes relative to earlier information, thereby distorting expectations ([Hirshleifer, 2015](https://doi.org/10.1146/annurev-financial-092214-043752)). Even seasoned professionals are susceptible: mutual fund managers have been shown to extrapolate their fund's recent performance into their outlook for the overall market, effectively basing forecasts on the latest returns rather than long-term fundamentals ([Azimi, 2019](https://doi.org/10.2139/ssrn.3462776)). Such availability and recency biases can amplify short-term volatility by fueling overreactions to salient news, as prices may temporarily overshoot intrinsic values before expectations adjust.
+Another class of bias arises from the heuristics investors use to judge the importance of information. The availability heuristic refers to the tendency to assess the probability or relevance of an event based on how easily examples come to mind ([Tversky & Kahneman, 1974](https://doi.org/10.1126/science.185.4157.1124)). This implies that vivid or recent information often dominates decision-making because it is readily recalled, even if it is not objectively more informative. A closely related phenomenon is recency bias, the inclination to give disproportionately high weight to the most recent events or data points when forming judgments. Evidence in behavioral finance indicates that investors and other decision-makers overweight recent outcomes relative to earlier information, thereby distorting expectations ([Hirshleifer, 2015](hhttps://dx.doi.org/10.2139/ssrn.2480892)). Even seasoned professionals are susceptible: mutual fund managers have been shown to extrapolate their fund's recent performance into their outlook for the overall market, effectively basing forecasts on the latest returns rather than long-term fundamentals ([Azimi, 2019](https://doi.org/10.2139/ssrn.3462776)). Such availability and recency biases can amplify short-term volatility by fueling overreactions to salient news, as prices may temporarily overshoot intrinsic values before expectations adjust.
 
-Herding describes the tendency of investors to mimic the actions of others instead of relying on their own independent analysis. In uncertain environments, even professional investors often follow the crowd, for instance by buying or selling a stock because many of their peers are doing so, assuming that the collective might know better or as a form of career risk management (it may feel safer to err in a crowd than to err alone) ([Scharfstein & Stein, 1990](https://www.hbs.edu/ris/Publication%20Files/Herd%20Behavior%20and%20Investment_1f30fd71-a48f-4751-b267-ba97ec9b6160.pdf); [Bikhchandani et al., 1992](https://doi.org/10.1086/261849)). In formal terms, herd behavior occurs when investors follow or copy others' investment decisions rather than act on their private information. The herding heuristic can amplify short-term market movements: coordinated buying may push prices above fundamentals and coordinated selling below. Empirical evidence indicates that herding-induced price pressures can be short-lived: stocks persistently bought by institutions tend to earn negative subsequent returns as prices correct, while persistently sold stocks tend to rebound ([Dasgupta et al., 2011](https://doi.org/10.1093/rfs/hhq137); [Brown et al., 2014](https://doi.org/10.1287/mnsc.2013.1751)). Accordingly, herding by professional investors can contribute to short-run price instability and volatility around information events.
+Herding describes the tendency of investors to mimic the actions of others instead of relying on their own independent analysis. In uncertain environments, even professional investors often follow the crowd, for instance by buying or selling a stock because many of their peers are doing so, assuming that the collective might know better or as a form of career risk management (it may feel safer to err in a crowd than to err alone) ([Scharfstein & Stein, 1990](https://www.jstor.org/stable/2006678); [Bikhchandani et al., 1992](https://doi.org/10.1086/261849)). In formal terms, herd behavior occurs when investors follow or copy others' investment decisions rather than act on their private information. The herding heuristic can amplify short-term market movements: coordinated buying may push prices above fundamentals and coordinated selling below. Empirical evidence indicates that herding-induced price pressures can be short-lived: stocks persistently bought by institutions tend to earn negative subsequent returns as prices correct, while persistently sold stocks tend to rebound ([Dasgupta et al., 2011](https://doi.org/10.1093/rfs/hhq137); [Brown et al., 2014](https://doi.org/10.1287/mnsc.2013.1751)). Accordingly, herding by professional investors can contribute to short-run price instability and volatility around information events.
 
 Beyond cognitive heuristics, emotional and physiological factors can heavily influence investors' judgment under stress. Professional decision-makers are not emotionless agents; feelings such as fear, greed, anxiety, or over-excitement can bias choices, particularly during market shocks. Research documents that acute stress and arousal can impair decision-making even in expert traders ([Lo et al., 2005](https://doi.org/10.1257/000282805774670095); [Coates & Herbert, 2008](https://doi.org/10.1073/pnas.0704025105)). During periods of market turmoil, fear can trigger a physiological stress response that inclines investors to flee from risk. Elevated cortisol levels have been shown to correspond with such conditions; under high cortisol, traders become more risk-averse, potentially intensifying sell-offs ([Coates & Herbert, 2008](https://doi.org/10.1073/pnas.0704025105)). Conversely, in euphoric markets, testosterone-linked increases in confidence and risk-taking may reinforce speculative behavior; excessive levels can foster reckless overconfidence (Coates, 2010, The winner effect: Testosterone, cortisol and the risk of financial bubbles). Evidence further indicates that traders exhibiting extremely intense emotional reactions tend to make poorer trading decisions and achieve worse outcomes on average ([Lo et al., 2005](https://doi.org/10.1257/000282805774670095)). Overall, emotional and physiological biases contribute to short-term market instability by driving overreactions to information shocks.
 
@@ -145,7 +190,7 @@ These findings imply that public information shocks can generate short-term vola
 
 Professional traders and institutional investors can amplify these misreactions. Cremers, Pareek, and Sautner (2021) show that stocks with high short-term institutional ownership exhibit particularly large announcement-day price reactions and subsequent reversals around analyst recommendation changes: prior outperformance (underperformance) is followed by negative (positive) future abnormal returns, consistent with overreaction ([Cremers et al., 2021](https://doi.org/10.1111/1475-679X.12352)).
 
-Ben-Rephael et al. (2022) document that institutional trading around earnings announcements is strongly aligned with the magnitude of the initial price reaction, indicating that institutions tend to trade in the same direction as the earnings-day shock rather than correcting it ([Ben-Rephael et al., 2022](https://dx.doi.org/10.2139/ssrn.3966758)). Such synchronized trading behavior can exacerbate short-term volatility and push portfolios away from target allocations.
+Ben-Rephael et al. (2024) document that institutional trading around earnings announcements is strongly aligned with the magnitude of the initial price reaction, indicating that institutions tend to trade in the same direction as the earnings-day shock rather than correcting it ([Ben-Rephael et al., 2024](https://dx.doi.org/10.2139/ssrn.3966758)). Such synchronized trading behavior can exacerbate short-term volatility and push portfolios away from target allocations.
 
 Systematic rebalancing flows further transmit these shocks into prices. Harvey, Mazzoleni, and Melone (2025) show that mechanical rebalancing by large asset managers generates statistically significant short-term price pressure; for example, when portfolios become overweight equities, subsequent selling pressure depresses equity returns by approximately 17 basis points on the following day ([Harvey et al., 2025](https://doi.org/10.2139/ssrn.5122748)). Taken together, the evidence indicates that news-driven overreactions by institutional investors produce transient mispricings and heightened volatility, creating pressure on portfolio allocation and rebalancing decisions.
 
@@ -265,7 +310,7 @@ In sum, existing decision-support tools are dynamic in their treatment of prices
 
 The Shock Score concept introduced in this thesis is positioned as a novel approach that bridges behavioral theory and operational decision-making needs. Unlike most behavioral finance studies, the Shock Score is designed as an ex-ante, real-time metric intended for practitioner use. It quantifies the potential cognitive strain on a portfolio manager before and during an information event by integrating market data with established psychological mechanisms. To the author's knowledge, prior research has not proposed a comparable behavioral risk index explicitly tailored to support human decision-making in real time. The closest technical analogues are sentiment- and news-based measures developed for predictive or algorithmic purposes. For example, Song et al. (2015) construct sentiment-based signals to forecast asset returns, but these measures are intended for automated trading systems rather than for guiding portfolio managers' behavioral responses as shocks unfold ([Song et al., 2015](https://dx.doi.org/10.2139/ssrn.2631135)). By contrast, the Shock Score operationalizes insights from cognitive psychology, such as loss aversion, anchoring, and overconfidence, into an actionable signal designed to inform ex-ante decision support.
 
-This approach aligns with calls in the literature to integrate behavioral insights with explainable, real-time decision support. For example, Lim (2025) highlights the value of combining behavioral finance with explainable AI to improve decision-support systems, particularly in time-sensitive contexts ([Lim, 2025](https://dx.doi.org/10.2139/ssrn.4706208)). The Shock Score builds on this motivation by translating well-established behavioral mechanisms into a machine-readable risk alert intended for practitioner use. Conceptually, it draws on the 'System 1 versus System 2' framework articulated by Kahneman (2011), applying it to a portfolio-management setting: as a major news event approaches (a potential System 1 trigger), the Shock Score estimates the likelihood and intensity with which emotional biases may be activated for a given manager or strategy ([Kahneman, 2011](https://www.worldcat.org/oclc/706020998)).
+This approach aligns with calls in the literature to integrate behavioral insights with explainable, real-time decision support. For example, Lim (2025) highlights the value of combining behavioral finance with explainable AI to improve decision-support systems, particularly in time-sensitive contexts ([Lim, 2025](https://dx.doi.org/10.1080/15427560.2025.2609644)). The Shock Score builds on this motivation by translating well-established behavioral mechanisms into a machine-readable risk alert intended for practitioner use. Conceptually, it draws on the 'System 1 versus System 2' framework articulated by Kahneman (2011), applying it to a portfolio-management setting: as a major news event approaches (a potential System 1 trigger), the Shock Score estimates the likelihood and intensity with which emotional biases may be activated for a given manager or strategy ([Kahneman, 2011](https://www.worldcat.org/oclc/706020998)).
 
 In practical terms, the Shock Score addresses the shortcomings identified above. It is a forward-looking indicator (ex-ante) that can be computed continuously as new information flows in, making behavioral risk explicit in the same way that traditional risk measures quantify volatility or Value-at-Risk. By doing so, it fills a lacuna in the literature by tying descriptive knowledge of biases to a predictive decision-support tool. In summary, the Shock Score is both novel and relevant: it provides the missing link between theory and practice, operationalizing behavioral finance for real-time portfolio management.
 
