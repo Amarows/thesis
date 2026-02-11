@@ -39,88 +39,221 @@
 ## 1.6 Structure of the Thesis
 
 -------------------------------
-# Chapter 2. Objectives of the Study
 
-> This chapter defines the research problem, objectives, research questions, hypotheses, key terms, assumptions, and limitations that frame the empirical analysis.
+# Chapter 2. Objectives of the Study
 
 ## 2.1 Chapter Introduction
 
-> Briefly explain the purpose of Chapter 2 and its role in structuring the empirical study.
+Chapter 2 defines the research scene, scope, and agenda for this thesis. It restates the managerial problem motivating the study, specifies the objectives that guide the empirical work, and presents the research questions and hypothesis statements to be evaluated. The chapter also provides operational definitions of key terms and records assumptions and limitations that bound interpretation of the findings. Chapter 3 then examines the theoretical and empirical literature relevant to the stated problem, research questions, and hypotheses.
 
 ## 2.2 Problem Statement
 
-> State the core managerial and research problem, identifying the decision context and the need for systematic evaluation.
+Professional portfolio management requires timely decisions under uncertainty, information overload, and rapidly evolving market narratives. In such environments, decision-makers may be exposed to emotionally salient external information shocks that can increase cognitive load and time pressure. This study is motivated by the practical concern that such conditions may lead to systematic deviations from disciplined decision-making, potentially altering portfolio outcomes in risk – return terms.
 
-
-
+The research problem addressed in this thesis is twofold. First, the study examines whether external financial information shocks are associated with systematic changes in managers’ immediate risk stance. Second, it evaluates whether a structured decision-support indicator, the Shock Score, improves investment decision outcomes by moderating responses under shock conditions. The study is designed as applied research focused on professional decision-making, rather than on claims of market inefficiency or return predictability.
 
 ### 2.2.1 Emotional Bias as a Source of Suboptimal Portfolio Decisions
 
-### 2.2.2 Impact of External Information Shocks on Risk–Return Outcomes
+This study assumes that portfolio decisions are shaped by both analytical judgment and affective responses, particularly under uncertainty and time pressure. Emotional and cognitive biases may influence how information is interpreted and acted upon, leading to inconsistent or procyclical decision responses relative to an investor’s stated objectives and constraints. In this thesis, emotional bias is treated as a plausible mechanism that may contribute to suboptimal decision patterns, to be examined through theory in Chapter 3 and evaluated empirically through observed decision responses and portfolio outcomes in later chapters.
 
-External financial information shocks, such as earnings announcements, macroeconomic releases, or geopolitical events, introduce new information into markets over short time horizons. This study assumes that such events can create conditions of heightened uncertainty and urgency that may amplify behavioral responses in portfolio decision-making. As a result, portfolio actions taken in response to these shocks may differ from decisions made under more stable conditions.
+### 2.2.2 Impact of External Information Shocks on Risk – Return Outcomes
+
+External financial information shocks are defined as discrete public events relevant to portfolio holdings that may trigger rapid market reactions and elevate decision urgency. This thesis assumes that shocks can affect decision behavior and, through decision behavior, influence portfolio outcomes, particularly when decisions are made over short horizons. The magnitude and persistence of market responses may vary by event type and context, and these relationships are treated as empirical questions to be evaluated through the study design. The Shock Score is introduced as a decision-support mechanism intended to structure interpretation of shock information and support disciplined responses.
+
+## 2.3 Objectives of the Study
+
+The overall objective of the study is to evaluate whether a structured, practitioner-oriented Shock Score can support better investment decision outcomes under external information shock conditions. The study operationalizes better outcomes in terms of risk-adjusted portfolio performance, consistent with the premise that shocks may induce both excessive risk-taking and excessive de-risking.
+
+The objectives of the study are as follows.
+
+### 2.3.1 Assessing the Effect of Information Shocks on Investment Decisions
+
+The first objective is to assess whether external information shocks are associated with systematic shifts in managers’ immediate decision response. Decision response is operationalized as a single-item, seven-point Net Risk Stance scale capturing the direction and intensity of intended exposure adjustment in response to a shock scenario.
+
+Net Risk Stance response scale (single item, seven points):
+1 Strongly reduce exposure  
+2 Reduce exposure  
+3 Slightly reduce exposure  
+4 No change  
+5 Slightly increase exposure  
+6 Increase exposure  
+7 Strongly increase exposure
+
+### 2.3.2 Evaluating the Value Added of the Shock Score
+
+The second objective is to evaluate whether providing the Shock Score to managers moderates decision behavior and improves outcomes relative to a no-score condition. The study uses a within-subject design in which each participant is exposed to both conditions, enabling comparison of responses while controlling for stable individual differences. The Shock Score is presented as a manager-facing dashboard designed to structure interpretation and trigger a pre-committed decision protocol under high-shock conditions.
+
+### 2.3.3 Measuring Changes in Portfolio Risk – Return Characteristics
+
+The third objective is to measure whether decision support translates into improved portfolio risk – return characteristics. Portfolio outcomes are evaluated using risk-adjusted performance measures, with Sharpe ratio and Sortino ratio specified as primary metrics. The precise computation conventions (return horizon, downside threshold definition for Sortino, and risk-free rate convention for Sharpe) are defined in Chapter 4 to ensure reproducibility and consistency across analyses.
+
+## 2.4 Research Questions
+
+This study is guided by two research questions that correspond directly to the objectives and hypotheses. The first research question focuses on whether external information shocks are associated with systematic variation in managerial decision response. The second research question evaluates whether the Shock Score, as a decision-support intervention, improves investment decision outcomes when managers face such shocks.
+
+### 2.4.1 Do External Information Shocks Affect Portfolio Risk – Return Ratios?
+
+Do external financial information shocks lead to statistically significant differences in managers’ immediate Net Risk Stance responses and, in downstream evaluation, portfolio risk – return outcomes?
+
+### 2.4.2 Does the Shock Score Improve Investment Decision Outcomes?
+
+Does providing the Shock Score to portfolio managers improve investment decision outcomes, measured through portfolio risk – return metrics, relative to a condition in which the Shock Score is not provided?
+
+## 2.5 Hypothesis Statement(s)
+
+The study tests two hypotheses. Hypothesis statements are presented in null and alternative form and are evaluated using the primary and secondary data described in Chapters 4 and 5. The hypotheses are written to align with the study design, where shock intensity is measured at the event level and decision support is implemented as an experimental condition in which the Shock Score is shown or withheld.
+
+### 2.5.1 Hypothesis H1 – Influence of Information Shocks
+
+Insert the finalized null hypothesis for H1 here, exactly as approved.
+
+Insert the finalized alternative hypothesis for H1 here, exactly as approved.
+
+### 2.5.2 Hypothesis H2 – Value Added of the Shock Score
+
+Insert the finalized null hypothesis for H2 here, exactly as approved.
+
+Insert the finalized alternative hypothesis for H2 here, exactly as approved.
+
+## 2.6 Definitions of Key Terms
+
+This section defines key terms used throughout the thesis. Definitions are operational and intended to support consistent measurement and interpretation in later chapters.
+
+### 2.6.1 Emotional Bias
+
+Emotional bias refers to systematic deviations in judgment and choice that arise from affective responses under uncertainty, leading decision-makers to overweight salient or emotionally charged information relative to a deliberative, rule-consistent decision process.
+
+### 2.6.2 External Financial Information Shock
+
+An external financial information shock is a discrete public information event relevant to a portfolio holding that arrives over a short horizon and has the potential to trigger heightened attention, uncertainty, and rapid market reaction.
+
+### 2.6.3 Shock Score
+
+The Shock Score is a quantitative decision-support indicator designed to summarize the emotional and informational intensity of an external financial information shock in a manager-interpretable format. In this thesis, the Shock Score has two representations: an analytical composite index used for statistical testing and an operational dashboard used for decision support.
+
+Analytical composite index (SC_total):
+SC_total is defined as the first principal component obtained from a set of standardized shock characteristics computed at the event level. Let x_e be a vector of K standardized shock components for event e, with K = 4 and each component standardized across events to have mean 0 and standard deviation 1. Principal component analysis produces a loading vector w_1 that defines the first principal component. The composite Shock Score is then:
+
+SC_total_e = w_1' x_e
+
+The first principal component is chosen because it provides a single index capturing the dominant common variation across shock characteristics, enabling parsimonious hypothesis testing while preserving interpretability through the dashboard components. PCA loadings and explained variance of the first component are reported in Chapter 4.
+
+Manager-facing dashboard:
+The Shock Score is displayed to managers as a small set of interpretable signals:
+
+1 Sentiment direction band: a categorical indicator of directional tone.  
+2 Shock severity level: an ordinal or continuous indicator of shock intensity.  
+3 Persistence: a quantitative persistence score mapped into horizon buckets.  
+4 Protocol: a rules-based pre-commitment trigger that recommends a predefined decision step when shock intensity is sufficiently high.
+
+Persistence score and horizon buckets:
+Persistence is operationalized as a quantitative score intended to represent the expected decision-relevance horizon of the event. Let P_e denote the persistence score for event e. The score is mapped into discrete horizon buckets using predefined cutoffs:
+
+HorizonBucket_e =
+Intraday, if P_e <= c1  
+Several days, if c1 < P_e <= c2  
+Several weeks, if P_e > c2
+
+Cutoffs c1 and c2 and the method used to compute P_e are specified ex ante and documented in Chapter 4.
+
+Rules-based pre-commitment trigger:
+The protocol is defined as a predefined action rule activated by shock intensity. Let T_e denote an intensity trigger variable, which can be SC_total_e or a monotone transformation of SC_total_e. A simple trigger design is:
+
+Protocol_e =
+Standard process, if T_e < t1  
+Enhanced review, if t1 <= T_e < t2  
+Cooling-off and second review, if T_e >= t2
+
+Thresholds t1 and t2 and the operational meaning of each protocol step are specified ex ante in Chapter 4.
+
+Treatment indicator for decision support:
+The study distinguishes between the existence of SC_total for an event and whether it is shown to the manager. For each manager i and event e:
+
+ShowSC_i,e = 1 if the Shock Score dashboard is displayed  
+ShowSC_i,e = 0 if the Shock Score dashboard is withheld
+
+When the Shock Score is not displayed, SC_total remains defined at the event level; it is simply not observed by the respondent.
+
+### 2.6.4 Risk – Return Ratio
+
+Risk – return ratio refers to a risk-adjusted measure of portfolio performance that evaluates return relative to risk exposure. In this thesis, Sharpe ratio and Sortino ratio are specified as primary risk – return metrics for evaluating portfolio outcomes under alternative decision conditions.
+
+Sharpe ratio:
+Let r_t denote portfolio return over period t and r_f denote the risk-free rate over the same period. Let mu denote the mean of excess returns (r_t - r_f) and sigma denote the standard deviation of excess returns. Then:
+
+Sharpe = mu / sigma
+
+Sortino ratio:
+Let MAR denote a minimum acceptable return, often set to the risk-free rate or zero depending on convention. Let mu denote the mean of excess returns (r_t - MAR). Let sigma_d denote downside deviation, defined as the square root of the mean of squared shortfalls below MAR:
+
+sigma_d = sqrt( E[ min(0, r_t - MAR)^2 ] )
+
+Then:
+
+Sortino = mu / sigma_d
+
+Exact conventions for r_f, MAR, sampling frequency, and annualization are specified in Chapter 4.
+
+## 2.7 Assumptions
+
+Assumptions describe the conditions under which the research design supports valid interpretation. These assumptions are not treated as established facts but as prerequisites for empirical evaluation and inference.
+
+### 2.7.1 Availability and Timeliness of Information
+
+The study assumes that the timing of external information shocks can be identified and aligned consistently with the decision window represented in the survey scenarios and portfolio outcome evaluation. The study further assumes that the event-level shock characteristics used to construct SC_total and persistence are computed consistently across events and do not rely on ex post outcome information that would compromise interpretation.
+
+### 2.7.2 Consistency of Portfolio Decision Rules
+
+The study assumes that respondents interpret the decision task consistently and that the Net Risk Stance scale captures intended exposure adjustment in a comparable way across respondents and scenarios. The within-subject design assumes that random assignment of scenarios to conditions mitigates systematic learning and order effects. The design further assumes that respondents’ decisions reflect their intended stance under the scenario constraints and are not materially distorted by survey fatigue or strategic responding.
+
+## 2.8 Limitations
+
+Limitations define boundaries on measurement, inference, and generalizability. They clarify what the study can and cannot conclude from the data and design.
+
+### 2.8.1 Measurement of Emotional Intensity
+
+Emotional intensity is not observed directly in this study and is proxied through observable shock characteristics and their aggregation into the Shock Score. As a result, construct validity depends on the adequacy of the selected shock characteristics, the stability of the PCA-based index, and the interpretability of the dashboard components. Because the persistence score and protocol are model-based and rules-based components respectively, their effectiveness depends on the appropriateness of predefined mappings and thresholds, which may not be universally optimal across all event types.
+
+### 2.8.2 Generalizability Across Market Conditions
+
+Findings may not generalize beyond the defined portfolio universe, event types, and time horizon represented by the use cases. The effectiveness of the Shock Score and the associated pre-commitment protocol may vary across market regimes, volatility environments, and institutional contexts. The within-subject experimental setting evaluates intended decision responses under controlled scenarios and may differ from real-world behavior under organizational constraints, transaction costs, and liquidity considerations.
+
+## 2.9 Chapter Conclusion
+
+Chapter 2 defined the research problem and objectives, formulated research questions and hypotheses, and established key operational definitions, assumptions, and limitations guiding the empirical study. The chapter specified the primary measurement approach for managerial decision response using a single-item Net Risk Stance scale and defined the Shock Score as a PCA-based composite index presented to managers through a dashboard incorporating sentiment direction, shock severity, a quantitative persistence score mapped to horizon buckets, and a rules-based pre-commitment trigger. Chapter 3 examines the theoretical and empirical literature that motivates the study constructs and supports the logic linking information shocks, managerial decision behavior, and portfolio risk – return outcomes.
+
+## Technical Appendix to Chapter 2 (Model Forms)
+
+This section records the intended econometric specifications in compact form to ensure transparency and reproducibility; estimation choices and conventions are detailed in Chapter 4.
+
+Primary regression specification for H1 (survey responses):
+Let y_i,e denote Net Risk Stance of manager i for event e (seven-point scale). Let SC_total_e denote the event-level composite Shock Score. Let X_i,e denote a vector of controls. The baseline model is:
+
+y_i,e = alpha + beta1 * SC_total_e + gamma' * X_i,e + epsilon_i,e
+
+Because observations are clustered by manager and by event, inference should account for dependence using clustered standard errors, with two-way clustering by manager and event as the preferred approach.
+
+Primary regression specification for H2 (portfolio outcomes):
+Let Outcome_j denote a portfolio risk – return metric for simulation run or decision condition j. Let ShowSC_j denote the treatment indicator. Let Z_j denote optional controls. The baseline model is:
+
+Outcome_j = alpha + tau * ShowSC_j + delta' * Z_j + u_j
+
+Heterogeneity by shock intensity (optional interaction specification):
+When portfolio outcomes can be indexed to a shock intensity measure, the following interaction form evaluates whether decision support is more effective under higher shock intensity:
+
+Outcome_j = alpha + tau * ShowSC_j + beta2 * SC_total_j + phi * (ShowSC_j * SC_total_j) + delta' * Z_j + u_j
+
+Within-subject design implementation note:
+Because each manager is exposed to both treatment conditions, the H1 dataset may also support specifications with manager fixed effects to absorb stable individual differences:
+
+y_i,e = alpha_i + beta1 * SC_total_e + gamma' * X_i,e + epsilon_i,e
+
+Where alpha_i is a manager-specific intercept. This specification is optional and is chosen based on the final data structure documented in Chapter 4.
+
 
 A practical illustration of an external information shock is provided by the intraday price dynamics of Meta Platforms Inc. on 2 February 2026, coinciding with the public release of quarterly earnings results. The announcement was widely interpreted as outperforming market expectations, triggering a rapid price adjustment and elevated trading volume. Despite the positive informational content, the immediate price response was followed by pronounced short-term volatility and partial reversal, highlighting the conditions under which emotionally salient news may influence short-horizon investment decisions.
 ![figure_2_1.png](figure_2_1.png)
 ![Figure 2.1: Intraday price movement of Meta Platforms Inc. on 2 February 2026 following the release of quarterly earnings results, illustrating a short-horizon market reaction to an external information shock.](figures/meta_2026_02_02_intraday.png)
-
-## 2.3 Objectives of the Study
-
-> Present the specific and measurable objectives that guide the empirical investigation.
-
-### 2.3.1 Assessing the Effect of Information Shocks on Investment Decisions
-
-### 2.3.2 Evaluating the Value Added of the Shock Score
-
-### 2.3.3 Measuring Changes in Portfolio Risk–Return Characteristics
-
-## 2.4 Research Questions
-
-> Formulate research questions that directly correspond to the objectives and hypotheses.
-
-### 2.4.1 Do External Information Shocks Affect Portfolio Risk–Return Ratios?
-
-### 2.4.2 Does the Shock Score Improve Investment Decision Outcomes?
-
-## 2.5 Hypothesis Statement(s)
-
-> Present the finalized null and alternative hypotheses exactly as approved.
-
-### 2.5.1 Hypothesis H₁ – Influence of Information Shocks
-
-### 2.5.2 Hypothesis H₂ – Value Added of the Shock Score
-
-## 2.6 Definitions of Key Terms
-
-> Provide concise operational definitions of key concepts used in the study.
-
-### 2.6.1 Emotional Bias
-
-### 2.6.2 External Financial Information Shock
-
-### 2.6.3 Shock Score
-
-### 2.6.4 Risk–Return Ratio
-
-## 2.7 Assumptions
-
-> State the key conditions assumed to hold for the research design and interpretation.
-
-### 2.7.1 Availability and Timeliness of Information
-
-### 2.7.2 Consistency of Portfolio Decision Rules
-
-## 2.8 Limitations
-
-> Identify the main constraints affecting measurement, inference, or generalizability.
-
-### 2.8.1 Measurement of Emotional Intensity
-
-### 2.8.2 Generalizability Across Market Conditions
-
-## 2.9 Chapter Conclusion
-
-> Summarize the chapter and introduce the transition to the literature review in Chapter 3.
 
 -------------------------------
 # Chapter 3. Literature Review
