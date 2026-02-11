@@ -1,173 +1,62 @@
-import threading
-import time
-from datetime import datetime, timezone
-from typing import List, Tuple, Optional
+Literature Review: Reducing Emotional Biases in Portfolio Management
+1. Behavioral Biases in Investment Decision-Making
 
-from ibapi.client import EClient
-from ibapi.wrapper import EWrapper
-from ibapi.contract import Contract
+Tversky, Amos & Kahneman, Daniel (1974). “Judgment under Uncertainty: Heuristics and Biases.” Science. – Introduces cognitive heuristics (like representativeness, availability, anchoring) that lead to systematic biases in decision-making. This foundational study reveals how investors’ judgments under uncertainty deviate from rational expectations, laying the groundwork for behavioral finance by explaining common investment biases (e.g. overconfidence, miscalibration).
 
+Kahneman, Daniel & Tversky, Amos (1979). “Prospect Theory: An Analysis of Decision under Risk.” Econometrica. – Seminal paper proposing prospect theory, showing that investors value gains and losses asymmetrically (loss aversion) and exhibit risk-seeking behavior in losses. This work challenges expected utility theory and is highly relevant as it explains why investors make biased portfolio choices (e.g. holding losing stocks too long due to loss aversion).
 
-def parse_ib_time_utc(s: str) -> Optional[datetime]:
-    # Handle the formats you observed plus common IB variants
-    if s is None:
-        return None
-    s = str(s).strip()
-    for fmt in (
-        "%Y-%m-%d %H:%M:%S.%f",   # 2025-12-18 15:00:16.0
-        "%Y-%m-%d %H:%M:%S",
-        "%Y%m%d %H:%M:%S.%f",
-        "%Y%m%d %H:%M:%S",
-    ):
-        try:
-            return datetime.strptime(s, fmt).replace(tzinfo=timezone.utc)
-        except Exception:
-            pass
-    return None
+Shefrin, Hersh & Statman, Meir (1985). “The Disposition to Sell Winners Too Early and Ride Losers Too Long: Theory and Evidence.” Journal of Finance. – Documents the disposition effect, a common investor bias of prematurely selling winning investments and retaining losers. This paper provides both a theoretical framework and empirical evidence for this bias, highlighting emotional influences (pride and regret aversion) that impair rational portfolio rebalancing.
 
+De Bondt, Werner & Thaler, Richard (1985). “Does the Stock Market Overreact?” Journal of Finance. – Empirical study showing that markets overreact to news: stocks that experience extreme movements tend to reverse in subsequent periods. This highly cited work is relevant as it attributes overreaction to investor psychology—investors’ overly pessimistic or optimistic sentiment—which is a key behavioral bias affecting asset prices and investment decisions.
 
-class ProviderDirectTest(EWrapper, EClient):
-    def __init__(self):
-        EClient.__init__(self, self)
+Barberis, Nicholas & Thaler, Richard (2003). “A Survey of Behavioral Finance.” Handbook of the Economics of Finance. – A comprehensive survey that reviews major psychological biases (e.g. overconfidence, mental accounting, herd behavior) and their implications for financial markets. It connects these biases to observable market phenomena and portfolio choices, making it a core reference for understanding how emotional and cognitive biases systematically influence investment decision-making.
 
-        self.ready = threading.Event()
+2. Managerial Decision-Making Under Uncertainty
 
-        self._conid_event = threading.Event()
-        self._conid_value: Optional[int] = None
+Simon, Herbert A. (1955). “A Behavioral Model of Rational Choice.” Quarterly Journal of Economics. – Introduces the concept of bounded rationality, asserting that managers satisfice (seek “good enough” options) rather than optimize when faced with uncertainty. This foundational model explains why corporate and portfolio managers might rely on heuristics under uncertainty, providing context for later work on biases in managerial decisions.
 
-        self._news_event = threading.Event()
-        self._news_rows: List[Tuple[str, str, str, str]] = []
-        self._last_news_req_id: Optional[int] = None
+March, James G. & Shapira, Zur (1987). “Managerial Perspectives on Risk and Risk Taking.” Management Science. – Explores how executives perceive and take risks, finding that managers often do not follow expected utility theory and instead use aspiration levels and survival thresholds. This study is relevant as it shows managers’ risk-taking behavior under uncertainty can be biased (e.g. risk-seeking when below targets), affecting strategic investment and portfolio decisions.
 
-        self._req_id = 1000
+Kahneman, Daniel & Lovallo, Dan (1993). “Timid Choices and Bold Forecasts: A Cognitive Perspective on Risk Taking.” Management Science. – Highlights a paradox in managerial behavior: decision-makers tend to be conservative in choices (timid in committing resources) but over-optimistic in forecasting outcomes. This cognitive analysis is highly relevant to financial managers under uncertainty, explaining phenomena like the planning fallacy and suggesting why project investment decisions can suffer from optimism bias.
 
-    def _next_req_id(self) -> int:
-        self._req_id += 1
-        return self._req_id
+Malmendier, Ulrike & Tate, Geoffrey (2005). “CEO Overconfidence and Corporate Investment.” Journal of Finance. – Provides evidence that overconfident CEOs (who systematically overestimate returns and underestimate risks) tend to over-invest, especially using internal funds. This influential paper links a specific managerial bias (overconfidence) to real corporate decision outcomes (mergers, capital expenditures), underlining the need to account for such biases in portfolio management and firm valuation.
 
-    # ---- connection
-    def nextValidId(self, orderId: int):
-        print(f"[OK] API ready. nextValidId={orderId}")
-        self.ready.set()
+Knight, Frank H. (1921). Risk, Uncertainty, and Profit. – Although dated, this classic work distinguishes risk (measurable uncertainty) from true uncertainty (unmeasurable) in business decisions. Knight’s insights are foundational for understanding managerial decision-making in uncertain environments; they underscore why traditional probabilistic models may fail and why managers often rely on judgment or heuristics when facing ambiguity – setting the stage for later behavioral studies on how uncertainty triggers emotional biases in decision-making.
 
-    def error(self, reqId, errorCode, errorString, advancedOrderRejectJson=""):
-        print(f"[IB ERROR] reqId={reqId} code={errorCode} msg={errorString}")
+3. Tools and Methods to Mitigate Emotional/Behavioral Bias in Finance
 
-        # If the error relates to the current news request, unblock waits
-        if self._last_news_req_id is not None and int(reqId) == int(self._last_news_req_id):
-            self._news_event.set()
+Shefrin, Hersh (2002). Beyond Greed and Fear: Understanding Behavioral Finance and the Psychology of Investing. – A landmark book that translates academic insights into practical guidance. Shefrin discusses common investor pitfalls and prescribes techniques (e.g. pre-commitment strategies, diversification rules) to overcome biases like overconfidence and loss aversion. This source is highly relevant as it bridges theory and practice, providing portfolio managers with frameworks to recognize and avoid emotional decision errors.
 
-    # ---- conId
-    def contractDetails(self, reqId, contractDetails):
-        if self._conid_value is None:
-            self._conid_value = int(contractDetails.contract.conId)
+Thaler, Richard H. & Sunstein, Cass R. (2008). Nudge: Improving Decisions about Health, Wealth, and Happiness. – This influential work introduces the idea of choice architecture – structuring defaults and decision environments to “nudge” people toward better choices. In a financial context, its principles (automatic enrollment, default investment options, reminders) serve as tools to mitigate biases by leveraging behavioral tendencies for improved outcomes (e.g. higher savings rates, more prudent asset allocations).
 
-    def contractDetailsEnd(self, reqId):
-        self._conid_event.set()
+Lo, Andrew W. (2004). “The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective.” Journal of Portfolio Management. – Proposes the Adaptive Markets Hypothesis (AMH), reconciling market efficiency with behavioral biases. Lo suggests that investors can adapt and learn, and he advocates using quantitative tools that adjust to changing market conditions (analogous to an evolutionary process). This approach is relevant as a methodological shift – it implies that flexible strategies (e.g. dynamic asset allocation, algorithmic models) can help mitigate the impact of emotional biases by responding to new information more objectively.
 
-    # ---- historical news
-    def historicalNews(self, reqId, timeStr, providerCode, articleId, headline):
-        self._news_rows.append((str(timeStr), str(providerCode), str(articleId), str(headline)))
+Statman, Meir (2019). Behavioral Finance: The Second Generation. – A comprehensive monograph arguing that behavioral finance should evolve from merely describing biases to prescribing solutions. Statman emphasizes helping “normal” investors make better decisions through tools like financial education, personalized advice, and debiasing techniques. This source is relevant because it compiles a range of methods (from goal-based investing to using advisors as “behavioral coaches”) aimed at reducing the detrimental effects of biases on portfolio management.
 
-    def historicalNewsEnd(self, reqId, hasMore):
-        self._news_event.set()
+Kendzia, Michael J. & Lemke, Jan (2025). “Investment Didactics: Educating Investors to Overcome Biases in Decision-Making.” – A forthcoming study that identifies evidence-based debiasing strategies for investors. The authors highlight four key methods: (1) rules-based protocols (strict investment rules to enforce discipline), (2) pre-commitment mechanisms (binding future actions to prevent impulsive moves), (3) cognitive training (improving probabilistic reasoning and encouraging “consider the opposite” thinking), and (4) technology interventions like robo-advisors (to remove emotion-driven trading). This work is directly relevant as it shows how structured approaches and education can actively reduce emotional biases in investment decisions.
 
-    # ---- helpers
-    def resolve_conid(self, contract: Contract, timeout: int = 15) -> Optional[int]:
-        self._conid_value = None
-        self._conid_event.clear()
+4. Market Reactions to Public Information (News, Sentiment, etc.)
 
-        req_id = self._next_req_id()
-        self.reqContractDetails(req_id, contract)
+Fama, Eugene F. (1970). “Efficient Capital Markets: A Review of Theory and Empirical Work.” Journal of Finance. – The cornerstone of the Efficient Market Hypothesis (EMH), positing that asset prices fully reflect all available information. Fama’s review is foundational for this theme as a benchmark: under EMH, markets should react to news quickly and rationally. It provides the theoretical backdrop for exploring where and how real market reactions deviate due to investor sentiment or biases.
 
-        if not self._conid_event.wait(timeout=timeout):
-            return None
-        return self._conid_value
+Shiller, Robert J. (1981). “Do Stock Prices Move Too Much to be Justified by Subsequent Changes in Dividends?” American Economic Review. – A classic study demonstrating that stock price volatility is excessive relative to what actual dividend news would justify. Shiller’s finding of excess volatility implies that markets overreact to investor sentiment and psychology, not just fundamentals. This insight is crucial for a thesis on biases, as it shows aggregate market reactions can be driven by emotion (e.g. bubbles and bursts) rather than rational appraisal of public information.
 
-    def fetch_top_headlines(self, conId: int, provider_code: str, top_n: int = 10, timeout: int = 20):
-        self._news_rows = []
-        self._news_event.clear()
+Tetlock, Paul C. (2007). “Giving Content to Investor Sentiment: The Role of Media in the Stock Market.” Journal of Finance. – This study quantifies how the tone of news media affects market outcomes. Tetlock finds that high media pessimism (e.g. negative news articles) predicts short-term stock price declines and trading volume changes, even when controlling for fundamentals. It provides direct evidence that public information framed as negative or positive sentiment can cause systematic under- or over-reactions in the market, highlighting the influence of collective emotion on prices.
 
-        req_id = self._next_req_id()
-        self._last_news_req_id = req_id
+Baker, Malcolm & Wurgler, Jeffrey (2007). “Investor Sentiment in the Stock Market.” Journal of Economic Perspectives. – A seminal paper that develops an index of investor sentiment (using proxies like trading volume, IPO activity, etc.) and shows that waves of sentiment significantly impact asset prices. Importantly, it finds that hard-to-value and difficult-to-arbitrage stocks are most affected by broad optimism or pessimism. This work is relevant as it links market-wide emotional factors to mispricing, reinforcing the idea that public mood and speculative enthusiasm can drive market reactions beyond what public news alone would warrant.
 
-        # Working call pattern (like your BZ script)
-        self.reqHistoricalNews(req_id, int(conId), provider_code, "", "", int(top_n), [])
+Engelberg, Joseph & Parsons, Christopher (2011). “The Causal Impact of Media in Financial Markets.” Journal of Finance. – Demonstrates that localized news coverage causes local trading surges and price impacts, independent of the information’s content. By exploiting geographic variation in newspaper circulation, the authors show that exposure to news (even soft news or reiterations) can induce significant market reactions. This is relevant as it provides causal evidence that dissemination of public information (and the attention it generates) can lead to short-term trading biases and non-fundamental volatility in markets.
 
-        ok = self._news_event.wait(timeout=timeout)
-        if not ok:
-            return []
+5. Decision-Support Systems in Investment Management
 
-        return self._news_rows[:top_n]
+Markowitz, Harry (1952). “Portfolio Selection.” Journal of Finance. – Pioneering work that introduced quantitative decision tools to investing. Markowitz’s mean-variance optimization model allows investors to systematically select portfolios based on risk–return trade-offs, essentially laying the foundation for computer-assisted portfolio allocation. It is a cornerstone in this theme, illustrating how formal decision-support methods can improve upon ad-hoc or emotionally driven asset selection by providing a rational framework for diversification.
 
+D’Acunto, Francesco; Prabhala, Nagpurnanand; & Rossi, Alberto (2019). “The Promises and Pitfalls of Robo-Advising.” Review of Financial Studies. – Studies the real-world introduction of a robo-advisor and its effects on investor behavior. It finds that algorithmic advice can improve portfolio efficiency and reduce trading costs, but also notes limitations (e.g. one-size-fits-all issues). This paper is relevant as it evaluates a modern decision-support system in practice, showing how automation and algorithms can assist investment decisions by countering some human biases (though not without challenges).
 
-def stock_contract(symbol: str) -> Contract:
-    c = Contract()
-    c.symbol = symbol
-    c.secType = "STK"
-    c.exchange = "SMART"
-    c.currency = "USD"
-    return c
+Krieger, Patrick & Lausberg, Carsten (2015). “Decisions, Decision-Making, and Decision Support Systems in Real Estate Investment Management.” – A conceptual and case-study work examining how managers make investment decisions and what technical tools can support them. Though focused on real estate, it discusses general criteria for effective decision-support systems (DSS) – such as integrating dynamic data and allowing scenario analysis – which are applicable to portfolio management. This source is relevant as it bridges theory and practice, highlighting the need for DSS to address the complexity and uncertainty in investment decisions, thereby reducing reliance on gut feeling.
 
+Cardillo, Giovanni & Chiappini, Helen (2024). “Robo-Advisors: A Systematic Literature Review.” Finance Research Letters. – A recent review summarizing academic findings on AI-driven investment advisory platforms. It identifies key research streams (classification of robo-advisors, behavioral aspects, performance, etc.) and notes that robo-advisors can offer timely advice, reduce selection bias, and potentially lower costs for investors. This is relevant to show how decision-support technology (e.g. automated financial planning and portfolio tools) is evolving as a core component in modern investment management, aiming to make decision processes more objective and data-driven.
 
-def main():
-    host = "127.0.0.1"
-    port = 7496
-    client_id = 7  # use the same known-good ID for news
+Kaucic, Massimiliano et al. (2025). “An Automated Decision Support System for Portfolio Allocation Based on Mutual Information and Financial Criteria.” Entropy. – Proposes a two-phase automated DSS that first screens assets using information theory (mutual information) and then optimizes the portfolio with financial constraints. This cutting-edge research exemplifies how advanced analytics and computational techniques are being employed to assist portfolio managers. It’s highly relevant as evidence that decision-support systems in finance are moving toward sophisticated algorithms that can process vast data and help mitigate human limitations, ultimately aiming to enhance investment decision quality free of emotional bias.
 
-    test_symbol = "AAPL"
-    top_n = 10
-
-    # Provider codes exactly as shown in your Gateway screenshot
-    provider_codes = [
-        "BZ",
-        "BRFUPDN",
-        "BRFG",
-        "DJ-N",
-        "DJNL",
-        "DJ-RTA",
-        "DJ-RTE",
-        "DJ-RTG",
-        "DJ-RT",
-        "FLY",
-    ]
-
-    app = ProviderDirectTest()
-    print("[INFO] Connecting ...")
-    app.connect(host, port, clientId=client_id)
-    threading.Thread(target=app.run, daemon=True).start()
-
-    if not app.ready.wait(10):
-        print("[FAIL] No nextValidId – connection not ready (clientId conflict or Gateway not accepting API).")
-        app.disconnect()
-        return
-
-    print(f"[INFO] Resolving conId for {test_symbol} ...")
-    conId = app.resolve_conid(stock_contract(test_symbol), timeout=15)
-    if not conId:
-        print("[FAIL] Could not resolve conId.")
-        app.disconnect()
-        return
-    print(f"[OK] {test_symbol} conId={conId}")
-
-    for code in provider_codes:
-        print(f"\n=== Testing provider {code} ===")
-        rows = app.fetch_top_headlines(conId, code, top_n=top_n, timeout=20)
-
-        if not rows:
-            print("No headlines returned (likely not entitled, or no items). Check any IB ERROR lines above.")
-            continue
-
-        for (timeStr, providerCode, articleId, headline) in rows:
-            dt = parse_ib_time_utc(timeStr)
-            ts = dt.isoformat() if dt else timeStr
-            print(f"{ts} | {providerCode} | {articleId} | {headline}")
-
-        time.sleep(0.25)
-
-    app.disconnect()
-    time.sleep(1)
-
-
-if __name__ == "__main__":
-    main()
+Each of these sources provides a foundational or highly influential perspective on its theme, collectively underpinning the thesis on reducing emotional biases in portfolio management. They range from theoretical frameworks and behavioral evidence to practical tools and modern technological interventions, offering a well-rounded academic basis for the research.
