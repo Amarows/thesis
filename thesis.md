@@ -1,6 +1,4 @@
-# Front Matter
-
-- Title Page
+# Influence of External Information Shocks on Equity Portfolio Manager Decision-Making
 - Authentication of Work
 - Foreword
 - Acknowledgements
@@ -105,15 +103,19 @@ The study tests two hypotheses. Hypothesis statements are presented in null and 
 
 ### 2.5.1 Hypothesis H₁ – Influence of Information Shocks on Decisions
 
-**H₀₁:** External financial information shocks do not significantly influence managerial investment decisions.
+**H₀₁:** The intensity of external financial information shocks has no statistically significant effect on managers' Net Risk Stance responses.
 
-**Hₐ₁:** External financial information shocks significantly influence managerial investment decisions.
+**Hₐ₁:** The intensity of external financial information shocks has a statistically significant effect on managers' Net Risk Stance responses.
+
+H₁ evaluates whether variation in shock intensity, as captured by the composite Shock Score (SC_total), is associated with systematic differences in the direction and magnitude of managers' stated exposure adjustments. Net Risk Stance is operationalized as a single-item, seven-point scale defined in section 2.6.5. The downstream relationship between decision responses and portfolio risk–return outcomes is evaluated through the simulation design described in Chapter 4.
 
 ### 2.5.2 Hypothesis H₂ – Value Added of the Shock Score
 
-**H₀₂:** Investment decisions supported by the Shock Score do not differ in quality or outcomes from decisions based solely on managerial judgement.
+**H₀₂:** Introducing the Shock Score for investment decision-making has no statistically significant effect on the risk–return ratio of the portfolio.
 
-**Hₐ₂:** Investment decisions supported by the Shock Score demonstrate improved quality or outcomes compared with decisions based solely on managerial judgement.
+**Hₐ₂:** Introducing the Shock Score for investment decision-making has a statistically significant effect on the risk–return ratio of the portfolio.
+
+H₂ evaluates whether providing the Shock Score dashboard to managers during shock scenarios changes portfolio outcomes relative to a no-score condition. Risk–return ratio is operationalized through Sharpe ratio and Sortino ratio as defined in section 2.6.4. The treatment condition (ShowSC = 1 versus ShowSC = 0) is implemented through the within-subject experimental design, where each manager is exposed to comparable scenarios with and without the Shock Score.
 
 ## 2.6 Definitions of Key Terms
 

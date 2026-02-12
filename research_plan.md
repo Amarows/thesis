@@ -1,4 +1,4 @@
-# Research Plan: Reducing Emotional Biases in Investment Portfolio Management
+# Research Plan: Influence of External Information Shocks on Equity Portfolio Manager Decision-Making
 
 ## Titles
 
