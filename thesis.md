@@ -103,17 +103,17 @@ Does providing the Shock Score to portfolio managers improve investment decision
 
 The study tests two hypotheses. Hypothesis statements are presented in null and alternative form and are evaluated using the primary and secondary data described in Chapters 4 and 5. The hypotheses are written to align with the study design, where shock intensity is measured at the event level and decision support is implemented as an experimental condition in which the Shock Score is shown or withheld.
 
-### 2.5.1 Hypothesis H1 – Influence of Information Shocks
+### 2.5.1 Hypothesis H₁ – Influence of Information Shocks on Decisions
 
-Insert the finalized null hypothesis for H1 here, exactly as approved.
+**H₀₁:** External financial information shocks do not significantly influence managerial investment decisions.
 
-Insert the finalized alternative hypothesis for H1 here, exactly as approved.
+**Hₐ₁:** External financial information shocks significantly influence managerial investment decisions.
 
-### 2.5.2 Hypothesis H2 – Value Added of the Shock Score
+### 2.5.2 Hypothesis H₂ – Value Added of the Shock Score
 
-Insert the finalized null hypothesis for H2 here, exactly as approved.
+**H₀₂:** Investment decisions supported by the Shock Score do not differ in quality or outcomes from decisions based solely on managerial judgement.
 
-Insert the finalized alternative hypothesis for H2 here, exactly as approved.
+**Hₐ₂:** Investment decisions supported by the Shock Score demonstrate improved quality or outcomes compared with decisions based solely on managerial judgement.
 
 ## 2.6 Definitions of Key Terms
 
@@ -411,6 +411,16 @@ Given the presence of bounded rationality and behavioral biases documented in pr
 
 These biases are magnified under market shocks and stress. Heightened uncertainty impairs deliberative reasoning and shifts decision-makers toward intuition and habitual responses, amplifying heuristics and framing biases ([Lo, 2004](https://doi.org/10.3905/jpm.2004.442611); [Kahneman & Lovallo, 1993](https://doi.org/10.1287/mnsc.39.1.17)). Empirical evidence from the COVID-19 crisis indicates that investors responded strongly to salient news and policy developments amid sharply elevated uncertainty ([Baker et al., 2020](https://doi.org/10.3386/w26983)). Moreover, volatility spillovers and shock transmission can persist over longer horizons, consistent with time-frequency evidence on how shocks propagate through volatility dynamics ([Baruník & Křehlík, 2018](https://doi.org/10.1093/jjfinec/nby001)). Consequently, bounded rationality combined with stress and framing effects produces persistent portfolio errors during periods of market disruption.
 
+Empirical evidence demonstrates that time-pressured decision environments degrade professional financial decision quality, even among experienced practitioners. Lo and Repin (2002) measured physiological responses of professional traders (N=10) to real-time market events, finding that emotional arousal was a significant factor in financial decision-making for both novice and experienced traders. Critically, less experienced traders showed stronger physiological arousal in response to short-term market fluctuations, indicating that emotions become particularly salient in novel, time-constrained situations.
+
+Recent field evidence extends these findings to real-world trading environments. Research examining Moscow financial markets during periods of unexpected traffic congestion demonstrated that time-induced stress significantly affected professional investors' risk-taking behavior. When traders faced delays in reaching their desks due to traffic shocks, systematic changes in volatility pricing occurred, consistent with cognitive overload impairing information processing capacity. This natural experiment provides direct evidence that time pressure affects professional investment decisions outside laboratory settings.
+
+The relationship between decision time and investment quality follows a threshold pattern. Analysis of thousands of peer-to-peer lending decisions revealed that investors who made faster decisions exhibited lower returns and riskier portfolio allocations. Specifically, when decision time fell below 10 seconds, investment quality deteriorated markedly, suggesting that rapid information processing under time constraints systematically degrades professional judgment. These findings align with cognitive psychology research showing that task performance initially improves with information flow but deteriorates once information exceeds processing capacity thresholds.
+
+Information overload compounds time-pressure effects. When the volume and velocity of market news exceeds cognitive processing capacity, even sophisticated investors exhibit increased risk premiums and suboptimal allocation decisions. Empirical analysis of New York Times coverage from 1885 to present demonstrates that excessive information flow exhausts investors' processing capacity, deteriorating decision accuracy and increasing market risk premiums by approximately 60 basis points. This effect is concentrated among smaller stocks and firms with less institutional ownership, precisely where information processing demands are highest.
+
+The implications for portfolio management during information shocks are direct: when managers face simultaneous time pressure (rapid market movements) and information overload (high news intensity), cognitive capacity constraints bind, forcing reliance on heuristics and emotional cues rather than deliberative analysis. Under these conditions, systematic biases such as loss aversion, anchoring, and overconfidence become more pronounced, directly supporting the theoretical mechanism underlying Hypothesis 1.
+
 The implication for portfolio management is that human decision-making alone is often insufficiently consistent. Empirical evidence shows that behaviorally driven trading patterns such as overtrading and trend chasing systematically reduce investment performance ([Barber & Odean, 2000](https://doi.org/10.1111/0022-1082.00226)). Even sophisticated institutions are not immune: analysts and fund managers routinely exhibit overconfidence and miscalibration, which distort risk assessments and portfolio choices ([Ben-David et al., 2013](https://doi.org/10.1093/rfs/hhs068)). Attempts to mitigate these biases through training or informal decision rules have limited effectiveness, particularly under stress. As a result, modern portfolio management increasingly complements human judgment with structured tools and algorithmic support. Advanced dashboards, real-time analytics, and data-driven models can support decision discipline by systematically surfacing signals and alerts, thereby reducing delayed or emotionally driven reactions ([Statman, 2019](https://doi.org/10.2139/ssrn.3668963); [Bianchi et al., 2020](https://doi.org/10.2139/ssrn.3232721)).
 
 In this context, there is a clear need for a quantitative shock indicator. Just as the literature distinguishes news-driven information shocks from pure volatility shocks ([Rigobon, 2003](https://doi.org/10.1162/003465303772815727)), a Shock Score would quantify the magnitude of new and unexpected information impacting a portfolio. Such an objective metric could trigger disciplined responses, such as temporary leverage reductions or rule-based rebalancing, precisely when managers might otherwise panic or remain anchored to outdated beliefs. Prior research demonstrates the value of operationalizing news intensity and investor attention to capture extreme information-driven market reactions; for example, news-based measures have been used to identify sharp trading responses to localized information shocks ([Engelberg & Parsons, 2009](https://doi.org/10.2139/ssrn.1462416)). By explicitly measuring shock intensity, the Shock Score aims to improve decision consistency during turbulent market conditions and mitigate stress-induced portfolio errors.
@@ -439,6 +449,26 @@ Moreover, the literature offers limited frameworks or algorithms for adaptive de
 
 In sum, existing decision-support tools are dynamic in their treatment of prices and risk metrics but largely static in psychological terms. While behavioral finance has documented how cognitive biases influence investment decisions, it has not delivered operational frameworks that account for the evolving behavioral feedback loops through which managers' beliefs and emotions respond to market shocks. As surveyed by Barberis and Thaler (2002), behavioral finance has been highly successful in identifying and explaining deviations from rational behavior, yet it provides limited guidance on how such insights can be translated into robust, ex-ante decision support for portfolio management ([Barberis & Thaler, 2002](https://doi.org/10.2139/ssrn.327880)). Against this backdrop, the increasing speed at which news and information propagate through modern financial markets amplifies the practical relevance of this unresolved gap between behavioral theory and decision-making practice.
 
+
+Consequently, existing research has not produced systems that translate incoming information into personalized caution signals or bias-mitigation guidance for managers.
+
+Table 3.1 systematically maps these gaps across relevant studies. The table demonstrates that while individual components of real-time decision support have been addressed in isolation – shock measurement (Song et al., 2015), professional behavioral responses (Huber et al., 2022), decision-support systems (Bhandari et al., 2008), and portfolio outcomes (Tetlock, 2007) – no prior research integrates all four elements in a controlled setting. This thesis fills this gap by combining real-time shock measurement via the Shock Score, a professional sample of portfolio managers, behavioral decision-support interventions linked to Investment Policy Statements, and portfolio-level risk-return validation.
+
+[Table 3.1: Systematic Gap Mapping in Information Shock Decision Support]
+
+| Study | Real-time Shock Measurement | Professional Sample | Behavioral Decision Support | Portfolio Outcome Validation | Primary Gap |
+|-------|---------------------------|---------------------|----------------------------|----------------------------|-------------|
+| Tetlock (2007) | No – ex-post sentiment analysis | Mixed – institutional data but retrospective | No – predictive model only | Yes – returns, volume | No real-time intervention; designed for algorithmic trading, not managerial guidance |
+| Bhandari et al. (2008) | No – static scenario presentation | No – student sample | Yes – DSS with bias mitigation | No – decision quality metrics only | Conceptual framework; lacks field implementation and shock intensity measurement |
+| Engelberg & Parsons (2009) | Partial – localized news events | Mixed – market-wide responses | No – causal identification focus | Yes – trading volume, returns | Identifies media impact but provides no decision-support framework |
+| Song et al. (2015) | Yes – abnormal sentiment scores | No – algorithmic strategy design | No – automated trading signals | Yes – risk-adjusted returns | Real-time signals exist but designed for algorithmic execution, not human decision-makers |
+| Statman (2019) | No – conceptual discussion | Yes – practitioner-focused | Yes – behavioral coaching principles | No – conceptual framework | Advocates for behavioral tools but offers no operational shock measurement or empirical validation |
+| Huber et al. (2022) | Yes – experimental volatility shocks | Yes – professionals vs. students | No – observational study | Partial – risk perception, not portfolios | Demonstrates professional behavioral differences but lacks decision-support intervention |
+| Lim (2025) | Yes – real-time sentiment + behavioral classification | No – simulated trading environment | Yes – emotion-aware advisory with XAI | No – trading behavior only, no portfolio risk-return metrics | Closest comparator; integrates XAI but lacks professional validation and portfolio outcome assessment |
+| **This Thesis** | **Yes – PCA-based Shock Score combining news intensity, sentiment, attention** | **Yes – portfolio managers with 5+ years experience** | **Yes – real-time bias mitigation via IPS-linked cooling-off protocols** | **Yes – Sharpe ratio, Sortino ratio, max drawdown, volatility** | **Integrates all components: real-time shock measurement, professional context, behavioral intervention, and portfolio performance validation in a single controlled study** |
+
+In sum, existing decision-support tools are dynamic in their treatment of prices and risk metrics but largely static in psychological terms.
+
 ### 3.6.3 Positioning of the Shock Score within Existing Literature
 
 The Shock Score concept introduced in this thesis is positioned as a novel approach that bridges behavioral theory and operational decision-making needs. Unlike most behavioral finance studies, the Shock Score is designed as an ex-ante, real-time metric intended for practitioner use. It quantifies the potential cognitive strain on a portfolio manager before and during an information event by integrating market data with established psychological mechanisms. To the author's knowledge, prior research has not proposed a comparable behavioral risk index explicitly tailored to support human decision-making in real time. The closest technical analogues are sentiment- and news-based measures developed for predictive or algorithmic purposes. For example, Song et al. (2015) construct sentiment-based signals to forecast asset returns, but these measures are intended for automated trading systems rather than for guiding portfolio managers' behavioral responses as shocks unfold ([Song et al., 2015](https://dx.doi.org/10.2139/ssrn.2631135)). By contrast, the Shock Score operationalizes insights from cognitive psychology, such as loss aversion, anchoring, and overconfidence, into an actionable signal designed to inform ex-ante decision support.
@@ -446,6 +476,64 @@ The Shock Score concept introduced in this thesis is positioned as a novel appro
 This approach aligns with calls in the literature to integrate behavioral insights with explainable, real-time decision support. For example, Lim (2025) highlights the value of combining behavioral finance with explainable AI to improve decision-support systems, particularly in time-sensitive contexts ([Lim, 2025](https://dx.doi.org/10.1080/15427560.2025.2609644)). The Shock Score builds on this motivation by translating well-established behavioral mechanisms into a machine-readable risk alert intended for practitioner use. Conceptually, it draws on the 'System 1 versus System 2' framework articulated by Kahneman (2011), applying it to a portfolio-management setting: as a major news event approaches (a potential System 1 trigger), the Shock Score estimates the likelihood and intensity with which emotional biases may be activated for a given manager or strategy ([Kahneman, 2011](https://www.worldcat.org/oclc/706020998)).
 
 In practical terms, the Shock Score addresses the shortcomings identified above. It is a forward-looking indicator (ex-ante) that can be computed continuously as new information flows in, making behavioral risk explicit in the same way that traditional risk measures quantify volatility or Value-at-Risk. By doing so, it fills a lacuna in the literature by tying descriptive knowledge of biases to a predictive decision-support tool. In summary, the Shock Score is both novel and relevant: it provides the missing link between theory and practice, operationalizing behavioral finance for real-time portfolio management.
+
+### 3.6.3 Positioning of the Shock Score within Existing Literature
+
+The Shock Score concept introduced in this thesis is positioned as a novel approach that bridges behavioral theory and operational decision-making needs. Unlike most behavioral finance studies, the Shock Score is designed as an ex-ante, real-time metric intended for practitioner use. It quantifies the potential cognitive strain on a portfolio manager before and during an information event by integrating market data with established psychological mechanisms. To the author's knowledge, prior research has not proposed a comparable behavioral risk index explicitly tailored to support human decision-making in real time. The closest technical analogues are sentiment- and news-based measures developed for predictive or algorithmic purposes. For example, Song et al. (2015) construct sentiment-based signals to forecast asset returns, but these measures are intended for automated trading systems rather than for guiding portfolio managers' behavioral responses as shocks unfold ([Song et al., 2015](https://dx.doi.org/10.2139/ssrn.2631135)). By contrast, the Shock Score operationalizes insights from cognitive psychology, such as loss aversion, anchoring, and overconfidence, into an actionable signal designed to inform ex-ante decision support.
+
+This approach aligns with calls in the literature to integrate behavioral insights with explainable, real-time decision support. For example, Lim (2025) highlights the value of combining behavioral finance with explainable AI to improve decision-support systems, particularly in time-sensitive contexts ([Lim, 2025](https://dx.doi.org/10.1080/15427560.2025.2609644)). The Shock Score builds on this motivation by translating well-established behavioral mechanisms into a machine-readable risk alert intended for practitioner use. Conceptually, it draws on the 'System 1 versus System 2' framework articulated by Kahneman (2011), applying it to a portfolio-management setting: as a major news event approaches (a potential System 1 trigger), the Shock Score estimates the likelihood and intensity with which emotional biases may be activated for a given manager or strategy ([Kahneman, 2011](https://www.worldcat.org/oclc/706020998)).
+
+In practical terms, the Shock Score addresses the shortcomings identified above. It is a forward-looking indicator (ex-ante) that can be computed continuously as new information flows in, making behavioral risk explicit in the same way that traditional risk measures quantify volatility or Value-at-Risk. By doing so, it fills a lacuna in the literature by tying descriptive knowledge of biases to a predictive decision-support tool. In summary, the Shock Score is both novel and relevant: it provides the missing link between theory and practice, operationalizing behavioral finance for real-time portfolio management.
+
+**Benchmarking Against Existing Measures**
+
+While sentiment and shock measurement is not new to finance, existing approaches differ fundamentally from the Shock Score in purpose, scope, and application. This subsection benchmarks the Shock Score against three categories of competing measures to establish its novelty.
+
+**Category 1: Composite Sentiment Indices for Return Forecasting**
+
+The Baker-Wurgler sentiment index uses principal component analysis to aggregate six market-based proxies (IPO volume, closed-end fund discount, equity share in new issues, dividend premium, first-day IPO returns, and NYSE turnover) into a single sentiment measure ([Baker & Wurgler, 2006](https://doi.org/10.1111/j.1540-6261.2006.00885.x)). However, this index is designed to predict aggregate market returns rather than to support individual portfolio managers' behavioral responses to information shocks. The index operates at monthly frequency and focuses on identifying mispricing opportunities for algorithmic strategies rather than providing real-time decision guidance.
+
+Similarly, the FEARS index (Da, Engelberg & Gao, 2015) constructs a sentiment measure from Google search volumes for financial stress terms, demonstrating high correlation with market volatility and mutual fund flows. While innovative in its use of alternative data, the FEARS index serves as a market-wide fear gauge for econometric analysis rather than a managerial decision tool. It does not translate search intensity into actionable behavioral protocols for individual decision-makers.
+
+RavenPack's Event Sentiment Score represents the most sophisticated commercial news analytics platform, processing thousands of news articles daily to generate real-time sentiment scores for individual securities. RavenPack is explicitly designed for quantitative hedge funds and algorithmic trading systems, providing signals for automated execution rather than human decision support. As noted in RavenPack's research, their platform enables investors to integrate big data into trading strategies for signal generation. The platform does not address behavioral biases or provide decision-support interventions for discretionary portfolio managers.
+
+**Category 2: Volatility-Based Fear Gauges**
+
+The VIX (CBOE Volatility Index), often called the fear gauge, measures implied volatility from S&P 500 options over 30-day horizons. While widely used, the VIX reflects market-wide uncertainty rather than portfolio-specific information shocks. It provides no framework for translating volatility spikes into behavioral risk mitigation protocols. The VIX is primarily used for hedging and derivative trading strategies rather than as a behavioral decision aid.
+
+CNN's Fear and Greed Index aggregates seven market indicators (market momentum, stock price strength, stock price breadth, put-call ratios, junk bond demand, market volatility, and safe haven demand) into a single 0-100 score. This index serves as a sentiment barometer for retail investors but offers no portfolio-level decision framework or bias-mitigation mechanism. It is descriptive rather than prescriptive.
+
+**Category 3: Behavioral Risk Profiling Tools**
+
+Commercial platforms such as AndesRisk and Pocket Risk incorporate behavioral finance concepts into risk profiling questionnaires for financial advisors. These tools classify clients into behavioral investor types and align portfolios with risk preferences. However, they operate as static profiling instruments rather than dynamic shock-response systems. They do not measure real-time information intensity or provide event-triggered decision protocols.
+
+**The Shock Score's Distinct Contribution**
+
+The Shock Score differs from all these approaches in three critical dimensions. First, **purpose**: unlike forecasting-oriented sentiment indices, the Shock Score is explicitly designed for behavioral decision support rather than return prediction. Second, **scope**: unlike market-wide fear gauges, the Shock Score operates at portfolio level, measuring information shocks specific to a manager's holdings. Third, **application**: unlike static risk profiling tools, the Shock Score triggers real-time behavioral interventions (cooling-off protocols, IPS review) linked to Investment Policy Statement governance frameworks.
+
+Table 3.2 systematically compares the Shock Score against representative measures from each category.
+
+### Table 3.2: Shock Score Benchmarking Against Existing Measures
+
+| Measure | Purpose | Frequency | Scope | Behavioral Component | Decision Output |
+|---------|---------|-----------|-------|---------------------|-----------------|
+| **Sentiment Indices** |
+| Baker-Wurgler Index | Return forecasting | Monthly | Market-wide aggregate | None | Mispricing signal for algorithmic strategies |
+| FEARS Index | Market stress measurement | Daily | Aggregate market sentiment | None | Econometric variable for research |
+| RavenPack ESS | Trading signal generation | Real-time | Individual securities | None | Automated trade execution signals |
+| **Volatility Measures** |
+| VIX | Implied volatility gauge | Real-time | S&P 500 market-wide | None | Hedging and derivatives trading |
+| Fear & Greed Index | Sentiment barometer | Daily | Market-wide composite | None | Descriptive market mood indicator |
+| **Behavioral Tools** |
+| AndesRisk 4D Framework | Client risk profiling | Static | Client classification | Behavioral investor types | Portfolio allocation recommendations |
+| Pocket Risk | Suitability assessment | Static | Individual risk tolerance | Loss aversion measurement | Model portfolio matching |
+| **This Thesis: Shock Score** | **Behavioral decision support** | **Real-time** | **Portfolio-specific** | **Pre-commitment protocols** | **IPS-linked cooling-off triggers** |
+
+**Technical Distinction: PCA Application**
+
+While both the Baker-Wurgler index and the Shock Score use principal component analysis for dimensionality reduction, they apply PCA to fundamentally different inputs for different purposes. Baker-Wurgler aggregates market-based proxies (IPO activity, fund discounts, equity issuance) to capture aggregate investor sentiment as a predictor of future returns. The Shock Score aggregates portfolio-specific news metrics (article count, sentiment extremity, attention intensity) to capture information shock magnitude as a trigger for behavioral interventions. This difference in both inputs and objectives means the two measures serve non-overlapping functions in portfolio management.
+
+In sum, existing measures either forecast returns (sentiment indices), describe market conditions (volatility gauges), or profile static risk preferences (behavioral tools). None operationalizes information shock intensity as a real-time behavioral risk mitigation trigger for discretionary portfolio managers. The Shock Score fills this gap by bridging real-time news analytics with behavioral governance frameworks.
 
 ### 3.6.4 Summary of Theoretical and Empirical Contributions
 

@@ -61,3 +61,6 @@
 | Song et al., 2015 | https://dx.doi.org/10.2139/ssrn.2631135 | An Extreme Firm-Specific News Sentiment Asymmetry Based Trading Strategy | ssrn-2631135.pdf
 | Lim, 2025 | http://dx.doi.org/10.1080/15427560.2025.2609644 | Emotion-Aware Decision Support System for Real-Time Financial Sentiment and Behavior-Based Trading Risk Advisory | ssrn-5183852.pdf
 | Kahneman, 2011 | https://www.worldcat.org/oclc/706020998 | Thinking, fast and slow | 
+| Da, Engelberg & Gao, 2015 | https://doi.org/10.1093/rfs/hhv003 | The Sum of All FEARS: Investor Sentiment and Asset Prices |
+| RavenPack, 2017 | https://www.ravenpack.com/research/introducing-ravenpack-sentiment-index | Introducing The RavenPack Sentiment Index |
+| Whaley, 2000 | https://doi.org/10.3905/jpm.2000.319728 | The Investor Fear Gauge |
