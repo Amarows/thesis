@@ -42,13 +42,20 @@
 
 ## 2.1 Chapter Introduction
 
-Chapter 2 defines the research scene, scope, and agenda for this thesis. It restates the managerial problem motivating the study, specifies the objectives that guide the empirical work, and presents the research questions and hypothesis statements to be evaluated. The chapter also provides operational definitions of key terms and records assumptions and limitations that bound interpretation of the findings. Chapter 3 then examines the theoretical and empirical literature relevant to the stated problem, research questions, and hypotheses.
+Chapter 2 defines the research scope and agenda for this thesis. It restates the managerial problem motivating the study, specifies the objectives that guide the empirical work, and presents the research questions and hypothesis statements to be evaluated. The chapter also provides operational definitions of key terms and records assumptions and limitations that bound interpretation of the findings. Chapter 3 then examines the theoretical and empirical literature relevant to the stated problem, research questions, and hypotheses.
 
 ## 2.2 Problem Statement
 
 When quarterly earnings results arrive after market close or a central bank announces an unexpected policy shift, portfolio managers face immediate pressure to reassess positions before the next trading session. These decisions are made under uncertainty, information overload, and rapidly evolving market narratives. In such environments, decision-makers may be exposed to emotionally salient external information shocks that can increase cognitive load and time pressure. This study is motivated by the practical concern that such conditions may lead to systematic deviations from disciplined decision-making. In portfolio management, such deviations can manifest as procyclical rebalancing, excessive turnover, delayed adjustment, or temporary departures from strategic risk targets — each of which may degrade risk-adjusted returns and increase drawdown exposure over short horizons.
 
-The research problem addressed in this thesis is twofold. First, the study examines whether external financial information shocks are associated with systematic changes in managers' immediate risk stance. Second, it evaluates whether a structured decision-support indicator, the Shock Score, is associated with improved investment decision outcomes when moderating responses under shock conditions. Accordingly, the Shock Score serves two roles in this study: as a continuous measure of shock intensity for evaluating the relationship between shocks and decisions, and as an experimental treatment condition for evaluating the effect of decision support on portfolio outcomes. The study is designed as applied research focused on professional decision-making, rather than on claims of market inefficiency or return predictability.
+The research problem addressed in this thesis is twofold. First, the study examines whether external financial information shocks are associated with systematic changes in managers' immediate risk stance. Second, it evaluates whether a structured decision-support indicator, the Shock Score, is associated with improved investment decision outcomes when moderating responses under shock conditions.
+
+Accordingly, the Shock Score serves two roles in this study: as a continuous measure of shock intensity for evaluating the relationship between shocks and decisions, and as an experimental treatment condition for evaluating the effect of decision support on portfolio outcomes. The study is designed as applied research focused on professional decision-making, rather than on claims of market inefficiency or return predictability.
+
+A practical illustration of an external information shock is provided by the intraday price dynamics of Meta Platforms Inc. on 2 February 2026, coinciding with the public release of quarterly earnings results. The announcement was widely interpreted as outperforming market expectations, triggering a rapid price adjustment and elevated trading volume. Despite the positive informational content, the immediate price response was followed by pronounced short-term volatility and partial reversal, highlighting the conditions under which emotionally salient news may influence short-horizon investment decisions.
+![figure_2_1.png](figure_2_1.png)
+![Figure 2.1: Intraday price movement of Meta Platforms Inc. on 2 February 2026 following the release of quarterly earnings results, illustrating a short-horizon market reaction to an external information shock.](figures/meta_2026_02_02_intraday.png)
+
 
 ### 2.2.1 Emotional Bias as a Source of Suboptimal Portfolio Decisions
 
@@ -62,7 +69,7 @@ The Shock Score is introduced as a decision-support mechanism intended to struct
 
 ## 2.3 Objectives of the Study
 
-The overall objective of the study is to evaluate whether a structured, practitioner-oriented Shock Score can support investment decision outcomes under external information shock conditions. The study operationalizes better outcomes in terms of risk-adjusted portfolio performance, consistent with the premise that shocks may induce both excessive risk-taking and excessive de-risking.
+The overall objective of the study is to evaluate whether a structured, practitioner-oriented Shock Score can support investment decision outcomes under external information shock conditions. The study operationalizes outcomes in terms of risk-adjusted portfolio performance, consistent with the premise that shocks may induce both excessive risk-taking and excessive de-risking.
 
 The objectives of the study are as follows. They reflect a causal logic in which information shocks affect managerial decisions, and decisions in turn affect portfolio outcomes. The Shock Score intervenes at the decision stage:
 
@@ -72,7 +79,7 @@ External information shock → Behavioral activation → Decision response (Net 
                                                           ↑
                               Shock Score dashboard → Structured interpretation → Disciplined response
 
-The first objective addresses the upper path (do shocks move decisions?). The second objective addresses the intervention (does the Shock Score change decisions?). The third objective addresses the downstream consequence (do changed decisions improve portfolio outcomes?).
+The first objective addresses the upper path: whether shocks produce systematic shifts in decision response. The second objective addresses the intervention: whether the Shock Score moderates those responses. The third objective addresses the downstream consequence: whether moderated responses are associated with changes in portfolio outcomes.
 
 ### 2.3.1 Assessing the Effect of Information Shocks on Investment Decisions
 
@@ -89,7 +96,7 @@ Net Risk Stance response scale (single item, seven points):
 
 ### 2.3.2 Evaluating the Value Added of the Shock Score
 
-The second objective is to evaluate whether providing the Shock Score to managers moderates decision behavior and improves outcomes relative to a no-score condition. The study uses a within-subject design in which each participant is exposed to both conditions, enabling comparison of responses while controlling for stable individual differences. The Shock Score is presented as a manager-facing dashboard designed to structure interpretation and trigger a pre-committed decision protocol under high-shock conditions.
+The second objective is to evaluate whether providing the Shock Score to moderates decision behavior and is associated with changes in outcomes relative to a no-score condition. The study uses a within-subject design in which each participant is exposed to both conditions, enabling comparison of responses while controlling for stable individual differences. The Shock Score is presented as a manager-facing dashboard designed to structure interpretation and trigger a pre-committed decision protocol under high-shock conditions.
 
 ### 2.3.3 Measuring Changes in Portfolio Risk – Return Characteristics
 
@@ -97,7 +104,7 @@ The third objective is to measure whether decision support is associated with ch
 
 ## 2.4 Research Questions
 
-This study is guided by two research questions that correspond directly to the objectives and hypotheses. The first research question focuses on whether external information shocks are associated with systematic variation in managerial decision response. The second research question evaluates whether the Shock Score, as a decision-support intervention, improves investment decision outcomes when managers face such shocks.
+This study is guided by two research questions that correspond directly to the objectives and hypotheses. The first research question focuses on whether external information shocks are associated with systematic variation in managerial decision response. The second research question evaluates whether the Shock Score, as a decision-support intervention, is associated with changes in investment decision outcomes when managers face such shocks.
 
 ### 2.4.1 Do External Information Shocks Affect Portfolio Risk – Return Ratios?
 
@@ -105,7 +112,7 @@ Do external financial information shocks lead to statistically significant diffe
 
 ### 2.4.2 Does the Shock Score Improve Investment Decision Outcomes?
 
-Does providing the Shock Score to portfolio managers improve investment decision outcomes, measured through portfolio risk – return metrics, relative to a condition in which the Shock Score is not provided?
+Does providing the Shock Score to portfolio managers affect investment decision outcomes, measured through portfolio risk–return metrics, relative to a condition in which the Shock Score is not provided?
 
 ## 2.5 Hypothesis Statement(s)
 
@@ -117,7 +124,7 @@ The study tests two hypotheses. Hypothesis statements are presented in null and 
 
 **Hₐ₁:** The intensity of external financial information shocks has a statistically significant effect on managers' Net Risk Stance responses.
 
-H₁ evaluates whether variation in shock intensity, as captured by the composite Shock Score (SC_total), is associated with systematic differences in the direction and magnitude of managers' stated exposure adjustments. Net Risk Stance is operationalized as a single-item, seven-point scale defined in section 2.6.5. The downstream relationship between decision responses and portfolio risk–return outcomes is evaluated through the simulation design described in Chapter 4.
+H₁ evaluates whether variation in shock intensity, as captured by the composite Shock Score (SC_total), is associated with systematic differences in the direction and magnitude of managers' stated exposure adjustments. Net Risk Stance is operationalized as a single-item, seven-point scale defined in section 2.3.1. The downstream relationship between decision responses and portfolio risk–return outcomes is evaluated through the simulation design described in Chapter 4.
 
 ### 2.5.2 Hypothesis H₂ – Value Added of the Shock Score
 
@@ -216,7 +223,7 @@ The study assumes that the timing of external information shocks can be identifi
 
 ### 2.7.2 Consistency of Portfolio Decision Rules
 
-The study assumes that respondents interpret the decision task consistently and that the Net Risk Stance scale captures intended exposure adjustment in a comparable way across respondents and scenarios. The within-subject design assumes that random assignment of scenarios to conditions mitigates systematic learning and order effects. The design further assumes that respondents’ decisions reflect their intended stance under the scenario constraints and are not materially distorted by survey fatigue or strategic responding.
+The study assumes that respondents interpret the decision task consistently and that the Net Risk Stance scale captures intended exposure adjustment in a comparable way across respondents and scenarios. Random assignment of scenarios to conditions is assumed to mitigate systematic learning and order effects. The design further assumes that respondents’ decisions reflect their intended stance under the scenario constraints and are not materially distorted by survey fatigue or strategic responding.
 
 ## 2.8 Limitations
 
@@ -328,11 +335,13 @@ The study evaluates portfolio risk–return outcomes through simulation rather t
   <text x="570" y="383" text-anchor="middle" font-size="10" fill="#C62828" font-weight="bold">H₂ results are jointly conditional on (a) + (b)</text>
 </svg>
 
+
 ## 2.9 Chapter Conclusion
 
-Chapter 2 defined the research problem and objectives, formulated research questions and hypotheses, and established key operational definitions, assumptions, and limitations guiding the empirical study. The chapter specified the primary measurement approach for managerial decision response using a single-item Net Risk Stance scale and defined the Shock Score as a PCA-based composite index presented to managers through a dashboard incorporating sentiment direction, shock severity, a quantitative persistence score mapped to horizon buckets, and a rules-based pre-commitment trigger. Chapter 3 examines the theoretical and empirical literature that motivates the study constructs and supports the logic linking information shocks, managerial decision behavior, and portfolio risk – return outcomes.
+Chapter 2 defined the research problem and objectives, formulated research questions and hypotheses, and established key operational definitions, assumptions, and limitations guiding the empirical study. The chapter specified the primary measurement approach for managerial decision response using a single-item Net Risk Stance scale and defined the Shock Score as a PCA-based composite index presented to managers through a dashboard incorporating sentiment direction, shock severity, a quantitative persistence score mapped to horizon buckets, and a rules-based pre-commitment trigger. 
 
 Taken together, the study design integrates real-time shock measurement, a professional sample of portfolio managers, behaviorally grounded decision support, and portfolio-level outcome validation — an integration that, as Chapter 3 will demonstrate, has not been attempted in prior research. Chapter 3 examines the theoretical and empirical literature that motivates the study constructs and supports the logic linking information shocks, managerial decision behavior, and portfolio risk–return outcomes.
+
 
 ## Technical Appendix to Chapter 2 (Model Forms)
 
@@ -342,6 +351,8 @@ Primary regression specification for H1 (survey responses):
 Let y_i,e denote Net Risk Stance of manager i for event e (seven-point scale). Let SC_total_e denote the event-level composite Shock Score. Let X_i,e denote a vector of controls. The baseline model is:
 
 y_i,e = alpha + beta1 * SC_total_e + gamma' * X_i,e + epsilon_i,e
+
+The following specifications are included as pre-registered analytical extensions. They are not required for the primary hypothesis tests but may be applied if the data structure supports them, as documented in Chapter 4.
 
 Because observations are clustered by manager and by event, inference should account for dependence using clustered standard errors, with two-way clustering by manager and event as the preferred approach.
 
@@ -363,9 +374,7 @@ y_i,e = alpha_i + beta1 * SC_total_e + gamma' * X_i,e + epsilon_i,e
 Where alpha_i is a manager-specific intercept. This specification is optional and is chosen based on the final data structure documented in Chapter 4.
 
 
-A practical illustration of an external information shock is provided by the intraday price dynamics of Meta Platforms Inc. on 2 February 2026, coinciding with the public release of quarterly earnings results. The announcement was widely interpreted as outperforming market expectations, triggering a rapid price adjustment and elevated trading volume. Despite the positive informational content, the immediate price response was followed by pronounced short-term volatility and partial reversal, highlighting the conditions under which emotionally salient news may influence short-horizon investment decisions.
-![figure_2_1.png](figure_2_1.png)
-![Figure 2.1: Intraday price movement of Meta Platforms Inc. on 2 February 2026 following the release of quarterly earnings results, illustrating a short-horizon market reaction to an external information shock.](figures/meta_2026_02_02_intraday.png)
+
 
 -------------------------------
 # Chapter 3. Literature Review
