@@ -46,9 +46,9 @@ Chapter 2 defines the research scene, scope, and agenda for this thesis. It rest
 
 ## 2.2 Problem Statement
 
-Professional portfolio management requires timely decisions under uncertainty, information overload, and rapidly evolving market narratives. In such environments, decision-makers may be exposed to emotionally salient external information shocks that can increase cognitive load and time pressure. This study is motivated by the practical concern that such conditions may lead to systematic deviations from disciplined decision-making. In portfolio management, such deviations can manifest as procyclical rebalancing, excessive turnover, delayed adjustment, or temporary departures from strategic risk targets — each of which may degrade risk-adjusted returns and increase drawdown exposure over short horizons.
+When quarterly earnings results arrive after market close or a central bank announces an unexpected policy shift, portfolio managers face immediate pressure to reassess positions before the next trading session. These decisions are made under uncertainty, information overload, and rapidly evolving market narratives. In such environments, decision-makers may be exposed to emotionally salient external information shocks that can increase cognitive load and time pressure. This study is motivated by the practical concern that such conditions may lead to systematic deviations from disciplined decision-making. In portfolio management, such deviations can manifest as procyclical rebalancing, excessive turnover, delayed adjustment, or temporary departures from strategic risk targets — each of which may degrade risk-adjusted returns and increase drawdown exposure over short horizons.
 
-The research problem addressed in this thesis is twofold. First, the study examines whether external financial information shocks are associated with systematic changes in managers' immediate risk stance. Second, it evaluates whether a structured decision-support indicator, the Shock Score, improves investment decision outcomes by moderating responses under shock conditions. Accordingly, the Shock Score serves two roles in this study: as a continuous measure of shock intensity for evaluating the relationship between shocks and decisions, and as an experimental treatment condition for evaluating the effect of decision support on portfolio outcomes. The study is designed as applied research focused on professional decision-making, rather than on claims of market inefficiency or return predictability.
+The research problem addressed in this thesis is twofold. First, the study examines whether external financial information shocks are associated with systematic changes in managers' immediate risk stance. Second, it evaluates whether a structured decision-support indicator, the Shock Score, is associated with improved investment decision outcomes when moderating responses under shock conditions. Accordingly, the Shock Score serves two roles in this study: as a continuous measure of shock intensity for evaluating the relationship between shocks and decisions, and as an experimental treatment condition for evaluating the effect of decision support on portfolio outcomes. The study is designed as applied research focused on professional decision-making, rather than on claims of market inefficiency or return predictability.
 
 ### 2.2.1 Emotional Bias as a Source of Suboptimal Portfolio Decisions
 
@@ -62,7 +62,7 @@ The Shock Score is introduced as a decision-support mechanism intended to struct
 
 ## 2.3 Objectives of the Study
 
-The overall objective of the study is to evaluate whether a structured, practitioner-oriented Shock Score can support better investment decision outcomes under external information shock conditions. The study operationalizes better outcomes in terms of risk-adjusted portfolio performance, consistent with the premise that shocks may induce both excessive risk-taking and excessive de-risking.
+The overall objective of the study is to evaluate whether a structured, practitioner-oriented Shock Score can support investment decision outcomes under external information shock conditions. The study operationalizes better outcomes in terms of risk-adjusted portfolio performance, consistent with the premise that shocks may induce both excessive risk-taking and excessive de-risking.
 
 The objectives of the study are as follows. They reflect a causal logic in which information shocks affect managerial decisions, and decisions in turn affect portfolio outcomes. The Shock Score intervenes at the decision stage:
 
@@ -93,7 +93,7 @@ The second objective is to evaluate whether providing the Shock Score to manager
 
 ### 2.3.3 Measuring Changes in Portfolio Risk – Return Characteristics
 
-The third objective is to measure whether decision support translates into improved portfolio risk – return characteristics. Portfolio outcomes are evaluated using risk-adjusted performance measures, with Sharpe ratio and Sortino ratio specified as primary metrics. The precise computation conventions (return horizon, downside threshold definition for Sortino, and risk-free rate convention for Sharpe) are defined in Chapter 4 to ensure reproducibility and consistency across analyses.
+The third objective is to measure whether decision support is associated with changes in portfolio risk–return characteristics. Portfolio outcomes are evaluated using risk-adjusted performance measures, with Sharpe ratio and Sortino ratio specified as primary metrics. The precise computation conventions (return horizon, downside threshold definition for Sortino, and risk-free rate convention for Sharpe) are defined in Chapter 4 to ensure reproducibility and consistency across analyses.
 
 ## 2.4 Research Questions
 
