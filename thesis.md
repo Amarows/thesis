@@ -46,9 +46,9 @@ Chapter 2 defines the research scene, scope, and agenda for this thesis. It rest
 
 ## 2.2 Problem Statement
 
-Professional portfolio management requires timely decisions under uncertainty, information overload, and rapidly evolving market narratives. In such environments, decision-makers may be exposed to emotionally salient external information shocks that can increase cognitive load and time pressure. This study is motivated by the practical concern that such conditions may lead to systematic deviations from disciplined decision-making, potentially altering portfolio outcomes in risk – return terms.
+Professional portfolio management requires timely decisions under uncertainty, information overload, and rapidly evolving market narratives. In such environments, decision-makers may be exposed to emotionally salient external information shocks that can increase cognitive load and time pressure. This study is motivated by the practical concern that such conditions may lead to systematic deviations from disciplined decision-making. In portfolio management, such deviations can manifest as procyclical rebalancing, excessive turnover, delayed adjustment, or temporary departures from strategic risk targets — each of which may degrade risk-adjusted returns and increase drawdown exposure over short horizons.
 
-The research problem addressed in this thesis is twofold. First, the study examines whether external financial information shocks are associated with systematic changes in managers’ immediate risk stance. Second, it evaluates whether a structured decision-support indicator, the Shock Score, improves investment decision outcomes by moderating responses under shock conditions. The study is designed as applied research focused on professional decision-making, rather than on claims of market inefficiency or return predictability.
+The research problem addressed in this thesis is twofold. First, the study examines whether external financial information shocks are associated with systematic changes in managers' immediate risk stance. Second, it evaluates whether a structured decision-support indicator, the Shock Score, improves investment decision outcomes by moderating responses under shock conditions. Accordingly, the Shock Score serves two roles in this study: as a continuous measure of shock intensity for evaluating the relationship between shocks and decisions, and as an experimental treatment condition for evaluating the effect of decision support on portfolio outcomes. The study is designed as applied research focused on professional decision-making, rather than on claims of market inefficiency or return predictability.
 
 ### 2.2.1 Emotional Bias as a Source of Suboptimal Portfolio Decisions
 
@@ -58,11 +58,21 @@ This study assumes that portfolio decisions are shaped by both analytical judgme
 
 External financial information shocks are defined as discrete public events relevant to portfolio holdings that may trigger rapid market reactions and elevate decision urgency. This thesis assumes that shocks can affect decision behavior and, through decision behavior, influence portfolio outcomes, particularly when decisions are made over short horizons. The magnitude and persistence of market responses may vary by event type and context, and these relationships are treated as empirical questions to be evaluated through the study design. The Shock Score is introduced as a decision-support mechanism intended to structure interpretation of shock information and support disciplined responses.
 
+The Shock Score is introduced as a decision-support mechanism intended to structure interpretation of shock information and support disciplined responses. As reviewed in Chapter 3, existing decision-support tools in finance are predominantly designed for quantitative analytics and algorithmic execution, while providing limited structural support for identifying or mitigating behavioral biases before decisions are made.
+
 ## 2.3 Objectives of the Study
 
 The overall objective of the study is to evaluate whether a structured, practitioner-oriented Shock Score can support better investment decision outcomes under external information shock conditions. The study operationalizes better outcomes in terms of risk-adjusted portfolio performance, consistent with the premise that shocks may induce both excessive risk-taking and excessive de-risking.
 
-The objectives of the study are as follows.
+The objectives of the study are as follows. They reflect a causal logic in which information shocks affect managerial decisions, and decisions in turn affect portfolio outcomes. The Shock Score intervenes at the decision stage:
+
+External information shock → Behavioral activation → Decision response (Net Risk Stance)
+                                                          ↓
+                                              Portfolio risk–return outcome
+                                                          ↑
+                              Shock Score dashboard → Structured interpretation → Disciplined response
+
+The first objective addresses the upper path (do shocks move decisions?). The second objective addresses the intervention (does the Shock Score change decisions?). The third objective addresses the downstream consequence (do changed decisions improve portfolio outcomes?).
 
 ### 2.3.1 Assessing the Effect of Information Shocks on Investment Decisions
 
@@ -220,9 +230,109 @@ Emotional intensity is not observed directly in this study and is proxied throug
 
 Findings may not generalize beyond the defined portfolio universe, event types, and time horizon represented by the use cases. The effectiveness of the Shock Score and the associated pre-commitment protocol may vary across market regimes, volatility environments, and institutional contexts. The within-subject experimental setting evaluates intended decision responses under controlled scenarios and may differ from real-world behavior under organizational constraints, transaction costs, and liquidity considerations.
 
+### 2.8.3 Dependence on Portfolio Simulation Assumptions
+
+The study evaluates portfolio risk–return outcomes through simulation rather than through observation of actual trading. Managers provide stated decision responses via the survey instrument; these responses are then translated into portfolio weight adjustments and evaluated against realized market returns within a simulation framework. As a result, the portfolio outcome findings for H₂ are jointly conditional on two elements: (a) the behavioral effect of the Shock Score on stated decisions, and (b) the adequacy of the simulation model that maps stated decisions to portfolio returns. If the translation rules, rebalancing assumptions, or return-attribution conventions do not adequately represent how stated intentions would manifest in live portfolio management, the portfolio-level results may over- or understate the true effect of decision support. Figure 2.2 illustrates the boundary between directly observed data and model-dependent inference. The simulation design, including all translation rules and rebalancing conventions, is fully specified in Chapter 4 to enable independent assessment of these assumptions.
+
+![Figure 2.2: Causal logic of the study design. The left domain (observed) encompasses survey responses and market data. The right domain (simulated) encompasses the translation of stated decisions into portfolio outcomes, introducing model dependency that bounds interpretation of H₂ results.]
+
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" font-family="Calibri, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="10" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 3 L 0 6 z" fill="#333"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="10" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 3 L 0 6 z" fill="#B33"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="360" y="28" text-anchor="middle" font-size="14" font-weight="bold" fill="#222">Figure 2.2: Causal Logic and Simulation Dependency</text>
+
+  <!-- === OBSERVED DOMAIN (left side) === -->
+  <!-- Background -->
+  <rect x="20" y="45" width="370" height="340" rx="8" fill="#F4F7FA" stroke="#B0BEC5" stroke-width="1" stroke-dasharray="6,3"/>
+  <text x="205" y="68" text-anchor="middle" font-size="11" fill="#607D8B" font-style="italic">Observed (Survey + Market Data)</text>
+
+  <!-- Box 1: Information Shock -->
+  <rect x="50" y="85" width="170" height="50" rx="6" fill="#fff" stroke="#444" stroke-width="1.5"/>
+  <text x="135" y="107" text-anchor="middle" font-size="12" font-weight="bold" fill="#222">External Information</text>
+  <text x="135" y="123" text-anchor="middle" font-size="12" font-weight="bold" fill="#222">Shock</text>
+
+  <!-- Box 2: Shock Score (SC_total) -->
+  <rect x="50" y="170" width="170" height="50" rx="6" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5"/>
+  <text x="135" y="192" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565C0">Shock Score (SC_total)</text>
+  <text x="135" y="208" text-anchor="middle" font-size="10" fill="#1565C0">Intensity measure — H₁ IV</text>
+
+  <!-- Arrow: Shock → SC_total -->
+  <line x1="135" y1="135" x2="135" y2="168" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Box 3: Shock Score Dashboard -->
+  <rect x="50" y="255" width="170" height="50" rx="6" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.5"/>
+  <text x="135" y="275" text-anchor="middle" font-size="12" font-weight="bold" fill="#2E7D32">Shock Score Dashboard</text>
+  <text x="135" y="291" text-anchor="middle" font-size="10" fill="#2E7D32">Treatment — H₂ IV (ShowSC)</text>
+
+  <!-- Arrow: SC_total → Dashboard -->
+  <line x1="135" y1="220" x2="135" y2="253" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Box 4: Manager Decision (NRS) -->
+  <rect x="265" y="170" width="170" height="50" rx="6" fill="#fff" stroke="#444" stroke-width="1.5"/>
+  <text x="350" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#222">Manager Decision</text>
+  <text x="350" y="207" text-anchor="middle" font-size="10" fill="#555">Net Risk Stance — H₁ DV</text>
+
+  <!-- Arrow: SC_total → NRS (horizontal) -->
+  <line x1="220" y1="195" x2="263" y2="195" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Arrow: Dashboard → NRS (diagonal) -->
+  <line x1="220" y1="275" x2="270" y2="215" stroke="#2E7D32" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="230" y="250" font-size="9" fill="#2E7D32" transform="rotate(-35, 230, 250)">intervention</text>
+
+  <!-- === SIMULATED DOMAIN (right side) === -->
+  <!-- Background with red-tinted border -->
+  <rect x="440" y="45" width="260" height="340" rx="8" fill="#FFF8F6" stroke="#C62828" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="570" y="68" text-anchor="middle" font-size="11" fill="#C62828" font-style="italic">Simulated (Model-Dependent)</text>
+
+  <!-- Box 5: Translation Rules -->
+  <rect x="470" y="170" width="200" height="50" rx="6" fill="#FFEBEE" stroke="#C62828" stroke-width="1.5"/>
+  <text x="570" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#C62828">Translation Rules</text>
+  <text x="570" y="207" text-anchor="middle" font-size="10" fill="#C62828">NRS → Portfolio weights</text>
+
+  <!-- Arrow: NRS → Translation (horizontal, red) -->
+  <line x1="435" y1="195" x2="468" y2="195" stroke="#C62828" stroke-width="1.5" marker-end="url(#arrow-red)"/>
+
+  <!-- Box 6: Portfolio Outcomes -->
+  <rect x="470" y="275" width="200" height="55" rx="6" fill="#FFEBEE" stroke="#C62828" stroke-width="1.5"/>
+  <text x="570" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#C62828">Portfolio Outcomes</text>
+  <text x="570" y="312" text-anchor="middle" font-size="10" fill="#C62828">Sharpe / Sortino — H₂ DV</text>
+
+  <!-- Arrow: Translation → Outcomes -->
+  <line x1="570" y1="220" x2="570" y2="273" stroke="#C62828" stroke-width="1.5" marker-end="url(#arrow-red)"/>
+
+  <!-- === LEGEND === -->
+  <rect x="50" y="345" width="12" height="12" rx="2" fill="#F4F7FA" stroke="#B0BEC5" stroke-width="1"/>
+  <text x="68" y="356" font-size="10" fill="#555">Directly observed</text>
+
+  <rect x="180" y="345" width="12" height="12" rx="2" fill="#FFF8F6" stroke="#C62828" stroke-width="1"/>
+  <text x="198" y="356" font-size="10" fill="#555">Model-dependent (limitation 2.8.3)</text>
+
+  <rect x="370" y="345" width="12" height="12" rx="2" fill="#E3F2FD" stroke="#1565C0" stroke-width="1"/>
+  <text x="388" y="356" font-size="10" fill="#555">Shock Score as measure (H₁)</text>
+
+  <rect x="530" y="345" width="12" height="12" rx="2" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1"/>
+  <text x="548" y="356" font-size="10" fill="#555">Shock Score as intervention (H₂)</text>
+
+  <!-- Joint-test annotation -->
+  <text x="570" y="355" text-anchor="middle" font-size="9" fill="#C62828" font-weight="bold"></text>
+  <rect x="455" y="365" width="230" height="28" rx="4" fill="#FFEBEE" stroke="#C62828" stroke-width="1"/>
+  <text x="570" y="383" text-anchor="middle" font-size="10" fill="#C62828" font-weight="bold">H₂ results are jointly conditional on (a) + (b)</text>
+</svg>
+
 ## 2.9 Chapter Conclusion
 
 Chapter 2 defined the research problem and objectives, formulated research questions and hypotheses, and established key operational definitions, assumptions, and limitations guiding the empirical study. The chapter specified the primary measurement approach for managerial decision response using a single-item Net Risk Stance scale and defined the Shock Score as a PCA-based composite index presented to managers through a dashboard incorporating sentiment direction, shock severity, a quantitative persistence score mapped to horizon buckets, and a rules-based pre-commitment trigger. Chapter 3 examines the theoretical and empirical literature that motivates the study constructs and supports the logic linking information shocks, managerial decision behavior, and portfolio risk – return outcomes.
+
+Taken together, the study design integrates real-time shock measurement, a professional sample of portfolio managers, behaviorally grounded decision support, and portfolio-level outcome validation — an integration that, as Chapter 3 will demonstrate, has not been attempted in prior research. Chapter 3 examines the theoretical and empirical literature that motivates the study constructs and supports the logic linking information shocks, managerial decision behavior, and portfolio risk–return outcomes.
 
 ## Technical Appendix to Chapter 2 (Model Forms)
 
