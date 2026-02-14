@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 520" font-family="Calibri, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="10" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 3 L 0 6 z" fill="#333"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="10" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 3 L 0 6 z" fill="#1565C0"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="10" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 3 L 0 6 z" fill="#2E7D32"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="10" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 3 L 0 6 z" fill="#C62828"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="390" y="25" text-anchor="middle" font-size="13" font-weight="bold" fill="#222">Figure 4.1: Conceptual Framework — Research Design Operationalization</text>
+
+  <!-- ===== STAGE LABELS ===== -->
+  <text x="130" y="52" text-anchor="middle" font-size="11" fill="#777" font-weight="bold">STAGE 1: Stimulus</text>
+  <text x="390" y="52" text-anchor="middle" font-size="11" fill="#777" font-weight="bold">STAGE 2: Decision</text>
+  <text x="650" y="52" text-anchor="middle" font-size="11" fill="#777" font-weight="bold">STAGE 3: Outcome</text>
+
+  <!-- Vertical dividers (light) -->
+  <line x1="260" y1="58" x2="260" y2="430" stroke="#E0E0E0" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="520" y1="58" x2="520" y2="430" stroke="#E0E0E0" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- ===== STAGE 1: STIMULUS ===== -->
+
+  <!-- Box: Information Shock Event -->
+  <rect x="30" y="75" width="200" height="55" rx="6" fill="#FFF3E0" stroke="#E65100" stroke-width="1.5"/>
+  <text x="130" y="97" text-anchor="middle" font-size="12" font-weight="bold" fill="#E65100">Information Shock Event</text>
+  <text x="130" y="115" text-anchor="middle" font-size="10" fill="#BF360C">Benzinga news via IB API</text>
+
+  <!-- Arrow: Event → SC_total -->
+  <line x1="130" y1="130" x2="130" y2="155" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Box: Shock Score (SC_total) - H1 IV -->
+  <rect x="30" y="157" width="200" height="55" rx="6" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5"/>
+  <text x="130" y="179" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565C0">Shock Score (SC_total)</text>
+  <text x="130" y="197" text-anchor="middle" font-size="10" fill="#1565C0">PCA composite — H₁ IV</text>
+
+  <!-- Arrow: SC_total → Dashboard -->
+  <line x1="130" y1="212" x2="130" y2="245" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Box: Shock Score Dashboard - H2 IV -->
+  <rect x="30" y="247" width="200" height="70" rx="6" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.5"/>
+  <text x="130" y="269" text-anchor="middle" font-size="12" font-weight="bold" fill="#2E7D32">Shock Score Dashboard</text>
+  <text x="130" y="287" text-anchor="middle" font-size="10" fill="#2E7D32">ShowSC = 1/0 — H₂ IV</text>
+  <text x="130" y="305" text-anchor="middle" font-size="9" fill="#558B2F">4 signals: sentiment, severity,</text>
+  <!-- <text x="130" y="317" text-anchor="middle" font-size="9" fill="#558B2F">persistence, protocol</text> -->
+
+  <!-- ===== STAGE 2: DECISION ===== -->
+
+  <!-- Box: Survey Instrument -->
+  <rect x="278" y="68" width="224" height="50" rx="6" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="1.2"/>
+  <text x="390" y="88" text-anchor="middle" font-size="11" font-weight="bold" fill="#7B1FA2">Survey Instrument</text>
+  <text x="390" y="103" text-anchor="middle" font-size="9" fill="#7B1FA2">12 scenarios × Google Forms</text>
+
+  <!-- Control condition box -->
+  <rect x="278" y="138" width="105" height="65" rx="5" fill="#FAFAFA" stroke="#9E9E9E" stroke-width="1.2"/>
+  <text x="330" y="157" text-anchor="middle" font-size="10" font-weight="bold" fill="#616161">Control</text>
+  <text x="330" y="173" text-anchor="middle" font-size="9" fill="#757575">ShowSC = 0</text>
+  <text x="330" y="188" text-anchor="middle" font-size="9" fill="#757575">6 scenarios</text>
+
+  <!-- Treatment condition box -->
+  <rect x="397" y="138" width="105" height="65" rx="5" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.2"/>
+  <text x="449" y="157" text-anchor="middle" font-size="10" font-weight="bold" fill="#2E7D32">Treatment</text>
+  <text x="449" y="173" text-anchor="middle" font-size="9" fill="#2E7D32">ShowSC = 1</text>
+  <text x="449" y="188" text-anchor="middle" font-size="9" fill="#2E7D32">6 scenarios</text>
+
+  <!-- Arrow: Survey → conditions -->
+  <line x1="350" y1="118" x2="350" y2="136" stroke="#333" stroke-width="1" marker-end="url(#arrow)"/>
+  <line x1="430" y1="118" x2="430" y2="136" stroke="#333" stroke-width="1" marker-end="url(#arrow)"/>
+
+  <!-- Counterbalancing label -->
+  <text x="390" y="221" text-anchor="middle" font-size="9" fill="#9E9E9E" font-style="italic">Latin square counterbalancing</text>
+
+  <!-- Box: Manager Decision (NRS) — H1 DV -->
+  <rect x="305" y="235" width="170" height="55" rx="6" fill="#fff" stroke="#444" stroke-width="1.5"/>
+  <text x="390" y="257" text-anchor="middle" font-size="12" font-weight="bold" fill="#222">Net Risk Stance</text>
+  <text x="390" y="275" text-anchor="middle" font-size="10" fill="#555">7-point scale — H₁ DV</text>
+
+  <!-- Arrow: SC_total → NRS (H1 path, blue) -->
+  <line x1="230" y1="184" x2="303" y2="255" stroke="#1565C0" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <text x="250" y="210" font-size="9" fill="#1565C0" font-weight="bold">H₁</text>
+
+  <!-- Arrow: Dashboard → NRS (intervention path, green) -->
+  <line x1="230" y1="282" x2="303" y2="268" stroke="#2E7D32" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <text x="252" y="290" font-size="9" fill="#2E7D32" font-weight="bold">intervention</text>
+
+  <!-- Controls box -->
+  <rect x="305" y="310" width="170" height="50" rx="5" fill="#ECEFF1" stroke="#78909C" stroke-width="1"/>
+  <text x="390" y="330" text-anchor="middle" font-size="10" font-weight="bold" fill="#546E7A">Control Variables (X_i,e)</text>
+  <text x="390" y="346" text-anchor="middle" font-size="9" fill="#78909C">Experience, AUM, discretion</text>
+
+  <!-- Arrow: Controls → NRS -->
+  <line x1="390" y1="310" x2="390" y2="292" stroke="#78909C" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+
+  <!-- ===== BOUNDARY LINE ===== -->
+  <rect x="520" y="58" width="3" height="372" rx="1" fill="none"/>
+
+  <!-- Observed vs Simulated labels -->
+  <rect x="270" y="378" width="240" height="22" rx="3" fill="#F4F7FA" stroke="#B0BEC5" stroke-width="1"/>
+  <text x="390" y="393" text-anchor="middle" font-size="10" fill="#607D8B">← Directly Observed (Survey)</text>
+
+  <rect x="530" y="378" width="230" height="22" rx="3" fill="#FFF8F6" stroke="#C62828" stroke-width="1"/>
+  <text x="645" y="393" text-anchor="middle" font-size="10" fill="#C62828">Model-Dependent (Simulated) →</text>
+
+  <!-- ===== STAGE 3: OUTCOME ===== -->
+
+  <!-- Box: Translation Rules -->
+  <rect x="545" y="155" width="210" height="55" rx="6" fill="#FFEBEE" stroke="#C62828" stroke-width="1.5"/>
+  <text x="650" y="177" text-anchor="middle" font-size="12" font-weight="bold" fill="#C62828">Translation Rules</text>
+  <text x="650" y="195" text-anchor="middle" font-size="10" fill="#C62828">NRS → Portfolio weight adj.</text>
+
+  <!-- Arrow: NRS → Translation -->
+  <line x1="475" y1="262" x2="543" y2="185" stroke="#C62828" stroke-width="1.5" marker-end="url(#arrow-red)"/>
+
+  <!-- Box: Portfolio Simulation -->
+  <rect x="545" y="235" width="210" height="55" rx="6" fill="#FFEBEE" stroke="#C62828" stroke-width="1.5"/>
+  <text x="650" y="257" text-anchor="middle" font-size="12" font-weight="bold" fill="#C62828">Portfolio Simulation</text>
+  <text x="650" y="275" text-anchor="middle" font-size="10" fill="#C62828">IB API market returns</text>
+
+  <!-- Arrow: Translation → Simulation -->
+  <line x1="650" y1="210" x2="650" y2="233" stroke="#C62828" stroke-width="1.5" marker-end="url(#arrow-red)"/>
+
+  <!-- Box: Portfolio Outcomes — H2 DV -->
+  <rect x="545" y="315" width="210" height="55" rx="6" fill="#FFCDD2" stroke="#C62828" stroke-width="2"/>
+  <text x="650" y="337" text-anchor="middle" font-size="12" font-weight="bold" fill="#C62828">Portfolio Outcomes</text>
+  <text x="650" y="355" text-anchor="middle" font-size="10" fill="#C62828">Sharpe / Sortino — H₂ DV</text>
+
+  <!-- Arrow: Simulation → Outcomes -->
+  <line x1="650" y1="290" x2="650" y2="313" stroke="#C62828" stroke-width="1.5" marker-end="url(#arrow-red)"/>
+
+  <!-- H2 path label -->
+  <rect x="532" y="92" width="50" height="20" rx="3" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1"/>
+  <text x="557" y="106" text-anchor="middle" font-size="10" font-weight="bold" fill="#2E7D32">H₂</text>
+  <!-- H2 long arrow from ShowSC to Outcomes -->
+  <path d="M 230,300 Q 400,420 543,342" fill="none" stroke="#2E7D32" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrow-green)"/>
+  <text x="370" y="415" font-size="9" fill="#2E7D32" font-weight="bold">H₂: ShowSC → Outcomes (via NRS + simulation)</text>
+
+  <!-- ===== LEGEND ===== -->
+  <rect x="30" y="445" width="720" height="60" rx="5" fill="#FAFAFA" stroke="#E0E0E0" stroke-width="1"/>
+
+  <rect x="45" y="458" width="12" height="12" rx="2" fill="#E3F2FD" stroke="#1565C0" stroke-width="1"/>
+  <text x="63" y="469" font-size="9" fill="#555">SC_total (H₁ IV)</text>
+
+  <rect x="165" y="458" width="12" height="12" rx="2" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1"/>
+  <text x="183" y="469" font-size="9" fill="#555">ShowSC treatment (H₂ IV)</text>
+
+  <rect x="330" y="458" width="12" height="12" rx="2" fill="#FFF3E0" stroke="#E65100" stroke-width="1"/>
+  <text x="348" y="469" font-size="9" fill="#555">Information shock stimulus</text>
+
+  <rect x="500" y="458" width="12" height="12" rx="2" fill="#FFEBEE" stroke="#C62828" stroke-width="1"/>
+  <text x="518" y="469" font-size="9" fill="#555">Simulated (model-dependent, §2.8.3)</text>
+
+  <line x1="45" y1="488" x2="75" y2="488" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="83" y="492" font-size="9" fill="#555">Causal / data flow</text>
+
+  <line x1="200" y1="488" x2="230" y2="488" stroke="#2E7D32" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrow-green)"/>
+  <text x="238" y="492" font-size="9" fill="#555">H₂ full path (observed + simulated)</text>
+
+  <line x1="430" y1="488" x2="460" y2="488" stroke="#78909C" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+  <text x="468" y="492" font-size="9" fill="#555">Control variable influence</text>
+
+</svg>
