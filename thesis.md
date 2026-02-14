@@ -53,7 +53,7 @@ The research problem addressed in this thesis is twofold. First, the study exami
 Accordingly, the Shock Score serves two roles in this study: as a continuous measure of shock intensity for evaluating the relationship between shocks and decisions, and as an experimental treatment condition for evaluating the effect of decision support on portfolio outcomes. The study is designed as applied research focused on professional decision-making, rather than on claims of market inefficiency or return predictability.
 
 A practical illustration of an external information shock is provided by the intraday price dynamics of Meta Platforms Inc. on 2 February 2026, coinciding with the public release of quarterly earnings results. The announcement was widely interpreted as outperforming market expectations, triggering a rapid price adjustment and elevated trading volume. Despite the positive informational content, the immediate price response was followed by pronounced short-term volatility and partial reversal, highlighting the conditions under which emotionally salient news may influence short-horizon investment decisions.
-![figure_2_1.png](figure_2_1.png)
+![img_shock_example.png](img_shock_example.png)
 ![Figure 2.1: Intraday price movement of Meta Platforms Inc. on 2 February 2026 following the release of quarterly earnings results, illustrating a short-horizon market reaction to an external information shock.](figures/meta_2026_02_02_intraday.png)
 
 
@@ -241,99 +241,9 @@ Findings may not generalize beyond the defined portfolio universe, event types, 
 
 The study evaluates portfolio risk–return outcomes through simulation rather than through observation of actual trading. Managers provide stated decision responses via the survey instrument; these responses are then translated into portfolio weight adjustments and evaluated against realized market returns within a simulation framework. As a result, the portfolio outcome findings for H₂ are jointly conditional on two elements: (a) the behavioral effect of the Shock Score on stated decisions, and (b) the adequacy of the simulation model that maps stated decisions to portfolio returns. If the translation rules, rebalancing assumptions, or return-attribution conventions do not adequately represent how stated intentions would manifest in live portfolio management, the portfolio-level results may over- or understate the true effect of decision support. Figure 2.2 illustrates the boundary between directly observed data and model-dependent inference. The simulation design, including all translation rules and rebalancing conventions, is fully specified in Chapter 4 to enable independent assessment of these assumptions.
 
+
+![img_casual_logic.png](img_casual_logic.svg)
 ![Figure 2.2: Causal logic of the study design. The left domain (observed) encompasses survey responses and market data. The right domain (simulated) encompasses the translation of stated decisions into portfolio outcomes, introducing model dependency that bounds interpretation of H₂ results.]
-
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" font-family="Calibri, Arial, sans-serif">
-  <defs>
-    <marker id="arrow" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="10" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 3 L 0 6 z" fill="#333"/>
-    </marker>
-    <marker id="arrow-red" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="10" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 3 L 0 6 z" fill="#B33"/>
-    </marker>
-  </defs>
-
-  <!-- Title -->
-  <text x="360" y="28" text-anchor="middle" font-size="14" font-weight="bold" fill="#222">Figure 2.2: Causal Logic and Simulation Dependency</text>
-
-  <!-- === OBSERVED DOMAIN (left side) === -->
-  <!-- Background -->
-  <rect x="20" y="45" width="370" height="340" rx="8" fill="#F4F7FA" stroke="#B0BEC5" stroke-width="1" stroke-dasharray="6,3"/>
-  <text x="205" y="68" text-anchor="middle" font-size="11" fill="#607D8B" font-style="italic">Observed (Survey + Market Data)</text>
-
-  <!-- Box 1: Information Shock -->
-  <rect x="50" y="85" width="170" height="50" rx="6" fill="#fff" stroke="#444" stroke-width="1.5"/>
-  <text x="135" y="107" text-anchor="middle" font-size="12" font-weight="bold" fill="#222">External Information</text>
-  <text x="135" y="123" text-anchor="middle" font-size="12" font-weight="bold" fill="#222">Shock</text>
-
-  <!-- Box 2: Shock Score (SC_total) -->
-  <rect x="50" y="170" width="170" height="50" rx="6" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5"/>
-  <text x="135" y="192" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565C0">Shock Score (SC_total)</text>
-  <text x="135" y="208" text-anchor="middle" font-size="10" fill="#1565C0">Intensity measure — H₁ IV</text>
-
-  <!-- Arrow: Shock → SC_total -->
-  <line x1="135" y1="135" x2="135" y2="168" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
-
-  <!-- Box 3: Shock Score Dashboard -->
-  <rect x="50" y="255" width="170" height="50" rx="6" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.5"/>
-  <text x="135" y="275" text-anchor="middle" font-size="12" font-weight="bold" fill="#2E7D32">Shock Score Dashboard</text>
-  <text x="135" y="291" text-anchor="middle" font-size="10" fill="#2E7D32">Treatment — H₂ IV (ShowSC)</text>
-
-  <!-- Arrow: SC_total → Dashboard -->
-  <line x1="135" y1="220" x2="135" y2="253" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
-
-  <!-- Box 4: Manager Decision (NRS) -->
-  <rect x="265" y="170" width="170" height="50" rx="6" fill="#fff" stroke="#444" stroke-width="1.5"/>
-  <text x="350" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#222">Manager Decision</text>
-  <text x="350" y="207" text-anchor="middle" font-size="10" fill="#555">Net Risk Stance — H₁ DV</text>
-
-  <!-- Arrow: SC_total → NRS (horizontal) -->
-  <line x1="220" y1="195" x2="263" y2="195" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
-
-  <!-- Arrow: Dashboard → NRS (diagonal) -->
-  <line x1="220" y1="275" x2="270" y2="215" stroke="#2E7D32" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <text x="230" y="250" font-size="9" fill="#2E7D32" transform="rotate(-35, 230, 250)">intervention</text>
-
-  <!-- === SIMULATED DOMAIN (right side) === -->
-  <!-- Background with red-tinted border -->
-  <rect x="440" y="45" width="260" height="340" rx="8" fill="#FFF8F6" stroke="#C62828" stroke-width="1.5" stroke-dasharray="6,3"/>
-  <text x="570" y="68" text-anchor="middle" font-size="11" fill="#C62828" font-style="italic">Simulated (Model-Dependent)</text>
-
-  <!-- Box 5: Translation Rules -->
-  <rect x="470" y="170" width="200" height="50" rx="6" fill="#FFEBEE" stroke="#C62828" stroke-width="1.5"/>
-  <text x="570" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#C62828">Translation Rules</text>
-  <text x="570" y="207" text-anchor="middle" font-size="10" fill="#C62828">NRS → Portfolio weights</text>
-
-  <!-- Arrow: NRS → Translation (horizontal, red) -->
-  <line x1="435" y1="195" x2="468" y2="195" stroke="#C62828" stroke-width="1.5" marker-end="url(#arrow-red)"/>
-
-  <!-- Box 6: Portfolio Outcomes -->
-  <rect x="470" y="275" width="200" height="55" rx="6" fill="#FFEBEE" stroke="#C62828" stroke-width="1.5"/>
-  <text x="570" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#C62828">Portfolio Outcomes</text>
-  <text x="570" y="312" text-anchor="middle" font-size="10" fill="#C62828">Sharpe / Sortino — H₂ DV</text>
-
-  <!-- Arrow: Translation → Outcomes -->
-  <line x1="570" y1="220" x2="570" y2="273" stroke="#C62828" stroke-width="1.5" marker-end="url(#arrow-red)"/>
-
-  <!-- === LEGEND === -->
-  <rect x="50" y="345" width="12" height="12" rx="2" fill="#F4F7FA" stroke="#B0BEC5" stroke-width="1"/>
-  <text x="68" y="356" font-size="10" fill="#555">Directly observed</text>
-
-  <rect x="180" y="345" width="12" height="12" rx="2" fill="#FFF8F6" stroke="#C62828" stroke-width="1"/>
-  <text x="198" y="356" font-size="10" fill="#555">Model-dependent (limitation 2.8.3)</text>
-
-  <rect x="370" y="345" width="12" height="12" rx="2" fill="#E3F2FD" stroke="#1565C0" stroke-width="1"/>
-  <text x="388" y="356" font-size="10" fill="#555">Shock Score as measure (H₁)</text>
-
-  <rect x="530" y="345" width="12" height="12" rx="2" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1"/>
-  <text x="548" y="356" font-size="10" fill="#555">Shock Score as intervention (H₂)</text>
-
-  <!-- Joint-test annotation -->
-  <text x="570" y="355" text-anchor="middle" font-size="9" fill="#C62828" font-weight="bold"></text>
-  <rect x="455" y="365" width="230" height="28" rx="4" fill="#FFEBEE" stroke="#C62828" stroke-width="1"/>
-  <text x="570" y="383" text-anchor="middle" font-size="10" fill="#C62828" font-weight="bold">H₂ results are jointly conditional on (a) + (b)</text>
-</svg>
 
 
 ## 2.9 Chapter Conclusion
@@ -676,34 +586,223 @@ Each of these contributions is original to this thesis. By integrating psycholog
 
 ## 4.1 Chapter Introduction
 
+This chapter documents the primary data collection process for the empirical study. The chapter is organized as follows. Section 4.2 describes the research design, including the research paradigm, conceptual framework, design of the research instrument, pilot test, population and sample, and sampling technique. Section 4.3 reports the research execution, including key dates and return rates. Section 4.4 presents descriptive statistics of the respondent sample and the collected data. Section 4.5 concludes the chapter and provides a transition to Chapter 5.
+
+The study collects primary data through an online scenario-based survey administered to active equity portfolio managers. The survey implements a within-subject quasi-experimental design in which each participant responds to twelve information shock scenarios — six without the Shock Score dashboard (control condition) and six with the Shock Score dashboard (treatment condition). Managers record their intended portfolio adjustment on the seven-point Net Risk Stance scale defined in section 2.3.1 for each scenario.
+
+The Shock Score construction methodology — including news data sourcing, sentiment scoring, event-type classification, PCA-based composite index computation, persistence scoring, and protocol trigger calibration — is documented in the Technical Appendix to Chapter 2. This chapter focuses on the survey instrument through which primary data is collected, the experimental protocol through which the Shock Score is presented to participants, and the descriptive characteristics of the resulting dataset. Secondary data sources used to construct experimental stimuli and to evaluate portfolio outcomes are specified in the Technical Appendix to Chapter 2 and referenced in this chapter where relevant.
+
+
 ## 4.2 Research Design
+
 ### 4.2.1 Research Paradigm
+
+The study adopts a positivist research paradigm. The research is deductive and theory-testing: it begins with hypotheses derived from behavioral finance theory and the decision-support literature (Chapters 2 and 3) and evaluates them against primary data collected under controlled conditions. The positivist orientation is appropriate because the study seeks to establish whether statistically significant relationships exist between shock intensity and decision response (H₁) and between decision support and portfolio outcomes (H₂), rather than to explore or interpret subjective experience.
+
+The study employs a quasi-experimental within-subject design. The quasi-experimental classification reflects two features of the research setting. First, participants are not randomly assigned to separate treatment and control groups; instead, each participant serves as their own control by responding to scenarios under both conditions (ShowSC = 0 and ShowSC = 1). This within-subject approach is chosen for three reasons: it controls for stable individual differences in risk appetite, investment philosophy, and decision style that would otherwise require large between-group samples to neutralize; it increases statistical power relative to a between-subjects design of equal sample size, which is important given the difficulty of recruiting professional portfolio managers; and it reflects the applied research context, where the practical question is whether giving the same manager access to a decision-support tool changes their behavior.
+
+Second, the study uses scenario-based stimuli rather than live market events. Managers respond to constructed shock scenarios that describe realistic information events, rather than making real-time decisions with actual capital at stake. This introduces a degree of artificiality relative to a field experiment but enables standardized stimulus presentation and controlled manipulation of the treatment variable. The limitations of this approach — including the gap between stated intentions and actual trading behavior — are acknowledged in section 2.8.2 and are addressed in the portfolio simulation framework specified in the Technical Appendix to Chapter 2.
+
+To mitigate potential confounds inherent in the within-subject design, the study employs a Latin square counterbalanced block design for assigning scenarios to conditions. This ensures that no single scenario is systematically associated with either the treatment or control condition across the full sample, and that order effects (learning, fatigue) are distributed rather than concentrated. The counterbalancing protocol is described in detail in section 4.2.3.
+
+The research is positioned as applied research focused on professional decision-making, consistent with the framing established in section 2.2. The study does not make claims about market efficiency or return predictability; it evaluates whether a structured decision-support tool is associated with changes in how professional managers respond to information shocks and whether those changes are reflected in simulated portfolio outcomes.
+
+
 ### 4.2.2 Conceptual Framework
-### 4.2.3 Independent and Dependent Variables
 
-## 4.3 Research Instrument
-### 4.3.1 News Data Sources and Selection Criteria
-### 4.3.2 Sentiment Scoring Methodology
-### 4.3.3 Event-Type Classification Logic
-### 4.3.4 Construction of the Shock Score
+The conceptual framework operationalizes the causal logic introduced in section 2.3 into a testable research design. Figure 4.1 presents the framework, mapping each construct to its measurement instrument and connecting the two hypotheses to the experimental protocol.
 
-## 4.4 Population and Sample
-### 4.4.1 Portfolio Universe
-### 4.4.2 Observation Period and Frequency
+![img_framework.png](img_framework.svg)
 
-## 4.5 Sampling Technique
-### 4.5.1 Selection of Events and Decision Windows
+<img src="img_framework.svg" alt="Conceptual Framework" width="600"/>
 
-## 4.6 Data Collection Process
-### 4.6.1 Data Cleaning and Preprocessing
-### 4.6.2 Alignment of News and Portfolio Data
+[Figure 4.1: Conceptual Framework — Research Design Operationalization]
 
-## 4.7 Descriptive Statistics
-### 4.7.1 Descriptive Statistics of Shock Scores
-### 4.7.2 Descriptive Statistics of Portfolio Outcomes
+The framework proceeds in three stages. In the first stage, an external financial information shock occurs. The shock is characterized by observable attributes — article count, sentiment extremity, attention intensity, and event type — that are aggregated into the composite Shock Score (SC_total) via principal component analysis, as defined in section 2.6.3 and detailed in the Technical Appendix to Chapter 2. SC_total serves as the independent variable for H₁, capturing the intensity of the information shock at the event level.
 
-## 4.8 Chapter Conclusion
+In the second stage, the manager encounters the shock scenario through the survey instrument. In the control condition (ShowSC = 0), the manager receives the scenario description and relevant portfolio context but does not see the Shock Score dashboard. In the treatment condition (ShowSC = 1), the manager additionally receives the four-signal Shock Score dashboard: sentiment direction band, shock severity level, persistence score with horizon bucket, and protocol recommendation. The manager then records their intended portfolio adjustment on the seven-point Net Risk Stance scale. NRS is the dependent variable for H₁ and the mediating behavioral response for H₂.
 
+In the third stage, stated NRS responses are translated into portfolio weight adjustments and evaluated against realized market returns within a simulation framework. The simulation produces risk-adjusted performance metrics — Sharpe ratio and Sortino ratio — that serve as the dependent variables for H₂. The treatment indicator (ShowSC) is the independent variable for H₂, testing whether access to the Shock Score dashboard is associated with changes in portfolio risk-return outcomes. The simulation framework, including all translation rules, rebalancing conventions, and return-attribution methodology, is specified in the Technical Appendix to Chapter 2.
+
+The framework distinguishes between directly observed data and model-dependent inference. NRS responses are directly observed through the survey. Portfolio outcomes are simulated based on stated decisions and are therefore jointly conditional on the behavioral effect of the Shock Score and the adequacy of the simulation model, as acknowledged in limitation 2.8.3. This boundary is indicated in Figure 4.1 and is maintained throughout the analysis in Chapter 5.
+
+
+### 4.2.3 Design of the Research Instrument
+
+The research instrument is an online scenario-based survey administered through Google Forms. The instrument collects primary data on portfolio managers' decision responses under controlled information shock conditions. This section describes the overall survey structure, scenario design, treatment implementation, response measures, counterbalancing strategy, and confound controls.
+
+**Overall survey structure.** The survey consists of four sections presented sequentially to each participant:
+
+Section 1 (Demographics and Professional Profile) collects respondent characteristics used as control variables in the regression analysis. Items include years of portfolio management experience, assets under management (AUM range), institution type, investment mandate type, geographic market focus, level of discretionary authority, and professional certifications. Discretionary authority is recorded on a three-level ordinal scale (full discretion, partial/committee-based, advisory only) and is included as a control variable in the H₁ regression to account for differences in how managers translate intentions into actions.
+
+Section 2 (Scenario Responses — Experimental Core) presents twelve information shock scenarios in sequence. Each scenario describes a discrete public information event affecting a specific equity portfolio holding. The scenario presentation includes: a news headline and brief event description sourced from real market events; the relevant portfolio holding and its recent performance context; and sector and market context. For treatment-condition scenarios (ShowSC = 1), the Shock Score dashboard is additionally displayed alongside the scenario description. For control-condition scenarios (ShowSC = 0), only the scenario description and portfolio context are shown. After reading each scenario, the manager records their intended portfolio adjustment on the Net Risk Stance scale.
+
+Section 3 (Post-Experiment Questions) contains two items administered after all twelve scenarios are completed. The first item is a manipulation check: "Did the Shock Score dashboard influence your decision in the scenarios where it was displayed?" (response options: Yes, No, Unsure). This item verifies that managers in the treatment condition noticed and processed the dashboard, which is essential for interpreting H₂ results. The second item assesses perceived usefulness: "How would you rate the usefulness of the Shock Score dashboard for making portfolio decisions?" (five-point scale from Not at all useful to Extremely useful). This item supports the practitioner recommendations in Chapter 6 but is not used in hypothesis testing.
+
+Section 4 (Closing) contains a consent confirmation, an optional open-text feedback field, and contact information for respondents willing to participate in follow-up research.
+
+**Scenario design.** Twelve shock scenarios are constructed from real market information events sourced through the Benzinga news feed accessed via the Interactive Brokers API. Scenarios are selected to represent variation along two dimensions: shock intensity (low, medium, high SC_total values) and event type (earnings surprises, regulatory actions, macroeconomic announcements, sector-specific disruptions). This variation ensures that the H₁ regression has sufficient range in the independent variable to detect a meaningful relationship between shock intensity and decision response.
+
+Each scenario is constructed to be self-contained: the manager can form a decision response based solely on the information provided, without requiring external knowledge of the specific holding or event. Scenario descriptions are standardized in length (150–200 words) and structure to minimize variation in reading time and cognitive load across scenarios.
+
+Market price data used to contextualize scenarios — including recent holding performance and sector benchmarks — is sourced from the Interactive Brokers API. The Shock Score components for each scenario are computed using the methodology specified in the Technical Appendix to Chapter 2, producing both the SC_total composite index and the four dashboard signals.
+
+**Treatment implementation.** The within-subject design assigns each manager to respond to six scenarios without the Shock Score dashboard (ShowSC = 0) and six scenarios with the dashboard (ShowSC = 1). In the treatment condition, the dashboard is displayed directly below the scenario description and includes all four signals defined in section 2.6.3: sentiment direction band, shock severity level, persistence score with horizon bucket, and protocol recommendation. The dashboard is presented as a compact visual panel consistent with the manager-facing design described in section 2.6.3. In the control condition, the dashboard panel is absent; no placeholder or reference to the Shock Score appears.
+
+**Counterbalancing strategy.** A Latin square counterbalanced block design is used to assign scenarios to conditions across participants. The twelve scenarios are arranged into counterbalancing blocks such that each scenario appears in the treatment condition for approximately half of respondents and in the control condition for the other half. The presentation order of scenarios is also rotated across blocks to distribute order effects (learning, fatigue, anchoring on early scenarios) rather than allowing them to accumulate systematically. Each respondent is randomly assigned to one counterbalancing block upon survey entry.
+
+This design ensures that any observed difference between treatment and control conditions cannot be attributed to specific scenario characteristics, because the same scenarios appear in both conditions across the full sample. It also ensures that scenario position (early vs. late in the sequence) is not confounded with treatment assignment.
+
+**Net Risk Stance response measure.** For each scenario, the manager selects a single response on the seven-point Net Risk Stance scale:
+
+1 — Strongly reduce exposure
+2 — Reduce exposure
+3 — Slightly reduce exposure
+4 — Maintain current exposure
+5 — Slightly increase exposure
+6 — Increase exposure
+7 — Strongly increase exposure
+
+The NRS is a single-item measure. Single-item scales are appropriate in this context for three reasons. First, the construct being measured — directional portfolio adjustment intention — is concrete and unidimensional, unlike abstract psychological constructs that require multi-item scales for content validity. Second, professional portfolio managers routinely express positioning decisions as directional calls (reduce, hold, increase), making the scale ecologically valid for the target population. Third, survey parsimony is critical when administering twelve scenarios to time-constrained professionals; a multi-item scale per scenario would substantially increase respondent burden and reduce completion rates.
+
+**Confound controls.** Several design features are implemented to minimize confounds. Scenario descriptions use neutral framing and avoid language that could signal a "correct" response or create demand characteristics. Instructions do not reveal the study hypotheses or the expected direction of the Shock Score's effect. The within-subject design is not disclosed to participants — managers are informed that they will respond to a series of investment scenarios, some of which include additional decision-support information. Completion time is not constrained to avoid introducing artificial time pressure, though estimated completion time (approximately 20–25 minutes) is communicated in the survey introduction to set expectations.
+
+
+### 4.2.4 Pilot Test
+
+A pilot test is conducted prior to full survey deployment to evaluate the clarity, feasibility, and reliability of the research instrument. The pilot sample consists of 5–10 finance professionals, including active portfolio managers and senior investment analysts, recruited through the researcher's professional network. Pilot participants are not included in the final study sample.
+
+The pilot test serves four purposes. First, it evaluates scenario clarity: whether the information shock descriptions, portfolio context, and dashboard displays are interpreted consistently and without ambiguity. Second, it assesses completion time: whether the twelve-scenario instrument can be completed within the estimated 20–25 minute window without inducing fatigue. Third, it verifies the technical implementation of the Google Forms instrument, including conditional display logic for treatment versus control scenarios, counterbalancing block assignment, and data recording accuracy. Fourth, it collects qualitative feedback on the realism of scenarios, the interpretability of the Shock Score dashboard, and any aspects of the survey that create confusion or disengagement.
+
+Based on pilot feedback, the following adjustments may be made before full deployment: revision of scenario wording for clarity, adjustment of dashboard visual layout for readability, modification of scenario length if completion time substantially exceeds the target, and correction of any technical issues in the survey platform.
+
+Regarding reliability assessment, the primary response measure (Net Risk Stance) is a single-item scale for which traditional internal consistency measures such as Cronbach's alpha do not apply. Reliability for single-item measures is instead evaluated through consistency of responses across structurally similar scenarios within each condition and through comparison of response variance between pilot and main study samples. For the two post-experiment items (manipulation check and usefulness rating), descriptive statistics from the pilot are examined to verify adequate variance and absence of ceiling or floor effects.
+
+The pilot test results and any instrument modifications are documented in this section upon completion.
+
+
+### 4.2.5 Population and Sample
+
+The target population consists of active equity portfolio managers with authority to make discretionary or advisory investment decisions on behalf of clients or institutions. The study focuses on equity portfolio managers because the Shock Score is designed to process equity-relevant information shocks and because equity markets generate the highest frequency and diversity of public information events relevant to the study design.
+
+Inclusion criteria define the eligible respondent pool. Participants must hold a current role involving portfolio-level investment decision-making for equity or equity-dominant mandates. They must have a minimum of two years of professional portfolio management experience to ensure familiarity with the decision context represented in the scenarios. They must be able to read and respond in English, as all scenario materials are presented in English.
+
+No exclusion is applied based on level of discretionary authority. Managers with full discretion, partial or committee-based authority, and advisory-only roles are all included in the sample. Discretionary authority level is recorded in the demographic section and is included as a control variable in the H₁ regression specification (the control vector X_i,e defined in the Technical Appendix to Chapter 2), on the basis that managers with different authority levels may respond differently to information shocks and to the Shock Score dashboard.
+
+The target sample size is 100 valid completed questionnaires. This target exceeds the SBS minimum requirement of 50 valid responses and is justified on two grounds. First, the within-subject design with twelve scenarios per manager generates 1,200 scenario-level observations, providing substantial statistical power for the H₁ regression. Second, a sample of 100 managers provides sufficient between-subject variation to estimate control variable effects (experience, AUM, discretionary authority) and to support the optional manager fixed-effects specification noted in the Technical Appendix to Chapter 2. A power analysis based on the primary H₁ specification suggests that a sample of 80–100 managers is sufficient to detect a small-to-medium effect size (Cohen's f² ≈ 0.05) at the 0.05 significance level with power of 0.80, given the repeated-measures structure of the data.
+
+
+### 4.2.6 Sampling Technique
+
+The study employs purposive sampling supplemented by snowball referral. Purposive sampling is used because the target population — active equity portfolio managers — is a specialized professional group for which no comprehensive sampling frame exists. Probability sampling methods (simple random, stratified) are therefore infeasible, and purposive selection ensures that all respondents meet the inclusion criteria.
+
+Recruitment proceeds through multiple channels. Primary channels include direct outreach to portfolio managers within the researcher's professional network, solicitation through CFA and CAIA professional association networks, targeted LinkedIn outreach to individuals whose profiles indicate equity portfolio management roles, and contact with investment management firms to request internal distribution. A snowball component is incorporated: recruited participants are invited to forward the survey to colleagues who meet the inclusion criteria.
+
+The non-probability sampling approach limits the generalizability of findings to the broader population of equity portfolio managers. Respondents who participate through professional networks and voluntary referral may differ systematically from non-respondents in ways that affect decision behavior — for example, managers with stronger interest in behavioral finance or decision-support tools may be overrepresented. This limitation is acknowledged in section 2.8.2 and is addressed in Chapter 6 by framing findings as applicable to the observed sample with cautious extension to the broader population.
+
+To characterize the achieved sample and assess representativeness, respondent demographics (section 4.4.1) are compared against available industry benchmarks for the portfolio management profession where such benchmarks exist.
+
+
+## 4.3 Research Execution
+
+### 4.3.1 Key Dates
+
+[This section will be completed upon survey execution.]
+
+The survey is planned for deployment in [Month Year]. The following timeline is anticipated:
+
+Pilot test: [dates to be determined]. Estimated duration: one week.
+Instrument revision based on pilot feedback: [dates to be determined]. Estimated duration: three to five days.
+Full survey launch (opening date): [date to be determined].
+First reminder to non-respondents: one week after launch.
+Second reminder to non-respondents: two weeks after launch.
+Survey closing date: [date to be determined]. Estimated survey window: four to six weeks.
+
+The survey window length reflects the difficulty of recruiting senior professional respondents, who may require multiple reminders and flexible timing to complete the instrument.
+
+
+### 4.3.2 Return Rates
+
+[This section will be completed upon survey execution.]
+
+Return rates will be reported in the following format:
+
+Table 4.X: Survey Response Summary
+
+| Metric | Count |
+|---|---|
+| Surveys distributed | [N] |
+| Surveys started (partial responses) | [N] |
+| Surveys completed | [N] |
+| Valid responses after quality checks | [N] |
+| Response rate (completed / distributed) | [%] |
+| Valid response rate (valid / distributed) | [%] |
+
+Quality exclusion criteria applied during data cleaning include: incomplete responses (fewer than 10 of 12 scenarios answered), uniform responding (identical NRS value for all 12 scenarios, suggesting inattentive completion), and completion time below a plausibility threshold (under 5 minutes for 12 scenarios, suggesting non-engagement with scenario content).
+
+The target of 100 valid completed questionnaires requires distributing the survey to a substantially larger pool, given expected response rates for professional survey research. Based on published response rate benchmarks for senior financial professionals, a distribution pool of 300–500 is anticipated to yield 100 valid completions.
+
+
+## 4.4 Descriptive Statistics
+
+### 4.4.1 Respondent Descriptive Statistics
+
+[This section will be completed upon survey execution. The planned reporting structure is described below.]
+
+Respondent demographics will be reported in tabular form. Table 4.X presents the planned demographic summary:
+
+Table 4.X: Respondent Demographics
+
+| Characteristic | Categories / Metric | Reporting Format |
+|---|---|---|
+| Years of experience | Continuous | Mean, median, SD, range |
+| AUM managed | Ordinal categories (< $100M, $100M–$500M, $500M–$1B, $1B–$5B, > $5B) | Frequency and percentage per category |
+| Institution type | Asset manager, hedge fund, pension/insurance, family office, private bank, other | Frequency and percentage per category |
+| Investment mandate | Equity only, equity-dominant multi-asset, sector-specific, other | Frequency and percentage per category |
+| Geographic market focus | North America, Europe, Asia-Pacific, Global, other | Frequency and percentage per category |
+| Discretionary authority | Full discretion, partial/committee-based, advisory only | Frequency and percentage per category |
+| Professional certifications | CFA, CAIA, FRM, other, none | Frequency and percentage (multiple selection) |
+
+The demographic profile is examined for notable skews or gaps relative to the target population. If a disproportionate share of respondents falls into a single category on any dimension (e.g., more than 70% from one institution type), this concentration is noted as a sample characteristic that may affect generalizability.
+
+
+### 4.4.2 Descriptive Analysis of Data
+
+[This section will be completed upon survey execution. The planned analytical procedures are described below.]
+
+Descriptive analysis proceeds in three stages: summary statistics, distributional assessment, and graphical representation.
+
+**Summary statistics.** The following summary statistics are computed and reported:
+
+For Net Risk Stance responses: mean, median, standard deviation, minimum, and maximum, reported separately for the overall sample, the control condition (ShowSC = 0), and the treatment condition (ShowSC = 1). A comparison of central tendency and dispersion between conditions provides a preliminary indication of treatment effects before formal hypothesis testing in Chapter 5.
+
+For SC_total across the twelve scenarios: mean, median, standard deviation, minimum, and maximum. The distribution of shock intensity across scenarios confirms that the scenario selection provides adequate variation in the independent variable for the H₁ regression. PCA loadings and explained variance for the first principal component are reported here, fulfilling the forward reference from section 2.6.3. The four input components — article count, sentiment extremity, attention intensity, and event-type severity — are also summarized individually.
+
+For the manipulation check item: frequency distribution of responses (Yes, No, Unsure). A high proportion of "No" or "Unsure" responses would indicate that the treatment manipulation was insufficiently salient and would qualify interpretation of H₂ results.
+
+For the usefulness rating: mean, median, and distribution across the five-point scale. This item is reported for descriptive purposes and is used in Chapter 6 practitioner recommendations.
+
+**Distributional assessment.** Normality of the NRS response distribution is assessed using skewness and kurtosis statistics and the Shapiro-Wilk test, as prescribed by the SBS thesis handbook. Normality assessment is conducted for the overall NRS distribution and separately by condition. If the Shapiro-Wilk test indicates significant departure from normality (p < 0.05), the implications for hypothesis testing are noted. Specifically, if the data are non-normal, Chapter 5 evaluates whether parametric tests remain appropriate given the sample size and the central limit theorem, or whether non-parametric alternatives should be employed. This assessment fulfills the handbook requirement that normality testing in Chapter 4 informs test selection in Chapter 5.
+
+**Graphical representations.** The following figures are planned:
+
+Figure 4.X: Histogram of NRS responses by condition (side-by-side or overlaid).
+Figure 4.X: Box plots comparing NRS distributions between control and treatment conditions.
+Figure 4.X: Scatter plot of SC_total versus NRS (pooled across conditions), providing a visual preview of the H₁ relationship.
+Figure 4.X: Bar chart of respondent demographics (experience distribution, institution type breakdown).
+
+All figures follow APA formatting conventions and are numbered consecutively within Chapter 4.
+
+
+## 4.5 Chapter Conclusion
+
+This chapter described the research design and primary data collection process for the empirical study. The study employs a quasi-experimental within-subject design in which 100 equity portfolio managers respond to twelve information shock scenarios — six without the Shock Score dashboard (control condition) and six with the Shock Score dashboard (treatment condition) — recording their intended portfolio adjustment on the seven-point Net Risk Stance scale. The survey is administered online through Google Forms, with scenarios constructed from real market events sourced through the Benzinga news feed via the Interactive Brokers API. A Latin square counterbalanced block design ensures that treatment assignment is independent of scenario characteristics and presentation order.
+
+The research instrument collects respondent demographics, scenario-level NRS responses, a manipulation check, and a perceived usefulness rating. Respondent demographics — including years of experience, AUM, institution type, and discretionary authority level — serve as control variables in the regression analysis. The descriptive statistics presented in section 4.4 characterize the achieved sample and assess the distributional properties of the primary response variable, including normality testing that informs the hypothesis testing approach in Chapter 5.
+
+Chapter 5 applies the regression specifications defined in the Technical Appendix to Chapter 2 to the primary data collected in this chapter, testing H₁ (whether shock intensity is associated with NRS responses) and H₂ (whether the Shock Score treatment is associated with changes in portfolio risk-return outcomes).
+
+---
 # Chapter 5. Analysis and Conclusions
 
 ## 5.1 Chapter Introduction
