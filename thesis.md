@@ -42,7 +42,7 @@
 
 ## 2.1 Chapter Introduction
 
-Chapter 2 defines the research scope and agenda for this thesis. It restates the managerial problem motivating the study, specifies the objectives that guide the empirical work, and presents the research questions and hypothesis statements to be evaluated. The chapter also provides operational definitions of key terms and records assumptions and limitations that bound interpretation of the findings. Chapter 3 then examines the theoretical and empirical literature relevant to the stated problem, research questions, and hypotheses.
+>Chapter 2 defines the research scope and agenda for this thesis. It restates the managerial problem motivating the study, specifies the objectives that guide the empirical work, and presents the research questions and hypothesis statements to be evaluated. The chapter also provides operational definitions of key terms and records assumptions and limitations that bound interpretation of the findings. Chapter 3 then examines the theoretical and empirical literature relevant to the stated problem, research questions, and hypotheses.
 
 ## 2.2 Problem Statement
 
@@ -118,19 +118,19 @@ Does providing the Shock Score to portfolio managers affect investment decision 
 
 The study tests two hypotheses. Hypothesis statements are presented in null and alternative form and are evaluated using the primary and secondary data described in Chapters 4 and 5. The hypotheses are written to align with the study design, where shock intensity is measured at the event level and decision support is implemented as an experimental condition in which the Shock Score is shown or withheld.
 
-### 2.5.1 Hypothesis H₁ – Influence of Information Shocks on Decisions
+### 2.5.1 Hypothesis H1 – Influence of Information Shocks on Decisions
 
-**H₀₁:** The intensity of external financial information shocks has no statistically significant effect on managers' Net Risk Stance responses.
+**H1₀:** The intensity of external financial information shocks has no statistically significant effect on managers' Net Risk Stance responses.
 
-**Hₐ₁:** The intensity of external financial information shocks has a statistically significant effect on managers' Net Risk Stance responses.
+**H1ₐ:** The intensity of external financial information shocks has a statistically significant effect on managers' Net Risk Stance responses.
 
 H₁ evaluates whether variation in shock intensity, as captured by the composite Shock Score (SC_total), is associated with systematic differences in the direction and magnitude of managers' stated exposure adjustments. Net Risk Stance is operationalized as a single-item, seven-point scale defined in section 2.3.1. The downstream relationship between decision responses and portfolio risk–return outcomes is evaluated through the simulation design described in Chapter 4.
 
-### 2.5.2 Hypothesis H₂ – Value Added of the Shock Score
+### 2.5.2 Hypothesis H2 – Value Added of the Shock Score
 
-**H₀₂:** Introducing the Shock Score for investment decision-making has no statistically significant effect on the risk–return ratio of the portfolio.
+**H2₀:** Introducing the Shock Score for investment decision-making has no statistically significant effect on the risk–return ratio of the portfolio.
 
-**Hₐ₂:** Introducing the Shock Score for investment decision-making has a statistically significant effect on the risk–return ratio of the portfolio.
+**H2ₐ:** Introducing the Shock Score for investment decision-making has a statistically significant effect on the risk–return ratio of the portfolio.
 
 H₂ evaluates whether providing the Shock Score dashboard to managers during shock scenarios changes portfolio outcomes relative to a no-score condition. Risk–return ratio is operationalized through Sharpe ratio and Sortino ratio as defined in section 2.6.4. The treatment condition (ShowSC = 1 versus ShowSC = 0) is implemented through the within-subject experimental design, where each manager is exposed to comparable scenarios with and without the Shock Score.
 
@@ -709,8 +709,8 @@ Each of these contributions is original to this thesis. By integrating psycholog
 ## 5.1 Chapter Introduction
 
 ## 5.2 Hypothesis Testing
-### 5.2.1 Testing of Hypothesis H₁
-### 5.2.2 Testing of Hypothesis H₂
+### 5.2.1 Testing of Hypothesis H1
+### 5.2.2 Testing of Hypothesis H2
 
 ## 5.3 Results Interpretation
 ### 5.3.1 Impact of Information Shocks on Risk–Return

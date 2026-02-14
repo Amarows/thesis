@@ -31,18 +31,18 @@ Does a decision-support system reduce emotional biases and improve the consisten
 
 ### Full Hypothesis Set
 
-- **H₁ – Influence of Information Shocks on Decisions**
+- **H1 – Influence of Information Shocks on Decisions**
   - Tested using survey responses collected without displaying the Shock Score, examining how different shocks lead to different managerial decisions.
-  - **H₀₁**: External financial information shocks have no statistically significant effect on managerial investment decisions 
+  - **H1₀**: External financial information shocks have no statistically significant effect on managerial investment decisions 
   - measured by the risk-return ratio of the portfolio. 
-  - **Hₐ₁**: External financial information shocks have statistically significant effect on managerial investment decisions 
+  - **H1ₐ**: External financial information shocks have statistically significant effect on managerial investment decisions 
   - measured by the risk-return ratio of the portfolio.
   
-- **H₂ – Value Added of the Shock Score (the main one)**
+- **H2 – Value Added of the Shock Score (the main one)**
   - Tested through portfolio simulations comparing manager-only strategies with Shock Score–supported strategies.
-  - **H₀₂**: Introducing Shock Score for investment decision-making have no 
+  - **H2₀**: Introducing Shock Score for investment decision-making have no 
   - statistically significant effect on the risk return ratio of the portfolio.
-  - **Hₐ₂**: Introducing Shock Score for investment decision-making have 
+  - **H2ₐ**: Introducing Shock Score for investment decision-making have 
   - statistically significant effect on the risk return ratio of the portfolio.
 
 **Definition of the Shock Score**: A numerical indicator derived from news headlines using sentiment and event-type classification, designed to quantify the emotional and informational intensity of external news and events. The Score enables managers to reduce behavioral overreaction.
@@ -51,6 +51,19 @@ Does a decision-support system reduce emotional biases and improve the consisten
   - Tested by comparing survey responses before and after displaying the Shock Score for the same events.
   - **H₀₃**: The Shock Score does not change the consistency or dispersion of managerial responses to financial information shocks.
   - **Hₐ₃**: The Shock Score changes the consistency or reduces the dispersion of managerial responses to financial information shocks.
+---
+
+## Variable Operationalization Consistency Map (Chapter 2)
+
+| Element | H₁ | H₂ |
+|---|---|---|
+| **Hypothesis (2.5)** | SC_total → NRS | ShowSC → risk–return ratio |
+| **Clarifying paragraph** | Links NRS to Sharpe/Sortino via simulation | Specifies Sharpe/Sortino, within-subject |
+| **Research question (2.4)** | Shocks → NRS + downstream portfolio | Shock Score → portfolio outcomes |
+| **Objective (2.3)** | Shocks → NRS shifts | Score → decision moderation + outcome changes |
+| **Definition IV (2.6.3)** | SC_total = PCA composite | ShowSC = treatment indicator |
+| **Definition DV (2.6.4/2.6.5)** | NRS (7-point scale) | Sharpe/Sortino |
+| **Tech Appendix regression** | y_i,e (NRS) = α + β₁·SC_total + controls | Outcome_j = α + τ·ShowSC + controls |
 
 ---
 
