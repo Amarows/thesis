@@ -48,7 +48,7 @@
 
 When quarterly earnings results arrive after market close or a central bank announces an unexpected policy shift, portfolio managers face immediate pressure to reassess positions before the next trading session. These decisions are made under uncertainty, information overload, and rapidly evolving market narratives. In such environments, decision-makers may be exposed to emotionally salient external information shocks that can increase cognitive load and time pressure. This study is motivated by the practical concern that such conditions may lead to systematic deviations from disciplined decision-making. In portfolio management, such deviations can manifest as procyclical rebalancing, excessive turnover, delayed adjustment, or temporary departures from strategic risk targets — each of which may degrade risk-adjusted returns and increase drawdown exposure over short horizons.
 
-The research problem addressed in this thesis is twofold. First, the study examines whether external financial information shocks are associated with systematic changes in managers' immediate risk stance. Second, it evaluates whether a structured decision-support indicator, the Shock Score, is associated with improved investment decision outcomes when moderating responses under shock conditions.
+The research problem addressed in this thesis is twofold. First, the study examines whether external financial information shocks are associated with systematic changes in managers' immediate risk stance. Second, it evaluates whether a structured decision-support indicator, the Shock Score, is associated with changes in investment decision outcomes when moderating responses under shock conditions.
 
 Accordingly, the Shock Score serves two roles in this study: as a continuous measure of shock intensity for evaluating the relationship between shocks and decisions, and as an experimental treatment condition for evaluating the effect of decision support on portfolio outcomes. The study is designed as applied research focused on professional decision-making, rather than on claims of market inefficiency or return predictability.
 
@@ -83,7 +83,7 @@ The first objective addresses the upper path: whether shocks produce systematic 
 
 ### 2.3.1 Assessing the Effect of Information Shocks on Investment Decisions
 
-The first objective is to assess whether external information shocks are associated with systematic shifts in managers’ immediate decision response. Decision response is operationalized as a single-item, seven-point Net Risk Stance scale capturing the direction and intensity of intended exposure adjustment in response to a shock scenario.
+The first objective is to assess whether external financial information shocks are associated with systematic shifts in managers’ immediate decision response. Decision response is operationalized as a single-item, seven-point Net Risk Stance scale capturing the direction and intensity of intended exposure adjustment in response to a shock scenario.
 
 Net Risk Stance response scale (single item, seven points):
 1 Strongly reduce exposure  
