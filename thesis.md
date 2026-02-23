@@ -86,7 +86,7 @@ The first objective addresses the upper path: whether shocks produce systematic 
 
 ### 2.3.1 Assessing the Effect of Information Shocks on Investment Decisions
 
-The first objective is to assess whether external financial information shocks are associated with systematic shifts in managers’ immediate decision response. Decision response is operationalized as a single-item, seven-point Net Risk Stance scale capturing the direction and intensity of intended exposure adjustment in response to a shock scenario.
+The first objective is to assess whether external financial information shocks are associated with systematic shifts in managers’ immediate decision response. Decision response is operationalized as a single-item, seven-point Net Risk Stance scale capturing the direction and intensity of intended exposure adjustment in response to a shock scenario (Alex specify here if this scale is used in the analysis of your secondary data or this is information you intend to collect through primary data).
 
 Net Risk Stance response scale (single item, seven points):
 1 Strongly reduce exposure  
