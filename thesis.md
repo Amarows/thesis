@@ -46,21 +46,21 @@
 
 ## 2.2 Problem Statement
 
-When quarterly earnings results arrive after market close or a central bank announces an unexpected policy shift, portfolio managers face immediate pressure to reassess positions before the next trading session. These decisions are made under uncertainty, information overload, and rapidly evolving market narratives. In such environments, decision-makers may be exposed to emotionally salient external information shocks that can increase cognitive load and time pressure (add literature reference here). This study is motivated by the practical concern that such conditions may lead to systematic deviations from disciplined decision-making (add reference here). In portfolio management, such deviations can manifest as procyclical rebalancing, excessive turnover, delayed adjustment, or temporary departures from strategic risk targets — each of which may degrade risk-adjusted returns and increase drawdown exposure over short horizons (add reference here).
+When quarterly earnings results arrive after market close or a central bank announces an unexpected policy shift, portfolio managers face immediate pressure to reassess positions before the next trading session. These decisions are made under uncertainty, information overload, and rapidly evolving market narratives ([Hirshleifer, 2015](https://doi.org/10.1146/annurev-financial-092214-043752); [Kahneman & Tversky, 1979](https://doi.org/10.2307/1914185)). In such environments, decision-makers may be exposed to emotionally salient external information shocks that can increase cognitive load and time pressure ([Hirshleifer, 2015](https://doi.org/10.1146/annurev-financial-092214-043752)). This study is motivated by the practical concern that such conditions may lead to systematic deviations from disciplined decision-making ([Kahneman & Tversky, 1979](https://doi.org/10.2307/1914185)). In portfolio management, such deviations can manifest as procyclical rebalancing ([Elkind et al., 2022](https://doi.org/10.3905/JFDS.2021.1.085)), excessive turnover ([Barber & Odean, 2000](https://dx.doi.org/10.2139/ssrn.219228)), delayed adjustment, or temporary departures from strategic risk targets -- each of which may degrade risk-adjusted returns and increase drawdown exposure over short horizons.
 
 The research problem addressed in this thesis is twofold. First, the study examines whether external financial information shocks are associated with systematic changes in managers' immediate risk stance. Second, it evaluates whether a structured decision-support indicator, the Shock Score, is associated with changes in investment decision outcomes when moderating responses under shock conditions.
 
 Accordingly, the Shock Score serves two roles in this study: as a continuous measure of shock intensity for evaluating the relationship between shocks and decisions, and as an experimental treatment condition for evaluating the effect of decision support on portfolio outcomes (Alex, the second part of this sentence is not clear - what do you mean with experimental treatment condition.....). The study is designed as applied research focused on professional decision-making, rather than on claims of market inefficiency or return predictability (add references that define maket inefficiency and return predictability).
 
 A practical illustration of an external information shock is provided by the intraday price dynamics of Meta Platforms Inc. on 2 February 2026, coinciding with the public release of quarterly earnings results. The announcement was widely interpreted as outperforming market expectations, triggering a rapid price adjustment and elevated trading volume. Despite the positive informational content, the immediate price response was followed by pronounced short-term volatility and partial reversal, highlighting the conditions under which emotionally salient news may influence short-horizon investment decisions (you need to add references here, else this paragraph reads as your subjective interpretaion or implying form the event you observed).
-![img_shock_example.png](img_shock_example.png)
+![img_shock_example.png](images/img_shock_example.png)
 ![Figure 2.1: Intraday price movement of Meta Platforms Inc. on 2 February 2026 following the release of quarterly earnings results, illustrating a short-horizon market reaction to an external information shock.](figures/meta_2026_02_02_intraday.png)
 (Remember each illustration has to be referenced according to APA standards - check the handbook for example of how to reference figures)
 
 
 ### 2.2.1 Emotional Bias as a Source of Suboptimal Portfolio Decisions
 
-This study assumes that portfolio decisions are shaped by both analytical judgment and affective responses, particularly under uncertainty and time pressure. Emotional and cognitive biases may influence how information is interpreted and acted upon, leading to inconsistent or procyclical decision responses relative to an investor’s stated objectives and constraints (add reference here). In this thesis, emotional bias is treated as a plausible mechanism that may contribute to suboptimal decision patterns, to be examined through theory (with theory you mean literature review? is so indicate literature review instead of theory) in Chapter 3 and evaluated empirically through observed decision responses and portfolio outcomes (i guess this is form the analysis of your secondary data as well as your primary data? in this case too, if that´s the case, do refer to the analysis of your primary and secondary data) in later chapters (you can mention which chapters).
+This study assumes that portfolio decisions are shaped by both analytical judgment and affective responses, particularly under uncertainty and time pressure ([Kahneman, 2011](https://www.worldcat.org/oclc/706020998)). Emotional and cognitive biases may influence how information is interpreted and acted upon ([Hirshleifer, 2015](https://doi.org/10.1146/annurev-financial-092214-043752)), leading to inconsistent or procyclical decision responses relative to an investor's stated objectives and constraints. In this thesis, emotional bias is treated as a plausible mechanism that may contribute to suboptimal decision patterns, to be examined through theory (with theory you mean literature review? is so indicate literature review instead of theory) in Chapter 3 and evaluated empirically through observed decision responses and portfolio outcomes (i guess this is form the analysis of your secondary data as well as your primary data? in this case too, if that´s the case, do refer to the analysis of your primary and secondary data) in later chapters (you can mention which chapters).
 
 ### 2.2.2 Impact of External Information Shocks on Risk – Return Outcomes
 
@@ -245,7 +245,8 @@ Findings may not generalize beyond the defined portfolio universe, event types, 
 The study evaluates portfolio risk–return outcomes through simulation rather than through observation of actual trading. Managers provide stated decision responses via the survey instrument; these responses are then translated into portfolio weight adjustments and evaluated against realized market returns within a simulation framework. As a result, the portfolio outcome findings for H₂ are jointly conditional on two elements: (a) the behavioral effect of the Shock Score on stated decisions, and (b) the adequacy of the simulation model that maps stated decisions to portfolio returns. If the translation rules, rebalancing assumptions, or return-attribution conventions do not adequately represent how stated intentions would manifest in live portfolio management, the portfolio-level results may over- or understate the true effect of decision support. Figure 2.2 illustrates the boundary between directly observed data and model-dependent inference. The simulation design, including all translation rules and rebalancing conventions, is fully specified in Chapter 4 to enable independent assessment of these assumptions.
 
 
-![img_casual_logic.png](img_casual_logic.svg)
+![img_casual_logic.png](images/img_casual_logic.svg)
+
 ![Figure 2.2: Causal logic of the study design. The left domain (observed) encompasses survey responses and market data. The right domain (simulated) encompasses the translation of stated decisions into portfolio outcomes, introducing model dependency that bounds interpretation of H₂ results.]
 
 
@@ -286,15 +287,14 @@ y_i,e = alpha_i + beta1 * SC_total_e + gamma' * X_i,e + epsilon_i,e
 
 Where alpha_i is a manager-specific intercept. This specification is optional and is chosen based on the final data structure documented in Chapter 4.
 
+---
 
-
-
--------------------------------
 # Chapter 3. Literature Review
 
 >The literature review is designed to bridge foundational behavioral finance theory with applied challenges in professional investment decision-making, culminating in the rationale for structured debiasing tools.
 
 ## 3.1 Link Between Literature and Research Hypotheses
+
 
 >This introductory section defines key theoretical constructs (e.g., information shocks, behavioral bias, Shock Score) and links them to the research problem.
 
@@ -312,7 +312,7 @@ Taken together, the literature reviewed below is interpreted in this thesis as i
 
 ## 3.2 Behavioral Biases in Investment Decision-Making
 
->This section surveys behavioral finance theory, showing how cognitive biases like overconfidence, loss aversion, the disposition effect, and emotional trading shape investor behavior. It integrates psychological theory and empirical findings with a focus on market reactions and volatility.
+> >This section surveys behavioral finance theory, showing how cognitive biases like overconfidence, loss aversion, the disposition effect, and emotional trading shape investor behavior. It integrates psychological theory and empirical findings with a focus on market reactions and volatility.
 
 ### 3.2.1 Behavioral biases driving overreaction under uncertainty
 
@@ -511,14 +511,6 @@ This approach aligns with calls in the literature to integrate behavioral insigh
 
 In practical terms, the Shock Score addresses the shortcomings identified above. It is a forward-looking indicator (ex-ante) that can be computed continuously as new information flows in, making behavioral risk explicit in the same way that traditional risk measures quantify volatility or Value-at-Risk. By doing so, it fills a lacuna in the literature by tying descriptive knowledge of biases to a predictive decision-support tool. In summary, the Shock Score is both novel and relevant: it provides the missing link between theory and practice, operationalizing behavioral finance for real-time portfolio management.
 
-### 3.6.3 Positioning of the Shock Score within Existing Literature
-
-The Shock Score concept introduced in this thesis is positioned as a novel approach that bridges behavioral theory and operational decision-making needs. Unlike most behavioral finance studies, the Shock Score is designed as an ex-ante, real-time metric intended for practitioner use. It quantifies the potential cognitive strain on a portfolio manager before and during an information event by integrating market data with established psychological mechanisms. To the author's knowledge, prior research has not proposed a comparable behavioral risk index explicitly tailored to support human decision-making in real time. The closest technical analogues are sentiment- and news-based measures developed for predictive or algorithmic purposes. For example, Song et al. (2015) construct sentiment-based signals to forecast asset returns, but these measures are intended for automated trading systems rather than for guiding portfolio managers' behavioral responses as shocks unfold ([Song et al., 2015](https://dx.doi.org/10.2139/ssrn.2631135)). By contrast, the Shock Score operationalizes insights from cognitive psychology, such as loss aversion, anchoring, and overconfidence, into an actionable signal designed to inform ex-ante decision support.
-
-This approach aligns with calls in the literature to integrate behavioral insights with explainable, real-time decision support. For example, Lim (2025) highlights the value of combining behavioral finance with explainable AI to improve decision-support systems, particularly in time-sensitive contexts ([Lim, 2025](https://dx.doi.org/10.1080/15427560.2025.2609644)). The Shock Score builds on this motivation by translating well-established behavioral mechanisms into a machine-readable risk alert intended for practitioner use. Conceptually, it draws on the 'System 1 versus System 2' framework articulated by Kahneman (2011), applying it to a portfolio-management setting: as a major news event approaches (a potential System 1 trigger), the Shock Score estimates the likelihood and intensity with which emotional biases may be activated for a given manager or strategy ([Kahneman, 2011](https://www.worldcat.org/oclc/706020998)).
-
-In practical terms, the Shock Score addresses the shortcomings identified above. It is a forward-looking indicator (ex-ante) that can be computed continuously as new information flows in, making behavioral risk explicit in the same way that traditional risk measures quantify volatility or Value-at-Risk. By doing so, it fills a lacuna in the literature by tying descriptive knowledge of biases to a predictive decision-support tool. In summary, the Shock Score is both novel and relevant: it provides the missing link between theory and practice, operationalizing behavioral finance for real-time portfolio management.
-
 **Benchmarking Against Existing Measures**
 
 While sentiment and shock measurement is not new to finance, existing approaches differ fundamentally from the Shock Score in purpose, scope, and application. This subsection benchmarks the Shock Score against three categories of competing measures to establish its novelty.
@@ -615,9 +607,9 @@ The research is positioned as applied research focused on professional decision-
 
 The conceptual framework operationalizes the causal logic introduced in section 2.3 into a testable research design. Figure 4.1 presents the framework, mapping each construct to its measurement instrument and connecting the two hypotheses to the experimental protocol.
 
-![img_framework.png](img_framework.svg)
+![img_framework.png](images/img_framework.svg)
 
-<img src="img_framework.svg" alt="Conceptual Framework" width="600"/>
+<img src="images/img_framework.svg" alt="Conceptual Framework" width="600"/>
 
 [Figure 4.1: Conceptual Framework — Research Design Operationalization]
 
