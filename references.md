@@ -74,11 +74,7 @@
 | Jiang & Verardo, 2018        | https://doi.org/10.1111/jofi.12699 | Does Herding Behavior Reveal Skill? An Analysis of Mutual Fund Performance
 | Angelova et al., 2023        | https://doi.org/10.3386/w31747 | Algorithmic recommendations and human discretion. NBER WP. 
 | Henderson et al., 2018       | https://doi.org/10.1016/j.jet.2018.10.002 | Probability weighting, stop-loss and the disposition effect
-
-
-
-
-[Henderson et al., 2018](https://doi.org/10.1016/j.jet.2018.10.002)
-
-
-
+| Peng & Xiong, 2006 | https://doi.org/10.1016/j.jfineco.2005.05.003 | Investor attention, overconfidence and category learning | Journal of Financial Economics |
+| Kahneman, 2003 | https://doi.org/10.1257/000282803322655392 | Maps of bounded rationality: Psychology for behavioral economics | American Economic Review |
+| Bergkvist & Rossiter, 2007 | https://doi.org/10.1509/jmkr.44.2.175 | The predictive validity of multiple-item versus single-item measures of the same constructs | Journal of Marketing Research |
+| Barber & Odean, 2008 | https://doi.org/10.1093/rfs/hhm079 | All that glitters: The effect of attention and news on the buying behavior of individual and institutional investors | Review of Financial Studies |
