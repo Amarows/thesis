@@ -71,3 +71,5 @@
 | Krosnick, 1999               | https://doi.org/10.1146/annurev.psych.50.1.537                                     | Survey research.                                                                                                 
 | Fama, 1970 | https://doi.org/10.1111/j.1540-6261.1970.tb00518.x| Efficient capital markets: A review of theory and empirical work                                                 |
 | Cochrane, 2005 | https://books.google.com/books/about/Asset_Pricing.html?id=20pmeMaKNwsC | Asset pricing (Rev. ed.)                                                                                         |
+| Charness et al., 2012 | https://doi.org/10.1016/j.jebo.2011.08.006 | Experimental Methods: Between-Subject and Within-Subject Design | |
+| Krosnick, 1999 | https://doi.org/10.1146/annurev.psych.50.1.537 | Survey Research | |
