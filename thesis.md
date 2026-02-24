@@ -155,7 +155,9 @@ An external financial information shock is a discrete public information event r
 The Shock Score is a quantitative decision-support indicator designed to summarize the emotional and informational intensity of an external financial information shock in a manager-interpretable format. In this thesis, the Shock Score has two representations: an analytical composite index used for statistical testing and an operational dashboard used for decision support.
 
 Analytical composite index (SC_total):
-SC_total is defined as the first principal component obtained from a set of standardized shock characteristics computed at the event level. Let x_e be a vector of K standardized shock components for event e, with K = 4 and each component standardized across events to have mean 0 and standard deviation 1. Principal component analysis produces a loading vector w_1 that defines the first principal component. The composite Shock Score is then:
+SC_total is defined as the first principal component obtained from a set of standardized shock characteristics computed at the event level. This construction follows the established approach of using principal component analysis to derive composite indices in finance ([Baker & Wurgler, 2006](https://doi.org/10.1111/j.1540-6261.2006.00885.x)). 
+
+Let x_e be a vector of K standardized shock components for event e, with K = 4 and each component standardized across events to have mean 0 and standard deviation 1. Principal component analysis produces a loading vector w_1 that defines the first principal component. The composite Shock Score is then:
 
 SC_total_e = w_1' x_e
 
@@ -201,12 +203,12 @@ When the Shock Score is not displayed, SC_total remains defined at the event lev
 
 Risk – return ratio refers to a risk-adjusted measure of portfolio performance that evaluates return relative to risk exposure. In this thesis, Sharpe ratio and Sortino ratio are specified as primary risk – return metrics for evaluating portfolio outcomes under alternative decision conditions.
 
-Sharpe ratio:
+Sharpe ratio ([Sharpe, 1966](https://doi.org/10.1086/294846)):
 Let r_t denote portfolio return over period t and r_f denote the risk-free rate over the same period. Let mu denote the mean of excess returns (r_t - r_f) and sigma denote the standard deviation of excess returns. Then:
 
 Sharpe = mu / sigma
 
-Sortino ratio:
+Sortino ratio ([Sortino & van der Meer, 1991](https://doi.org/10.3905/jpm.1991.409343)):
 Let MAR denote a minimum acceptable return, often set to the risk-free rate or zero depending on convention. Let mu denote the mean of excess returns (r_t - MAR). Let sigma_d denote downside deviation, defined as the square root of the mean of squared shortfalls below MAR:
 
 sigma_d = sqrt( E[ min(0, r_t - MAR)^2 ] )
@@ -227,7 +229,7 @@ The study assumes that the timing of external information shocks can be identifi
 
 ### 2.7.2 Consistency of Portfolio Decision Rules
 
-The study assumes that respondents interpret the decision task consistently and that the Net Risk Stance scale captures intended exposure adjustment in a comparable way across respondents and scenarios. Random assignment of scenarios to conditions is assumed to mitigate systematic learning and order effects. The design further assumes that respondents’ decisions reflect their intended stance under the scenario constraints and are not materially distorted by survey fatigue or strategic responding.
+The study assumes that respondents interpret the decision task consistently and that the Net Risk Stance scale captures intended exposure adjustment in a comparable way across respondents and scenarios. Random assignment of scenarios to conditions is assumed to mitigate systematic learning and order effects ([Charness et al., 2012](https://doi.org/10.1016/j.jebo.2011.08.006)). The design further assumes that respondents’ decisions reflect their intended stance under the scenario constraints and are not materially distorted by survey fatigue or strategic responding.
 
 ## 2.8 Limitations
 
