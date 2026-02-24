@@ -148,7 +148,7 @@ Emotional bias refers to systematic deviations in judgment and choice that arise
 
 ### 2.6.2 External Financial Information Shock
 
-An external financial information shock is a discrete public information event relevant to a portfolio holding that arrives over a short horizon and has the potential to trigger heightened attention, uncertainty, and rapid market reaction.
+An external financial information shock is a discrete public information event relevant to a portfolio holding that arrives over a short horizon and has the potential to trigger heightened attention, uncertainty, and rapid market reaction ([Jiang & Zhu, 2016](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2891216)).
 
 ### 2.6.3 Shock Score
 
