@@ -100,7 +100,7 @@ Net Risk Stance response scale (single item, seven points):
 
 ### 2.3.2 Evaluating the Value Added of the Shock Score
 
-The second objective is to evaluate whether providing the Shock Score to moderates decision behavior and is associated with changes in outcomes relative to a no-score condition. The study uses a within-subject design in which each participant is exposed to both conditions, enabling comparison of responses while controlling for stable individual differences. The Shock Score is presented as a manager-facing dashboard designed to structure interpretation and trigger a pre-committed decision protocol under high-shock conditions.
+The second objective is to evaluate whether providing the Shock Score to moderates decision behavior and is associated with changes in outcomes relative to a no-score condition. The study uses a within-subject design ([Charness et al., 2012](https://doi.org/10.1016/j.jebo.2011.08.006)) in which each participant is exposed to both conditions, enabling comparison of responses while controlling for stable individual differences. The Shock Score is presented as a manager-facing dashboard designed to structure interpretation and trigger a pre-committed decision protocol under high-shock conditions ([Shefrin, 2002](https://doi.org/10.1093/oso/9780195304213.001.0001); [Statman, 2019](https://doi.org/10.2139/ssrn.3668963)).
 
 ### 2.3.3 Measuring Changes in Portfolio Risk – Return Characteristics
 
