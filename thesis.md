@@ -229,7 +229,7 @@ The study assumes that the timing of external information shocks can be identifi
 
 ### 2.7.2 Consistency of Portfolio Decision Rules
 
-The study assumes that respondents interpret the decision task consistently and that the Net Risk Stance scale captures intended exposure adjustment in a comparable way across respondents and scenarios. Random assignment of scenarios to conditions is assumed to mitigate systematic learning and order effects ([Charness et al., 2012](https://doi.org/10.1016/j.jebo.2011.08.006)). The design further assumes that respondents’ decisions reflect their intended stance under the scenario constraints and are not materially distorted by survey fatigue or strategic responding.
+The study assumes that respondents interpret the decision task consistently and that the Net Risk Stance scale captures intended exposure adjustment in a comparable way across respondents and scenarios. Random assignment of scenarios to conditions is assumed to mitigate systematic learning and order effects ([Charness et al., 2012](https://doi.org/10.1016/j.jebo.2011.08.006)). he design further assumes that respondents' decisions reflect their intended stance under the scenario constraints and are not materially distorted by survey fatigue or strategic responding ([Krosnick, 1999](https://doi.org/10.1146/annurev.psych.50.1.537)).
 
 ## 2.8 Limitations
 
