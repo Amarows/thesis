@@ -57,11 +57,9 @@ A practical illustration of an external information shock is provided by the int
 Figure 2.1 Intraday price movement of Meta Platforms Inc. on 2 February 2026 following the release of quarterly earnings results, illustrating a short-horizon market reaction to an external information shock. Source: Interactive Brokers.
 ![Figure 2.1: Intraday price movement of Meta Platforms Inc. on 2 February 2026 following the release of quarterly earnings results, illustrating a short-horizon market reaction to an external information shock.](images/img_shock_example.png)
 
-
-
 ### 2.2.1 Emotional Bias as a Source of Suboptimal Portfolio Decisions
 
-This study assumes that portfolio decisions are shaped by both analytical judgment and affective responses, particularly under uncertainty and time pressure ([Kahneman, 2011](https://www.worldcat.org/oclc/706020998)). Emotional and cognitive biases may influence how information is interpreted and acted upon ([Hirshleifer, 2015](https://doi.org/10.1146/annurev-financial-092214-043752)), leading to inconsistent or procyclical decision responses relative to an investor's stated objectives and constraints. In this thesis, emotional bias is treated as a plausible mechanism that may contribute to suboptimal decision patterns, to be examined through theory (with theory you mean literature review? is so indicate literature review instead of theory) in Chapter 3 and evaluated empirically through observed decision responses and portfolio outcomes (i guess this is form the analysis of your secondary data as well as your primary data? in this case too, if that´s the case, do refer to the analysis of your primary and secondary data) in later chapters (you can mention which chapters).
+This study assumes that portfolio decisions are shaped by both analytical judgment and affective responses, particularly under uncertainty and time pressure ([Kahneman, 2011](https://www.worldcat.org/oclc/706020998)). Emotional and cognitive biases may influence how information is interpreted and acted upon, leading to inconsistent or procyclical decision responses relative to an investor's stated objectives and constraints ([Hirshleifer, 2015](https://doi.org/10.1146/annurev-financial-092214-043752)). In this thesis, emotional bias is treated as a plausible mechanism that may contribute to suboptimal decision patterns, to be examined through theory (with theory you mean literature review? is so indicate literature review instead of theory) in Chapter 3 and evaluated empirically through observed decision responses and portfolio outcomes (i guess this is form the analysis of your secondary data as well as your primary data? in this case too, if that´s the case, do refer to the analysis of your primary and secondary data) in later chapters (you can mention which chapters).
 
 ### 2.2.2 Impact of External Information Shocks on Risk – Return Outcomes
 
@@ -73,7 +71,7 @@ The Shock Score is introduced as a decision-support mechanism intended to struct
 
 ## 2.3 Objectives of the Study
 
-The overall objective of the study is to evaluate whether a structured, practitioner-oriented Shock Score can support investment decision outcomes under external information shock conditions. The study operationalizes outcomes in terms of risk-adjusted portfolio performance (add reference ´risk-adjusted portfolio performance´ is not your own expression or concept), consistent with the premise that shocks may induce both excessive risk-taking and excessive de-risking (add references here).
+The overall objective of the study is to evaluate whether a structured, practitioner-oriented Shock Score can support investment decision outcomes under external information shock conditions. The study operationalizes outcomes in terms of risk-adjusted portfolio performance, consistent with the premise that shocks may induce both excessive risk-taking and excessive de-risking ([Kahneman & Tversky, 1979](https://doi.org/10.2307/1914185); [Barber & Odean, 2001](https://doi.org/10.1162/003355301556400); [Chen et al., 2024](http://doi.org/10.2139/ssrn.4942370)).
 
 The objectives of the study are as follows. They reflect a causal logic in which information shocks affect managerial decisions (you´re already implying the causal logic - this is what you´re investigating, leave conclusions for the end of the research), and decisions in turn affect portfolio outcomes. The Shock Score intervenes (here you´re already assigning to the Shock Score a role in your research, but you have not defined the Shock Score yet, hence it is becoming difficult to follow) at the decision stage:
 
@@ -89,7 +87,7 @@ The first objective addresses the upper path: whether shocks produce systematic 
 
 ### 2.3.1 Assessing the Effect of Information Shocks on Investment Decisions
 
-The first objective is to assess whether external financial information shocks are associated with systematic shifts in managers’ immediate decision response. Decision response is operationalized as a single-item, seven-point Net Risk Stance scale capturing the direction and intensity of intended exposure adjustment in response to a shock scenario (Alex specify here if this scale is used in the analysis of your secondary data or this is information you intend to collect through primary data).
+The first objective is to assess whether external financial information shocks are associated with systematic shifts in managers’ immediate decision response. Decision response is collected through primary data as a single-item, seven-point Net Risk Stance scale ([Doronila, 2024](https://dx.doi.org/10.2139/ssrn.5877342)) capturing the direction and intensity of intended exposure adjustment in response to a shock scenario.
 
 Net Risk Stance response scale (single item, seven points):
 1 Strongly reduce exposure  
