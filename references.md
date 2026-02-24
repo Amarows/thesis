@@ -26,7 +26,7 @@
 | Ben-Rephael et al., 2024     | https://dx.doi.org/10.2139/ssrn.3966758                                            | Mind the Gap: The Non-Fundamental Role of Earnings Days                                                          | ssrn-3966758.pdf           
 | Harvey et al., 2025          | https://doi.org/10.2139/ssrn.5122748                                               | The Unintended Consequences of Rebalancing                                                                       | ssrn-5122748.pdf           
 | Simon, 1955                  | https://doi.org/10.2307/1884852                                                    | A Behavioral Model of Rational Choice                                                                            | simon1955.pdf              
-| Jiang, 2016                  | https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2891216                        | Information Shocks and Short-Term Market Underreaction                                                           | ssrn-2891216.pdf           
+| Jiang & Zhu, 2016            | https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2891216                        | Information Shocks and Short-Term Market Underreaction                                                           | ssrn-2891216.pdf           
 | Hodgkinson et al., 1999      | https://doi.org/10.1002/(SICI)1097-0266(199910)20:10%3C977::AID-SMJ58%3E3.0.CO;2-X | Breaking the frame: an analysis of strategic cognition and decision making under uncertainty                     |
 | Ben-David et al., 2013       | https://doi.org/10.1093/qje/qjt023                                                 | Managerial Miscalibration*                                                                                       | ben-david2013.pdf          
 | March & Shapira, 1987        | https://doi.org/10.1287/mnsc.33.11.1404                                            | Managerial Perspectives on Risk and Risk Taking                                                                  |
@@ -54,8 +54,8 @@
 | Bianchi et al., 2020         | https://doi.org/10.2139/ssrn.3232721                                               | Bond Risk Premia with Machine Learning                                                                           | ssrn-3232721.pdf           
 | Rigobon, 2003                | https://doi.org/10.1162/003465303772815727                                         | Identification Through Heteroskedasticity                                                                        | rigobon2003.pdf            
 | Engelberg & Parsons, 2009    | https://doi.org/10.2139/ssrn.1462416                                               | The Causal Impact of Media in Financial Markets                                                                  | ssrn-1462416.pdf           
-| Bhandari 2008                | https://doi.org/10.1016/j.dss.2008.07.010                                          | Debiasing investors with decision support systems: An experimental investigation                                 | bhandari2008.pdf           
-| Huber 2022                   | https://doi.org/10.1016/j.jebo.2021.12.007                                         | Volatility shocks and investment behavior                                                                        | huber2022.pdf              
+| Bhandari et al., 2008        | https://doi.org/10.1016/j.dss.2008.07.010                                          | Debiasing investors with decision support systems: An experimental investigation                                 | bhandari2008.pdf           
+| Huber et al., 2022           | https://doi.org/10.1016/j.jebo.2021.12.007                                         | Volatility shocks and investment behavior                                                                        | huber2022.pdf              
 | Barberis & Thaler, 2002      | https://dx.doi.org/10.2139/ssrn.327880                                             | A Survey of Behavioral Finance                                                                                   | ssrn-327880.pdf            
 | Song et al., 2015            | https://dx.doi.org/10.2139/ssrn.2631135                                            | An Extreme Firm-Specific News Sentiment Asymmetry Based Trading Strategy                                         | ssrn-2631135.pdf           
 | Lim, 2025                    | http://dx.doi.org/10.1080/15427560.2025.2609644                                    | Emotion-Aware Decision Support System for Real-Time Financial Sentiment and Behavior-Based Trading Risk Advisory | ssrn-5183852.pdf           
@@ -69,7 +69,16 @@
 | Doronila, 2024               | https://dx.doi.org/10.2139/ssrn.5877342                                            | Is Likert Scale 'Still In' in 2024? |                                                                            |                            |
 | Charness et al., 2012        | https://doi.org/10.1016/j.jebo.2011.08.006                                         | Experimental methods: Between-subject and within-subject design                                                  | 
 | Krosnick, 1999               | https://doi.org/10.1146/annurev.psych.50.1.537                                     | Survey research.                                                                                                 
-| Fama, 1970 | https://doi.org/10.1111/j.1540-6261.1970.tb00518.x| Efficient capital markets: A review of theory and empirical work                                                 |
-| Cochrane, 2005 | https://books.google.com/books/about/Asset_Pricing.html?id=20pmeMaKNwsC | Asset pricing (Rev. ed.)                                                                                         |
-| Charness et al., 2012 | https://doi.org/10.1016/j.jebo.2011.08.006 | Experimental Methods: Between-Subject and Within-Subject Design | |
-| Krosnick, 1999 | https://doi.org/10.1146/annurev.psych.50.1.537 | Survey Research | |
+| Fama, 1970                   | https://doi.org/10.1111/j.1540-6261.1970.tb00518.x| Efficient capital markets: A review of theory and empirical work                                                 |
+| Cochrane, 2005               | https://books.google.com/books/about/Asset_Pricing.html?id=20pmeMaKNwsC | Asset pricing (Rev. ed.)                                                                                         |
+| Jiang & Verardo, 2018        | https://doi.org/10.1111/jofi.12699 | Does Herding Behavior Reveal Skill? An Analysis of Mutual Fund Performance
+| Angelova et al., 2023        | https://doi.org/10.3386/w31747 | Algorithmic recommendations and human discretion. NBER WP. 
+| Henderson et al., 2018       | https://doi.org/10.1016/j.jet.2018.10.002 | Probability weighting, stop-loss and the disposition effect
+
+
+
+
+[Henderson et al., 2018](https://doi.org/10.1016/j.jet.2018.10.002)
+
+
+
