@@ -104,7 +104,7 @@ The second objective is to evaluate whether providing the Shock Score to moderat
 
 ### 2.3.3 Measuring Changes in Portfolio Risk – Return Characteristics
 
-The third objective is to measure whether decision support is associated with changes in portfolio risk–return characteristics. Portfolio outcomes are evaluated using risk-adjusted performance measures, with Sharpe ratio and Sortino ratio specified as primary metrics. The precise computation conventions (return horizon, downside threshold definition for Sortino, and risk-free rate convention for Sharpe) are defined in Chapter 4 to ensure reproducibility and consistency across analyses.
+The third objective is to measure whether decision support is associated with changes in portfolio risk–return characteristics. Portfolio outcomes are evaluated using risk-adjusted performance measures, with Sharpe ratio ([Sharpe, 1966](https://doi.org/10.1086/294846)) and Sortino ratio ([Sortino & van der Meer, 1991](https://doi.org/10.3905/jpm.1991.409343)) specified as primary metrics. The precise computation conventions (return horizon, downside threshold definition for Sortino, and risk-free rate convention for Sharpe) are defined in Chapter 4 to ensure reproducibility and consistency across analyses.
 
 ## 2.4 Research Questions
 
@@ -144,7 +144,7 @@ This section defines key terms used throughout the thesis. Definitions are opera
 
 ### 2.6.1 Emotional Bias
 
-Emotional bias refers to systematic deviations in judgment and choice that arise from affective responses under uncertainty, leading decision-makers to overweight salient or emotionally charged information relative to a deliberative, rule-consistent decision process.
+Emotional bias refers to systematic deviations in judgment and choice that arise from affective responses under uncertainty ([Kahneman & Tversky, 1979](https://doi.org/10.2307/1914185); [Hirshleifer, 2015](https://doi.org/10.1146/annurev-financial-092214-043752)), leading decision-makers to overweight salient or emotionally charged information relative to a deliberative, rule-consistent decision process.
 
 ### 2.6.2 External Financial Information Shock
 
