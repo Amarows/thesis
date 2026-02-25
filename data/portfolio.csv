@@ -1,32 +1,31 @@
-|  # | Company                | Symbol | ISIN         | GICS Sector            | Market cap (USD) | S&P 500 rank (by mkt cap) |
-| -: | ---------------------- | ------ | ------------ | ---------------------- | ---------------: | ------------------------: |
-|  1 | Walmart                | WMT    | US9311421039 | Consumer Staples       |           $1.01T |                        11 |
-|  2 | Eli Lilly              | LLY    | US5324571083 | Health Care            |         $983.51B |                        12 |
-|  3 | JPMorgan Chase         | JPM    | US46625H1005 | Financials             |         $807.85B |                        13 |
-|  4 | ExxonMobil             | XOM    | US30231G1022 | Energy                 |         $625.76B |                        14 |
-|  5 | Visa                   | V      | US92826C8394 | Financials             |         $594.40B |                        15 |
-|  6 | Johnson & Johnson      | JNJ    | US4781601046 | Health Care            |         $589.71B |                        16 |
-|  7 | Mastercard             | MA     | US57636Q1040 | Financials             |         $445.46B |                        18 |
-|  8 | Costco                 | COST   | US22160K1051 | Consumer Staples       |         $442.84B |                        19 |
-|  9 | Oracle Corporation     | ORCL   | US68389X1054 | Information Technology |         $430.94B |                        20 |
-| 10 | Procter & Gamble       | PG     | US7427181091 | Consumer Staples       |         $383.17B |                        22 |
-| 11 | Home Depot             | HD     | US4370761029 | Consumer Discretionary |         $380.29B |                        23 |
-| 12 | Chevron Corporation    | CVX    | US1667641005 | Energy                 |         $367.67B |                        24 |
-| 13 | Bank of America        | BAC    | US0605051046 | Financials             |         $364.79B |                        25 |
-| 14 | GE Aerospace           | GE     | US3696043013 | Industrials            |         $364.13B |                        26 |
-| 15 | Caterpillar Inc.       | CAT    | US1491231015 | Industrials            |         $360.48B |                        27 |
-| 16 | Advanced Micro Devices | AMD    | US0079031078 | Information Technology |         $350.03B |                        28 |
-| 17 | Coca-Cola Company      | KO     | US1912161007 | Consumer Staples       |         $346.15B |                        29 |
-| 18 | Netflix                | NFLX   | US64110L1061 | Communication Services |         $334.28B |                        30 |
-| 19 | Cisco                  | CSCO   | US17275R1023 | Information Technology |         $310.54B |                        33 |
-| 20 | Merck & Co.            | MRK    | US58933Y1055 | Health Care            |         $306.95B |                        34 |
-| 21 | Applied Materials      | AMAT   | US0382221051 | Information Technology |         $306.93B |                        35 |
-| 22 | RTX Corporation        | RTX    | US75513E1010 | Industrials            |         $266.73B |                        39 |
-| 23 | UnitedHealth Group     | UNH    | US91324P1021 | Health Care            |         $250.39B |                        41 |
-| 24 | T-Mobile US            | TMUS   | US8725901040 | Communication Services |         $245.69B |                        42 |
-| 25 | McDonald’s             | MCD    | US5801351017 | Consumer Discretionary |         $237.15B |                        44 |
-| 26 | PepsiCo                | PEP    | US7134481081 | Consumer Staples       |         $230.58B |                        47 |
-| 27 | Verizon                | VZ     | US92343V1044 | Communication Services |         $209.69B |                        50 |
-| 28 | NextEra Energy         | NEE    | US65339F1012 | Utilities              |         $199.81B |                        53 |
-| 29 | AT&T                   | T      | US00206R1023 | Communication Services |         $197.59B |                        55 |
-| 30 | Walt Disney Company    | DIS    | US2546871060 | Consumer Discretionary |         $187.51B |                        59 |
+#,Company,Symbol,ISIN,GICS Sector,Market cap,SP 500 rank
+1,Walmart,WMT,US9311421039,Consumer Staples,$1.01T,11
+2,Linde,LIN,IE000S9YS762,Materials,$227.00B,48
+3,JPMorgan Chase,JPM,US46625H1005,Financials,$807.85B,13
+4,ExxonMobil,XOM,US30231G1022,Energy,$625.76B,14
+5,Visa,V,US92826C8394,Financials,$594.40B,15
+6,Johnson & Johnson,JNJ,US4781601046,Health Care,$589.71B,16
+7,Goldman Sachs,GS,US38141G1040,Financials,$197.50B,37
+8,Costco,COST,US22160K1051,Consumer Staples,$442.84B,19
+9,Oracle Corporation,ORCL,US68389X1054,Information Technology,$430.94B,20
+10,Procter & Gamble,PG,US7427181091,Consumer Staples,$383.17B,22
+11,Home Depot,HD,US4370761029,Consumer Discretionary,$380.29B,23
+12,Chevron Corporation,CVX,US1667641005,Energy,$367.67B,24
+13,Bank of America,BAC,US0605051046,Financials,$364.79B,25
+14,GE Aerospace,GE,US3696043013,Industrials,$364.13B,26
+15,Caterpillar Inc.,CAT,US1491231015,Industrials,$360.48B,27
+16,Advanced Micro Devices,AMD,US0079031078,Information Technology,$350.03B,28
+17,Coca-Cola Company,KO,US1912161007,Consumer Staples,$346.15B,29
+18,Netflix,NFLX,US64110L1061,Communication Services,$334.28B,30
+19,Cisco,CSCO,US17275R1023,Information Technology,$310.54B,33
+20,Merck & Co.,MRK,US58933Y1055,Health Care,$306.95B,34
+21,Applied Materials,AMAT,US0382221051,Information Technology,$306.93B,35
+22,RTX Corporation,RTX,US75513E1010,Industrials,$266.73B,39
+23,UnitedHealth Group,UNH,US91324P1021,Health Care,$250.39B,41
+24,T-Mobile US,TMUS,US8725901040,Communication Services,$245.69B,42
+25,McDonald's,MCD,US5801351017,Consumer Discretionary,$237.15B,44
+26,Prologis,PLD,US74340W1036,Real Estate,$112.50B,56
+27,Verizon,VZ,US92343V1044,Communication Services,$209.69B,50
+28,NextEra Energy,NEE,US65339F1012,Utilities,$199.81B,53
+29,AT&T,T,US00206R1023,Communication Services,$197.59B,55
+30,Walt Disney Company,DIS,US2546871060,Consumer Discretionary,$187.51B,59
