@@ -48,7 +48,6 @@ thesis/                         # Root directory
 ├── references.md               # Reference list: author, year, link, local filename
 ├── demo.py                     # Main coding file; references toolkits and API connectors
 ├── drafts.py                   # Scratch/draft code
-├── functions.py                # Service functions (word count, reference age, file conversions)
 ├── README.md                   # Repo readme
 ├── repo_tree.txt               # Generated directory listing
 │
@@ -91,6 +90,7 @@ thesis/                         # Root directory
 │   └── market_data_toolkit.py  # Market data retrieval via Yahoo
 │
 └── toolkits/                   # Data processing and analysis toolkits
+    ├── service_functions.py              # Utility functions: word count, reference analysis, MD→DOCX, bibliography XML
     ├── market_data_processor_toolkit.py  # Market data cleaning and transformation
     └── news_sentiment_toolkit.py         # FinBERT sentiment scoring pipeline
 ```
