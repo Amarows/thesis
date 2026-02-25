@@ -46,7 +46,10 @@ thesis/                         # Root directory
 ├── thesis.md                   # Main thesis text (Markdown)
 ├── research_plan.md            # Internal notes, ideas, workflow (not published)
 ├── references.md               # Reference list: author, year, link, local filename
-├── demo.py                     # Main coding file; references toolkits and API connectors
+├── 1_download.py               # Live IBKR connectors: download prices + news to data/
+├── 2_prepare.py                # Load data/, merge news, coverage stats, price chart
+├── 3_analysis.py               # SC_total construction, H1/H2 regressions (future)
+├── 4_report.py                 # Thesis-ready tables and figures (future)
 ├── drafts.py                   # Scratch/draft code
 ├── README.md                   # Repo readme
 ├── repo_tree.txt               # Generated directory listing
