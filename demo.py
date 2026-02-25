@@ -3,7 +3,7 @@ import time
 import threading
 from ibkr_tws_api import TradingApp
 
-#=============================================== connect #=============================================
+#=============================================== connect to IB #=============================================
 app = TradingApp()
 # Your Gateway shows port 7496 (paper) and Master Client ID = 5, so:
 app.connect("127.0.0.1", 7496, clientId=6)
@@ -20,9 +20,15 @@ for _ in range(50):
 else:
     raise RuntimeError("Failed to receive nextValidId from IBKR.")
 
+#=============================================== list of single stocks =================================================
+
+import pandas as pd
+list_of_prospects = pd.read_csv("data/portfolio.csv")["Symbol"].tolist()
+
+
 #=============================================== download historical data #=============================================
 
-list_of_prospects=['AAPL','MSFT', 'NVDA','BTC', 'ETH']
+
 
 from historical_data_toolkit import download_close_series_save
 
@@ -32,7 +38,7 @@ if __name__ == "__main__":
     series_long = download_close_series_save(
         app,
         list_of_prospects,
-        duration="20 D",
+        duration="90 D",
         bar="1 hour",
         what="TRADES",
         useRTH=1,
@@ -53,18 +59,18 @@ plt.tight_layout()
 plt.show()
 
 
-#=============================================== download news #=============================================
+#=============================================== download news as CLIENT!!! #========================================
 
 from src_api_ibkr.ibkr_news_toolkit import IBKRNewsToolkit, IBKRConnectionConfig
 
 if __name__ == "__main__":
-    symbols = ["AAPL", "MSFT", "NVDA"]
+    symbols = list_of_prospects  # Using the first 3 symbols from the portfolio
 
     # Put here the provider codes that you verified return headlines in your test.
-    providers = ["BZ", "BRFG", "BRFUPDN", "DJNL", "DJ-RT", "FLY"]
+    providers = ["BZ"]#, "BRFG", "BRFUPDN", "DJNL", "DJ-RT", "FLY"]
 
-    start_date = "2025-12-15"
-    end_date = "2025-12-18"
+    start_date = "2026-02-01"
+    end_date = "2026-02-28"
 
     cfg = IBKRConnectionConfig(host="127.0.0.1", port=7496, client_id=7)
 
@@ -79,9 +85,9 @@ if __name__ == "__main__":
             providers=providers,
             start_date=start_date,
             end_date=end_date,
-            top_n=10,
+            top_n=10000,
             force_refresh=False,
-            include_article_text=False,
+            include_article_text=True,
         )
 
         # 2) Headlines + article bodies (slow; many providers may return empty/denied)
