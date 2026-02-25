@@ -78,3 +78,6 @@
 | Kahneman, 2003 | https://doi.org/10.1257/000282803322655392 | Maps of bounded rationality: Psychology for behavioral economics | American Economic Review |
 | Bergkvist & Rossiter, 2007 | https://doi.org/10.1509/jmkr.44.2.175 | The predictive validity of multiple-item versus single-item measures of the same constructs | Journal of Marketing Research |
 | Barber & Odean, 2008 | https://doi.org/10.1093/rfs/hhm079 | All that glitters: The effect of attention and news on the buying behavior of individual and institutional investors | Review of Financial Studies |
+| DeMiguel, Garlappi & Uppal, 2009 | https://doi.org/10.1093/rfs/hhm075 | Versus Naive Diversification: How Inefficient Is the 1/N Portfolio Strategy? | 
+| Li, Shah, Noyan & Gao, 2016 | https://doi.org/10.1109/BigData.2018.8621884 | Prediction Based on News Sentiment Analysis | 
+| Weber, Siebenmorgen & Weber, 2005 | https://psycnet.apa.org/doi/10.1111/j.1539-6924.2005.00627.x | Asset Risk: How Name Recognition and the Format of Historic Volatility Information Affect Risk Perception and Investment Decisions | 

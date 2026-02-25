@@ -268,7 +268,7 @@ Chapter 2 defined the research problem and objectives, formulated research quest
 Taken together, the study design integrates real-time shock measurement, a professional sample of portfolio managers, behaviorally grounded decision support, and portfolio-level outcome validation -- an integration that, as the gap analysis presented in Chapter 3 (Section 3.6) demonstrates, does not appear to have been attempted in prior research. Chapter 3  examines the theoretical and empirical literature that motivates the study constructs and supports the logic linking information shocks, managerial decision behavior, and portfolio risk–return outcomes.
 
 
-## Technical Appendix to Chapter 2 (Model Forms)
+## Technical Appendix 1 -- Model Forms
 
 This section records the intended econometric specifications in compact form to ensure transparency and reproducibility; estimation choices and conventions are detailed in Chapter 4.
 
@@ -299,6 +299,18 @@ Because each manager is exposed to both treatment conditions, the H1 dataset may
 y_i,e = alpha_i + beta1 * SC_total_e + gamma' * X_i,e + epsilon_i,e
 
 Where alpha_i is a manager-specific intercept. This specification is optional and is chosen based on the final data structure documented in Chapter 4.
+
+## Technical Appendix 2 -- Event Screening Algorithm
+
+**Event screening algorithm for scenario selection.** Candidate event days for the survey scenarios are identified through a two-stage screening process applied to each stock in the selected universe over the historical event window.
+
+Stage 1 -- Statistical screening. For each stock, compute the rolling 60-trading-day historical volatility, defined as the standard deviation of daily log returns over the trailing window. Flag days where the absolute daily return exceeds 2.0 standard deviations from the stock's trailing mean return. This threshold identifies days with statistically unusual price movements relative to the stock's own history.
+
+Additionally, compute the relative abnormal return for each candidate day -- defined as the stock's daily return minus the S&P 500 return on the same day. This step distinguishes firm-specific shocks from market-wide movements. A day on which the entire market declines 3% represents a systematic shock, not a firm-specific information event. Candidate days must exhibit a relative abnormal return exceeding 1.5 standard deviations of the stock's historical relative return distribution. The thresholds (2.0 SD for absolute return, 1.5 SD for relative abnormal return) are calibrated to produce a candidate pool of approximately 50 to 80 events, from which the final 12 are selected according to the balance constraints specified in section 4.2.3. If the initial thresholds produce a pool that is too small or too large, they are adjusted symmetrically (e.g., to 1.5/1.0 or 2.5/2.0) and the adjustment is documented.
+
+Stage 2 -- News attribution. For each candidate event day surviving Stage 1, verify that the Benzinga news feed via the Interactive Brokers API contains at least one identifiable, firm-specific news item for that stock on the event day or the prior trading session's close. The news item must be attributable to a specific corporate or market event -- such as an earnings surprise, regulatory action, management change, legal proceeding, or product announcement -- rather than to generic market commentary, sector rotation analysis, or analyst opinion pieces without new information content. Candidate days that pass the statistical screen but lack an attributable news event are excluded.
+
+The output of this procedure is a set of candidate stock-day-news triples, each associated with a pre-computed SC_total value. The final scenario selection from this pool follows the balance constraints documented in section 4.2.3.
 
 ---
 
@@ -638,7 +650,9 @@ The framework distinguishes between directly observed data and model-dependent i
 
 The research instrument is an online scenario-based survey administered through Google Forms. The instrument collects primary data on portfolio managers' decision responses under controlled information shock conditions. This section describes the overall survey structure, scenario design, treatment implementation, response measures, counterbalancing strategy, and confound controls.
 
-**Overall survey structure.** The survey consists of four sections presented sequentially to each participant:
+#### Overall survey structure.
+
+The survey consists of four sections presented sequentially to each participant:
 
 Section 1 (Demographics and Professional Profile) collects respondent characteristics used as control variables in the regression analysis. Items include years of portfolio management experience, assets under management (AUM range), institution type, investment mandate type, geographic market focus, level of discretionary authority, and professional certifications. Discretionary authority is recorded on a three-level ordinal scale (full discretion, partial/committee-based, advisory only) and is included as a control variable in the H₁ regression to account for differences in how managers translate intentions into actions.
 
@@ -648,19 +662,95 @@ Section 3 (Post-Experiment Questions) contains two items administered after all 
 
 Section 4 (Closing) contains a consent confirmation, an optional open-text feedback field, and contact information for respondents willing to participate in follow-up research.
 
-**Scenario design.** Twelve shock scenarios are constructed from real market information events sourced through the Benzinga news feed accessed via the Interactive Brokers API. Scenarios are selected to represent variation along two dimensions: shock intensity (low, medium, high SC_total values) and event type (earnings surprises, regulatory actions, macroeconomic announcements, sector-specific disruptions). This variation ensures that the H₁ regression has sufficient range in the independent variable to detect a meaningful relationship between shock intensity and decision response.
+#### Portfolio construction and stock selection.
 
-Each scenario is constructed to be self-contained: the manager can form a decision response based solely on the information provided, without requiring external knowledge of the specific holding or event. Scenario descriptions are standardized in length (150–200 words) and structure to minimize variation in reading time and cognitive load across scenarios.
+The scenarios are set within the context of a diversified equity portfolio from which the manager evaluates individual holdings under information shock conditions. The portfolio design and constituent stock selection follow five criteria intended to balance ecological validity, internal validity, and respondent experience.
 
-Market price data used to contextualize scenarios — including recent holding performance and sector benchmarks — is sourced from the Interactive Brokers API. The Shock Score components for each scenario are computed using the methodology specified in the Technical Appendix to Chapter 2, producing both the SC_total composite index and the four dashboard signals.
+First, universe size: the portfolio comprises a minimum of 24 unique stocks, with a target range of 24 to 30. Each scenario features a distinct stock-shock combination; no stock appears in more than one scenario. Reusing a stock across multiple scenarios would introduce a within-stock learning confound, as the manager's NRS response to a later scenario featuring the same company would be contaminated by their earlier decision, violating the independence assumption across scenario-level observations. The surplus above 12 provides a buffer for attrition during pilot testing or quality screening.
 
-**Treatment implementation.** The within-subject design assigns each manager to respond to six scenarios without the Shock Score dashboard (ShowSC = 0) and six scenarios with the dashboard (ShowSC = 1). In the treatment condition, the dashboard is displayed directly below the scenario description and includes all four signals defined in section 2.6.3: sentiment direction band, shock severity level, persistence score with horizon bucket, and protocol recommendation. The dashboard is presented as a compact visual panel consistent with the manager-facing design described in section 2.6.3. In the control condition, the dashboard panel is absent; no placeholder or reference to the Shock Score appears.
+Second, recognition without dominance: stocks are drawn from the S&P 500 index, selecting mid-to-large capitalisation constituents. Companies should be familiar enough to a generalist equity portfolio manager that no research effort is required to understand the business model, but not so prominent that strong prior beliefs or emotional associations dominate the response. Operationally, the top 20 constituents by market capitalisation are excluded (e.g., Apple, Microsoft, Amazon, NVIDIA), while retaining names that any active equity PM would recognise. The objective is ecological validity -- professional managers make decisions about real companies, not fictitious entities -- while constraining the familiarity bias that arises when managers hold strong personal views about a specific stock (Weber, Siebenmorgen, and Weber, 2005). Company names are not masked. Masking would eliminate familiarity bias but at a disproportionate cost to ecological validity, as portfolio managers do not evaluate abstract entities and the realism of the decision context is central to eliciting meaningful NRS responses. Instead, scenario instructions explicitly direct the manager to assume the stock is held in the portfolio and to respond based on the information presented, not on personal views of the company. Residual familiarity effects are acknowledged as a limitation in section 2.8.2.
 
-**Counterbalancing strategy.** A Latin square counterbalanced block design is used to assign scenarios to conditions across participants. The twelve scenarios are arranged into counterbalancing blocks such that each scenario appears in the treatment condition for approximately half of respondents and in the control condition for the other half. The presentation order of scenarios is also rotated across blocks to distribute order effects (learning, fatigue, anchoring on early scenarios) rather than allowing them to accumulate systematically. Each respondent is randomly assigned to one counterbalancing block upon survey entry.
+Third, adequate news coverage: each stock must have sufficient Benzinga news flow via the Interactive Brokers API during the event selection window to permit Shock Score computation. Stocks with fewer than one news article per week on average during the selection window are excluded, consistent with the filtering approach used in prior sentiment-based research (Li, Shah, Noyan, and Gao, 2016).
+
+Fourth, sector diversification: stocks are sampled from at least 8 to 10 distinct GICS (Global Industry Classification Standard) sectors. Sector concentration would introduce a confound, as managers specialising in the over-represented sector would respond from a systematically different knowledge base than generalists. The target allocation is approximately proportional to S&P 500 sector weights, with the constraint that no single sector contributes more than 4 of the total stocks and no sector contributes fewer than 1.
+
+Fifth, active trading and liquidity: each stock must have average daily trading volume sufficient to make portfolio adjustment decisions plausible. Illiquid or thinly traded names would undermine the ecological validity of the scenario, as professional PMs would not hold such positions in a diversified equity book.
+
+#### Portfolio weighting.
+
+The portfolio uses equal (1/N) weighting across all constituent stocks. This decision is motivated by three considerations. First, transparency: equal weighting is immediately interpretable by respondents and requires no auxiliary assumptions. The manager can focus cognitive resources on the shock-response decision rather than on evaluating the portfolio construction methodology. Second, neutrality: CAPM-optimised or mean-variance weights would depend on estimated parameters (expected returns, covariance matrices) that are themselves uncertain and potentially contested. Disagreement with the weighting scheme would introduce an uncontrolled confound, as some managers might adjust their NRS response to correct for perceived misallocation rather than responding to the information shock. Third, precedent: DeMiguel, Garlappi, and Uppal (2009) demonstrated that the 1/N portfolio performs competitively with optimised strategies in out-of-sample evaluation, and naive diversification is widely used as a benchmark in both experimental and empirical finance research. The equal-weight assumption is communicated to respondents in the scenario preamble. For the portfolio simulation in the Technical Appendix, the 1/N starting allocation is the baseline from which NRS-implied adjustments are computed.
+
+#### Scenario design.
+
+Twelve shock scenarios are constructed from real market information events sourced through the Benzinga news feed accessed via the Interactive Brokers API. Events are drawn from a historical window of approximately 18 to 36 months prior to survey administration. This range balances three competing concerns: freshness (the market context should remain recognisable and plausible to respondents), recognition avoidance (events should not be so recent that managers remember the actual outcome and anchor on realised returns rather than responding under uncertainty), and data availability (the window must contain sufficient candidate events across the required stocks and sectors). Events involving companies that have been acquired, delisted, or fundamentally restructured since the event date are excluded.
+
+Candidate event days are identified through a two-stage screening process described in the Technical Appendix to Chapter 2. The first stage applies a statistical screen based on abnormal returns relative to the stock's own history and relative to the broad market. The second stage verifies that each candidate day is associated with at least one identifiable, firm-specific news item in the Benzinga feed, attributable to a specific corporate or market event rather than to generic market commentary.
+
+From the candidate pool, twelve scenarios are selected to satisfy the following balance constraints:
+
+Shock intensity variation: SC_total is pre-computed for each candidate event using the PCA-based methodology defined in the Technical Appendix to Chapter 2. Scenarios are selected to span the SC_total distribution, with approximately 4 low-intensity events (below the 33rd percentile of the candidate distribution), 4 medium-intensity events (33rd to 67th percentile), and 4 high-intensity events (above the 67th percentile). Sufficient variation in the independent variable is essential for the H1 regression of NRS on SC_total to have adequate statistical power.
+
+Shock directionality: the scenario set includes both negative and positive shocks in approximately equal proportions -- 6 negative and 6 positive, or 5 and 5 with 2 ambiguous or mixed-signal events. If all scenarios presented negative shocks, the study would measure only the reduce-exposure side of the NRS scale, and respondents might detect the pattern, introducing demand characteristics that undermine internal validity.
+
+Event type diversity: the twelve scenarios include at least 4 to 5 distinct event types from the classification taxonomy used in Shock Score construction (e.g., earnings surprises, regulatory or legal actions, management changes, product or operational news, macro-related firm-specific events). This ensures that SC_total variation reflects genuine differences in shock character rather than differences in article count for a single event type.
+
+Market regime balance: events are drawn from at least two distinct market regimes (e.g., a broadly rising market period and a volatile or declining period). Managers' baseline risk appetite is regime-dependent, and drawing all events from a single regime would limit the generalisability of NRS responses. The prevailing VIX level or trailing 20-day market return on each event date is recorded as a scenario-level control variable.
+
+Sector non-repetition: no two scenarios feature stocks from the same GICS sector, unless the candidate pool makes this infeasible, in which case no sector appears more than twice.
+
+Table 4.X documents the scenario selection outcomes:
+
+Table 4.X: Scenario Selection Summary
+
+| Scenario | Stock | Ticker | GICS Sector | Event Date | Event Type | Direction | SC_total | Rel. Abnormal Return | Market Regime |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | | | | | | | | | |
+| ... | | | | | | | | | |
+| 12 | | | | | | | | | |
+
+[This table will be completed upon execution of the scenario selection procedure.]
+
+Each scenario is constructed to be self-contained: the manager can form a decision response based solely on the information provided, without requiring external knowledge of the specific holding or event. Scenario descriptions are standardised in length (150 to 200 words) and structure to minimise variation in reading time and cognitive load across scenarios.
+
+#### Scenario presentation format.
+
+Each scenario places the manager at a decision point shortly after the information shock has occurred but before the full trading day's price resolution. This timing is deliberate: showing the complete day's outcome -- including any bounce-back or continuation -- would convert the task from a decision under uncertainty into an outcome evaluation, which is not the cognitive process the study aims to measure. The Shock Score's decision-support value is greatest at the moment of maximum uncertainty, when news has hit but the market has not yet fully digested it.
+
+Each scenario presents the following elements in a standardised template:
+
+1. Portfolio context statement, identical across all scenarios: "You manage a diversified equity portfolio with equal weights across [N] stocks. The following event has occurred for one of your holdings."
+
+2.  Stock identification: company name, ticker symbol, and GICS sector.
+
+3.  Trailing price context: the stock's daily closing prices for the 20 trading days preceding the event, displayed as a line chart with an indexed price axis (rebased to 100 at the start of the window).
+
+4.  News event: a headline in bold and a 2 to 3 sentence summary drawn from the Benzinga news feed. For low SC_total scenarios (driven by 1 to 2 articles), a single headline and brief summary are presented. For high SC_total scenarios (reflecting a cluster of 6 or more articles), a brief cluster summary is provided alongside the most prominent headline, explicitly noting the breadth of coverage. This calibration preserves the ecological validity of the information environment -- a high-intensity shock in reality involves a flood of coverage, and presenting a single headline would understate the attentional pressure that contributes to the elevated SC_total.
+
+5.  Immediate price reaction: the percentage price movement following the news release (e.g., the first 1 to 2 hours of trading).
+
+6.  Treatment condition (ShowSC = 1 only): the Shock Score dashboard displaying the four signals defined in section 2.6.3.
+
+7.  NRS response item: the seven-point scale with anchored labels.
+
+All price information is presented in percentage return terms, with stocks rebased to 100 at the start of the 20-day trailing window. This eliminates the anchoring effect documented by Tversky and Kahneman (1974), whereby identical percentage moves are processed differently depending on absolute price levels. Percentage framing is also consistent with how professional portfolio managers typically discuss positioning -- in basis points and percentage moves rather than absolute dollar changes.
+
+The template is implemented in Google Forms with conditional display logic controlling the inclusion or exclusion of the Shock Score dashboard based on the respondent's counterbalancing block assignment.
+
+Market price data used to contextualise scenarios -- including trailing price histories and intraday reactions -- is sourced from the Interactive Brokers API. The Shock Score components for each scenario are computed using the methodology specified in the Technical Appendix to Chapter 2, producing both the SC_total composite index and the four dashboard signals.
+
+#### Treatment implementation.
+
+The within-subject design assigns each manager to respond to six scenarios without the Shock Score dashboard (ShowSC = 0) and six scenarios with the dashboard (ShowSC = 1). In the treatment condition, the dashboard is displayed directly below the scenario description and includes all four signals defined in section 2.6.3: sentiment direction band, shock severity level, persistence score with horizon bucket, and protocol recommendation. The dashboard is presented as a compact visual panel consistent with the manager-facing design described in section 2.6.3. In the control condition, the dashboard panel is absent; no placeholder or reference to the Shock Score appears.
+
+#### Counterbalancing strategy.
+
+A Latin square counterbalanced block design is used to assign scenarios to conditions across participants. The twelve scenarios are arranged into counterbalancing blocks such that each scenario appears in the treatment condition for approximately half of respondents and in the control condition for the other half. The presentation order of scenarios is also rotated across blocks to distribute order effects (learning, fatigue, anchoring on early scenarios) rather than allowing them to accumulate systematically. Each respondent is randomly assigned to one counterbalancing block upon survey entry.
 
 This design ensures that any observed difference between treatment and control conditions cannot be attributed to specific scenario characteristics, because the same scenarios appear in both conditions across the full sample. It also ensures that scenario position (early vs. late in the sequence) is not confounded with treatment assignment.
 
-**Net Risk Stance response measure.** For each scenario, the manager selects a single response on the seven-point Net Risk Stance scale:
+#### Net Risk Stance response measure.
+
+For each scenario, the manager selects a single response on the seven-point Net Risk Stance scale:
 
 1 — Strongly reduce exposure
 2 — Reduce exposure
@@ -672,7 +762,9 @@ This design ensures that any observed difference between treatment and control c
 
 The NRS is a single-item measure. Single-item scales are appropriate in this context for three reasons. First, the construct being measured — directional portfolio adjustment intention — is concrete and unidimensional, unlike abstract psychological constructs that require multi-item scales for content validity. Second, professional portfolio managers routinely express positioning decisions as directional calls (reduce, hold, increase), making the scale ecologically valid for the target population. Third, survey parsimony is critical when administering twelve scenarios to time-constrained professionals; a multi-item scale per scenario would substantially increase respondent burden and reduce completion rates.
 
-**Confound controls.** Several design features are implemented to minimize confounds. Scenario descriptions use neutral framing and avoid language that could signal a "correct" response or create demand characteristics. Instructions do not reveal the study hypotheses or the expected direction of the Shock Score's effect. The within-subject design is not disclosed to participants — managers are informed that they will respond to a series of investment scenarios, some of which include additional decision-support information. Completion time is not constrained to avoid introducing artificial time pressure, though estimated completion time (approximately 20–25 minutes) is communicated in the survey introduction to set expectations.
+#### Confound controls.
+
+Several design features are implemented to minimize confounds. Scenario descriptions use neutral framing and avoid language that could signal a "correct" response or create demand characteristics. Instructions do not reveal the study hypotheses or the expected direction of the Shock Score's effect. The within-subject design is not disclosed to participants — managers are informed that they will respond to a series of investment scenarios, some of which include additional decision-support information. Completion time is not constrained to avoid introducing artificial time pressure, though estimated completion time (approximately 20–25 minutes) is communicated in the survey introduction to set expectations.
 
 
 ### 4.2.4 Pilot Test
