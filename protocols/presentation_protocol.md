@@ -54,16 +54,17 @@ This calibration preserves the ecological validity of the information environmen
 
 | Decision | Choice | Primary Rationale |
 |---|---|---|
-| Stock universe size | 24-30 unique stocks | No stock reuse across scenarios; buffer for attrition |
+| Stock universe size | 36 unique stocks across 3 mutually exclusive blocks of 12 | No stock reuse across scenarios; buffer for attrition |
 | Company names | Real, unmasked (S&P 500 mid-to-large cap) | Ecological validity; familiarity bias managed via instructions |
 | Sector coverage | 8-10 GICS sectors minimum | Avoid expertise confound; portfolio plausibility |
 | Portfolio weighting | Equal (1/N) | Transparency; neutrality; DeMiguel et al. (2009) precedent |
 | Historical window | 18-36 months prior to survey | Balance freshness, recognition avoidance, data availability |
 | Shock identification | Two-stage: statistical screen + news attribution | Abnormal return > 2.0 SD + identifiable firm-specific news |
-| Shock intensity balance | 4 low, 4 medium, 4 high SC_total | Ensure variation in IV for H1 regression |
-| Shock direction | Approximately 6 negative, 6 positive | Utilise full NRS scale; prevent demand characteristics |
+| Shock intensity balance | 4 low, 4 medium, 4 high SC_total per block | Ensure variation in IV for H1 regression |
+| Shock direction | Approximately 6 negative, 6 positive per block | Utilise full NRS scale; prevent demand characteristics |
 | Event type diversity | At least 4-5 distinct event types | SC_total variation reflects shock character, not article count |
 | Market regime | Events from at least 2 regimes | Generalisability of NRS responses |
 | Decision point timing | After news, before full-day resolution | Measure decision under uncertainty, not outcome evaluation |
 | Price presentation | Percentage returns, rebased to 100 | Eliminate absolute-price anchoring (Tversky and Kahneman, 1974) |
-| Template format | Standardised across all 12 scenarios | Internal validity: isolate shock content from presentation |
+| Template format | Standardised across all 36 scenarios | Internal validity: isolate shock content from presentation |
+| Block design | 3 mutually exclusive blocks of 12 scenarios; ~33 managers per block | External validity; block independence; replication analysis |

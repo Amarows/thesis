@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This document specifies the criteria, procedures, and rationale for constructing the twelve information shock scenarios used in the primary data collection instrument (Chapter 4). The protocol covers three domains: portfolio design and stock selection, event identification and selection, and scenario presentation format. Each decision is grounded in the experimental design requirements established in Chapter 2 and informed by considerations of internal validity, ecological validity, and respondent experience.
+This document specifies the criteria, procedures, and rationale for constructing the thirty-six information shock scenarios used in the primary data collection instrument (Chapter 4). The scenarios are organised into three mutually exclusive blocks of twelve, with each block administered to a randomly assigned subset of approximately 33 respondents. The multi-block design extends event coverage and strengthens external validity while preserving within-block experimental control.
 
 ---
 
@@ -10,9 +10,9 @@ This document specifies the criteria, procedures, and rationale for constructing
 
 ### 1.1 Stock Universe Size
 
-The study requires a minimum of 24 unique stocks to populate the twelve scenario-portfolio pairs. Each scenario features a distinct stock-shock combination; no stock appears in more than one scenario. Reusing stocks across scenarios would introduce a within-stock learning confound -- the manager's NRS response to a later scenario featuring the same company would be contaminated by their earlier decision about that company, violating the independence assumption across scenario-level observations.
+The study requires exactly 36 unique stocks to populate the thirty-six scenario slots across three blocks. Each stock contributes exactly one scenario (one stock-day-news triple) and appears in exactly one block. No stock appears in more than one scenario or more than one block. This mutual exclusivity by stock ensures that blocks are fully independent mini-experiments: no manager encounters the same company as any manager in a different block, eliminating cross-block stimulus dependence and enabling clean between-block comparisons.
 
-A target of 24-30 stocks provides a buffer for scenario construction: some candidate events may be discarded during pilot testing or quality screening, and the surplus allows substitution without redesigning the selection pipeline.
+The portfolio is constructed with a target of 39 candidate stocks. The 36 best candidates -- those with qualifying triples that jointly satisfy the balance constraints described in section 2.3 -- are assigned to blocks. The remaining candidates serve as buffer for pilot-testing attrition or quality failures.
 
 ### 1.2 Company Selection Criteria
 
@@ -30,7 +30,7 @@ Company names are not masked. Masking names would eliminate familiarity bias but
 
 Stocks are sampled from at least 8-10 distinct GICS (Global Industry Classification Standard) sectors. Sector concentration would introduce a confound: managers specialising in the over-represented sector would respond from a systematically different knowledge base than generalists, creating uncontrolled heterogeneity in expertise across respondents. Diversification across sectors also makes the portfolio construction more plausible -- a portfolio concentrated in two sectors would not credibly represent a diversified equity book.
 
-The target sector allocation is approximately proportional to S&P 500 sector weights, with the constraint that no single sector contributes more than 4 of the 24-30 stocks and no sector contributes fewer than 1.
+The target sector allocation is approximately proportional to S&P 500 sector weights, with the constraint that no single sector contributes more than 5 of the 36 stocks and no sector contributes fewer than 1. Within each block of 12, the sector non-repetition constraint described in section 2.3 applies independently.
 
 ### 1.4 Portfolio Weighting
 
@@ -42,7 +42,7 @@ Second, neutrality. CAPM-optimised or mean-variance weights would depend on esti
 
 Third, precedent. DeMiguel, Garlappi, and Uppal (2009) demonstrated that the 1/N portfolio performs competitively with optimised strategies in out-of-sample evaluation, and naive diversification is widely used as a benchmark in both experimental and empirical finance research.
 
-The equal-weight assumption is communicated to respondents in the scenario preamble. For the portfolio simulation in the Technical Appendix, the 1/N starting allocation is the baseline from which NRS-implied adjustments are computed.
+The equal-weight assumption is communicated to respondents in the scenario preamble: "You manage a diversified equity portfolio with equal weights across 36 stocks." For the portfolio simulation in the Technical Appendix, the 1/N starting allocation (approximately 2.8% per stock) is the baseline from which NRS-implied adjustments are computed. Each manager's simulation applies NRS-implied adjustments to the 12 stocks in their assigned block and holds the remaining 24 at baseline weight.
 
 ---
 
@@ -70,31 +70,63 @@ Stage 2 -- News attribution. For each candidate event day surviving Stage 1, ver
 
 This two-stage process produces a pool of candidate stock-day-news triples from which the final twelve scenarios are selected.
 
-### 2.3 Balanced Scenario Selection
 
-From the candidate pool, twelve scenarios are selected to satisfy the following balance constraints:
+> ### 2.3 Multi-Block Balanced Scenario Selection
 
-Shock intensity variation. Pre-compute SC_total (the composite Shock Score) for each candidate event using the PCA-based methodology defined in the Technical Appendix to Chapter 2. Select scenarios that span the SC_total distribution: approximately 4 low-intensity events (below the 33rd percentile of the candidate distribution), 4 medium-intensity events (33rd to 67th percentile), and 4 high-intensity events (above the 67th percentile). Sufficient variation in the independent variable is essential for the H1 regression of NRS on SC_total to have adequate statistical power.
+From the candidate pool, thirty-six scenarios are selected and partitioned into three mutually exclusive blocks of twelve (Block A, Block B, Block C). Each block is constructed to satisfy the balance constraints below independently, ensuring that every block constitutes a well-designed experiment in its own right.
 
-Shock directionality. Include both negative and positive shocks in approximately equal proportions -- for example, 6 negative and 6 positive, or 5-5-2 with 2 ambiguous or mixed-signal events. If all scenarios present negative shocks, the study measures only the reduce-exposure side of the NRS scale, and respondents may detect the pattern, introducing demand characteristics that undermine internal validity.
+#### 2.3.1 Stock-to-Block Assignment
 
-Event type diversity. The twelve scenarios should include at least 4-5 distinct event types from the classification taxonomy used in Shock Score construction (e.g., earnings surprises, regulatory/legal actions, management changes, product/operational news, macro-related firm-specific events). This ensures that SC_total variation reflects genuine differences in shock character rather than differences in article count for a single event type.
+Each of the 36 portfolio stocks is assigned to exactly one block. No stock appears in more than one block. This mutual exclusivity eliminates cross-block stimulus dependence: blocks are fully independent, enabling between-block replication analysis and ensuring that the portfolio simulation for each block operates on a distinct set of holdings.
 
-Market regime balance. Sample events from at least two distinct market regimes (e.g., a broadly rising market period and a volatile or declining period). Managers' baseline risk appetite is regime-dependent, and drawing all events from a single regime would limit the generalisability of the NRS responses. The prevailing VIX level or trailing 20-day market return on the event date may be recorded as a scenario-level control variable.
+The assignment algorithm proceeds as follows:
 
-Sector non-repetition. No two scenarios should feature stocks from the same GICS sector, unless the stock universe size and candidate pool make this infeasible, in which case no sector should appear more than twice.
+1. For each stock, identify the single best qualifying triple from the candidate pool (highest-quality news attribution, clearest event narrative, SC_total value most useful for satisfying the intensity distribution).
+2. Partition the 36 stock-triple pairs into three blocks of 12 using constrained optimisation subject to the balance constraints below.
+3. Verify that each block independently satisfies all constraints. If not, swap stock-triple pairs between blocks and re-verify.
+
+#### 2.3.2 Within-Block Balance Constraints
+
+Each block of 12 scenarios must independently satisfy the following:
+
+Shock intensity variation: pre-compute SC_total for each scenario. Each block contains approximately 4 low-intensity events (below the 33rd percentile of the full 36-scenario distribution), 4 medium-intensity events (33rd to 67th percentile), and 4 high-intensity events (above the 67th percentile). Sufficient variation in the independent variable within each block is essential for the within-block H1 regression to have adequate statistical power.
+
+Shock directionality: each block includes both negative and positive shocks in approximately equal proportions (6 negative and 6 positive, or 5 and 7). No block should contain fewer than 4 events of either direction.
+
+Event type diversity: each block includes at least 3 to 4 distinct event types from the classification taxonomy (earnings surprises, regulatory or legal actions, management changes, product or operational news, macro-related firm-specific events).
+
+Market regime balance: each block draws events from at least two distinct market regimes.
+
+Sector non-repetition: within each block, no two scenarios feature stocks from the same GICS sector, unless the pool makes this infeasible, in which case no sector appears more than twice within a single block.
+
+#### 2.3.3 Manager-to-Block Assignment
+
+Each respondent is randomly assigned to one block upon survey entry. With a target sample of approximately 100 managers, each block receives approximately 33 respondents. Within each block, the Latin square counterbalanced design described in section 4.2.3 of the thesis operates independently: it rotates treatment assignment (which 6 of the 12 scenarios receive ShowSC = 1) and presentation order across respondents within the block.
+
+Block assignment is recorded as a categorical variable (BlockID) and included as a fixed effect in the pooled regression specifications to absorb any between-block heterogeneity.
+
 
 ### 2.4 Selection Summary Table
 
-The following table is populated during scenario construction and reported in Chapter 4 as documentation of the selection process:
+### 2.4 Selection Summary Tables
+
+The following tables are populated during scenario construction and reported in Chapter 4 as documentation of the selection process. One table is produced per block.
+
+Table 2.4a: Block A Scenario Selection Summary
 
 | Scenario | Stock | GICS Sector | Event Date | Event Type | Shock Direction | SC_total | Relative Abnormal Return | Market Regime |
 |---|---|---|---|---|---|---|---|---|
-| 1 | | | | | | | | |
+| A1 | | | | | | | | |
 | ... | | | | | | | | |
-| 12 | | | | | | | | |
+| A12 | | | | | | | | |
 
----
+Table 2.4b: Block B Scenario Selection Summary
+
+[Same structure as Table 2.4a, scenarios B1 through B12]
+
+Table 2.4c: Block C Scenario Selection Summary
+
+[Same structure as Table 2.4a, scenarios C1 through C12]
 
 
 ## References Cited in This Protocol
