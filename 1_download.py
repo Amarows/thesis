@@ -10,10 +10,10 @@ from ibkr_news_toolkit       import IBKRNewsToolkit, IBKRConnectionConfig
 PORT           = 7496        # 7496 paper | 7497 live
 CLIENT_PRICES  = 6
 CLIENT_NEWS    = 7
-NEWS_START     = "2025-10-01"
-NEWS_END       = "2026-02-28"
+NEWS_START     = "2025-01-01"
+NEWS_END       = "2025-09-30"
 NEWS_PROVIDERS = ["BZ"]
-PRICE_DURATION = "90 D"
+PRICE_DURATION = "360 D"
 PRICE_BAR      = "1 hour"
 SYMBOLS        = pd.read_csv("data/portfolio.csv")["Symbol"].tolist()
 

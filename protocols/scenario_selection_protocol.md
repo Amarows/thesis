@@ -108,8 +108,6 @@ Block assignment is recorded as a categorical variable (BlockID) and included as
 
 ### 2.4 Selection Summary Table
 
-### 2.4 Selection Summary Tables
-
 The following tables are populated during scenario construction and reported in Chapter 4 as documentation of the selection process. One table is produced per block.
 
 Table 2.4a: Block A Scenario Selection Summary
