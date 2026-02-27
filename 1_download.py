@@ -10,7 +10,7 @@ from ibkr_news_toolkit       import IBKRNewsToolkit, IBKRConnectionConfig
 PORT           = 7496        # 7496 paper | 7497 live
 CLIENT_PRICES  = 6
 CLIENT_NEWS    = 7
-NEWS_START     = "2026-02-01"
+NEWS_START     = "2025-10-01"
 NEWS_END       = "2026-02-28"
 NEWS_PROVIDERS = ["BZ"]
 PRICE_DURATION = "90 D"
@@ -37,11 +37,48 @@ def download_prices():
     return series
 
 
+
+from datetime import datetime, timedelta
+
+def month_range(start_str, end_str):
+    start = datetime.strptime(start_str, "%Y-%m-%d")
+    end   = datetime.strptime(end_str, "%Y-%m-%d")
+
+    current = start
+    while current <= end:
+        # first day of next month
+        if current.month == 12:
+            next_month = current.replace(year=current.year + 1, month=1, day=1)
+        else:
+            next_month = current.replace(month=current.month + 1, day=1)
+
+        month_end = min(next_month - timedelta(days=1), end)
+
+        yield current.strftime("%Y-%m-%d"), month_end.strftime("%Y-%m-%d")
+        current = next_month
+
+
 def download_news():
-    toolkit = IBKRNewsToolkit(cfg=IBKRConnectionConfig(host="127.0.0.1", port=PORT, client_id=CLIENT_NEWS), data_dir="data", currency="USD")
+    toolkit = IBKRNewsToolkit(
+        cfg=IBKRConnectionConfig(host="127.0.0.1", port=PORT, client_id=CLIENT_NEWS),
+        data_dir="data",
+        currency="USD"
+    )
+
     try:
         toolkit.connect()
-        toolkit.run(symbols=SYMBOLS, providers=NEWS_PROVIDERS, start_date=NEWS_START, end_date=NEWS_END, top_n=10_000, force_refresh=False, include_article_text=True)
-        print(f"News done: {NEWS_START} → {NEWS_END}")
+
+        for start_date, end_date in month_range(NEWS_START, NEWS_END):
+            toolkit.run(
+                symbols=SYMBOLS,
+                providers=NEWS_PROVIDERS,
+                start_date=start_date,
+                end_date=end_date,
+                top_n=10_000,
+                force_refresh=False,
+                include_article_text=True
+            )
+            print(f"News done: {start_date} → {end_date}")
+
     finally:
         toolkit.disconnect()
