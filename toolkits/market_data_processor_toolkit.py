@@ -64,19 +64,27 @@ def parse_headline_metadata(headline):
 
     return headline, None, None, None, None
 
-def load_market_data(data_dir="data"):
+def load_market_data(data_dir="data", bar_interval="30mins"):
     """
-    Loads all price and news CSV files from the specified directory.
+    Loads price and news CSV files from the specified directory.
     Returns two pandas objects:
     1. prices: MultiIndex Series (symbol, time) -> close
     2. news: MultiIndex DataFrame (symbol, provider, time) -> [headline, article_text, ...]
+
+    Parameters
+    ----------
+    data_dir     : directory containing CSV files (default "data")
+    bar_interval : intraday bar size token to load, matched against the second
+                   segment of the price filename (e.g. "30mins", "1hour").
+                   Default "30mins" loads only 30-minute bar files per protocol §2.1A.
+                   Pass None to load all price resolutions.
     """
     all_files = glob.glob(os.path.join(data_dir, "*.csv"))
 
     price_frames = []
     news_frames = []
 
-    # Pattern for prices: SYMBOL_BAR_DURATION.csv (e.g., AAPL_1hour_20D.csv)
+    # Pattern for prices: SYMBOL_BAR_DURATION.csv (e.g., AAPL_30mins_360D.csv)
     price_pattern = re.compile(r"(.+)_([^_]+)_([^_]+)\.csv$")
 
     # Pattern for news: SYMBOL_PROVIDER_START_to_END.csv (e.g., AAPL_BZ_2025-12-15_to_2025-12-18.csv)
@@ -91,13 +99,19 @@ def load_market_data(data_dir="data"):
             symbol, provider, start, end = news_match.groups()
             try:
                 df = pd.read_csv(fpath)
+            except pd.errors.EmptyDataError:
+                continue   # empty file — skip silently
+            except Exception as e:
+                print(f"Error loading news file {fname}: {e}")
+                continue
+            try:
                 if not df.empty:
 
                     # Ensure time is datetime and matches price format (UTC)
                     if 'time_utc' in df.columns:
-                        df['time'] = pd.to_datetime(df['time_utc'], utc=True)
+                        df['time'] = pd.to_datetime(df['time_utc'], format='ISO8601', utc=True)
                     elif 'time' in df.columns:
-                        df['time'] = pd.to_datetime(df['time'], utc=True)
+                        df['time'] = pd.to_datetime(df['time'], format='ISO8601', utc=True)
 
                     # Clean article_text
                     if 'article_text' in df.columns:
@@ -133,7 +147,7 @@ def load_market_data(data_dir="data"):
 
                     news_frames.append(df)
             except Exception as e:
-                print(f"Error loading news file {fname}: {e}")
+                print(f"Error processing news file {fname}: {e}")
             continue
 
         # Try price pattern
@@ -142,15 +156,24 @@ def load_market_data(data_dir="data"):
             symbol, bar, duration = price_match.groups()
             if "-" in duration and "_to_" in fname:
                 continue
+            # Filter by bar interval (e.g. only "30mins" files per protocol §2.1A)
+            if bar_interval is not None and bar != bar_interval:
+                continue
 
             try:
                 df = pd.read_csv(fpath)
+            except pd.errors.EmptyDataError:
+                continue
+            except Exception as e:
+                print(f"Error loading price file {fname}: {e}")
+                continue
+            try:
                 if not df.empty:
-                    df['time'] = pd.to_datetime(df['time'], utc=True)
+                    df['time'] = pd.to_datetime(df['time'], format='ISO8601', utc=True)
                     df['symbol'] = symbol
                     price_frames.append(df)
             except Exception as e:
-                print(f"Error loading price file {fname}: {e}")
+                print(f"Error processing price file {fname}: {e}")
             continue
 
     # Process Prices
@@ -163,6 +186,8 @@ def load_market_data(data_dir="data"):
 
     # Process News
     if news_frames:
+        # Drop all-NA columns from each frame before concat to avoid FutureWarning
+        news_frames = [f.dropna(axis=1, how="all") for f in news_frames]
         news_df = pd.concat(news_frames, ignore_index=True)
         news_df = news_df.set_index(['symbol', 'provider', 'time']).sort_index()
     else:

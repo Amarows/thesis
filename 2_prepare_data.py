@@ -1,5 +1,8 @@
 import sys
+from pathlib import Path
 import pandas as pd
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 sys.path.insert(0, "toolkits")
@@ -40,7 +43,10 @@ ax.set(title="Normalised Daily Close (rebased to 100)", xlabel="Date", ylabel="I
 ax.grid(True, alpha=0.3)
 ax.legend(loc="upper left", ncol=4, fontsize=8)
 plt.tight_layout()
-plt.show()
+Path("images").mkdir(exist_ok=True)
+plt.savefig("images/portfolio_overview.png", dpi=100, bbox_inches="tight")
+plt.close(fig)
+print("Saved: images/portfolio_overview.png")
 
 
 #================================ select events =============================================
@@ -54,8 +60,10 @@ if not candidates.empty:
     pd.set_option("display.max_colwidth", 80)
     pd.set_option("display.width", 200)
     print(candidates[
-              ["symbol", "event_date", "daily_return", "spx_return", "rel_abnormal_ret", "return_zscore", "rel_zscore",
-               "shock_direction", "article_count"]])
+              ["symbol", "event_date", "shock_time_et", "bar_return", "spx_return",
+               "rel_abnormal_ret", "return_zscore", "rel_zscore",
+               "shock_direction", "shock_bar_median_ratio", "article_count",
+               "displayed_headline"]])
     pd.reset_option("display.max_colwidth")
     pd.reset_option("display.width")
 else:
@@ -64,7 +72,7 @@ else:
 
 #================================ SC_total construction + §2.3 block assignment =============================================
 
-from event_selection_toolkit import compute_sc_total, assign_blocks, print_block_tables
+from event_selection_toolkit import compute_sc_total, assign_blocks, print_block_tables, plot_scenario_charts
 
 if not candidates.empty:
     portfolio = pd.read_csv("data/portfolio.csv")
@@ -77,20 +85,8 @@ if not candidates.empty:
 
     # §2.4: print selection summary tables
     print_block_tables(blocks)
+
+    # §2.5: generate intraday scenario charts for visual review
+    plot_scenario_charts(blocks, prices, output_dir="images", data_dir="data")
 else:
-    print("Skipping SC_total and block assignment — no candidates available.")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    print("Skipping SC_total and block assignment -- no candidates available.")
