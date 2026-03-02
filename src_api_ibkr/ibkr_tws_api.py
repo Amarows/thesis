@@ -7,6 +7,9 @@ from ibapi.contract import Contract
 from ibapi.order import Order
 from ibapi.common import BarData
 
+# Informational / non-critical IB codes that produce no actionable output
+_IB_SUPPRESS = {2104, 2106, 2108, 2158, 2176}
+
 class TradingApp(EClient, EWrapper):
     def __init__(self) -> None:
         EClient.__init__(self, self)
@@ -16,6 +19,8 @@ class TradingApp(EClient, EWrapper):
 
     # --- Connection / Errors ---
     def error(self, reqId, errorCode, errorString, advancedOrderRejectJson=""):
+        if errorCode in _IB_SUPPRESS:
+            return
         print(f"[IB ERROR] reqId={reqId} code={errorCode} msg={errorString}")
         if advancedOrderRejectJson:
             print(f"[AdvancedReject] {advancedOrderRejectJson}")
