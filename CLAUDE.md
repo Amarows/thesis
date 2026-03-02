@@ -22,10 +22,10 @@ The research examines whether external financial information shocks cause system
 
 The composite Shock Score is a PCA-based index constructed from four standardised event-level components:
 
-1. **Article Count (AC_e):** Number of news articles in the event cluster
-2. **Sentiment Extremity (SE_e):** Max absolute FinBERT sentiment score within the event cluster
-3. **Attention Intensity (AI_e):** Event-day trading volume / 20-day trailing average volume
-4. **Event-Type Severity (ES_e):** Category-level severity ratio (sigma_k / sigma_all)
+1. **Article Count (AC_e):** Number of news articles within the shock's 30-minute bar
+2. **Sentiment Extremity (SE_e):** Max absolute FinBERT sentiment score within the shock bar
+3. **Attention Intensity (AI_e):** 30-minute shock bar volume / 60-trading-day trailing average 30-minute bar volume
+4. **Event-Type Severity (ES_e):** Category-level severity ratio (sigma_k / sigma_all), where sigma is computed from 30-minute bar returns
 
 Each component is z-standardised. PCA extracts the first principal component (loading vector w_1). The score is: SC_total_e = w_1' * z_e. Sign convention: higher values = higher shock intensity.
 
@@ -56,7 +56,7 @@ thesis/                         # Root directory
 │
 ├── data/                       # Portfolio data, market data, news files (per month)
 │   ├── portfolio.csv           # Portfolio holdings
-│   ├── *_1hour_90D.csv         # Intraday price data (1-hour bars, 90 days)
+│   ├── *_30min_90D.csv         # Intraday price data (30-minute bars, 90 days)
 │   └── *_BZ_YYYY-MM-*.csv     # Benzinga news data per ticker per month
 │
 ├── diagnostics/                # Quality checks and diagnostic results for thesis text

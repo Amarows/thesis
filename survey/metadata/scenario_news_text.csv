@@ -1,0 +1,36 @@
+scenario_id,ticker,event_date,headline,summary_paragraph,num_articles
+B1_S01,LIN,2025-07-31,!Insights into Linde's Upcoming Earnings,[TO BE GENERATED],1
+B1_S02,APD,2025-02-06,"{A:800015:L:en}!Air Products Sees Mixed Q1 Results: Lower Sales, Higher Dividends And Optimistic 2025 Outlook",[TO BE GENERATED],3
+B1_S03,HD,2025-11-18,!Home Depot Q3 FY25 Earnings Call Transcript,[TO BE GENERATED],23
+B1_S04,AMT,2025-04-03,"!Lamb Weston Posts Better-Than-Expected Results, Joins Sanofi And Other Big Stocks Moving Higher On Thursday",[TO BE GENERATED],1
+B1_S05,XOM,2026-01-29,!Earnings Outlook For Exxon Mobil,[TO BE GENERATED],3
+B1_S06,PFE,2025-10-01,"{A:800015:L:en}!Pfizer's TrumpRx Pact Sends Shockwaves: Why UnitedHealth, Lilly And CVS Can't Look Away",[TO BE GENERATED],11
+B1_S07,VZ,2025-11-03,Is Dan Schulman The Right CEO Choice For Verizon In The AI Era?,[TO BE GENERATED],6
+B1_S08,LOW,2025-11-18,!Lowe's Companies's Earnings Outlook,[TO BE GENERATED],3
+B1_S09,QCOM,2025-10-13,!Shares of semiconductor companies are trading higher amid overall market strength. President Trump's recent social media post may have eased economic concerns and boosted trader confidence in growth stocks.,[TO BE GENERATED],1
+B1_S10,TMUS,2026-01-30,!Verizon Posts Best Subscriber Growth Since 2019,[TO BE GENERATED],1
+B1_S11,CAT,2025-10-29,{A:800015:L:en}!Caterpillar CEO Says Team's Discipline Will Drive Growth Even With Higher Tariffs,[TO BE GENERATED],9
+B1_S12,WMT,2025-11-20,Walmart CEO Earlier Said On Conf Call Upper And Middle Income Households Driving U.S. Growth; Says 'Continue To Benefit From Higher-Income Families Choosing To Shop With U.S. More Often'; Exec Says He Appreciates The Relief On Tariffs On Things Not Grown In The United States,[TO BE GENERATED],24
+B2_S01,SHW,2025-04-22,"!Morgan Stanley Maintains Overweight on Sherwin-Williams, Lowers Price Target to $385",[TO BE GENERATED],1
+B2_S02,JPM,2026-01-23,{A:800015:L:en}Here's How Much $100 Invested In JPMorgan Chase 10 Years Ago Would Be Worth Today,[TO BE GENERATED],3
+B2_S03,BAC,2025-09-05,!Bank Of America Moves To Capture Rising Demand For Alternatives Among Ultra Wealthy,[TO BE GENERATED],2
+B2_S04,PG,2025-01-22,"Stargate Adds Fuel To AI Frenzy, Chinese Stocks Sink On Trump Tariff Talk",[TO BE GENERATED],14
+B2_S05,MRK,2025-09-30,{A:800015:L:en}Merck's Winrevair Cuts Clinical Worsening Risk By 76% Among Hypertension Patients,[TO BE GENERATED],3
+B2_S06,NFLX,2026-02-04,{A:800015:L:en}Rep. Cleo Fields Has Bought Up to $580K Worth Of Alphabet Stock: Here's What You Should Know,[TO BE GENERATED],3
+B2_S07,T,2025-04-04,Ohio Rep. David Taylor Bought Over $8K Worth of Amazon.com Stock: Here's What You Should Know,[TO BE GENERATED],2
+B2_S08,KO,2025-07-29,{A:800015:L:en}Warren Buffett Has 56% Of His $258 Billion Portfolio's Value Exposed To AI: Here Are The 5 Stocks That Are Leveraging AI Within Berkshire's Holdings,[TO BE GENERATED],1
+B2_S09,PLD,2025-03-13,{A:800015:L:en}Smart ETF Picks For A Cooling Inflation Era,[TO BE GENERATED],1
+B2_S10,DIS,2025-11-13,!Walt Disney Company Q4 FY25 Earnings Call Transcript,[TO BE GENERATED],24
+B2_S11,UNH,2026-01-27,{A:800015:L:en}UnitedHealth Group Unusual Options Activity For January 27,[TO BE GENERATED],35
+B2_S12,CVX,2026-01-05,!Biggest Surprise Of 2026 So Far? Oil Stocks,[TO BE GENERATED],15
+B3_S01,ORCL,2026-01-29,"!Microsoft, Palantir Lead A Software Rout Not Seen Since 2008 Lehman Crisis",[TO BE GENERATED],5
+B3_S02,COP,2026-02-04,!Earnings Outlook For ConocoPhillips,[TO BE GENERATED],3
+B3_S03,GS,2025-12-19,Here's How Much $100 Invested In Goldman Sachs Group 5 Years Ago Would Be Worth Today,[TO BE GENERATED],3
+B3_S04,V,2025-07-11,"!Visa And Mastercard Remain Top Picks, But One May Outpace Growth",[TO BE GENERATED],4
+B3_S05,JNJ,2026-01-20,!Insights Ahead: Johnson & Johnson's Quarterly Earnings,[TO BE GENERATED],6
+B3_S06,SO,2025-11-03,9 'Second-Level' AI Trades To Consider Buying Now,[TO BE GENERATED],2
+B3_S07,GE,2025-07-08,{A:800015:L:en}!Honeywell Eyes Strategic Changes Ahead Of 2026 Split,[TO BE GENERATED],2
+B3_S08,NEE,2025-12-08,!NEE stock has given up its prior gain. NextEra Energy shares were trading higher after the company issued FY25 and FY26 financial results and expects about a 10% annual dividend growth through 2026. The company will acquire Symmetry Energy Solutions and renewed its Point Beach Nuclear Supply agreement.,[TO BE GENERATED],10
+B3_S09,COST,2026-01-08,Costco Wholesale's Options: A Look at What the Big Money is Thinking,[TO BE GENERATED],3
+B3_S10,HON,2025-07-24,!Honeywell Lifts Outlook As Transformation Picks Up Speed,[TO BE GENERATED],10
+B3_S11,AMAT,2025-08-15,"!Wells Fargo Maintains Overweight on Applied Mat, Lowers Price Target to $205",[TO BE GENERATED],22

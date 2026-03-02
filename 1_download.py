@@ -14,7 +14,7 @@ NEWS_START     = "2025-01-01"
 NEWS_END       = "2025-09-30"
 NEWS_PROVIDERS = ["BZ"]
 PRICE_DURATION = "360 D"
-PRICE_BAR      = "1 hour"
+PRICE_BAR      = "30 mins"
 SYMBOLS        = pd.read_csv("data/portfolio.csv")["Symbol"].tolist()
 
 
@@ -29,6 +29,7 @@ def connect(port, client_id):
         time.sleep(0.1)
     raise RuntimeError("Timed out waiting for nextValidId.")
 
+#connect(PORT, 6)
 
 def download_prices():
     app = connect(PORT, CLIENT_PRICES)

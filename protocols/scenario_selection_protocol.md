@@ -58,17 +58,35 @@ Events are drawn from a window of approximately 18-36 months prior to survey adm
 
 Events involving companies that have been acquired, delisted, or fundamentally restructured since the event date are excluded, as the scenario context would be confusing or implausible to respondents.
 
+### 2.1A Intraday Data Resolution
+
+All intraday price and volume data are sampled at 30-minute intervals, producing 13 bars per full trading day (09:30 to 16:00 ET). This resolution is selected to balance three considerations. First, temporal attribution: a 30-minute window provides sufficient granularity to isolate the price response to a firm-specific news event from pre-existing intraday trends, reducing the ambiguity that arises when the shock timestamp and the observed price move are separated by up to 60 minutes in hourly data. Second, visual clarity: the 13 bars per day produce a chart that is legible and interpretable within the survey context, whereas 15-minute bars (26 per day) introduce visual noise that does not carry decision-relevant signal for the respondent. Third, signal robustness: Shock Score components -- particularly the abnormal intraday volume ratio (AI_e) and the bar-level return used in severity computation (ES_e) -- require sufficient volume aggregation to produce stable estimates. For lower-liquidity constituents in the portfolio universe (e.g., Utilities and Real Estate names), 30-minute bars maintain adequate volume depth, whereas 15-minute bars risk inflating noise in these components.
+
+The rolling statistics used to calibrate the Shock Score components (historical mean and standard deviation of bar-level returns and volume) are recomputed at the 30-minute frequency over the same trailing 60-trading-day window specified in the statistical screening algorithm. All references to "hourly return" in the Shock Score construction are replaced by "30-minute bar return" at the corresponding interval.
+
 ### 2.2 Shock Identification Algorithm
 
-Candidate event days are identified through a two-stage screening process.
+Candidate event days are identified through a three-stage screening process.
 
 Stage 1 -- Statistical screening. For each stock in the universe, compute the rolling 60-trading-day historical volatility (standard deviation of daily log returns). Flag days where the absolute daily return exceeds 2.0 standard deviations from the stock's trailing mean return. This threshold identifies days with statistically unusual price movements relative to the stock's own history.
 
 Additionally, compute the relative abnormal return -- the stock's daily return minus the broad market return (S&P 500) on the same day. This step distinguishes firm-specific shocks from market-wide movements. A day on which the entire market declines 3% represents a systematic shock, not a firm-specific information event. For scenario selection, candidate days must exhibit a relative abnormal return exceeding 1.5 standard deviations of the stock's historical relative return distribution.
 
-Stage 2 -- News attribution. For each candidate event day surviving Stage 1, verify that the Benzinga news feed via the Interactive Brokers API contains at least one identifiable, firm-specific news item for that stock on the event day or the prior trading session's close. The news item must be attributable to a specific corporate or market event (earnings surprise, regulatory action, management change, legal proceeding, product announcement, etc.) rather than to generic market commentary, sector rotation notes, or analyst opinion pieces without new information content.
+Stage 1B -- Within-day causal plausibility screen. Candidate event days that pass the daily-level statistical screen (Stage 1) are subjected to an additional within-day filter to ensure that the observed price move is temporally attributable to the identified shock bar rather than to a pre-existing intraday trend.
 
-This two-stage process produces a pool of candidate stock-day-news triples from which the final twelve scenarios are selected.
+For each candidate day, compute the absolute return for each 30-minute bar over the trading session. Define the shock bar return as the absolute return of the bar to which the news article is assigned (per the intraday shock assignment rule in Stage 2). Define the reference return as the median absolute 30-minute bar return for all non-shock bars on the same day.
+
+The candidate passes the within-day screen if the shock bar return exceeds 1.5 times the reference return. This multiplier ensures that the shock bar exhibits a price move that is meaningfully larger than the typical intraday fluctuation for that stock on that day, providing visual and statistical evidence that the news event is associated with a distinct price response.
+
+Candidate days that pass the daily-level screen (Stage 1) but fail the within-day causal plausibility screen (Stage 1B) are excluded from the candidate pool. The rationale is that a scenario in which the stock declines (or advances) steadily throughout the day, with no discernible acceleration at the shock timestamp, would present an ambiguous visual narrative to survey respondents. The participant would be unable to distinguish the shock-driven move from the pre-existing trend, weakening the ecological validity of the scenario and potentially introducing noise into the NRS response.
+
+The 1.5x multiplier is calibrated to retain approximately 60 to 70 percent of daily-level candidates. If this threshold produces a pool that is too small to satisfy the balance constraints in section 2.3, the multiplier may be relaxed to 1.25x and the adjustment documented.
+
+Stage 2 -- News attribution. For each candidate event day surviving Stage 1 and Stage 1B, verify that the Benzinga news feed via the Interactive Brokers API contains at least one identifiable, firm-specific news item for that stock on the event day or the prior trading session's close. The news item must be attributable to a specific corporate or market event (earnings surprise, regulatory action, management change, legal proceeding, product announcement, etc.) rather than to generic market commentary, sector rotation notes, or analyst opinion pieces without new information content.
+
+Intraday shock assignment. Each candidate news article carries a publication timestamp from the Benzinga feed. The shock is assigned to the 30-minute bar whose interval contains the article timestamp. Formally, if the article is published at time t, the shock bar is the interval [b, b + 30 min) such that b <= t < b + 30 min, where b is a bar boundary on the half-hour grid (09:30, 10:00, 10:30, ..., 15:30). For articles published outside regular trading hours (before 09:30 or after 16:00 ET), the shock is assigned to the first bar of the next trading session (09:30 to 10:00) if the article appears after the prior close, or to the last bar of the prior session (15:30 to 16:00) if it appears before the current open. When multiple articles for the same stock fall within the same 30-minute bar, they are treated as a single shock event; article count (AC_e) records the number of distinct articles within that bar.
+
+This three-stage process produces a pool of candidate stock-day-news triples from which the final twelve scenarios are selected.
 
 
 > ### 2.3 Multi-Block Balanced Scenario Selection
@@ -95,6 +113,14 @@ Shock directionality: each block includes both negative and positive shocks in a
 
 Event type diversity: each block includes at least 3 to 4 distinct event types from the classification taxonomy (earnings surprises, regulatory or legal actions, management changes, product or operational news, macro-related firm-specific events).
 
+Article count preference. Scenarios with a single attributable news article in the shock bar (AC_e = 1) are preferred, as they present the respondent with an unambiguous information signal. Scenarios with AC_e = 2 are acceptable if both articles pertain to the same underlying event (e.g., two outlets covering the same earnings release or the same analyst action) and their FinBERT sentiment scores share the same sign. Scenarios with AC_e >= 3 are included only if no single-article or dual-article alternative exists for the corresponding cell in the balance matrix (i.e., for the required combination of intensity, direction, event type, and sector).
+
+When a scenario contains multiple articles (AC_e > 1), the survey instrument presents only the headline with the highest absolute FinBERT sentiment score as the primary headline. The remaining headlines are not displayed to the respondent. The Shock Score components (SC_total and its constituents) continue to be computed using all articles within the shock bar, preserving the composite signal integrity while simplifying the information set that the respondent must process. This decision is documented in the scenario metadata table (Table 4.X) by recording both the total AC_e and the displayed headline for each scenario.
+
+Opening-bar constraint. Shocks assigned to the first 30-minute bar of the trading session (09:30 to 10:00 ET) are subject to an additional screening requirement. Because many stocks exhibit large opening moves driven by overnight information, pre-market order flow, and opening auction mechanics, a shock in the first bar is visually difficult to distinguish from a continuation of the overnight gap. For a first-bar shock to be included, the absolute return of the 09:30 to 10:00 bar must exceed 2.0 times the median absolute 30-minute bar return for all subsequent bars on the same day (a stricter threshold than the 1.5x applied to non-opening bars in Stage 1B). This elevated threshold ensures that the shock bar exhibits a price response that is clearly distinguishable from the mechanical volatility of the opening period.
+
+As a soft constraint on within-block balance, no more than one-third of the scenarios in any single block should have their shock in the first bar (09:30 to 10:00). This limit prevents respondents from forming a pattern expectation that shocks cluster at the open, which could introduce demand characteristics. When the candidate pool permits, shocks occurring from 10:00 ET onward are preferred.
+
 Market regime balance: each block draws events from at least two distinct market regimes.
 
 Sector non-repetition: within each block, no two scenarios feature stocks from the same GICS sector, unless the pool makes this infeasible, in which case no sector appears more than twice within a single block.
@@ -110,13 +136,20 @@ Block assignment is recorded as a categorical variable (BlockID) and included as
 
 The following tables are populated during scenario construction and reported in Chapter 4 as documentation of the selection process. One table is produced per block.
 
+Column definitions:
+
+- **Shock Time (ET):** the 30-minute bar to which the shock is assigned (e.g., "10:00" denotes the 10:00 to 10:30 bar).
+- **AC_e:** number of distinct Benzinga articles within the shock bar.
+- **Displayed Headline:** the headline presented to survey respondents (the single headline with the highest absolute FinBERT sentiment score when AC_e > 1).
+- **Shock Bar / Median Bar Ratio:** the ratio of the absolute shock bar return to the median absolute 30-minute bar return on the same day. Values above 1.5 (or 2.0 for the opening bar) satisfy the within-day causal plausibility screen.
+
 Table 2.4a: Block A Scenario Selection Summary
 
-| Scenario | Stock | GICS Sector | Event Date | Event Type | Shock Direction | SC_total | Relative Abnormal Return | Market Regime |
-|---|---|---|---|---|---|---|---|---|
-| A1 | | | | | | | | |
-| ... | | | | | | | | |
-| A12 | | | | | | | | |
+| Scenario | Stock | Ticker | GICS Sector | Event Date | Shock Time (ET) | Event Type | Direction | SC_total | AC_e | Displayed Headline | Rel. Abnormal Return | Shock Bar / Median Bar Ratio | Market Regime |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| A1 | | | | | | | | | | | | | |
+| ... | | | | | | | | | | | | | |
+| A12 | | | | | | | | | | | | | |
 
 Table 2.4b: Block B Scenario Selection Summary
 
