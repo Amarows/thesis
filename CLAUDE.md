@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This repository supports an Executive MBA thesis at Stockholm Business School:
+This repository supports an Executive MBA thesis at Swiss Business School:
 **"Influence of External Information Shocks on Equity Portfolio Manager Decision-Making"**
 
 The research examines whether external financial information shocks cause systematic shifts in portfolio managers' decision-making, and whether a structured decision-support tool – the Shock Score – can moderate those responses. The thesis bridges behavioral finance theory with operational decision support, moving from explanation to intervention in professional investment contexts.
@@ -154,7 +154,7 @@ Yahoo / IB Historical → Market prices → market_data_processor_toolkit.py →
 
 ## Important Notes
 
-- The thesis follows Stockholm Business School's prescriptive handbook structure
+- The thesis follows Swiss Business School's prescriptive handbook structure
 - Chapter 4 distinguishes between directly observed survey data (NRS) and model-dependent simulated outcomes (portfolio returns)
 - The Shock Score is both: (a) a measurement instrument (independent variable for H1) and (b) a treatment component (the dashboard shown in ShowSC = 1 condition for H2)
 - All statistical inference uses Johnston and DiNardo's Econometric Methods as methodological authority where applicable
