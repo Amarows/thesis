@@ -316,6 +316,25 @@ Each candidate news article carries a publication timestamp from the Benzinga fe
 
 The output of this procedure is a set of candidate stock-day-news triples, each associated with a pre-computed SC_total value. The final scenario selection from this pool follows the balance constraints documented in section 4.2.3.
 
+## Technical Appendix 3 -- Shock Score Component Definitions
+
+The composite Shock Score SC_total_e is constructed from four event-level components, each standardized to mean zero and unit variance across all scenarios prior to PCA. This appendix defines each component operationally.
+
+**Article Count (AC_e).** AC_e records the number of distinct Benzinga news articles attributed to the shock bar for event e. An article is attributed to the shock bar if its publication timestamp, sourced from the Benzinga feed via the Interactive Brokers API, falls within the 30-minute interval of the shock bar as defined by the event screening algorithm in Technical Appendix 2. When multiple articles fall within the same bar, they are counted individually; AC_e thus reflects the volume of contemporaneous information flow associated with the event.
+
+**Sentiment Extremity (SE_e).** SE_e measures the maximum absolute sentiment score across all event-day articles for stock e. Sentiment scores are computed using FinBERT ([Huang, Roesler, & Reske, 2020](https://doi.org/10.1145/3583780.3615272)), a transformer-based model pre-trained on financial text, applied to the concatenated headline and article body of each Benzinga article. FinBERT assigns a three-class probability distribution (positive, neutral, negative); the signed sentiment score for each article is defined as P(positive) minus P(negative), with values ranging from -1 to +1. SE_e is then the maximum absolute value across all event-day articles: SE_e = max_j |sentiment_j|. This operationalization captures the peak emotional salience of the information event rather than its average directional tone, consistent with the shock intensity objective of the composite index.
+
+**Attention Intensity (AI_e).** AI_e measures the abnormal trading volume on the event day relative to the stock's recent history. Let V_e denote the total trading volume on the event date for stock e, and let V_bar_e denote the mean daily trading volume over the 20 trading days immediately preceding the event date. Then AI_e = V_e / V_bar_e. Values greater than one indicate above-average attention; values below one indicate below-average attention. Where the 20-day trailing volume is zero or unavailable, AI_e is set to one (neutral) and the scenario is flagged in the assembly log.
+
+**Event-Type Severity (ES_e).** ES_e captures the price-impact severity of the specific shock event, expressed as a unit-free ratio relative to the stock's own baseline intraday volatility. Let r_shock denote the absolute return of the shock bar, defined as |close_shock / close_prev - 1|, where close_prev is the closing price of the bar immediately preceding the shock bar on the same trading day. If no preceding bar exists within the same trading session, the prior trading session's closing price is used as the reference. Let m_e denote the median absolute bar-over-bar return computed across all 30-minute bars in the 20 trading days preceding the event date for the same stock. ES_e is then defined as:
+
+ES_e = r_shock / m_e
+
+This formulation produces a dimensionless ratio that is comparable across stocks with differing baseline volatility levels. A value of ES_e = 3, for example, indicates that the shock bar return was three times the stock's typical intraday movement. ES_e is capped at 10.0 to prevent extreme outliers from distorting the PCA structure; scenarios triggering this cap are recorded in the assembly log. Where insufficient intraday price data preclude computation of r_shock or m_e, ES_e falls back to a category-level weight derived from the event type classification (earnings = 1.0, regulatory = 1.1, management = 0.8, analyst = 0.6, other = 0.5); fallback scenarios are logged and their count is reported in the assembly report.
+
+The shock bar is identified as the 30-minute bar whose timestamp is closest to the event_time field recorded in the scenario manifest. When event_time is unavailable, the bar with the largest absolute return on the event date is used as the shock bar. This identification is consistent with the causal attribution logic described in Technical Appendix 2.
+
+
 ---
 
 # Chapter 3. Literature Review
