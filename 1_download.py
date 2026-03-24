@@ -10,8 +10,8 @@ from ibkr_news_toolkit       import IBKRNewsToolkit, IBKRConnectionConfig
 PORT           = 7496        # 7496 paper | 7497 live
 CLIENT_PRICES  = 6
 CLIENT_NEWS    = 7
-NEWS_START     = "2025-01-01"
-NEWS_END       = "2025-09-30"
+NEWS_START     = "2026-03-01"
+NEWS_END       = "2026-04-30"
 NEWS_PROVIDERS = ["BZ"]
 PRICE_DURATION = "360 D"
 PRICE_BAR      = "30 mins"
@@ -33,7 +33,7 @@ def connect(port, client_id):
 
 def download_prices():
     app = connect(PORT, CLIENT_PRICES)
-    series = download_close_series_save(app, SYMBOLS, duration=PRICE_DURATION, bar=PRICE_BAR, what="TRADES", useRTH=1, outdir="data")
+    series = download_close_series_save(app, SYMBOLS, duration=PRICE_DURATION, bar=PRICE_BAR, what="TRADES", useRTH=1, outdir="data", sleep_sec=10)
     print(f"Prices done: {len(series)} bars")
     return series
 
