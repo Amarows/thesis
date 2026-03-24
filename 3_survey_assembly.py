@@ -784,25 +784,36 @@ def compute_price_reaction(
 
 
 # ------------------------------------------------------------------------------
-# Section 5 - Sentiment scoring (VADER proxy for FinBERT)
+# Section 5 - Sentiment scoring (FinBERT)
 # ------------------------------------------------------------------------------
 
 try:
-    import nltk
-    from nltk.sentiment.vader import SentimentIntensityAnalyzer as _SIA
-    nltk.download("vader_lexicon", quiet=True)
-    _sia = _SIA()
-    HAS_VADER = True
+    from transformers import pipeline as _hf_pipeline
+    _finbert = _hf_pipeline(
+        "text-classification",
+        model="yiyanghkust/finbert-tone",
+        truncation=True,
+        max_length=512,
+        top_k=None,
+    )
+    HAS_FINBERT = True
 except Exception:
-    _sia = None
-    HAS_VADER = False
+    _finbert = None
+    HAS_FINBERT = False
 
 
-def _vader_score(text: str) -> float:
-    """Return VADER compound score for text, or 0.0 if VADER unavailable."""
-    if not HAS_VADER or not isinstance(text, str) or not text.strip():
+def _finbert_score(text: str) -> float:
+    """Return FinBERT sentiment as positive_prob - negative_prob in [-1, 1].
+
+    Returns 0.0 if FinBERT is unavailable or text is empty.
+    """
+    if not HAS_FINBERT or not isinstance(text, str) or not text.strip():
         return 0.0
-    return float(_sia.polarity_scores(text[:2000])["compound"])
+    output = _finbert(text[:1500])
+    # output: [[{'label': ..., 'score': ...}, ...]] for a single input
+    labels = output[0] if isinstance(output[0], list) else output
+    probs = {d["label"].lower(): d["score"] for d in labels}
+    return float(probs.get("positive", 0.0) - probs.get("negative", 0.0))
 
 
 def get_event_day_news(
@@ -852,8 +863,7 @@ def compute_raw_components(
     Compute four raw SC components for each scenario.
 
     ac_raw  - Article Count: number of BZ articles on event day
-    se_raw  - Sentiment Extremity: max |VADER score| across event-day articles
-               (proxy for FinBERT; replace when transformers/torch available)
+    se_raw  - Sentiment Extremity: max |FinBERT score| across event-day articles
     ai_raw  - Attention Intensity: event-day volume / 20-day trailing avg daily volume
     es_raw  - Event-Type Severity: category severity from EVENT_TYPE_SEVERITY mapping
                (placeholder - requires manual review per protocol S.2.2)
@@ -882,20 +892,20 @@ def compute_raw_components(
         se_raw = 0.0
 
         if not day_articles.empty:
-            if HAS_VADER:
+            if HAS_FINBERT:
                 for _, art in day_articles.iterrows():
                     hl = str(art.get("headline", ""))
                     body = str(art.get("article_text", ""))
                     # Strip HTML from body
                     body_clean = re.sub(r"<[^>]+>", " ", body)
                     combined = f"{hl} {body_clean}"
-                    score = _vader_score(combined)
+                    score = _finbert_score(combined)
                     sentiment_scores.append(score)
                 if sentiment_scores:
                     se_raw = max(abs(s) for s in sentiment_scores)
                     mean_sentiment = float(np.mean(sentiment_scores))
             else:
-                _warn(f"{sid}: VADER unavailable - se_raw set to 0 (install nltk)")
+                _warn(f"{sid}: FinBERT unavailable - se_raw set to 0 (install transformers torch)")
 
         # -- AI_raw ------------------------------------------------------------
         ai_raw = 0.0
@@ -997,7 +1007,7 @@ def compute_shock_scores(
 
     # -- Dashboard signals ------------------------------------------------------
 
-    # 1. Sentiment direction (from mean VADER score)
+    # 1. Sentiment direction (from mean FinBERT score)
     df["sentiment_direction"] = df["mean_sentiment"].apply(
         _sentiment_direction_label
     )
@@ -1415,7 +1425,7 @@ def _pick_displayed_headline(
 ) -> str:
     """
     Return the headline to display to respondents.
-    Priority: manifest headline if not blank -> highest |VADER| article -> first article.
+    Priority: manifest headline if not blank -> highest |FinBERT| article -> first article.
     """
     if isinstance(manifest_headline, str) and manifest_headline.strip() not in (
         "", "nan", "<paste displayed headline here>",
@@ -1425,9 +1435,9 @@ def _pick_displayed_headline(
     if articles_df.empty:
         return "[HEADLINE NOT AVAILABLE]"
 
-    if HAS_VADER and "headline" in articles_df.columns:
+    if HAS_FINBERT and "headline" in articles_df.columns:
         scores = articles_df["headline"].apply(
-            lambda h: abs(_vader_score(str(h)))
+            lambda h: abs(_finbert_score(str(h)))
         )
         best_idx = scores.idxmax()
         return _clean_bz_headline(str(articles_df.loc[best_idx, "headline"]))
@@ -1663,10 +1673,9 @@ def generate_report(
         "before finalising SC_total for the thesis.",
         "",
         "### 4b. Sentiment Scoring",
-        "Scores use **VADER** (from `nltk`) as a proxy for FinBERT. "
-        "VADER compound scores range from -1 to +1. "
-        "Replace with FinBERT (transformers/torch) for thesis-quality computation; "
-        "see `toolkits/news_sentiment_toolkit.py` for integration point.",
+        "Scores use **FinBERT** (`yiyanghkust/finbert-tone`) via HuggingFace Transformers. "
+        "The sentiment score is `positive_prob - negative_prob` in [-1, 1]. "
+        "See `toolkits/news_sentiment_toolkit.py` for the shared scorer.",
         "",
         "### 4c. Persistence Horizon",
         "`horizon_bucket` requires 5-day post-event return data and is currently "
@@ -1856,9 +1865,9 @@ def main() -> None:
 
     # -- [5/8] Shock Score -----------------------------------------------------
     print("\n[5/8] Computing Shock Score components and SC_total...")
-    if not HAS_VADER:
-        print("  [NOTE] VADER not available - se_raw will be 0 for all scenarios")
-        print("         Install: pip install nltk  (then re-run)")
+    if not HAS_FINBERT:
+        print("  [NOTE] FinBERT not available - se_raw will be 0 for all scenarios")
+        print("         Install: pip install transformers torch  (then re-run)")
 
     components_df = compute_raw_components(manifest_df, prices, news_data)
     sc_df, pca_info = compute_shock_scores(components_df)
