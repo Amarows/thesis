@@ -68,6 +68,7 @@ def count_words(file_path: Path) -> int:
     tokens = re.findall(r"\b[\w'-]+\b", text)
     return len(tokens)
 
+count_words("thesis.md")
 
 # ---------------------------------------------------------------------------
 # Reference analysis
@@ -150,6 +151,8 @@ def analyze_references(file_path: Path, current_year: Optional[int] = None) -> N
         share = (cnt / total * 100) if total > 0 else 0
         print(f"{group:<20} | {cnt:<6} | {share:<10.2f}")
     print(f"{'Total':<20} | {total:<6} | {'100.00':<10}")
+
+analyze_references("thesis.md")
 
 
 # ---------------------------------------------------------------------------
@@ -333,7 +336,7 @@ def generate_bibliography_xml(references_md_path: Path, output_xml_path: Path) -
 
 if __name__ == "__main__":
     # Resolve project root relative to this file (toolkits/ → root)
-    _root = Path(__file__).resolve().parent.parent
+    _root = Path(__name__).resolve().parent.parent
 
     _thesis = _root / "thesis.md"
     _references = _root / "references.md"
