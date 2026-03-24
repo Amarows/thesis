@@ -1160,8 +1160,11 @@ def compute_persistence_horizon(
             p_e = np.nan
             bucket = "[INSUFFICIENT DATA]"
         elif abs(car1) < 0.001:
+            # Day-1 CAR is near zero: the shock was absorbed entirely intraday
+            # (stock moved in line with market by EOD).  P_e = CAR5/CAR1 is
+            # unreliable; classify directly as Intraday.
             p_e = np.nan
-            bucket = "[MANUAL REVIEW: Day-1 CAR near zero]"
+            bucket = "Intraday"
         else:
             p_e = round(car5 / car1, 4)
             if abs(p_e) <= 0.30:
