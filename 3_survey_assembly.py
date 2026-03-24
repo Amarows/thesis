@@ -51,6 +51,13 @@ DATA_DIR = Path("data")
 SURVEY_DIR = Path("survey")
 MANIFEST_PATH = DATA_DIR / "scenario_manifest.csv"
 NEWS_CACHE_PATH = DATA_DIR / "news_summary_cache.csv"
+_CREDENTIALS_API_KEY = Path("credentials") / "claude_api.txt"
+
+# Load API key: env variable takes priority, fall back to credentials file
+if not os.environ.get("ANTHROPIC_API_KEY") and _CREDENTIALS_API_KEY.exists():
+    _key = _CREDENTIALS_API_KEY.read_text().strip()
+    if _key:
+        os.environ["ANTHROPIC_API_KEY"] = _key
 
 MANIFEST_COLUMNS = [
     "scenario_id", "block_id", "ticker", "company_name", "gics_sector",
