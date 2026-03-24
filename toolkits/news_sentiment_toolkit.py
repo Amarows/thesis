@@ -9,7 +9,7 @@ try:
     from transformers import pipeline as _hf_pipeline
     _finbert = _hf_pipeline(
         "text-classification",
-        model="yiyanghkust/finbert-tone",
+        model="ProsusAI/finbert",
         truncation=True,
         max_length=512,
         top_k=None,

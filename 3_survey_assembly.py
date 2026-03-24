@@ -791,7 +791,7 @@ try:
     from transformers import pipeline as _hf_pipeline
     _finbert = _hf_pipeline(
         "text-classification",
-        model="yiyanghkust/finbert-tone",
+        model="ProsusAI/finbert",
         truncation=True,
         max_length=512,
         top_k=None,
@@ -1673,7 +1673,7 @@ def generate_report(
         "before finalising SC_total for the thesis.",
         "",
         "### 4b. Sentiment Scoring",
-        "Scores use **FinBERT** (`yiyanghkust/finbert-tone`) via HuggingFace Transformers. "
+        "Scores use **FinBERT** (`ProsusAI/finbert`) via HuggingFace Transformers. "
         "The sentiment score is `positive_prob - negative_prob` in [-1, 1]. "
         "See `toolkits/news_sentiment_toolkit.py` for the shared scorer.",
         "",
