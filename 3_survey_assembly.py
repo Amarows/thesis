@@ -50,6 +50,7 @@ from sklearn.preprocessing import StandardScaler
 DATA_DIR = Path("data")
 SURVEY_DIR = Path("survey")
 MANIFEST_PATH = DATA_DIR / "scenario_manifest.csv"
+NEWS_CACHE_PATH = DATA_DIR / "news_summary_cache.csv"
 
 MANIFEST_COLUMNS = [
     "scenario_id", "block_id", "ticker", "company_name", "gics_sector",
@@ -1445,6 +1446,27 @@ def _pick_displayed_headline(
     return _clean_bz_headline(str(articles_df.iloc[0]["headline"]))
 
 
+def _load_summary_cache() -> dict[str, str]:
+    """Load scenario_id -> summary_paragraph from cache file if it exists."""
+    if not NEWS_CACHE_PATH.exists():
+        return {}
+    try:
+        df = pd.read_csv(NEWS_CACHE_PATH, dtype=str)
+        df = df[df["summary_paragraph"].notna()]
+        df = df[~df["summary_paragraph"].str.strip().isin(["", "[TO BE GENERATED]"])]
+        return dict(zip(df["scenario_id"], df["summary_paragraph"]))
+    except Exception:
+        return {}
+
+
+def _save_summary_cache(cache: dict[str, str]) -> None:
+    """Persist the cache dict to NEWS_CACHE_PATH as CSV."""
+    if not cache:
+        return
+    rows = [{"scenario_id": k, "summary_paragraph": v} for k, v in cache.items()]
+    pd.DataFrame(rows).to_csv(NEWS_CACHE_PATH, index=False)
+
+
 def build_news_text_df(
     manifest_df: pd.DataFrame,
     news_data: dict[str, pd.DataFrame],
@@ -1453,6 +1475,7 @@ def build_news_text_df(
     """Build scenario_news_text.csv content."""
     port_lookup = portfolio_df.set_index("ticker")
     has_api = bool(os.environ.get("ANTHROPIC_API_KEY"))
+    cache = _load_summary_cache()
 
     rows = []
     for _, mrow in manifest_df.iterrows():
@@ -1475,15 +1498,21 @@ def build_news_text_df(
             str(mrow.get("headline", "")), day_articles
         )
 
-        print(
-            f"  {sid} news text "
-            f"({'API' if has_api else 'placeholder'})...",
-            end="", flush=True,
-        )
-        summary = _generate_summary_anthropic(
-            company_name, ticker, gics_sector, event_date, day_articles
-        )
-        print(" done")
+        if sid in cache:
+            print(f"  {sid} news text (cached)... done")
+            summary = cache[sid]
+        else:
+            print(
+                f"  {sid} news text "
+                f"({'API' if has_api else 'placeholder'})...",
+                end="", flush=True,
+            )
+            summary = _generate_summary_anthropic(
+                company_name, ticker, gics_sector, event_date, day_articles
+            )
+            print(" done")
+            if summary != "[TO BE GENERATED]":
+                cache[sid] = summary
 
         rows.append({
             "scenario_id": sid,
@@ -1494,6 +1523,7 @@ def build_news_text_df(
             "num_articles": num_articles,
         })
 
+    _save_summary_cache(cache)
     return pd.DataFrame(rows)
 
 
