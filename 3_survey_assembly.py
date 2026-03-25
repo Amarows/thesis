@@ -544,7 +544,10 @@ def plot_shock_chart(
     matplotlib Figure object, or None if no data available.
     """
     # ── Colour encoding ───────────────────────────────────────────────────
-    clr = "#00cc66" if shock_direction == "positive" else "#ff4444"
+    if price_reaction_pct is not None:
+        clr = "#00cc66" if price_reaction_pct >= 0 else "#ff4444"
+    else:
+        clr = "#00cc66" if shock_direction == "positive" else "#ff4444"
 
     # ── Filter to 2 trading days ──────────────────────────────────────────
     tdf = df.copy()
@@ -682,7 +685,7 @@ def plot_shock_chart(
         main_title = (f"{company_name} ({ticker})" if company_name
                       else f"{ticker}")
         fig.suptitle(main_title, fontsize=16, fontweight="bold",
-                     color="white", x=0.04, ha="left")
+                     color="white", x=0.08, ha="left")
 
         subtitle = (f"{gics_sector} | Intraday Price (30-min bars)"
                     if gics_sector else "Intraday Price (30-min bars)")
@@ -696,14 +699,14 @@ def plot_shock_chart(
             sign_r = "+" if price_reaction_pct >= 0 else ""
             badge_color = "#00cc66" if price_reaction_pct >= 0 else "#ff4444"
             fig.text(
-                0.97, 0.95,
+                0.99, 0.98,
                 f"{sign_r}{price_reaction_pct:.2f}%",
                 fontsize=22, fontweight="bold", color=badge_color,
                 ha="right", va="top",
                 fontfamily="monospace",
             )
             fig.text(
-                0.97, 0.90,
+                0.99, 0.93,
                 "2h post-event",
                 fontsize=9, color="#888888",
                 ha="right", va="top",
