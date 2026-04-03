@@ -796,7 +796,8 @@ def parse_args():
         dest="dry_run",
         help="Print the form structure without making any API calls.",
     )
-    return parser.parse_args()
+    args, _ = parser.parse_known_args()
+    return args
 
 
 # ---------------------------------------------------------------------------
