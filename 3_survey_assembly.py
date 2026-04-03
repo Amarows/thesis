@@ -521,6 +521,11 @@ def plot_shock_chart(
     ticker: str,
     shock_direction: str,
     save_path=None,
+    # Additional metadata for enhanced chart header and badge
+    company_name: str = "",
+    gics_sector: str = "",
+    price_reaction_pct: float | None = None,
+    event_type: str = "",
 ):
     """
     Bloomberg-style dark intraday shock chart — 2 trading days at 30-min granularity.
@@ -539,7 +544,10 @@ def plot_shock_chart(
     matplotlib Figure object, or None if no data available.
     """
     # ── Colour encoding ───────────────────────────────────────────────────
-    clr = "#00cc66" if shock_direction == "positive" else "#ff4444"
+    if price_reaction_pct is not None:
+        clr = "#00cc66" if price_reaction_pct >= 0 else "#ff4444"
+    else:
+        clr = "#00cc66" if shock_direction == "positive" else "#ff4444"
 
     # ── Filter to 2 trading days ──────────────────────────────────────────
     tdf = df.copy()
@@ -604,12 +612,9 @@ def plot_shock_chart(
             ax.grid(True, color="#333333", linewidth=0.5, linestyle="--", zorder=0)
             ax.set_axisbelow(True)
 
-        # ── Volume bars (green/red vs prev bar; first bar grey) ───────────
-        prev_closes = np.empty_like(closes)
-        prev_closes[0] = closes[0]
-        prev_closes[1:] = closes[:-1]
-        vol_colors = np.where(closes >= prev_closes, "#00cc66", "#ff4444").tolist()
-        vol_colors[0] = "#888888"
+        # ── Volume bars (all grey; shock bar in directional colour) ────
+        vol_colors = ["#666666"] * len(volumes)
+        vol_colors[shock_pos] = clr
         ax_v.bar(positions, volumes, color=vol_colors,
                  width=0.8, align="center", alpha=0.7, zorder=2)
 
@@ -676,22 +681,49 @@ def plot_shock_chart(
         # ── xlim ──────────────────────────────────────────────────────────
         ax_p.set_xlim(-0.5, len(two_day) - 0.5)
 
-        # ── Title ─────────────────────────────────────────────────────────
-        ax_p.set_title(
-            f"{ticker} - Intraday Price (30-min bars)",
-            fontsize=14, fontweight="bold", color="white",
-        )
+        # ── Two-line title ────────────────────────────────────────────────
+        main_title = (f"{company_name} ({ticker})" if company_name
+                      else f"{ticker}")
+        fig.suptitle(main_title, fontsize=16, fontweight="bold",
+                     color="white", x=0.08, ha="left")
 
-        # ── Upper-right annotation: shock date + % change ─────────────────
+        subtitle = (f"{gics_sector} | Intraday Price (30-min bars)"
+                    if gics_sector else "Intraday Price (30-min bars)")
+        ax_p.set_title(subtitle, fontsize=11, color="#aaaaaa",
+                       fontweight="normal", loc="left")
+
+        fig.subplots_adjust(top=0.84)
+
+        # ── Price reaction badge (upper-right) ────────────────────────────
+        if price_reaction_pct is not None:
+            sign_r = "+" if price_reaction_pct >= 0 else ""
+            badge_color = "#00cc66" if price_reaction_pct >= 0 else "#ff4444"
+            fig.text(
+                0.99, 0.98,
+                f"{sign_r}{price_reaction_pct:.2f}%",
+                fontsize=22, fontweight="bold", color=badge_color,
+                ha="right", va="top",
+                fontfamily="monospace",
+            )
+            fig.text(
+                0.99, 0.93,
+                "2h post-event",
+                fontsize=9, color="#888888",
+                ha="right", va="top",
+            )
+
+        # ── Upper-right annotation: shock date + intra-chart % change ────
         pre_close  = closes[shock_display_pos]
         last_close = closes[-1]
         pct_chg = ((last_close - pre_close) / pre_close * 100.0
                    if pre_close != 0 else 0.0)
         sign = "+" if pct_chg >= 0 else ""
+        # Push annotation down when badge is present to avoid overlap
+        ann_y_offset = -28 if price_reaction_pct is not None else -8
         ax_p.annotate(
             f"{shock_timestamp.strftime('%d %b %Y')}   {sign}{pct_chg:.2f}%",
             xy=(1, 1), xycoords="axes fraction",
-            xytext=(-8, -8), textcoords="offset points",
+            xytext=(-8, ann_y_offset), textcoords="offset points",
             fontsize=8, color="#cccccc", ha="right", va="top",
         )
 
@@ -1831,8 +1863,44 @@ def main() -> None:
     scenario_metadata.to_csv(out_path, index=False)
     print(f"  Saved: {out_path.relative_to(SURVEY_DIR)}  ({len(scenario_metadata)} rows)")
 
-    # -- [3/8] Bloomberg-style intraday shock charts (2-day, 30-min) -----------
-    print("\n[3/8] Generating Bloomberg-style intraday shock charts (2-day, 30-min)...")
+    # -- [3/8] Price reactions (moved before charts so badge data is available) --
+    print("\n[3/8] Computing price reactions...")
+    reaction_rows = []
+
+    for _, mrow in manifest_df.iterrows():
+        sid = mrow["scenario_id"]
+        ticker = mrow["ticker"]
+        event_date = mrow["event_date"]
+        event_time_et = str(mrow.get("event_time", "09:30"))
+
+        base = {
+            "scenario_id": sid,
+            "ticker": ticker,
+            "event_date": str(event_date),
+            "event_time": event_time_et,
+        }
+
+        if ticker not in prices:
+            reaction_rows.append({**base, **_empty_reaction("no price data")})
+            continue
+
+        reaction = compute_price_reaction(prices[ticker], event_date, event_time_et)
+        reaction_rows.append({**base, **reaction})
+
+    price_reaction_df = pd.DataFrame(reaction_rows)
+    out_path = out_dirs["metadata"] / "scenario_price_reaction.csv"
+    price_reaction_df.to_csv(out_path, index=False)
+    print(f"  Saved: {out_path.relative_to(SURVEY_DIR)}  ({len(price_reaction_df)} rows)")
+
+    # Build reaction lookup: scenario_id → price_reaction_pct
+    reaction_lookup = {}
+    for _, rrow in price_reaction_df.iterrows():
+        pct = rrow.get("price_reaction_pct")
+        if pd.notna(pct):
+            reaction_lookup[rrow["scenario_id"]] = float(pct)
+
+    # -- [4/8] Bloomberg-style intraday shock charts (2-day, 30-min) -----------
+    print("\n[4/8] Generating Bloomberg-style intraday shock charts (2-day, 30-min)...")
     charts_ok = 0
 
     for _, mrow in manifest_df.iterrows():
@@ -1860,8 +1928,14 @@ def main() -> None:
         shock_dir = _infer_shock_direction(prices[ticker], event_date, event_time_et)
         save_path = out_dirs["charts"] / f"chart_{sid}.png"
 
-        fig = plot_shock_chart(prices[ticker], shock_ts, ticker, shock_dir,
-                               save_path=save_path)
+        fig = plot_shock_chart(
+            prices[ticker], shock_ts, ticker, shock_dir,
+            save_path=save_path,
+            company_name=str(mrow.get("company_name", "")),
+            gics_sector=str(mrow.get("gics_sector", "")),
+            price_reaction_pct=reaction_lookup.get(sid),
+            event_type=str(mrow.get("event_type", "")),
+        )
         if fig is not None:
             plt.close(fig)
             charts_ok += 1
@@ -1870,35 +1944,6 @@ def main() -> None:
             print(" failed")
 
     print(f"  Charts: {charts_ok}/{len(manifest_df)}")
-
-    # -- [4/8] Price reactions -------------------------------------------------
-    print("\n[4/8] Computing price reactions...")
-    reaction_rows = []
-
-    for _, mrow in manifest_df.iterrows():
-        sid = mrow["scenario_id"]
-        ticker = mrow["ticker"]
-        event_date = mrow["event_date"]
-        event_time_et = str(mrow.get("event_time", "09:30"))
-
-        base = {
-            "scenario_id": sid,
-            "ticker": ticker,
-            "event_date": str(event_date),
-            "event_time": event_time_et,
-        }
-
-        if ticker not in prices:
-            reaction_rows.append({**base, **_empty_reaction("no price data")})
-            continue
-
-        reaction = compute_price_reaction(prices[ticker], event_date, event_time_et)
-        reaction_rows.append({**base, **reaction})
-
-    price_reaction_df = pd.DataFrame(reaction_rows)
-    out_path = out_dirs["metadata"] / "scenario_price_reaction.csv"
-    price_reaction_df.to_csv(out_path, index=False)
-    print(f"  Saved: {out_path.relative_to(SURVEY_DIR)}  ({len(price_reaction_df)} rows)")
 
     # -- [5/8] Shock Score -----------------------------------------------------
     print("\n[5/8] Computing Shock Score components and SC_total...")

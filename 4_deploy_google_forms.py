@@ -54,15 +54,17 @@ METADATA_DIR = SURVEY_DIR / "metadata"
 CB_DIR = SURVEY_DIR / "counterbalancing"
 DEPLOYMENT_MANIFEST_PATH = SURVEY_DIR / "deployment_manifest.json"
 
-FORM_DESCRIPTION = (
-    "This survey is part of an academic research study on how equity portfolio managers "
-    "respond to financial information events. You will review investment scenarios and "
-    "indicate your intended portfolio adjustment for each. The survey takes approximately "
-    "20\u201325 minutes. Your responses are anonymous and confidential."
-)
-
 # Portfolio context: equal-weight portfolio of PORTFOLIO_N stocks (per presentation protocol)
 PORTFOLIO_N = 30
+
+FORM_DESCRIPTION = (
+    "This survey is part of an academic research study on how equity portfolio managers "
+    "respond to financial information events. You will review a series of real market events "
+    "for stocks held in your portfolio. Assume you manage a diversified equity portfolio with "
+    f"equal weights across {PORTFOLIO_N} stocks. For each event, indicate your intended "
+    "portfolio adjustment on the provided scale. The survey takes approximately "
+    "20\u201325 minutes. Your responses are anonymous and confidential."
+)
 
 DRIVE_FOLDER_NAME = "Thesis Survey \u2013 Block Images"
 
@@ -492,44 +494,26 @@ def build_scenario_requests(
     chart_url = urls.get("chart_url")
     dashboard_url = urls.get("dashboard_url")
 
-    # 1. Page break
+    # 1. Page break – stock identity and directional signal
+    sign = "+" if reaction_pct >= 0 else ""
     reqs.append(_page_break_req(
-        title=f"Scenario {scenario_num} of {total_scenarios}",
-        description="",
+        title=f"{company_name} ({ticker})  \u00b7  {sign}{reaction_pct:.2f}%",
+        description=f"{gics_sector}  \u00b7  Event date: {row_meta['event_date']}",
         idx=idx,
     ))
     idx += 1
 
-    # 2. Portfolio context statement (identical across all scenarios – §3.4)
-    reqs.append(_text_req(
-        title="Portfolio context",
-        description=(
-            f"You manage a diversified equity portfolio with equal weights across "
-            f"{PORTFOLIO_N} stocks. The following event has occurred for one of your holdings."
-        ),
-        idx=idx,
-    ))
-    idx += 1
-
-    # 3. Stock identification: company name, ticker, sector
-    reqs.append(_text_req(
-        title="Holding",
-        description=f"{company_name} ({ticker})  \u00b7  {gics_sector}",
-        idx=idx,
-    ))
-    idx += 1
-
-    # 4. Trailing price chart
+    # 2. Chart image (all identifying info is burned into the image)
     if chart_url:
         reqs.append(_image_req(
-            title="Trailing Price Chart (20 trading days before event, rebased to 100)",
+            title="",
             source_uri=chart_url,
-            alt_text=f"20-day trailing indexed price chart for {ticker} before the event",
+            alt_text=f"Intraday price chart for {company_name} ({ticker}) around the event",
             idx=idx,
         ))
         idx += 1
 
-    # 5. News event – calibrate title to num_articles per §3.5 of presentation protocol
+    # 3. News event + price reaction – merged into one item
     if num_articles >= 6:
         news_title = f"News Event  \u00b7  Covered by {num_articles} financial news sources"
     elif num_articles >= 3:
@@ -537,23 +521,21 @@ def build_scenario_requests(
     else:
         news_title = "News Event"
 
-    news_body = headline
+    reaction_line = f"Immediate price reaction: {sign}{reaction_pct:.2f}% ({reaction_window})"
+
+    news_body_parts = []
+    if headline:
+        news_body_parts.append(headline)
     if summary_para:
-        news_body = f"{headline}\n\n{summary_para}" if headline else summary_para
+        news_body_parts.append(summary_para)
+    news_body_parts.append(reaction_line)
+
+    news_body = "\n\n".join(news_body_parts)
 
     reqs.append(_text_req(title=news_title, description=news_body, idx=idx))
     idx += 1
 
-    # 6. Immediate price reaction
-    sign = "+" if reaction_pct >= 0 else ""
-    reqs.append(_text_req(
-        title="Immediate price reaction",
-        description=f"{sign}{reaction_pct:.2f}% ({reaction_window})",
-        idx=idx,
-    ))
-    idx += 1
-
-    # 7. Shock Score dashboard (treatment condition only: show_sc == 1)
+    # 4. Shock Score dashboard (treatment only: show_sc == 1)
     if show_sc == 1 and dashboard_url:
         reqs.append(_image_req(
             title="Shock Score Dashboard",
@@ -566,7 +548,7 @@ def build_scenario_requests(
         ))
         idx += 1
 
-    # 8. NRS response scale (1 = strongly reduce, 7 = strongly increase)
+    # 5. NRS response scale (1 = strongly reduce, 7 = strongly increase)
     reqs.append(_scale_req(
         title=(
             "Based on the information above, what would be your intended portfolio "
@@ -723,7 +705,7 @@ def deploy_one_form(
         print(f"    Demographics: 8 items (section header + 7 questions)")
         for pos, row in guide.iterrows():
             sc_label = "SC shown" if int(row["show_sc"]) == 1 else "control"
-            n_items = 8 if int(row["show_sc"]) == 1 else 7
+            n_items = 5 if int(row["show_sc"]) == 1 else 4
             print(f"    [{pos+1:2d}] {row['scenario_id']:8s} ({row['ticker']:5s}) "
                   f"| {sc_label:9s} | {n_items} items")
         print(f"    Final questions: 3 items")
@@ -814,7 +796,8 @@ def parse_args():
         dest="dry_run",
         help="Print the form structure without making any API calls.",
     )
-    return parser.parse_args()
+    args, _ = parser.parse_known_args()
+    return args
 
 
 # ---------------------------------------------------------------------------
