@@ -274,22 +274,29 @@ def load_manifest() -> pd.DataFrame:
     """
     Load and validate scenario_manifest.csv.
 
-    If the file is missing or contains only auto-generated template rows
-    (headline starts with '<paste'), the function attempts to auto-populate
-    the manifest by running the upstream pipeline (identify_shocks →
-    compute_sc_total → assign_blocks).  If auto-population succeeds the
-    newly written manifest is returned; otherwise the script exits with
-    instructions.
+    Always re-runs the upstream pipeline (identify_shocks → compute_sc_total →
+    assign_blocks) to regenerate and overwrite the manifest on every run,
+    so that refreshed price/news data is reflected without manual deletion.
+    Falls back to reading the existing file only if auto-population fails.
     """
-    if not MANIFEST_PATH.exists():
-        print("\ndata/scenario_manifest.csv not found — attempting auto-population...")
-        _portfolio = load_portfolio()
-        result = _auto_populate_manifest(_portfolio)
-        if result is None:
-            _create_manifest_template()  # prints instructions and exits
-        # Re-enter to validate the freshly written file
-        return load_manifest()
+    print("\ndata/scenario_manifest.csv — regenerating from upstream pipeline...")
+    _portfolio = load_portfolio()
+    result = _auto_populate_manifest(_portfolio)
 
+    if result is not None:
+        df = result
+        df["event_date"] = pd.to_datetime(df["event_date"]).dt.date
+        df["block_id"] = df["block_id"].astype(int)
+        df["event_time"] = df["event_time"].astype(str).str.strip()
+        n_blocks = df["block_id"].nunique()
+        print(f"Manifest loaded: {len(df)} scenarios in {n_blocks} block(s)")
+        return df
+
+    # Auto-population failed — fall back to existing file if present
+    if not MANIFEST_PATH.exists():
+        _create_manifest_template()  # prints instructions and exits
+
+    print("  Auto-population failed — loading existing manifest as fallback.")
     df = pd.read_csv(MANIFEST_PATH)
     df.columns = df.columns.str.strip()
 
@@ -298,28 +305,14 @@ def load_manifest() -> pd.DataFrame:
         print(f"ERROR: scenario_manifest.csv is missing required columns: {missing}")
         sys.exit(1)
 
-    # Detect template-only rows (all headlines are placeholders)
     is_template = df["headline"].astype(str).str.startswith("<paste")
     if is_template.all():
-        print("\nManifest contains only template rows — attempting auto-population...")
-        _portfolio = load_portfolio()
-        result = _auto_populate_manifest(_portfolio)
-        if result is not None:
-            df = result
-            df["event_date"] = pd.to_datetime(df["event_date"]).dt.date
-            df["block_id"] = df["block_id"].astype(int)
-            df["event_time"] = df["event_time"].astype(str).str.strip()
-            n_blocks = df["block_id"].nunique()
-            print(f"Manifest loaded: {len(df)} scenarios in {n_blocks} block(s)")
-            return df
-        else:
-            print(
-                "\nAuto-population failed.\n"
-                "Run 2_prepare_data.py first, then call:\n"
-                "  populate_manifest_from_blocks(blocks, portfolio_df)\n"
-                "Or fill data/scenario_manifest.csv manually."
-            )
-            sys.exit(1)
+        print(
+            "\nAuto-population failed and manifest contains only template rows.\n"
+            "Run 2_prepare_data.py first to ensure price/news data is available,\n"
+            "or fill data/scenario_manifest.csv manually."
+        )
+        sys.exit(1)
     elif is_template.any():
         n = int(is_template.sum())
         print(f"  [NOTE] {n}/{len(df)} manifest row(s) still have placeholder headlines.")

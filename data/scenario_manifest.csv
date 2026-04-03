@@ -1,36 +1,37 @@
 scenario_id,block_id,ticker,company_name,gics_sector,event_date,event_time,event_type,headline,num_articles
-B1_S01,1,LIN,Linde,Materials,2025-07-31,10:00,earnings,!Insights into Linde's Upcoming Earnings,1
+B1_S01,1,SHW,Sherwin-Williams,Materials,2025-04-22,09:30,analyst,"!Morgan Stanley Maintains Overweight on Sherwin-Williams, Lowers Price Target to $385",1
 B1_S02,1,APD,Air Products and Chemicals,Materials,2025-02-06,09:30,earnings,"{A:800015:L:en}!Air Products Sees Mixed Q1 Results: Lower Sales, Higher Dividends And Optimistic 2025 Outlook",1
-B1_S03,1,HD,Home Depot,Consumer Discretionary,2025-11-18,11:00,earnings,!Home Depot Q3 FY25 Earnings Call Transcript,1
-B1_S04,1,AMT,American Tower Corp.,Real Estate,2025-04-03,09:30,earnings,"!Lamb Weston Posts Better-Than-Expected Results, Joins Sanofi And Other Big Stocks Moving Higher On Thursday",1
-B1_S05,1,XOM,ExxonMobil,Energy,2026-01-29,09:30,earnings,!Earnings Outlook For Exxon Mobil,1
-B1_S06,1,PFE,Pfizer Inc.,Health Care,2025-10-01,11:00,earnings,"{A:800015:L:en}!Pfizer's TrumpRx Pact Sends Shockwaves: Why UnitedHealth, Lilly And CVS Can't Look Away",1
-B1_S07,1,VZ,Verizon,Communication Services,2025-11-03,10:30,management,Is Dan Schulman The Right CEO Choice For Verizon In The AI Era?,1
-B1_S08,1,LOW,Lowe's Companies,Consumer Discretionary,2025-11-18,09:30,earnings,!Lowe's Companies's Earnings Outlook,1
-B1_S09,1,QCOM,Qualcomm Inc.,Information Technology,2025-10-13,09:30,management,!Shares of semiconductor companies are trading higher amid overall market strength. President Trump's recent social media post may have eased economic concerns and boosted trader confidence in growth stocks.,1
-B1_S10,1,TMUS,T-Mobile US,Communication Services,2026-01-30,09:30,earnings,!Verizon Posts Best Subscriber Growth Since 2019,1
+B1_S03,1,NFLX,Netflix,Communication Services,2026-02-04,10:00,management,{A:800015:L:en}Rep. Cleo Fields Has Bought Up to $580K Worth Of Alphabet Stock: Here's What You Should Know,1
+B1_S04,1,V,Visa,Financials,2025-07-11,09:30,earnings,"!Visa And Mastercard Remain Top Picks, But One May Outpace Growth",1
+B1_S05,1,AMT,American Tower Corp.,Real Estate,2025-04-03,09:30,earnings,"!Lamb Weston Posts Better-Than-Expected Results, Joins Sanofi And Other Big Stocks Moving Higher On Thursday",1
+B1_S06,1,GE,GE Aerospace,Industrials,2025-04-09,13:00,earnings,"{A:800015:L:en}Benzinga Bulls And Bears: Nike, Target, And Walmart Among Hardest-Hit Following Trump's 'Liberation Day' Tariffs (CORRECTED)",1
+B1_S07,1,T,AT&T,Communication Services,2026-01-30,09:30,earnings,!Verizon Posts Best Subscriber Growth Since 2019,1
+B1_S08,1,QCOM,Qualcomm Inc.,Information Technology,2025-10-13,09:30,management,!Shares of semiconductor companies are trading higher amid overall market strength. President Trump's recent social media post may have eased economic concerns and boosted trader confidence in growth stocks.,1
+B1_S09,1,TMUS,T-Mobile US,Communication Services,2026-01-30,09:30,earnings,!Verizon Posts Best Subscriber Growth Since 2019,1
+B1_S10,1,MCD,McDonald's,Consumer Discretionary,2025-11-05,09:30,earnings,!McDonald's: International Markets Are 'Loving It',1
 B1_S11,1,CAT,Caterpillar Inc.,Industrials,2025-10-29,09:30,earnings,{A:800015:L:en}!Caterpillar CEO Says Team's Discipline Will Drive Growth Even With Higher Tariffs,1
-B1_S12,1,WMT,Walmart,Consumer Staples,2025-11-20,09:30,earnings,Walmart CEO Earlier Said On Conf Call Upper And Middle Income Households Driving U.S. Growth; Says 'Continue To Benefit From Higher-Income Families Choosing To Shop With U.S. More Often'; Exec Says He Appreciates The Relief On Tariffs On Things Not Grown In The United States,1
-B2_S01,2,SHW,Sherwin-Williams,Materials,2025-04-22,09:30,analyst,"!Morgan Stanley Maintains Overweight on Sherwin-Williams, Lowers Price Target to $385",1
-B2_S02,2,JPM,JPMorgan Chase,Financials,2026-01-23,09:30,analyst,{A:800015:L:en}Here's How Much $100 Invested In JPMorgan Chase 10 Years Ago Would Be Worth Today,1
-B2_S03,2,BAC,Bank of America,Financials,2025-09-05,09:30,earnings,!Bank Of America Moves To Capture Rising Demand For Alternatives Among Ultra Wealthy,1
-B2_S04,2,PG,Procter & Gamble,Consumer Staples,2025-01-22,10:30,earnings,"Stargate Adds Fuel To AI Frenzy, Chinese Stocks Sink On Trump Tariff Talk",1
-B2_S05,2,MRK,Merck & Co.,Health Care,2025-09-30,10:00,earnings,{A:800015:L:en}Merck's Winrevair Cuts Clinical Worsening Risk By 76% Among Hypertension Patients,1
-B2_S06,2,NFLX,Netflix,Communication Services,2026-02-04,10:00,management,{A:800015:L:en}Rep. Cleo Fields Has Bought Up to $580K Worth Of Alphabet Stock: Here's What You Should Know,1
-B2_S07,2,T,AT&T,Communication Services,2025-04-04,11:00,management,Ohio Rep. David Taylor Bought Over $8K Worth of Amazon.com Stock: Here's What You Should Know,1
-B2_S08,2,KO,Coca-Cola Company,Consumer Staples,2025-07-29,09:30,management,{A:800015:L:en}Warren Buffett Has 56% Of His $258 Billion Portfolio's Value Exposed To AI: Here Are The 5 Stocks That Are Leveraging AI Within Berkshire's Holdings,1
-B2_S09,2,PLD,Prologis,Real Estate,2025-03-13,09:30,management,{A:800015:L:en}Smart ETF Picks For A Cooling Inflation Era,1
-B2_S10,2,DIS,Walt Disney Company,Consumer Discretionary,2025-11-13,10:30,earnings,!Walt Disney Company Q4 FY25 Earnings Call Transcript,1
-B2_S11,2,UNH,UnitedHealth Group,Health Care,2026-01-27,10:00,earnings,{A:800015:L:en}UnitedHealth Group Unusual Options Activity For January 27,1
-B2_S12,2,CVX,Chevron Corporation,Energy,2026-01-05,09:30,regulatory,!Biggest Surprise Of 2026 So Far? Oil Stocks,1
-B3_S01,3,ORCL,Oracle Corporation,Information Technology,2026-01-29,15:30,earnings,"!Microsoft, Palantir Lead A Software Rout Not Seen Since 2008 Lehman Crisis",1
-B3_S02,3,COP,ConocoPhillips,Energy,2026-02-04,09:30,earnings,!Earnings Outlook For ConocoPhillips,1
-B3_S03,3,GS,Goldman Sachs,Financials,2025-12-19,09:30,analyst,Here's How Much $100 Invested In Goldman Sachs Group 5 Years Ago Would Be Worth Today,1
-B3_S04,3,V,Visa,Financials,2025-07-11,09:30,earnings,"!Visa And Mastercard Remain Top Picks, But One May Outpace Growth",1
-B3_S05,3,JNJ,Johnson & Johnson,Health Care,2026-01-20,09:30,earnings,!Insights Ahead: Johnson & Johnson's Quarterly Earnings,1
-B3_S06,3,SO,Southern Company,Utilities,2025-11-03,12:30,earnings,9 'Second-Level' AI Trades To Consider Buying Now,1
-B3_S07,3,GE,GE Aerospace,Industrials,2025-07-08,10:00,management,{A:800015:L:en}!Honeywell Eyes Strategic Changes Ahead Of 2026 Split,1
-B3_S08,3,NEE,NextEra Energy,Utilities,2025-12-08,09:30,earnings,!NEE stock has given up its prior gain. NextEra Energy shares were trading higher after the company issued FY25 and FY26 financial results and expects about a 10% annual dividend growth through 2026. The company will acquire Symmetry Energy Solutions and renewed its Point Beach Nuclear Supply agreement.,1
-B3_S09,3,COST,Costco,Consumer Staples,2026-01-08,10:00,earnings,Costco Wholesale's Options: A Look at What the Big Money is Thinking,1
-B3_S10,3,HON,Honeywell International,Industrials,2025-07-24,09:30,earnings,!Honeywell Lifts Outlook As Transformation Picks Up Speed,1
-B3_S11,3,AMAT,Applied Materials,Information Technology,2025-08-15,09:30,analyst,"!Wells Fargo Maintains Overweight on Applied Mat, Lowers Price Target to $205",1
+B1_S12,1,HON,Honeywell International,Industrials,2025-07-24,09:30,earnings,!Honeywell Lifts Outlook As Transformation Picks Up Speed,1
+B2_S01,2,BAC,Bank of America,Financials,2026-03-12,09:30,earnings,"Bank Of America, Zelle Collaborates Over Charitable Disbursements From Donor Advised Funds",1
+B2_S02,2,HD,Home Depot,Consumer Discretionary,2025-11-18,11:00,earnings,!Home Depot Q3 FY25 Earnings Call Transcript,1
+B2_S03,2,MRK,Merck & Co.,Health Care,2025-09-30,10:00,earnings,{A:800015:L:en}Merck's Winrevair Cuts Clinical Worsening Risk By 76% Among Hypertension Patients,1
+B2_S04,2,JNJ,Johnson & Johnson,Health Care,2026-01-20,09:30,earnings,!Insights Ahead: Johnson & Johnson's Quarterly Earnings,1
+B2_S05,2,GS,Goldman Sachs,Financials,2025-12-19,09:30,analyst,Here's How Much $100 Invested In Goldman Sachs Group 5 Years Ago Would Be Worth Today,1
+B2_S06,2,PLD,Prologis,Real Estate,2025-03-13,09:30,management,{A:800015:L:en}Smart ETF Picks For A Cooling Inflation Era,1
+B2_S07,2,SO,Southern Company,Utilities,2025-11-03,12:30,earnings,9 'Second-Level' AI Trades To Consider Buying Now,1
+B2_S08,2,XOM,ExxonMobil,Energy,2026-03-09,09:30,management,{A:800015:L:en}!Trump Promised Half-Price Energy. His Iran War Delivered $119 Oil Instead,1
+B2_S09,2,DIS,Walt Disney Company,Consumer Discretionary,2025-11-13,10:30,earnings,!Walt Disney Company Q4 FY25 Earnings Call Transcript,1
+B2_S10,2,COST,Costco,Consumer Staples,2026-01-08,10:00,earnings,Costco Wholesale's Options: A Look at What the Big Money is Thinking,1
+B2_S11,2,WMT,Walmart,Consumer Staples,2026-01-16,15:30,analyst,"!Telsey Advisory Group Maintains Outperform on Walmart, Maintains $135 Price Target",1
+B2_S12,2,AMAT,Applied Materials,Information Technology,2025-08-15,09:30,analyst,"!Wells Fargo Maintains Overweight on Applied Mat, Lowers Price Target to $205",1
+B3_S01,3,JPM,JPMorgan Chase,Financials,2026-01-23,09:30,analyst,{A:800015:L:en}Here's How Much $100 Invested In JPMorgan Chase 10 Years Ago Would Be Worth Today,1
+B3_S02,3,ORCL,Oracle Corporation,Information Technology,2026-02-11,10:00,analyst,"!Oracle Wins CMS Cloud Contract To Power Medicare, Medicaid Modernization",1
+B3_S03,3,LIN,Linde,Materials,2025-07-31,10:00,earnings,!Insights into Linde's Upcoming Earnings,1
+B3_S04,3,COP,ConocoPhillips,Energy,2026-02-04,09:30,earnings,!Earnings Outlook For ConocoPhillips,1
+B3_S05,3,PG,Procter & Gamble,Consumer Staples,2025-04-03,09:30,analyst,!Apple To $250? Here Are 10 Top Analyst Forecasts For Thursday,1
+B3_S06,3,KO,Coca-Cola Company,Consumer Staples,2025-07-29,09:30,management,{A:800015:L:en}Warren Buffett Has 56% Of His $258 Billion Portfolio's Value Exposed To AI: Here Are The 5 Stocks That Are Leveraging AI Within Berkshire's Holdings,1
+B3_S07,3,VZ,Verizon,Communication Services,2026-01-30,10:00,earnings,Dow Falls Over 100 Points; Verizon Earnings Top Views,1
+B3_S08,3,PFE,Pfizer Inc.,Health Care,2025-10-01,11:00,earnings,"{A:800015:L:en}!Pfizer's TrumpRx Pact Sends Shockwaves: Why UnitedHealth, Lilly And CVS Can't Look Away",1
+B3_S09,3,NEE,NextEra Energy,Utilities,2025-12-08,09:30,earnings,!NEE stock has given up its prior gain. NextEra Energy shares were trading higher after the company issued FY25 and FY26 financial results and expects about a 10% annual dividend growth through 2026. The company will acquire Symmetry Energy Solutions and renewed its Point Beach Nuclear Supply agreement.,1
+B3_S10,3,LOW,Lowe's Companies,Consumer Discretionary,2025-11-18,09:30,earnings,!Lowe's Companies's Earnings Outlook,1
+B3_S11,3,UNH,UnitedHealth Group,Health Care,2026-01-27,10:00,earnings,{A:800015:L:en}UnitedHealth Group Unusual Options Activity For January 27,1
+B3_S12,3,CVX,Chevron Corporation,Energy,2026-01-05,09:30,regulatory,!Biggest Surprise Of 2026 So Far? Oil Stocks,1
