@@ -1,24 +1,124 @@
 # Survey Assembly Report
 
-Generated: 2026-04-03 10:56:50
+Generated: 2026-04-03 11:33:12
+
+---
+
+## Overview
+
+This report documents the assembly of survey materials for the thesis *"Influence of External Information Shocks on Equity Portfolio Manager Decision-Making"* (Executive MBA, Swiss Business School). The survey presents equity portfolio managers with real-world financial event scenarios and asks them to indicate their intended risk stance -- whether they would increase, maintain, or reduce exposure to the affected stock. Each scenario is based on an actual news event for an S&P 500 stock and is accompanied by a trailing price chart. In treatment conditions, respondents also see a **Shock Score dashboard** -- a quantitative decision-support tool that summarises the event's intensity across multiple dimensions.
+
+The survey uses a **within-subject quasi-experimental design**: each respondent sees 12 scenarios (6 control, 6 treatment), with treatment assignment counterbalanced across form versions so that every scenario appears as both control and treatment across the full sample.
 
 ---
 
 ## 1. Scenario Counts
+
 - **Total scenarios:** 36
 - Block 1: 12 scenarios
 - Block 2: 12 scenarios
 - Block 3: 12 scenarios
 
-## 2. PCA Results - SC_total Construction
-- PC1 explained variance: **0.5925** (59.2%)
-- Loadings (w_1):
-  - ac: 0.5787
-  - se: 0.4720
-  - ai: 0.5553
-  - es: 0.3659
+Each respondent completes one block (12 scenarios). Three blocks exist so that a larger pool of events can be tested while keeping individual survey length manageable.
 
-## 3. SC_total Distribution (all scenarios)
+### Sector Coverage
+
+The 36 scenarios span **11 GICS sectors**, ensuring broad industry representation:
+
+| GICS Sector | Count | Tickers |
+|---|---|---|
+| Communication Services | 4 | NFLX, T, TMUS, VZ |
+| Consumer Discretionary | 4 | DIS, HD, LOW, MCD |
+| Consumer Staples | 4 | COST, KO, PG, WMT |
+| Financials | 4 | BAC, GS, JPM, V |
+| Health Care | 4 | JNJ, MRK, PFE, UNH |
+| Energy | 3 | COP, CVX, XOM |
+| Industrials | 3 | CAT, GE, HON |
+| Information Technology | 3 | AMAT, ORCL, QCOM |
+| Materials | 3 | APD, LIN, SHW |
+| Real Estate | 2 | AMT, PLD |
+| Utilities | 2 | NEE, SO |
+
+### Event-Type Distribution
+
+Each scenario is classified by the type of news event that triggered the information shock:
+
+| Event Type | Count | Share |
+|---|---|---|
+| Earnings | 23 | 63.9% |
+| Analyst | 7 | 19.4% |
+| Management | 5 | 13.9% |
+| Regulatory | 1 | 2.8% |
+
+Earnings events dominate, reflecting their real-world prevalence as the most common source of significant information shocks for S&P 500 stocks.
+
+### Event Date Range
+
+- **Earliest event:** 2025-02-06 (APD)
+- **Latest event:** 2026-03-12 (BAC)
+- Span: approximately 13 months of real market events
+
+---
+
+## 2. Glossary of Measures
+
+Before interpreting the statistics below, the following definitions describe each measure used in the Shock Score (SC_total) construction and the scenario metadata.
+
+### Raw Component Measures
+
+| Measure | Full Name | Definition |
+|---|---|---|
+| **AC_raw** | Article Count | Number of news articles published within the 30-minute bar in which the event occurs. Higher values indicate broader media coverage of the event. |
+| **SE_raw** | Sentiment Extremity | Maximum absolute FinBERT sentiment score across all articles on the event day. Ranges from 0 (neutral) to 1 (extreme positive or negative). Captures the emotional intensity of the news, regardless of direction. |
+| **AI_raw** | Attention Intensity | Trading volume in the 30-minute event bar divided by the 60-trading-day trailing average of 30-minute bar volume. Values above 1.0 indicate abnormally high trading activity. |
+| **ES_raw** | Event-Type Severity | Category-level severity ratio: the historical return volatility of the event category (e.g., earnings) divided by the overall return volatility across all categories. Higher values indicate event types that historically cause larger price moves. |
+
+### Z-Standardised Components
+
+Each raw component is z-standardised (mean = 0, std = 1) across all 36 scenarios before entering PCA. In the shock score file, these appear as `ac_z`, `se_z`, `ai_z`, `es_z`.
+
+### Composite Score
+
+| Measure | Definition |
+|---|---|
+| **SC_total** | The composite **Shock Score**. Computed as the first principal component (PC1) of the four z-standardised components. A single number summarising overall shock intensity. Higher values = more intense shocks (more articles, more extreme sentiment, higher abnormal volume, more severe event type). |
+
+### Dashboard Signals
+
+These are derived from SC_total and its components to populate the visual Shock Score dashboard shown to treatment-group respondents:
+
+| Signal | Definition |
+|---|---|
+| **sentiment_direction** | Qualitative label for the dominant sentiment of event-day news (e.g., "Strongly Negative", "Neutral", "Mildly Positive"). Based on the FinBERT positive-minus-negative probability score. |
+| **severity_level** | Categorical shock intensity bucket: **Low** (bottom third of SC_total), **Medium** (middle third), **High** (top third). |
+| **horizon_bucket** | Estimated persistence of the price impact: "Intraday", "Several Days", or "Several Weeks". Derived from 5-day post-event return decay. |
+| **protocol_recommendation** | Rules-based pre-commitment action triggered by shock intensity: **Standard Process** (below 60th percentile of SC_total), **Enhanced Review** (60th--85th percentile), or **Cooling-Off and Second Review** (above 85th percentile). |
+
+---
+
+## 3. PCA Results -- SC_total Construction
+
+Principal Component Analysis was applied to the four z-standardised shock components across all 36 scenarios. The first principal component (PC1) is retained as SC_total.
+
+- **PC1 explained variance: 0.5925 (59.2%)**
+
+This means PC1 captures nearly 59% of the total variation across the four components -- a strong single-factor summary.
+
+- **Loadings (w_1):**
+
+| Component | Loading | Interpretation |
+|---|---|---|
+| AC (Article Count) | **0.5787** | Media coverage breadth |
+| AI (Attention Intensity) | **0.5553** | Abnormal trading volume |
+| SE (Sentiment Extremity) | **0.4720** | Emotional intensity of news |
+| ES (Event-Type Severity) | **0.3659** | Historical category volatility |
+
+All four loadings are positive, confirming that SC_total increases when any dimension of shock intensity increases.
+
+---
+
+## 4. SC_total Distribution (All 36 Scenarios)
+
 | Statistic | Value |
 |-----------|-------|
 | Mean      | -0.0000 |
@@ -28,35 +128,193 @@ Generated: 2026-04-03 10:56:50
 | Median    | -0.0933 |
 | Q3        | 0.7904 |
 | Max       | 4.9518 |
+| Skewness  | 0.93 (positive -- right tail from high-intensity outliers) |
+
+The distribution is centred near zero (by construction, since PCA operates on z-standardised inputs) but right-skewed: a small number of scenarios have very high shock scores.
+
+### Extreme Scenarios
+
+| Rank | Scenario | Ticker | SC_total | Key Drivers |
+|---|---|---|---|---|
+| Highest | B3_S11 | UNH | **4.9518** | 35 articles, volume 11.7x normal |
+| 2nd highest | B2_S09 | DIS | **2.8193** | 24 articles, volume 6.4x normal |
+| 3rd highest | B2_S02 | HD | **2.2470** | 23 articles, volume 4.3x normal |
+| Lowest | B1_S01 | SHW | **-2.4272** | 1 article, sentiment 0.14 |
+| 2nd lowest | B3_S05 | PG | **-2.1403** | 2 articles, sentiment 0.16 |
 
 ### SC_total by Severity Bucket
-- **Low**: n=12, mean=-1.5598, range=[-2.4272, -0.6485]
-- **Medium**: n=12, mean=-0.1353, range=[-0.4073, 0.2480]
-- **High**: n=12, mean=1.6952, range=[0.4424, 4.9518]
+
+Scenarios are split into terciles to create the severity_level dashboard signal:
+
+| Bucket | n | Mean SC_total | Range |
+|--------|---|---------------|-------|
+| **Low** | 12 | -1.5598 | [-2.4272, -0.6485] |
+| **Medium** | 12 | -0.1353 | [-0.4073, 0.2480] |
+| **High** | 12 | 1.6952 | [0.4424, 4.9518] |
+
+### SC_total by Block
+
+| Block | n | Mean | Std | Min | Max |
+|-------|---|------|-----|-----|-----|
+| Block 1 | 12 | -0.2519 | 1.0820 | -2.4272 | 1.2227 |
+| Block 2 | 12 | 0.0041 | 1.5823 | -1.8975 | 2.8193 |
+| Block 3 | 12 | 0.2477 | 1.9863 | -2.1403 | 4.9518 |
 
 ### Protocol Distribution
-- Standard Process: 21 scenarios
-- Enhanced Review: 9 scenarios
-- Cooling-Off and Second Review: 6 scenarios
 
-## 4. Notes and Caveats
+The protocol recommendation is a rules-based action tier triggered by the scenario's shock intensity:
 
-### 4a. ES_raw (Event-Type Severity)
+| Protocol | SC_total Threshold | Count | Share |
+|---|---|---|---|
+| Standard Process | Below 60th percentile | 21 | 58.3% |
+| Enhanced Review | 60th--85th percentile | 9 | 25.0% |
+| Cooling-Off and Second Review | Above 85th percentile | 6 | 16.7% |
+
+---
+
+## 5. Raw Component Descriptive Statistics
+
+### AC_raw (Article Count)
+
+| Statistic | Value |
+|-----------|-------|
+| Mean | 6.7 |
+| Median | 3.0 |
+| Std | 8.1 |
+| Min | 1 |
+| Max | 35 (UNH) |
+
+Most events have 1--3 articles; a few high-profile events have 20+.
+
+### SE_raw (Sentiment Extremity)
+
+| Statistic | Value |
+|-----------|-------|
+| Mean | 0.6799 |
+| Median | 0.8434 |
+| Min | 0.0091 |
+| Max | 0.9655 |
+
+Most events carry strongly non-neutral sentiment (median 0.84). A few events have notably low sentiment extremity.
+
+### AI_raw (Attention Intensity)
+
+| Statistic | Value |
+|-----------|-------|
+| Mean | 2.72 |
+| Median | 1.96 |
+| Min | 0.56 |
+| Max | 11.73 (UNH) |
+
+A value of 1.0 means normal volume. The median of 1.96 means the typical event-bar volume is roughly 96% above its trailing average.
+
+### ES_raw (Event-Type Severity)
+
+| Value | Count |
+|-------|-------|
+| 0.6 | 7 |
+| 0.8 | 5 |
+| 1.0 | 23 |
+| 1.1 | 1 |
+
+Most scenarios map to the baseline severity (1.0). This component is currently based on a placeholder severity mapping and requires manual review.
+
+---
+
+## 6. Price Reaction Statistics
+
+Each scenario records the immediate price reaction in the 2-hour window following the event.
+
+| Statistic | Value |
+|-----------|-------|
+| Mean | +0.96% |
+| Median | +1.26% |
+| Std | 4.14% |
+| Min | -13.11% |
+| Max | +12.73% |
+| Positive reactions | 21 (58.3%) |
+| Negative reactions | 15 (41.7%) |
+
+### Largest Price Reactions
+
+| Scenario | Ticker | Reaction | Direction |
+|---|---|---|---|
+| B1_S11 | CAT | +12.73% | Up |
+| B1_S06 | GE | +9.73% | Up |
+| B3_S12 | CVX | +5.46% | Up |
+| B2_S12 | AMAT | -13.11% | Down |
+| B1_S12 | HON | -5.47% | Down |
+| B2_S06 | PLD | -2.32% | Down |
+
+### Price Reaction by Severity Level
+
+| Severity | Mean Reaction | Std |
+|---|---|---|
+| Low | +0.99% | 2.06% |
+| Medium | +1.61% | 3.44% |
+| High | +0.28% | 6.12% |
+
+High-severity scenarios show the widest dispersion in price reactions, consistent with the interpretation that intense shocks create uncertainty rather than a uniform directional move.
+
+---
+
+## 7. Sentiment Direction Distribution
+
+| Sentiment Label | Count | Share |
+|---|---|---|
+| Strongly Negative | 1 | 2.8% |
+| Negative | 7 | 19.4% |
+| Mildly Negative | 6 | 16.7% |
+| Neutral | 12 | 33.3% |
+| Mildly Positive | 4 | 11.1% |
+| Positive | 2 | 5.6% |
+| Strongly Positive | 4 | 11.1% |
+
+Negative-leaning sentiment accounts for 38.9% of scenarios; positive-leaning for 27.8%.
+
+---
+
+## 8. Counterbalancing Design
+
+- **Form versions per block:** 4 (V1, V2, V3, V4)
+- **Total form versions:** 12 (4 per block x 3 blocks)
+- **Scenarios per form:** 12 (6 treatment, 6 control)
+- **Treatment assignment:** Each scenario appears as treatment (ShowSC = 1) in 2 of 4 versions and as control (ShowSC = 0) in the other 2
+- **Presentation order:** Treatment and control scenarios are interleaved (alternating T-C or C-T), preventing order-based response patterns
+
+This Latin-square-inspired design ensures that:
+1. Every scenario is seen with and without the Shock Score dashboard across the sample
+2. No respondent sees the same scenario twice
+3. Order effects are balanced across conditions
+
+---
+
+## 9. Notes and Caveats
+
+### 9a. ES_raw (Event-Type Severity)
 Uses a placeholder category-level severity mapping (see `EVENT_TYPE_SEVERITY` in `3_survey_assembly.py`). **Requires manual review** against actual event characteristics before finalising SC_total for the thesis.
 
-### 4b. Sentiment Scoring
+### 9b. Sentiment Scoring
 Scores use **FinBERT** (`ProsusAI/finbert`) via HuggingFace Transformers. The sentiment score is `positive_prob - negative_prob` in [-1, 1]. See `toolkits/news_sentiment_toolkit.py` for the shared scorer.
 
-### 4c. Persistence Horizon
-`horizon_bucket` requires 5-day post-event return data and is currently set to `[REQUIRES POST-EVENT DATA]`. Extend price data coverage and re-run the script.
+### 9c. Persistence Horizon
+`horizon_bucket` requires 5-day post-event return data and is currently set to `[REQUIRES POST-EVENT DATA]` for some scenarios. Extend price data coverage and re-run the script if needed.
 
-### 4d. Summary Paragraphs
-ANTHROPIC_API_KEY was set - summary paragraphs were auto-generated via Claude (claude-sonnet-4-6). Review each paragraph before use.
+### 9d. Summary Paragraphs
+ANTHROPIC_API_KEY was set -- summary paragraphs were auto-generated via Claude (claude-sonnet-4-6). Review each paragraph before use.
 
-## 5. Warnings
+---
+
+## 10. Warnings
 - No warnings.
 
-## 6. Generated File Manifest
+---
+
+## 11. Generated File Manifest
+
+### Charts (trailing price chart PNGs)
+Each chart shows the stock's 90-day trailing price history up to the event, giving respondents visual context for the stock's recent trajectory.
+
 - `survey/charts\chart_B1_S01.png` (160.7 KB)
 - `survey/charts\chart_B1_S02.png` (161.7 KB)
 - `survey/charts\chart_B1_S03.png` (157.8 KB)
@@ -93,8 +351,10 @@ ANTHROPIC_API_KEY was set - summary paragraphs were auto-generated via Claude (c
 - `survey/charts\chart_B3_S10.png` (153.0 KB)
 - `survey/charts\chart_B3_S11.png` (144.7 KB)
 - `survey/charts\chart_B3_S12.png` (144.6 KB)
-- `survey/counterbalancing\counterbalancing_matrix.csv` (3.5 KB)
-- `survey/counterbalancing\form_assembly_guide.csv` (4.5 KB)
+
+### Dashboards (Shock Score dashboard PNGs)
+Each dashboard visualises the four Shock Score signals (sentiment direction, severity level, horizon bucket, protocol recommendation) for one scenario. Shown only to treatment-group respondents.
+
 - `survey/dashboards\dashboard_B1_S01.png` (26.8 KB)
 - `survey/dashboards\dashboard_B1_S02.png` (27.9 KB)
 - `survey/dashboards\dashboard_B1_S03.png` (27.5 KB)
@@ -131,12 +391,21 @@ ANTHROPIC_API_KEY was set - summary paragraphs were auto-generated via Claude (c
 - `survey/dashboards\dashboard_B3_S10.png` (28.4 KB)
 - `survey/dashboards\dashboard_B3_S11.png` (28.7 KB)
 - `survey/dashboards\dashboard_B3_S12.png` (28.0 KB)
+
+### Counterbalancing Files
+- `survey/counterbalancing\counterbalancing_matrix.csv` (3.5 KB)
+- `survey/counterbalancing\form_assembly_guide.csv` (4.5 KB)
+
+### Metadata Files
 - `survey/metadata\scenario_metadata.csv` (2.6 KB)
 - `survey/metadata\scenario_news_text.csv` (30.3 KB)
 - `survey/metadata\scenario_price_reaction.csv` (2.5 KB)
 - `survey/metadata\scenario_shock_score.csv` (5.0 KB)
 
-## 7. Completion Checklist
+---
+
+## 12. Completion Checklist
+
 - [x] `scenario_metadata.csv`
 - [x] `scenario_news_text.csv`
 - [x] `scenario_price_reaction.csv`
