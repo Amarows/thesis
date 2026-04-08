@@ -1555,20 +1555,15 @@ def generate_counterbalancing(
     """
     Generate a balanced Latin square counterbalancing design for all blocks.
 
-    For each block of 12 scenarios [S1...S12], four respondent versions are produced:
+    For each block of 8 scenarios [S1...S8], two respondent versions are produced:
 
-      Version 1: Group A (S1-S6) = ShowSC=1; Group B (S7-S12) = ShowSC=0
-                 Order: interleaved A-B  [S1, S7, S2, S8, S3, S9, ...]
-      Version 2: Group B = ShowSC=1; Group A = ShowSC=0
-                 Order: interleaved A-B  [S1, S7, S2, S8, S3, S9, ...]
-      Version 3: Group A = ShowSC=1; Group B = ShowSC=0
-                 Order: interleaved B-A  [S7, S1, S8, S2, S9, S3, ...]
-      Version 4: Group B = ShowSC=1; Group A = ShowSC=0
-                 Order: interleaved B-A  [S7, S1, S8, S2, S9, S3, ...]
+      Version 1: Group A (S1-S4) = ShowSC=1; Group B (S5-S8) = ShowSC=0
+                 Order: interleaved A-B  [S1, S5, S2, S6, S3, S7, S4, S8]
+      Version 2: Group A = ShowSC=0; Group B = ShowSC=1
+                 Order: interleaved A-B  [S1, S5, S2, S6, S3, S7, S4, S8]
 
     Result:
-      - Each scenario appears as treatment in exactly 2 of 4 versions (50% rate)
-      - Two distinct presentation orders distribute position effects
+      - Each scenario appears as treatment in exactly 1 of 2 versions (50% rate)
       - Treatment/control alternates within each version (no clustering)
 
     counterbalancing_matrix.csv : respondent_block, block_id, presentation_order,
@@ -1605,10 +1600,8 @@ def generate_counterbalancing(
                 order_ba.append(group_a[i])
 
         versions = [
-            (f"Block{block_id}_V1", set(group_a), order_ab),
-            (f"Block{block_id}_V2", set(group_b), order_ab),
-            (f"Block{block_id}_V3", set(group_a), order_ba),
-            (f"Block{block_id}_V4", set(group_b), order_ba),
+            (f"Block{block_id}_V1", set(group_a), order_ab),  # A=treatment, B=control
+            (f"Block{block_id}_V2", set(group_b), order_ab),  # B=treatment, A=control
         ]
 
         for version_id, treatment_set, order in versions:
@@ -1679,7 +1672,7 @@ def generate_report(
         "multiple dimensions.",
         "",
         "The survey uses a **within-subject quasi-experimental design**: each "
-        "respondent sees 12 scenarios (6 control, 6 treatment), with treatment "
+        "respondent sees 8 scenarios (4 control, 4 treatment), with treatment "
         "assignment counterbalanced across form versions so that every scenario "
         "appears as both control and treatment across the full sample.",
         "",
@@ -1695,7 +1688,7 @@ def generate_report(
         lines.append(f"- Block {block_id}: {n_block} scenarios")
 
     lines.append("")
-    lines.append("Each respondent completes one block (12 scenarios). Three blocks "
+    lines.append("Each respondent completes one block (8 scenarios). Three blocks "
                  "exist so that a larger pool of events can be tested while keeping "
                  "individual survey length manageable.")
 
@@ -2193,21 +2186,21 @@ def generate_report(
         "",
         "## 8. Counterbalancing Design",
         "",
-        "- **Form versions per block:** 4 (V1, V2, V3, V4)",
-        "- **Total form versions:** 12 (4 per block x 3 blocks)",
-        "- **Scenarios per form:** 12 (6 treatment, 6 control)",
+        "- **Form versions per block:** 2 (V1, V2)",
+        "- **Total form versions:** 6 (2 per block x 3 blocks)",
+        "- **Scenarios per form:** 8 (4 treatment, 4 control)",
         "- **Treatment assignment:** Each scenario appears as treatment "
-        "(ShowSC = 1) in 2 of 4 versions and as control (ShowSC = 0) in the "
-        "other 2",
+        "(ShowSC = 1) in 1 of 2 versions and as control (ShowSC = 0) in the "
+        "other",
         "- **Presentation order:** Treatment and control scenarios are "
         "interleaved (alternating T-C or C-T), preventing order-based "
         "response patterns",
         "",
-        "This Latin-square-inspired design ensures that:",
+        "This design ensures that:",
         "1. Every scenario is seen with and without the Shock Score dashboard "
         "across the sample",
         "2. No respondent sees the same scenario twice",
-        "3. Order effects are balanced across conditions",
+        "3. Treatment and control alternate within each form",
     ]
 
     # -- Notes and caveats -----------------------------------------------------
