@@ -1,19 +1,17 @@
 """4_deploy_google_forms.py
 
-Programmatic Google Forms survey deployment for the Shock Score thesis study.
-
-Creates 3 Google Forms (one per scenario block), uploads all survey images to
-Google Drive, and populates each form with demographics, scenario pages, and
-final questions using the Google Forms API v1 and Google Drive API v3.
+Updates 3 existing Google Forms (one per scenario block) with the latest
+survey content. Form IDs are read from survey/deployment_manifest.json —
+existing forms are never deleted or replaced, only their contents are cleared
+and re-populated. This preserves all responder URLs.
 
 Usage:
-    python 4_deploy_google_forms.py                  # 3 forms, one per block (V1 version)
-    python 4_deploy_google_forms.py --sub-blocks 2   # 6 forms (V1 + V2 per block)
-    python 4_deploy_google_forms.py --sub-blocks 4   # 12 forms (all 4 versions per block)
-    python 4_deploy_google_forms.py --dry-run        # print structure without API calls
+    python 4_deploy_google_forms.py           # update all 3 forms
+    python 4_deploy_google_forms.py --dry-run # print structure without API calls
 
 Prerequisites:
-    credentials/client_secret.json   -- Google Cloud OAuth2 Desktop app credentials
+    credentials/client_secret.json          -- Google Cloud OAuth2 Desktop app credentials
+    survey/deployment_manifest.json         -- form IDs for Block 1, 2, 3
     Enabled APIs: Google Forms API, Google Drive API
     Packages: google-auth-oauthlib google-auth-httplib2 google-api-python-client
     Survey assets: run 3_survey_assembly.py first to generate survey/ directory
@@ -25,7 +23,6 @@ import os
 import pickle
 import re
 import time
-from datetime import datetime, timezone
 from pathlib import Path
 
 import pandas as pd
@@ -651,19 +648,8 @@ def build_final_questions_requests(start_idx):
 
 
 # ---------------------------------------------------------------------------
-# Forms API – form creation and population
+# Forms API – population (update only; forms are never created by this script)
 # ---------------------------------------------------------------------------
-
-def create_form_shell(forms_service, block_id, version):
-    """Create a new Google Form (title only) and return its form ID."""
-    if version == 1:
-        title = f"Portfolio Decision Survey \u2013 Block {block_id}"
-    else:
-        title = f"Portfolio Decision Survey \u2013 Block {block_id} (Version {version})"
-    body = {"info": {"title": title, "documentTitle": title}}
-    form = forms_service.forms().create(body=body).execute()
-    return form["formId"]
-
 
 def clear_form_items(forms_service, form_id):
     """Delete all existing items from a form, preserving the form ID and URL."""
@@ -751,20 +737,20 @@ def try_publish_form(forms_service, form_id):
 def deploy_one_form(
     forms_service,
     block_id,
-    version,
     assembly_guide,
     meta_idx,
     news_idx,
     reaction_idx,
     image_urls,
     dry_run=False,
-    update_mode=False,
 ):
     """
-    Create and populate one Google Form for the given block/version.
+    Update the existing Google Form for the given block (V1 only).
+    Reads the form ID from deployment_manifest.json, clears all items,
+    then re-populates. Never creates a new form.
     Returns a dict with form_id, edit_url, responder_url (or DRY-RUN placeholders).
     """
-    respondent_block = f"Block{block_id}_V{version}"
+    respondent_block = f"Block{block_id}_V1"
     guide = (
         assembly_guide[assembly_guide["respondent_block"] == respondent_block]
         .sort_values("presentation_order")
@@ -776,12 +762,11 @@ def deploy_one_form(
         return {}
 
     total_scenarios = len(guide)
-    version_label = f"Block {block_id}" + (f" V{version}" if version > 1 else "")
-    print(f"\n  > {version_label}  ({total_scenarios} scenarios)")
+    print(f"\n  > Block {block_id}  ({total_scenarios} scenarios)")
 
     if dry_run:
-        print(f"    Form title: 'Portfolio Decision Survey -- Block {block_id}"
-              + (f" (Version {version})'" if version > 1 else "'"))
+        form_id = get_existing_form_id(block_id, version=1) or "[MANIFEST MISSING]"
+        print(f"    Form ID: {form_id}")
         print(f"    Demographics: 8 items (section header + 7 questions)")
         for pos, row in guide.iterrows():
             sc_label = "SC shown" if int(row["show_sc"]) == 1 else "control"
@@ -789,24 +774,16 @@ def deploy_one_form(
             print(f"    [{pos+1:2d}] {row['scenario_id']:8s} ({row['ticker']:5s}) "
                   f"| {sc_label:9s} | {n_items} items")
         print(f"    Final questions: 3 items")
-        return {"form_id": "[DRY-RUN]", "edit_url": "[DRY-RUN]", "responder_url": "[DRY-RUN]"}
+        return {"form_id": form_id, "edit_url": "[DRY-RUN]", "responder_url": "[DRY-RUN]"}
 
-    # Create or reuse the form
-    if update_mode:
-        form_id = get_existing_form_id(block_id, version)
-        if not form_id:
-            raise ValueError(
-                f"No existing form ID found for Block {block_id} V{version} in "
-                f"'{DEPLOYMENT_MANIFEST_PATH}'. Run without --update first to create the forms."
-            )
-        print(f"    Updating existing form {form_id}...")
-        clear_form_items(forms_service, form_id)
-        time.sleep(API_SLEEP)
-    else:
-        print(f"    Creating form... ", end="", flush=True)
-        form_id = create_form_shell(forms_service, block_id, version)
-        print(f"done ({form_id})")
-        time.sleep(API_SLEEP)
+    form_id = get_existing_form_id(block_id, version=1)
+    if not form_id:
+        raise ValueError(
+            f"No form ID found for Block {block_id} in '{DEPLOYMENT_MANIFEST_PATH}'."
+        )
+    print(f"    Updating existing form {form_id}...")
+    clear_form_items(forms_service, form_id)
+    time.sleep(API_SLEEP)
 
     # Demographics section (also sets form description via updateFormInfo)
     print(f"    Demographics... ", end="", flush=True)
@@ -864,23 +841,13 @@ def deploy_one_form(
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Deploy Shock Score thesis survey to Google Forms.",
+        description="Update existing Shock Score thesis survey forms (never creates new ones).",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=(
             "Examples:\n"
-            "  python 4_deploy_google_forms.py                 # 3 forms (V1 per block)\n"
-            "  python 4_deploy_google_forms.py --sub-blocks 2  # 6 forms (V1+V2 per block)\n"
-            "  python 4_deploy_google_forms.py --update        # update existing forms (same URLs)\n"
-            "  python 4_deploy_google_forms.py --dry-run       # validate without API calls"
+            "  python 4_deploy_google_forms.py           # update all 3 forms\n"
+            "  python 4_deploy_google_forms.py --dry-run # validate without API calls"
         ),
-    )
-    parser.add_argument(
-        "--sub-blocks",
-        type=int,
-        default=1,
-        choices=[1, 2, 3, 4],
-        dest="sub_blocks",
-        help="Number of form versions per block (default: 1). 4 versions exist per block.",
     )
     parser.add_argument(
         "--dry-run",
@@ -888,31 +855,7 @@ def parse_args():
         dest="dry_run",
         help="Print the form structure without making any API calls.",
     )
-    parser.add_argument(
-        "--update",
-        action="store_true",
-        dest="update_mode",
-        help=(
-            "Update existing forms (preserving URLs) instead of creating new ones. "
-            "Reads form IDs from survey/deployment_manifest.json. "
-            "Clears all existing items then re-populates."
-        ),
-    )
-    parser.add_argument(
-        "--force-create",
-        action="store_true",
-        dest="force_create",
-        help="Force creation of new forms even if a deployment manifest already exists.",
-    )
     args, _ = parser.parse_known_args()
-
-    # Auto-detect update mode when running via exec() (no CLI args).
-    # If deployment_manifest.json exists, default to update to protect existing form URLs.
-    # Override with --force-create to explicitly create new forms.
-    if not args.update_mode and not args.force_create:
-        if DEPLOYMENT_MANIFEST_PATH.exists():
-            args.update_mode = True
-
     return args
 
 
@@ -923,22 +866,11 @@ def parse_args():
 def main():
     args = parse_args()
     dry_run = args.dry_run
-    update_mode = args.update_mode
-    sub_blocks = args.sub_blocks
-    total_forms = 3 * sub_blocks
-
-    if dry_run:
-        mode_label = "DRY-RUN (no API calls)"
-    elif update_mode:
-        mode_label = "LIVE \u2013 UPDATE (preserving form URLs)"
-    else:
-        mode_label = "LIVE \u2013 CREATE (new forms)"
 
     print("=" * 70)
-    print("Shock Score Survey Deployment")
-    print(f"  Mode          : {mode_label}")
-    print(f"  Versions/block: {sub_blocks}  (V1{''.join(f'+V{v}' for v in range(2, sub_blocks+1))})")
-    print(f"  Total forms   : {total_forms}")
+    print("Shock Score Survey – Form Update")
+    print(f"  Mode   : {'DRY-RUN (no API calls)' if dry_run else 'LIVE – UPDATE (existing forms)'}")
+    print(f"  Forms  : Block 1, Block 2, Block 3  (V1 each)")
     print("=" * 70)
 
     # ------------------------------------------------------------------
@@ -947,15 +879,20 @@ def main():
     print("\n[1] Loading survey data...")
     meta_idx, news_idx, reaction_idx, shock_idx, assembly_guide = load_survey_data()
     n_scenarios = len(meta_idx)
-    n_versions = assembly_guide["respondent_block"].nunique()
-    print(f"  Scenarios: {n_scenarios}  |  Assembly guide versions: {n_versions}")
+    print(f"  Scenarios: {n_scenarios}")
 
-    # Validate that requested versions exist
+    # Validate that V1 versions exist for all 3 blocks
     for block_id in [1, 2, 3]:
-        for v in range(1, sub_blocks + 1):
-            label = f"Block{block_id}_V{v}"
-            if label not in assembly_guide["respondent_block"].values:
-                print(f"  [WARN] {label} not found in form_assembly_guide.csv – will be skipped.")
+        label = f"Block{block_id}_V1"
+        if label not in assembly_guide["respondent_block"].values:
+            print(f"  [WARN] {label} not found in form_assembly_guide.csv – will be skipped.")
+
+    # Validate manifest exists
+    if not dry_run and not DEPLOYMENT_MANIFEST_PATH.exists():
+        raise FileNotFoundError(
+            f"Deployment manifest not found at '{DEPLOYMENT_MANIFEST_PATH}'.\n"
+            "Create it manually with the form IDs before running."
+        )
 
     # ------------------------------------------------------------------
     # 2. Authenticate
@@ -977,7 +914,11 @@ def main():
     print("\n[3] Uploading survey images to Google Drive...")
 
     if not dry_run:
-        folder_id = create_drive_folder(drive_service, DRIVE_FOLDER_NAME)
+        # Reuse the existing Drive folder recorded in the manifest
+        with open(DEPLOYMENT_MANIFEST_PATH, encoding="utf-8") as fh:
+            _manifest_data = json.load(fh)
+        folder_id = _manifest_data.get("drive_folder_id") or create_drive_folder(drive_service, DRIVE_FOLDER_NAME)
+        print(f"  Drive folder: https://drive.google.com/drive/folders/{folder_id}")
     else:
         folder_id = "[DRY-RUN-FOLDER]"
 
@@ -1007,71 +948,45 @@ def main():
         print(f"  Drive folder: https://drive.google.com/drive/folders/{folder_id}")
 
     # ------------------------------------------------------------------
-    # 4. Create and populate forms
+    # 4. Update forms
     # ------------------------------------------------------------------
-    print("\n[4] Creating and populating Google Forms...")
+    print("\n[4] Updating Google Forms...")
 
-    manifest = {
-        "deployed_at": datetime.now(tz=timezone.utc).isoformat(),
-        "sub_blocks": sub_blocks,
-        "drive_folder_id": folder_id,
-        "drive_folder_url": f"https://drive.google.com/drive/folders/{folder_id}",
-        "forms": {},
-    }
-
+    results = {}
     for block_id in [1, 2, 3]:
-        manifest["forms"][f"block_{block_id}"] = {}
-        for version in range(1, sub_blocks + 1):
-            result = deploy_one_form(
-                forms_service=forms_service,
-                block_id=block_id,
-                version=version,
-                assembly_guide=assembly_guide,
-                meta_idx=meta_idx,
-                news_idx=news_idx,
-                reaction_idx=reaction_idx,
-                image_urls=block_image_urls[block_id],
-                dry_run=dry_run,
-                update_mode=update_mode,
-            )
-            manifest["forms"][f"block_{block_id}"][f"v{version}"] = result
-
-    # ------------------------------------------------------------------
-    # 5. Save deployment manifest
-    # ------------------------------------------------------------------
-    if not dry_run:
-        DEPLOYMENT_MANIFEST_PATH.parent.mkdir(parents=True, exist_ok=True)
-        with open(DEPLOYMENT_MANIFEST_PATH, "w", encoding="utf-8") as fh:
-            json.dump(manifest, fh, indent=2)
-        print(f"\n[5] Deployment manifest saved: {DEPLOYMENT_MANIFEST_PATH}")
+        result = deploy_one_form(
+            forms_service=forms_service,
+            block_id=block_id,
+            assembly_guide=assembly_guide,
+            meta_idx=meta_idx,
+            news_idx=news_idx,
+            reaction_idx=reaction_idx,
+            image_urls=block_image_urls[block_id],
+            dry_run=dry_run,
+        )
+        results[block_id] = result
 
     # ------------------------------------------------------------------
     # Summary
     # ------------------------------------------------------------------
     print("\n" + "=" * 70)
-    print("DEPLOYMENT SUMMARY")
+    print("UPDATE SUMMARY")
     print("=" * 70)
 
     for block_id in [1, 2, 3]:
-        for version in range(1, sub_blocks + 1):
-            info = manifest["forms"][f"block_{block_id}"].get(f"v{version}", {})
-            if not info:
-                continue
-            label = f"Block {block_id}" + (f" V{version}" if sub_blocks > 1 else "")
-            if dry_run:
-                print(f"  {label}: [DRY-RUN -- no form created]")
-            else:
-                print(f"  {label}")
-                print(f"    Edit URL     : {info.get('edit_url', 'N/A')}")
-                print(f"    Responder URL: {info.get('responder_url', 'N/A')}")
+        info = results.get(block_id, {})
+        if not info:
+            continue
+        if dry_run:
+            print(f"  Block {block_id}: [DRY-RUN]  Form ID: {info.get('form_id', 'N/A')}")
+        else:
+            print(f"  Block {block_id}")
+            print(f"    Edit URL     : {info.get('edit_url', 'N/A')}")
+            print(f"    Responder URL: {info.get('responder_url', 'N/A')}")
 
     if not dry_run:
         print(f"\n  Images processed : {total_image_count}")
         print(f"  Drive folder     : https://drive.google.com/drive/folders/{folder_id}")
-        print(f"  Manifest         : {DEPLOYMENT_MANIFEST_PATH}")
-        print()
-        print("  IMPORTANT: After 31 March 2026, open each form in Google Forms")
-        print("  and click 'Publish' to enable response collection.")
 
     print("=" * 70)
     print("Done.")
