@@ -1,4 +1,4 @@
-# Influence of External Information Shocks on Equity Portfolio Manager Decision-Making
+# Reducing Emotional Biases in Investment Portfolio Management
 - Authentication of Work
 - Foreword
 - Acknowledgements
