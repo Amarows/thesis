@@ -624,6 +624,44 @@ def create_form_shell(forms_service, block_id, version):
     return form["formId"]
 
 
+def clear_form_items(forms_service, form_id):
+    """Delete all existing items from a form, preserving the form ID and URL."""
+    form = forms_service.forms().get(formId=form_id).execute()
+    items = form.get("items", [])
+    if not items:
+        print("  (no existing items to clear)")
+        return
+    # Delete in reverse index order so indices don't shift mid-operation
+    delete_reqs = [
+        {"deleteItem": {"location": {"index": i}}}
+        for i in range(len(items) - 1, -1, -1)
+    ]
+    forms_service.forms().batchUpdate(
+        formId=form_id, body={"requests": delete_reqs}
+    ).execute()
+    print(f"  Cleared {len(items)} existing items.")
+
+
+def get_existing_form_id(block_id, version):
+    """
+    Return the form ID stored in the deployment manifest for the given block/version,
+    or None if the manifest does not exist or the entry is missing.
+    """
+    if not DEPLOYMENT_MANIFEST_PATH.exists():
+        return None
+    try:
+        with open(DEPLOYMENT_MANIFEST_PATH, encoding="utf-8") as fh:
+            manifest = json.load(fh)
+        return (
+            manifest.get("forms", {})
+            .get(f"block_{block_id}", {})
+            .get(f"v{version}", {})
+            .get("form_id")
+        )
+    except (json.JSONDecodeError, KeyError):
+        return None
+
+
 def batch_update(forms_service, form_id, requests_list, label):
     """
     Execute a batchUpdate call. Prints an error and returns False on failure
@@ -679,6 +717,7 @@ def deploy_one_form(
     reaction_idx,
     image_urls,
     dry_run=False,
+    update_mode=False,
 ):
     """
     Create and populate one Google Form for the given block/version.
@@ -711,11 +750,22 @@ def deploy_one_form(
         print(f"    Final questions: 3 items")
         return {"form_id": "[DRY-RUN]", "edit_url": "[DRY-RUN]", "responder_url": "[DRY-RUN]"}
 
-    # Create the form shell (title only)
-    print(f"    Creating form... ", end="", flush=True)
-    form_id = create_form_shell(forms_service, block_id, version)
-    print(f"done ({form_id})")
-    time.sleep(API_SLEEP)
+    # Create or reuse the form
+    if update_mode:
+        form_id = get_existing_form_id(block_id, version)
+        if not form_id:
+            raise ValueError(
+                f"No existing form ID found for Block {block_id} V{version} in "
+                f"'{DEPLOYMENT_MANIFEST_PATH}'. Run without --update first to create the forms."
+            )
+        print(f"    Updating existing form {form_id}...")
+        clear_form_items(forms_service, form_id)
+        time.sleep(API_SLEEP)
+    else:
+        print(f"    Creating form... ", end="", flush=True)
+        form_id = create_form_shell(forms_service, block_id, version)
+        print(f"done ({form_id})")
+        time.sleep(API_SLEEP)
 
     # Demographics section (also sets form description via updateFormInfo)
     print(f"    Demographics... ", end="", flush=True)
@@ -779,6 +829,7 @@ def parse_args():
             "Examples:\n"
             "  python 4_deploy_google_forms.py                 # 3 forms (V1 per block)\n"
             "  python 4_deploy_google_forms.py --sub-blocks 2  # 6 forms (V1+V2 per block)\n"
+            "  python 4_deploy_google_forms.py --update        # update existing forms (same URLs)\n"
             "  python 4_deploy_google_forms.py --dry-run       # validate without API calls"
         ),
     )
@@ -796,6 +847,16 @@ def parse_args():
         dest="dry_run",
         help="Print the form structure without making any API calls.",
     )
+    parser.add_argument(
+        "--update",
+        action="store_true",
+        dest="update_mode",
+        help=(
+            "Update existing forms (preserving URLs) instead of creating new ones. "
+            "Reads form IDs from survey/deployment_manifest.json. "
+            "Clears all existing items then re-populates."
+        ),
+    )
     args, _ = parser.parse_known_args()
     return args
 
@@ -807,12 +868,20 @@ def parse_args():
 def main():
     args = parse_args()
     dry_run = args.dry_run
+    update_mode = args.update_mode
     sub_blocks = args.sub_blocks
     total_forms = 3 * sub_blocks
 
+    if dry_run:
+        mode_label = "DRY-RUN (no API calls)"
+    elif update_mode:
+        mode_label = "LIVE – UPDATE (preserving form URLs)"
+    else:
+        mode_label = "LIVE – CREATE (new forms)"
+
     print("=" * 70)
     print("Shock Score Survey Deployment")
-    print(f"  Mode          : {'DRY-RUN (no API calls)' if dry_run else 'LIVE'}")
+    print(f"  Mode          : {mode_label}")
     print(f"  Versions/block: {sub_blocks}  (V1{''.join(f'+V{v}' for v in range(2, sub_blocks+1))})")
     print(f"  Total forms   : {total_forms}")
     print("=" * 70)
@@ -908,6 +977,7 @@ def main():
                 reaction_idx=reaction_idx,
                 image_urls=block_image_urls[block_id],
                 dry_run=dry_run,
+                update_mode=update_mode,
             )
             manifest["forms"][f"block_{block_id}"][f"v{version}"] = result
 
