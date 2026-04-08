@@ -585,7 +585,7 @@ def plot_shock_chart(
     # ── Figure ────────────────────────────────────────────────────────────
     with plt.style.context("dark_background"):
         fig, (ax_p, ax_v) = plt.subplots(
-            2, 1, figsize=(10, 6),
+            2, 1, figsize=(12, 7.2),
             gridspec_kw={"height_ratios": [3, 1]},
             sharex=True,
         )
@@ -622,7 +622,7 @@ def plot_shock_chart(
             "News arrives\nnext bar",
             xy=(shock_display_pos, sv),
             xytext=(ann_x, -28), textcoords="offset points",
-            fontsize=6, color="white", va="top", ha="left",
+            fontsize=12, color="white", va="top", ha="left",
             arrowprops=dict(arrowstyle="->", color="white", lw=0.8),
         )
 
@@ -636,11 +636,11 @@ def plot_shock_chart(
             if prior_date is not None:
                 prior_mid = (boundary_pos - 1) / 2.0
                 ax_p.text(prior_mid, 0.94, prior_date.strftime("%d %b"),
-                          transform=xform, fontsize=8, color="#cccccc",
+                          transform=xform, fontsize=13, color="#cccccc",
                           ha="center", va="top", style="italic")
             event_mid = (boundary_pos + len(two_day) - 1) / 2.0
             ax_p.text(event_mid, 0.94, event_date.strftime("%d %b  << Event"),
-                      transform=xform, fontsize=8, color="#cccccc",
+                      transform=xform, fontsize=13, color="#cccccc",
                       ha="center", va="top", style="italic")
 
         # ── x-axis ticks ──────────────────────────────────────────────────
@@ -648,16 +648,16 @@ def plot_shock_chart(
         tick_pos  = list(range(0, len(two_day), tick_step))
         tick_lbl  = [times_et.iloc[i].strftime("%H:%M") for i in tick_pos]
         ax_v.set_xticks(tick_pos)
-        ax_v.set_xticklabels(tick_lbl, fontsize=8, color="#cccccc", rotation=0)
-        ax_v.set_xlabel("Trading Time", fontsize=12, color="#cccccc")
+        ax_v.set_xticklabels(tick_lbl, fontsize=13, color="#cccccc", rotation=0)
+        ax_v.set_xlabel("Trading Time", fontsize=14, color="#cccccc")
         plt.setp(ax_p.get_xticklabels(), visible=False)
 
         # ── y-axis: price ─────────────────────────────────────────────────
         ax_p.yaxis.set_major_formatter(
             plt.FuncFormatter(lambda x, _: f"{x:.2f}")
         )
-        ax_p.tick_params(axis="y", labelsize=8, colors="#cccccc")
-        ax_p.set_ylabel("Price (USD)", fontsize=12, color="#cccccc")
+        ax_p.tick_params(axis="y", labelsize=13, colors="#cccccc")
+        ax_p.set_ylabel("Price (USD)", fontsize=14, color="#cccccc")
 
         # ── y-axis: volume ────────────────────────────────────────────────
         def _vol_fmt(x, _):
@@ -668,8 +668,8 @@ def plot_shock_chart(
             return f"{x:.0f}"
 
         ax_v.yaxis.set_major_formatter(plt.FuncFormatter(_vol_fmt))
-        ax_v.tick_params(axis="y", labelsize=8, colors="#cccccc")
-        ax_v.set_ylabel("Volume", fontsize=12, color="#cccccc")
+        ax_v.tick_params(axis="y", labelsize=13, colors="#cccccc")
+        ax_v.set_ylabel("Volume", fontsize=14, color="#cccccc")
 
         # ── xlim ──────────────────────────────────────────────────────────
         ax_p.set_xlim(-0.5, len(two_day) - 0.5)
@@ -677,12 +677,12 @@ def plot_shock_chart(
         # ── Two-line title ────────────────────────────────────────────────
         main_title = (f"{company_name} ({ticker})" if company_name
                       else f"{ticker}")
-        fig.suptitle(main_title, fontsize=16, fontweight="bold",
+        fig.suptitle(main_title, fontsize=22, fontweight="bold",
                      color="white", x=0.08, ha="left")
 
         subtitle = (f"{gics_sector} | Intraday Price (30-min bars)"
                     if gics_sector else "Intraday Price (30-min bars)")
-        ax_p.set_title(subtitle, fontsize=11, color="#aaaaaa",
+        ax_p.set_title(subtitle, fontsize=15, color="#aaaaaa",
                        fontweight="normal", loc="left")
 
         fig.subplots_adjust(top=0.84)
@@ -694,14 +694,14 @@ def plot_shock_chart(
             fig.text(
                 0.99, 0.98,
                 f"{sign_r}{price_reaction_pct:.2f}%",
-                fontsize=22, fontweight="bold", color=badge_color,
+                fontsize=30, fontweight="bold", color=badge_color,
                 ha="right", va="top",
                 fontfamily="monospace",
             )
             fig.text(
                 0.99, 0.93,
                 "2h post-event",
-                fontsize=9, color="#888888",
+                fontsize=13, color="#888888",
                 ha="right", va="top",
             )
 
@@ -717,7 +717,7 @@ def plot_shock_chart(
             f"{shock_timestamp.strftime('%d %b %Y')}   {sign}{pct_chg:.2f}%",
             xy=(1, 1), xycoords="axes fraction",
             xytext=(-8, ann_y_offset), textcoords="offset points",
-            fontsize=8, color="#cccccc", ha="right", va="top",
+            fontsize=12, color="#cccccc", ha="right", va="top",
         )
 
         # ── Spine colours ─────────────────────────────────────────────────
