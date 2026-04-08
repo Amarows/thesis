@@ -1,24 +1,36 @@
 scenario_id,ticker,event_date,event_time,price_before,price_after,price_reaction_pct,reaction_window
 B1_S01,SHW,2025-04-22,09:30,322.39,330.1,2.3915,2 hours post-event
+B1_S02,APD,2025-02-06,09:30,333.26,327.52,-1.7224,2 hours post-event
+B1_S03,NFLX,2026-02-04,10:00,79.86,80.63,0.9642,2 hours post-event
 B1_S04,V,2025-07-11,09:30,355.85,347.65,-2.3043,2 hours post-event
 B1_S05,AMT,2025-04-03,09:30,217.8,226.41,3.9532,2 hours post-event
+B1_S06,GE,2025-04-09,13:00,170.6,187.2,9.7304,2 hours post-event
 B1_S07,T,2026-01-30,09:30,25.11,25.87,3.0267,2 hours post-event
 B1_S08,QCOM,2025-10-13,09:30,153.52,160.98,4.8593,2 hours post-event
+B1_S09,TMUS,2026-01-30,09:30,189.27,196.13,3.6245,2 hours post-event
 B1_S10,MCD,2025-11-05,09:30,299.21,305.31,2.0387,2 hours post-event
 B1_S11,CAT,2025-10-29,09:30,524.57,591.36,12.7323,2 hours post-event
 B1_S12,HON,2025-07-24,09:30,225.63,213.28,-5.4736,2 hours post-event
+B2_S01,BAC,2026-03-12,09:30,48.49,47.38,-2.2891,2 hours post-event
+B2_S02,HD,2025-11-18,11:00,342.81,342.36,-0.1313,2 hours post-event
 B2_S03,MRK,2025-09-30,10:00,79.83,81.84,2.5179,2 hours post-event
+B2_S04,JNJ,2026-01-20,09:30,218.69,217.9,-0.3612,2 hours post-event
 B2_S05,GS,2025-12-19,09:30,876.53,895.59,2.1745,2 hours post-event
 B2_S06,PLD,2025-03-13,09:30,115.76,113.08,-2.3151,2 hours post-event
+B2_S07,SO,2025-11-03,12:30,92.32,93.34,1.1049,2 hours post-event
 B2_S08,XOM,2026-03-09,09:30,151.15,151.93,0.516,2 hours post-event
 B2_S09,DIS,2025-11-13,10:30,107.5,107.06,-0.4093,2 hours post-event
 B2_S10,COST,2026-01-08,10:00,912.83,927.36,1.5918,2 hours post-event
 B2_S11,WMT,2026-01-16,15:30,117.45,119.89,2.0775,next available bar post-event
 B2_S12,AMAT,2025-08-15,09:30,188.16,163.5,-13.1059,2 hours post-event
+B3_S01,JPM,2026-01-23,09:30,303.63,296.9,-2.2165,2 hours post-event
 B3_S02,ORCL,2026-02-11,10:00,158.85,157.0,-1.1646,2 hours post-event
 B3_S03,LIN,2025-07-31,10:00,467.04,463.14,-0.835,2 hours post-event
 B3_S04,COP,2026-02-04,09:30,104.88,107.41,2.4123,2 hours post-event
 B3_S05,PG,2025-04-03,09:30,169.45,172.9,2.036,2 hours post-event
+B3_S06,KO,2025-07-29,09:30,68.1,69.06,1.4097,2 hours post-event
+B3_S07,VZ,2026-01-30,10:00,42.73,43.89,2.7147,2 hours post-event
+B3_S08,PFE,2025-10-01,11:00,26.6,27.16,2.1053,2 hours post-event
 B3_S09,NEE,2025-12-08,09:30,83.11,82.54,-0.6858,2 hours post-event
 B3_S10,LOW,2025-11-18,09:30,225.08,221.74,-1.4839,2 hours post-event
 B3_S11,UNH,2026-01-27,10:00,283.36,282.36,-0.3529,2 hours post-event

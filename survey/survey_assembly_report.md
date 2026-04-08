@@ -1,6 +1,6 @@
 # Survey Assembly Report
 
-Generated: 2026-04-08 13:33:24
+Generated: 2026-04-08 23:09:54
 
 ---
 
@@ -8,36 +8,37 @@ Generated: 2026-04-08 13:33:24
 
 This report documents the assembly of survey materials for the thesis *"Influence of External Information Shocks on Equity Portfolio Manager Decision-Making"* (Executive MBA, Swiss Business School). The survey presents equity portfolio managers with real-world financial event scenarios and asks them to indicate their intended risk stance -- whether they would increase, maintain, or reduce exposure to the affected stock. Each scenario is based on an actual news event for an S&P 500 stock and is accompanied by a trailing price chart. In treatment conditions, respondents also see a **Shock Score dashboard** -- a quantitative decision-support tool that summarises the event's intensity across multiple dimensions.
 
-The survey uses a **within-subject quasi-experimental design**: each respondent sees 12 scenarios (6 control, 6 treatment), with treatment assignment counterbalanced across form versions so that every scenario appears as both control and treatment across the full sample.
+The survey uses a **within-subject quasi-experimental design**: each respondent sees 8 scenarios (4 control, 4 treatment), with treatment assignment counterbalanced across form versions so that every scenario appears as both control and treatment across the full sample.
 
 ---
 
 ## 1. Scenario Counts
 
-- **Total scenarios:** 36
-- Block 1: 12 scenarios
-- Block 2: 12 scenarios
-- Block 3: 12 scenarios
+- **Total scenarios:** 24 *(reduced from 36 by SURVEY-05)*
+- Block 1: 8 scenarios
+- Block 2: 8 scenarios
+- Block 3: 8 scenarios
 
-Each respondent completes one block (12 scenarios). Three blocks exist so that a larger pool of events can be tested while keeping individual survey length manageable.
+Each respondent completes one block (8 scenarios). Three blocks exist so that a larger pool of events can be tested while keeping individual survey length manageable. Scenarios were reduced from 12 to 8 per block per mentor feedback (SURVEY-05); selection criteria: SC_total spread (2 low + 2 high + 4 middle), sector non-repetition, direction balance, and event-type diversity.
 
 ### Sector Coverage
 
-The 36 scenarios span **11 GICS sectors**, ensuring broad industry representation:
+The 24 retained scenarios span **10 GICS sectors**:
 
-| GICS Sector | Count | Tickers |
-|---|---|---|
-| Communication Services | 4 | NFLX, T, TMUS, VZ |
-| Consumer Discretionary | 4 | DIS, HD, LOW, MCD |
-| Consumer Staples | 4 | COST, KO, PG, WMT |
-| Financials | 4 | BAC, GS, JPM, V |
-| Health Care | 4 | JNJ, MRK, PFE, UNH |
-| Energy | 3 | COP, CVX, XOM |
-| Industrials | 3 | CAT, GE, HON |
-| Information Technology | 3 | AMAT, ORCL, QCOM |
-| Materials | 3 | APD, LIN, SHW |
-| Real Estate | 2 | AMT, PLD |
-| Utilities | 2 | NEE, SO |
+| GICS Sector | Count | Tickers | Note |
+|---|---|---|---|
+| Consumer Discretionary | 3 | DIS, LOW, MCD | |
+| Consumer Staples | 3 | COST, PG, WMT | B2: WMT+COST duplicate (unavoidable — only 2 pos. scenarios in block) |
+| Energy | 3 | COP, CVX, XOM | B3: COP+CVX duplicate (needed for ≥3 positive scenarios) |
+| Health Care | 2 | MRK, UNH | |
+| Industrials | 2 | CAT, HON | B1: duplicate (7 distinct sectors across 12 → forced) |
+| Information Technology | 3 | AMAT, ORCL, QCOM | |
+| Materials | 2 | LIN, SHW | |
+| Real Estate | 2 | AMT, PLD | |
+| Financials | 2 | GS, V | |
+| Utilities | 1 | NEE | |
+
+**Dropped scenarios (12 total):** APD, NFLX, GE, TMUS (Block 1); BAC, HD, JNJ, SO (Block 2); JPM, KO, VZ, PFE (Block 3).
 
 ### Event-Type Distribution
 
@@ -45,18 +46,18 @@ Each scenario is classified by the type of news event that triggered the informa
 
 | Event Type | Count | Share |
 |---|---|---|
-| Earnings | 23 | 63.9% |
-| Analyst | 7 | 19.4% |
-| Management | 5 | 13.9% |
-| Regulatory | 1 | 2.8% |
+| Earnings | 16 | 66.7% |
+| Analyst | 5 | 20.8% |
+| Management | 2 | 8.3% |
+| Regulatory | 1 | 4.2% |
 
-Earnings events dominate, reflecting their real-world prevalence as the most common source of significant information shocks for S&P 500 stocks.
+Each block contains all 3+ event types: analyst, earnings, management/regulatory.
 
 ### Event Date Range
 
-- **Earliest event:** 2025-02-06 (APD)
-- **Latest event:** 2026-03-12 (BAC)
-- Span: approximately 13 months of real market events
+- **Earliest event:** 2025-03-13 (PLD)
+- **Latest event:** 2026-03-09 (XOM)
+- Span: approximately 12 months of real market events
 
 ---
 
@@ -152,13 +153,15 @@ Scenarios are split into terciles to create the severity_level dashboard signal:
 | **Medium** | 12 | -0.1353 | [-0.4073, 0.2480] |
 | **High** | 12 | 1.6952 | [0.4424, 4.9518] |
 
-### SC_total by Block
+### SC_total by Block (retained 8 scenarios)
 
-| Block | n | Mean | Std | Min | Max |
-|-------|---|------|-----|-----|-----|
-| Block 1 | 12 | -0.2519 | 1.0820 | -2.4272 | 1.2227 |
-| Block 2 | 12 | 0.0041 | 1.5823 | -1.8975 | 2.8193 |
-| Block 3 | 12 | 0.2477 | 1.9863 | -2.1403 | 4.9518 |
+| Block | n | SC_total range | Retained |
+|-------|---|----------------|---------|
+| Block 1 | 8 | -2.4272 to +1.2227 | SHW, V, AMT, T, QCOM, MCD, CAT, HON |
+| Block 2 | 8 | -1.8975 to +2.8193 | MRK, GS, PLD, XOM, DIS, COST, WMT, AMAT |
+| Block 3 | 8 | -2.1403 to +4.9518 | ORCL, LIN, COP, PG, NEE, LOW, UNH, CVX |
+
+*Note: SC_total values were computed from the original 36-scenario PCA; they are unchanged by the scenario reduction.*
 
 ### Protocol Distribution
 
@@ -276,16 +279,32 @@ Negative-leaning sentiment accounts for 38.9% of scenarios; positive-leaning for
 
 ## 8. Counterbalancing Design
 
-- **Form versions per block:** 4 (V1, V2, V3, V4)
-- **Total form versions:** 12 (4 per block x 3 blocks)
-- **Scenarios per form:** 12 (6 treatment, 6 control)
-- **Treatment assignment:** Each scenario appears as treatment (ShowSC = 1) in 2 of 4 versions and as control (ShowSC = 0) in the other 2
-- **Presentation order:** Treatment and control scenarios are interleaved (alternating T-C or C-T), preventing order-based response patterns
+*(Rebuilt for 8-scenario blocks per SURVEY-05)*
 
-This Latin-square-inspired design ensures that:
+- **Form versions per block:** 2 (V1, V2)
+- **Total form versions:** 6 (2 per block × 3 blocks)
+- **Scenarios per form:** 8 (4 treatment, 4 control)
+- **Group A:** scenario_ids ranked 1–4 (by scenario_id sort order within block)
+- **Group B:** scenario_ids ranked 5–8
+- **V1:** Group A = ShowSC=1, Group B = ShowSC=0; interleaved A-B order (A1, B1, A2, B2, …)
+- **V2:** Group A = ShowSC=0, Group B = ShowSC=1; same interleaved order
+
+This design ensures that:
 1. Every scenario is seen with and without the Shock Score dashboard across the sample
 2. No respondent sees the same scenario twice
-3. Order effects are balanced across conditions
+3. Treatment and control scenarios alternate throughout the form
+
+**Block 1 Groups:**
+- Group A: B1_S01 (SHW), B1_S04 (V), B1_S05 (AMT), B1_S07 (T)
+- Group B: B1_S08 (QCOM), B1_S10 (MCD), B1_S11 (CAT), B1_S12 (HON)
+
+**Block 2 Groups:**
+- Group A: B2_S03 (MRK), B2_S05 (GS), B2_S06 (PLD), B2_S08 (XOM)
+- Group B: B2_S09 (DIS), B2_S10 (COST), B2_S11 (WMT), B2_S12 (AMAT)
+
+**Block 3 Groups:**
+- Group A: B3_S02 (ORCL), B3_S03 (LIN), B3_S04 (COP), B3_S05 (PG)
+- Group B: B3_S09 (NEE), B3_S10 (LOW), B3_S11 (UNH), B3_S12 (CVX)
 
 ---
 
@@ -315,42 +334,42 @@ ANTHROPIC_API_KEY was set -- summary paragraphs were auto-generated via Claude (
 ### Charts (trailing price chart PNGs)
 Each chart shows the stock's 90-day trailing price history up to the event, giving respondents visual context for the stock's recent trajectory.
 
-- `survey/charts\chart_B1_S01.png` (214.8 KB)
-- `survey/charts\chart_B1_S02.png` (214.3 KB)
-- `survey/charts\chart_B1_S03.png` (209.6 KB)
-- `survey/charts\chart_B1_S04.png` (198.1 KB)
-- `survey/charts\chart_B1_S05.png` (204.0 KB)
-- `survey/charts\chart_B1_S06.png` (216.5 KB)
-- `survey/charts\chart_B1_S07.png` (210.7 KB)
-- `survey/charts\chart_B1_S08.png` (201.2 KB)
-- `survey/charts\chart_B1_S09.png` (197.0 KB)
-- `survey/charts\chart_B1_S10.png` (204.9 KB)
-- `survey/charts\chart_B1_S11.png` (188.0 KB)
-- `survey/charts\chart_B1_S12.png` (201.9 KB)
-- `survey/charts\chart_B2_S01.png` (218.1 KB)
-- `survey/charts\chart_B2_S02.png` (198.1 KB)
-- `survey/charts\chart_B2_S03.png` (197.7 KB)
-- `survey/charts\chart_B2_S04.png` (222.9 KB)
-- `survey/charts\chart_B2_S05.png` (194.5 KB)
-- `survey/charts\chart_B2_S06.png` (192.5 KB)
-- `survey/charts\chart_B2_S07.png` (206.6 KB)
-- `survey/charts\chart_B2_S08.png` (222.2 KB)
-- `survey/charts\chart_B2_S09.png` (192.0 KB)
-- `survey/charts\chart_B2_S10.png` (204.0 KB)
-- `survey/charts\chart_B2_S11.png` (200.3 KB)
-- `survey/charts\chart_B2_S12.png` (190.2 KB)
-- `survey/charts\chart_B3_S01.png` (199.3 KB)
-- `survey/charts\chart_B3_S02.png` (209.2 KB)
-- `survey/charts\chart_B3_S03.png` (194.2 KB)
-- `survey/charts\chart_B3_S04.png` (196.4 KB)
-- `survey/charts\chart_B3_S05.png` (205.9 KB)
-- `survey/charts\chart_B3_S06.png` (209.4 KB)
-- `survey/charts\chart_B3_S07.png` (185.3 KB)
-- `survey/charts\chart_B3_S08.png` (189.5 KB)
-- `survey/charts\chart_B3_S09.png` (213.7 KB)
-- `survey/charts\chart_B3_S10.png` (197.8 KB)
-- `survey/charts\chart_B3_S11.png` (188.8 KB)
-- `survey/charts\chart_B3_S12.png` (198.6 KB)
+- `survey/charts\chart_B1_S01.png` (179.3 KB)
+- `survey/charts\chart_B1_S02.png` (180.8 KB)
+- `survey/charts\chart_B1_S03.png` (180.0 KB)
+- `survey/charts\chart_B1_S04.png` (172.3 KB)
+- `survey/charts\chart_B1_S05.png` (168.4 KB)
+- `survey/charts\chart_B1_S06.png` (191.9 KB)
+- `survey/charts\chart_B1_S07.png` (177.0 KB)
+- `survey/charts\chart_B1_S08.png` (175.0 KB)
+- `survey/charts\chart_B1_S09.png` (169.4 KB)
+- `survey/charts\chart_B1_S10.png` (167.7 KB)
+- `survey/charts\chart_B1_S11.png` (160.8 KB)
+- `survey/charts\chart_B1_S12.png` (167.9 KB)
+- `survey/charts\chart_B2_S01.png` (189.8 KB)
+- `survey/charts\chart_B2_S02.png` (179.0 KB)
+- `survey/charts\chart_B2_S03.png` (173.6 KB)
+- `survey/charts\chart_B2_S04.png` (188.0 KB)
+- `survey/charts\chart_B2_S05.png` (188.0 KB)
+- `survey/charts\chart_B2_S06.png` (170.2 KB)
+- `survey/charts\chart_B2_S07.png` (181.5 KB)
+- `survey/charts\chart_B2_S08.png` (180.8 KB)
+- `survey/charts\chart_B2_S09.png` (168.4 KB)
+- `survey/charts\chart_B2_S10.png` (176.0 KB)
+- `survey/charts\chart_B2_S11.png` (188.4 KB)
+- `survey/charts\chart_B2_S12.png` (165.2 KB)
+- `survey/charts\chart_B3_S01.png` (180.1 KB)
+- `survey/charts\chart_B3_S02.png` (183.1 KB)
+- `survey/charts\chart_B3_S03.png` (167.6 KB)
+- `survey/charts\chart_B3_S04.png` (175.3 KB)
+- `survey/charts\chart_B3_S05.png` (190.1 KB)
+- `survey/charts\chart_B3_S06.png` (188.7 KB)
+- `survey/charts\chart_B3_S07.png` (172.2 KB)
+- `survey/charts\chart_B3_S08.png` (169.6 KB)
+- `survey/charts\chart_B3_S09.png` (167.8 KB)
+- `survey/charts\chart_B3_S10.png` (179.3 KB)
+- `survey/charts\chart_B3_S11.png` (162.0 KB)
+- `survey/charts\chart_B3_S12.png` (166.6 KB)
 
 ### Dashboards (Shock Score dashboard PNGs)
 Each dashboard visualises the four Shock Score signals (sentiment direction, severity level, horizon bucket, protocol recommendation) for one scenario. Shown only to treatment-group respondents.
@@ -398,7 +417,7 @@ Each dashboard visualises the four Shock Score signals (sentiment direction, sev
 
 ### Metadata Files
 - `survey/metadata\scenario_metadata.csv` (2.6 KB)
-- `survey/metadata\scenario_news_text.csv` (30.0 KB)
+- `survey/metadata\scenario_news_text.csv` (29.8 KB)
 - `survey/metadata\scenario_price_reaction.csv` (2.5 KB)
 - `survey/metadata\scenario_shock_score.csv` (5.0 KB)
 
@@ -410,7 +429,7 @@ Each dashboard visualises the four Shock Score signals (sentiment direction, sev
 - [x] `scenario_news_text.csv`
 - [x] `scenario_price_reaction.csv`
 - [x] `scenario_shock_score.csv`
-- [x] Price charts: 36/36
-- [x] Dashboard images: 36/36
+- [x] Price charts: 36/36 (24 retained; 12 dropped scenarios' charts remain on disk but are no longer referenced)
+- [x] Dashboard images: 36/36 (same — 24 active)
 - [x] `counterbalancing_matrix.csv`
 - [x] `form_assembly_guide.csv`
