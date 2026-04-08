@@ -1375,12 +1375,12 @@ def plot_dashboard(
 # ------------------------------------------------------------------------------
 
 _ANTHROPIC_SYSTEM = (
-    "You are an academic research assistant preparing survey scenarios for "
-    "professional equity portfolio managers. Simplify raw financial news into "
-    "a single concise paragraph (80-120 words) suitable for survey presentation. "
-    "Include key financial figures, analyst estimates, and market reactions where "
-    "available. Use formal, neutral tone. Do not provide investment advice or "
-    "editorial commentary. Do not use bullet points or lists."
+    "You are editing financial news summaries for a professional investment survey. "
+    "Produce a 2–3 sentence summary from the raw news provided. "
+    "Preserve the factual content and the direct, evaluative register of financial "
+    "wire copy (Benzinga style). Do not make the text more neutral or academic. "
+    "Do not add context not present in the original. "
+    "Return only the summary, no preamble."
 )
 
 
@@ -1392,7 +1392,7 @@ def _generate_summary_anthropic(
     articles_df: pd.DataFrame,
 ) -> str:
     """
-    Call Claude API to produce an 80-120 word survey-ready summary.
+    Call Claude API to produce a 2–3 sentence Benzinga-style survey summary.
     Returns placeholder string if API unavailable or call fails.
     """
     api_key = os.environ.get("ANTHROPIC_API_KEY")
@@ -1422,12 +1422,12 @@ def _generate_summary_anthropic(
             f"Stock: {company_name} ({ticker}), Sector: {gics_sector}. "
             f"Event date: {event_date}. "
             f"Raw news:\n{raw_news}\n\n"
-            "Produce one concise paragraph for survey presentation."
+            "Produce a 2–3 sentence summary in Benzinga financial wire style:"
         )
 
         response = client.messages.create(
-            model="claude-sonnet-4-6",
-            max_tokens=220,
+            model="claude-sonnet-4-20250514",
+            max_tokens=300,
             system=_ANTHROPIC_SYSTEM,
             messages=[{"role": "user", "content": user_msg}],
         )
@@ -2239,7 +2239,7 @@ def generate_report(
     if has_api:
         lines.append(
             "ANTHROPIC_API_KEY was set -- summary paragraphs were auto-generated "
-            "via Claude (claude-sonnet-4-6). Review each paragraph before use."
+            "via Claude (claude-sonnet-4-20250514). Review each paragraph before use."
         )
     else:
         lines.append(
