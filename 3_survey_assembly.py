@@ -1466,7 +1466,7 @@ def _pick_displayed_headline(
     if isinstance(manifest_headline, str) and manifest_headline.strip() not in (
         "", "nan", "<paste displayed headline here>",
     ):
-        return manifest_headline.strip()
+        return _clean_bz_headline(manifest_headline.strip())
 
     if articles_df.empty:
         return "[HEADLINE NOT AVAILABLE]"
