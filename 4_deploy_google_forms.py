@@ -831,7 +831,7 @@ def deploy_one_form(
     try_publish_form(forms_service, form_id)
 
     edit_url = f"https://docs.google.com/forms/d/{form_id}/edit"
-    responder_url = f"https://docs.google.com/forms/d/e/{form_id}/viewform"
+    responder_url = f"https://docs.google.com/forms/d/{form_id}/viewform"
     return {"form_id": form_id, "edit_url": edit_url, "responder_url": responder_url}
 
 
