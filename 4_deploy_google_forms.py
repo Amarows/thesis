@@ -552,8 +552,6 @@ def build_scenario_requests(
         idx += 1
 
     # 3. News: headline as bold title; coverage note moved to end of body
-    reaction_line = f"Immediate price reaction: {sign}{reaction_pct:.2f}% ({reaction_window})"
-
     if num_articles >= 6:
         coverage_note = f"Covered by {num_articles} financial news sources."
     elif num_articles >= 3:
@@ -564,7 +562,6 @@ def build_scenario_requests(
     news_body_parts = []
     if summary_para:
         news_body_parts.append(summary_para)
-    news_body_parts.append(reaction_line)
     if coverage_note:
         news_body_parts.append(coverage_note)
 

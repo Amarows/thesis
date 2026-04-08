@@ -565,13 +565,21 @@ def plot_shock_chart(
         _warn(f"{ticker}: no bars for 2-day window — chart skipped")
         return None
 
+    # ── Shock position (pre-truncation) ──────────────────────────────────
+    shock_utc  = shock_timestamp.tz_convert("UTC")
+    time_diffs = np.abs((two_day["time"] - shock_utc).dt.total_seconds().values)
+    shock_pos  = int(np.argmin(time_diffs))
+
+    # ── Truncate to shock bar + 1 confirmation bar ────────────────────────
+    cutoff = min(shock_pos + 2, len(two_day))
+    two_day = two_day.iloc[:cutoff].reset_index(drop=True)
+
     closes   = two_day["close"].values.astype(float)
     volumes  = two_day["volume"].values.astype(float)
     positions = np.arange(len(two_day))
     times_et  = two_day["time"].dt.tz_convert("America/New_York")
 
-    # ── Shock position ────────────────────────────────────────────────────
-    shock_utc  = shock_timestamp.tz_convert("UTC")
+    # ── Recompute shock position after truncation ─────────────────────────
     time_diffs = np.abs((two_day["time"] - shock_utc).dt.total_seconds().values)
     shock_pos  = int(np.argmin(time_diffs))
     shock_display_pos = max(0, shock_pos - 1)   # dot one bar before shock
@@ -687,36 +695,11 @@ def plot_shock_chart(
 
         fig.subplots_adjust(top=0.84)
 
-        # ── Price reaction badge (upper-right) ────────────────────────────
-        if price_reaction_pct is not None:
-            sign_r = "+" if price_reaction_pct >= 0 else ""
-            badge_color = "#00cc66" if price_reaction_pct >= 0 else "#ff4444"
-            fig.text(
-                0.99, 0.98,
-                f"{sign_r}{price_reaction_pct:.2f}%",
-                fontsize=30, fontweight="bold", color=badge_color,
-                ha="right", va="top",
-                fontfamily="monospace",
-            )
-            fig.text(
-                0.99, 0.93,
-                "2h post-event",
-                fontsize=13, color="#888888",
-                ha="right", va="top",
-            )
-
-        # ── Upper-right annotation: shock date + intra-chart % change ────
-        pre_close  = closes[shock_display_pos]
-        last_close = closes[-1]
-        pct_chg = ((last_close - pre_close) / pre_close * 100.0
-                   if pre_close != 0 else 0.0)
-        sign = "+" if pct_chg >= 0 else ""
-        # Push annotation down when badge is present to avoid overlap
-        ann_y_offset = -28 if price_reaction_pct is not None else -8
+        # ── Shock date label (upper-right) ────────────────────────────────
         ax_p.annotate(
-            f"{shock_timestamp.strftime('%d %b %Y')}   {sign}{pct_chg:.2f}%",
+            shock_timestamp.strftime("%d %b %Y"),
             xy=(1, 1), xycoords="axes fraction",
-            xytext=(-8, ann_y_offset), textcoords="offset points",
+            xytext=(-8, -8), textcoords="offset points",
             fontsize=12, color="#cccccc", ha="right", va="top",
         )
 
