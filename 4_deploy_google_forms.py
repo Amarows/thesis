@@ -59,11 +59,11 @@ PORTFOLIO_N = 30
 
 FORM_DESCRIPTION = (
     "This survey is part of an academic research study on how equity portfolio managers "
-    "respond to financial information events. You will review a series of real market events "
-    "for stocks held in your portfolio. Assume you manage a diversified equity portfolio with "
-    f"equal weights across {PORTFOLIO_N} stocks. For each event, indicate your intended "
-    "portfolio adjustment on the provided scale. The survey takes approximately "
-    "20\u201325 minutes. Your responses are anonymous and confidential."
+    "respond to financial information events.\n\n"
+    "You will review a series of real market events for stocks held in your portfolio.\n\n"
+    f"Assume you manage a diversified equity portfolio with equal weights across {PORTFOLIO_N} stocks.\n\n"
+    "For each event, indicate your intended portfolio adjustment on the provided scale.\n\n"
+    "The survey takes approximately 20\u201325 minutes. Your responses are anonymous and confidential."
 )
 
 DRIVE_FOLDER_NAME = "Thesis Survey \u2013 Block Images"
@@ -284,11 +284,19 @@ def _text_req(title, description, idx):
     }}
 
 
-def _image_req(title, source_uri, alt_text, idx):
+def _image_req(title, source_uri, alt_text, idx, width=None, alignment=None):
+    image = {"sourceUri": source_uri, "altText": alt_text}
+    if width is not None or alignment is not None:
+        props = {}
+        if width is not None:
+            props["width"] = width
+        if alignment is not None:
+            props["alignment"] = alignment
+        image["properties"] = props
     return {"createItem": {
         "item": {
             "title": title,
-            "imageItem": {"image": {"sourceUri": source_uri, "altText": alt_text}},
+            "imageItem": {"image": image},
         },
         "location": {"index": idx},
     }}
@@ -348,10 +356,28 @@ def _scale_req(title, low, high, low_label, high_label, required, idx):
 # Section builders – return (requests_list, next_index)
 # ---------------------------------------------------------------------------
 
+def _build_holdings_text():
+    """
+    Load the portfolio CSV and return a plain-text list of the first PORTFOLIO_N holdings.
+    Returns an empty string if the file cannot be read.
+    """
+    portfolio_path = Path("data/portfolio.csv")
+    if not portfolio_path.exists():
+        return ""
+    try:
+        port_df = pd.read_csv(portfolio_path).head(PORTFOLIO_N)
+        port_df = port_df.rename(columns={"Company": "company_name", "Symbol": "ticker"})
+        lines = [f"{row['company_name']} ({row['ticker']})" for _, row in port_df.iterrows()]
+        return "\n".join(lines)
+    except Exception:
+        return ""
+
+
 def build_demographics_requests(start_idx=0):
     """
     Build batchUpdate requests for the demographics section.
-    Includes updateFormInfo for the form description, then the demographics items.
+    Includes updateFormInfo for the form description, a portfolio holdings text item,
+    then the demographics items.
     Returns (requests, next_available_index).
     """
     reqs = []
@@ -364,6 +390,16 @@ def build_demographics_requests(start_idx=0):
             "updateMask": "description",
         }
     })
+
+    # Portfolio holdings list on the intro page (before the demographics section break)
+    holdings_text = _build_holdings_text()
+    if holdings_text:
+        reqs.append(_text_req(
+            title="Your Portfolio Holdings",
+            description=holdings_text,
+            idx=idx,
+        ))
+        idx += 1
 
     reqs.append(_page_break_req(
         title="Section 1: Professional Profile",
@@ -494,11 +530,16 @@ def build_scenario_requests(
     chart_url = urls.get("chart_url")
     dashboard_url = urls.get("dashboard_url")
 
-    # 1. Page break – stock identity and directional signal
+    # 1. Page break – all stock identity info on one line
     sign = "+" if reaction_pct >= 0 else ""
     reqs.append(_page_break_req(
-        title=f"{company_name} ({ticker})  \u00b7  {sign}{reaction_pct:.2f}%",
-        description=f"{gics_sector}  \u00b7  Event date: {row_meta['event_date']}",
+        title=(
+            f"{company_name} ({ticker})"
+            f"  \u00b7  {sign}{reaction_pct:.2f}%"
+            f"  \u00b7  {gics_sector}"
+            f"  \u00b7  {row_meta['event_date']}"
+        ),
+        description="",
         idx=idx,
     ))
     idx += 1
@@ -513,47 +554,47 @@ def build_scenario_requests(
         ))
         idx += 1
 
-    # 3. News event + price reaction – merged into one item
-    if num_articles >= 6:
-        news_title = f"News Event  \u00b7  Covered by {num_articles} financial news sources"
-    elif num_articles >= 3:
-        news_title = "News Event  \u00b7  Reported by multiple sources"
-    else:
-        news_title = "News Event"
-
+    # 3. News: headline as bold title; coverage note moved to end of body
     reaction_line = f"Immediate price reaction: {sign}{reaction_pct:.2f}% ({reaction_window})"
 
+    if num_articles >= 6:
+        coverage_note = f"Covered by {num_articles} financial news sources."
+    elif num_articles >= 3:
+        coverage_note = "Reported by multiple sources."
+    else:
+        coverage_note = ""
+
     news_body_parts = []
-    if headline:
-        news_body_parts.append(headline)
     if summary_para:
         news_body_parts.append(summary_para)
     news_body_parts.append(reaction_line)
+    if coverage_note:
+        news_body_parts.append(coverage_note)
 
     news_body = "\n\n".join(news_body_parts)
 
-    reqs.append(_text_req(title=news_title, description=news_body, idx=idx))
+    # Headline in the title renders prominently (bold) in Google Forms
+    reqs.append(_text_req(title=headline, description=news_body, idx=idx))
     idx += 1
 
     # 4. Shock Score dashboard (treatment only: show_sc == 1)
     if show_sc == 1 and dashboard_url:
         reqs.append(_image_req(
-            title="Shock Score Dashboard",
+            title="",
             source_uri=dashboard_url,
             alt_text=(
                 "Shock Score dashboard displaying sentiment direction, shock severity level, "
                 "persistence horizon bucket, and pre-commitment protocol recommendation"
             ),
             idx=idx,
+            width=630,
+            alignment="CENTER",
         ))
         idx += 1
 
     # 5. NRS response scale (1 = strongly reduce, 7 = strongly increase)
     reqs.append(_scale_req(
-        title=(
-            "Based on the information above, what would be your intended portfolio "
-            "adjustment for this holding?"
-        ),
+        title="What would be your intended portfolio adjustment for this holding?",
         low=1,
         high=7,
         low_label="Strongly reduce exposure",
@@ -857,7 +898,21 @@ def parse_args():
             "Clears all existing items then re-populates."
         ),
     )
+    parser.add_argument(
+        "--force-create",
+        action="store_true",
+        dest="force_create",
+        help="Force creation of new forms even if a deployment manifest already exists.",
+    )
     args, _ = parser.parse_known_args()
+
+    # Auto-detect update mode when running via exec() (no CLI args).
+    # If deployment_manifest.json exists, default to update to protect existing form URLs.
+    # Override with --force-create to explicitly create new forms.
+    if not args.update_mode and not args.force_create:
+        if DEPLOYMENT_MANIFEST_PATH.exists():
+            args.update_mode = True
+
     return args
 
 
@@ -875,9 +930,9 @@ def main():
     if dry_run:
         mode_label = "DRY-RUN (no API calls)"
     elif update_mode:
-        mode_label = "LIVE – UPDATE (preserving form URLs)"
+        mode_label = "LIVE \u2013 UPDATE (preserving form URLs)"
     else:
-        mode_label = "LIVE – CREATE (new forms)"
+        mode_label = "LIVE \u2013 CREATE (new forms)"
 
     print("=" * 70)
     print("Shock Score Survey Deployment")
