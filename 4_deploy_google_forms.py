@@ -353,21 +353,9 @@ def _scale_req(title, low, high, low_label, high_label, required, idx):
 # Section builders – return (requests_list, next_index)
 # ---------------------------------------------------------------------------
 
-def _build_holdings_text():
-    """
-    Load the portfolio CSV and return a plain-text list of the first PORTFOLIO_N holdings.
-    Returns an empty string if the file cannot be read.
-    """
-    portfolio_path = Path("data/portfolio.csv")
-    if not portfolio_path.exists():
-        return ""
-    try:
-        port_df = pd.read_csv(portfolio_path).head(PORTFOLIO_N)
-        port_df = port_df.rename(columns={"Company": "company_name", "Symbol": "ticker"})
-        lines = [f"{row['company_name']} ({row['ticker']})" for _, row in port_df.iterrows()]
-        return "\n".join(lines)
-    except Exception:
-        return ""
+# NOTE (#97 / SURVEY-01): _build_holdings_text() and the portfolio stock list page have been
+# permanently removed. The page added no decision-relevant information and increased survey
+# length. Do not re-introduce this page or function.
 
 
 def build_demographics_requests(start_idx=0):
@@ -387,16 +375,6 @@ def build_demographics_requests(start_idx=0):
             "updateMask": "description",
         }
     })
-
-    # Portfolio holdings list on the intro page (before the demographics section break)
-    holdings_text = _build_holdings_text()
-    if holdings_text:
-        reqs.append(_text_req(
-            title="Your Portfolio Holdings",
-            description=holdings_text,
-            idx=idx,
-        ))
-        idx += 1
 
     reqs.append(_page_break_req(
         title="Section 1: Professional Profile",
@@ -477,6 +455,49 @@ def build_demographics_requests(start_idx=0):
         title="Professional certifications (select all that apply)",
         options=["CFA", "FRM", "CAIA", "CPA", "None", "Other"],
         required=False,
+        idx=idx,
+    ))
+    idx += 1
+
+    return reqs, idx
+
+
+def build_instructions_page_requests(start_idx):
+    """
+    Build batchUpdate requests for Page 3 — scenario format explanation and
+    Shock Score dashboard signal descriptions. (#98 / SURVEY-02)
+
+    Framing is descriptive and procedural only: it does not disclose that the
+    study tests whether the dashboard changes behaviour.
+    Returns (requests, next_available_index).
+    """
+    reqs = []
+    idx = start_idx
+
+    reqs.append(_page_break_req(
+        title="How to complete this survey",
+        description="",
+        idx=idx,
+    ))
+    idx += 1
+
+    reqs.append(_text_req(
+        title="Each scenario contains the following elements:",
+        description=(
+            "1. Price chart \u2014 a two-day intraday chart showing 30-minute price bars for the stock. "
+            "The chart ends shortly after the news event.\n\n"
+            "2. News event \u2014 a headline and brief summary of the information shock affecting the holding.\n\n"
+            "3. Decision question \u2014 you will be asked to select your intended portfolio adjustment on a "
+            "7-point scale from Strongly reduce exposure (1) to Strongly increase exposure (7).\n\n"
+            "Some scenarios include an additional decision-support panel called the Shock Score dashboard. "
+            "This variation is intentional. The dashboard displays four signals:\n"
+            "- Sentiment direction: whether the prevailing news tone is positive or negative\n"
+            "- Shock severity: the magnitude of the price and news signal relative to historical norms\n"
+            "- Persistence horizon: whether the shock is expected to resolve intraday, over days, or over weeks\n"
+            "- Protocol recommendation: a rules-based suggested action (reduce / hold / increase) based on "
+            "the combined signal\n\n"
+            "Please base your response solely on the information provided in each scenario."
+        ),
         idx=idx,
     ))
     idx += 1
@@ -765,6 +786,7 @@ def deploy_one_form(
         form_id = get_existing_form_id(block_id, version=1) or "[MANIFEST MISSING]"
         print(f"    Form ID: {form_id}")
         print(f"    Demographics: 8 items (section header + 7 questions)")
+        print(f"    Instructions: 2 items (page break + format explanation)")
         for pos, row in guide.iterrows():
             sc_label = "SC shown" if int(row["show_sc"]) == 1 else "control"
             n_items = 5 if int(row["show_sc"]) == 1 else 4
@@ -786,6 +808,13 @@ def deploy_one_form(
     print(f"    Demographics... ", end="", flush=True)
     demo_reqs, next_idx = build_demographics_requests(start_idx=0)
     ok = batch_update(forms_service, form_id, demo_reqs, "demographics")
+    print("ok" if ok else "FAILED")
+    time.sleep(API_SLEEP)
+
+    # Instructions page (Page 3 – scenario format and Shock Score dashboard explanation)
+    print(f"    Instructions page... ", end="", flush=True)
+    instr_reqs, next_idx = build_instructions_page_requests(start_idx=next_idx)
+    ok = batch_update(forms_service, form_id, instr_reqs, "instructions page")
     print("ok" if ok else "FAILED")
     time.sleep(API_SLEEP)
 
