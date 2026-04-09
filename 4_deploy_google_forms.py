@@ -687,24 +687,104 @@ def clear_form_items(forms_service, form_id):
     print(f"  Cleared {len(items)} existing items.")
 
 
-def get_existing_form_id(block_id, version):
+def _migrate_manifest_schema(manifest):
     """
-    Return the form ID stored in the deployment manifest for the given block/version,
-    or None if the manifest does not exist or the entry is missing.
+    Migrate old nested schema { "forms": { "block_1": { "v1": {...} } } }
+    to flat schema { "forms": { "block_1_v1": { "form_id": "...", ... } } }.
+    Returns the (possibly updated) manifest and a bool indicating whether
+    a migration occurred.
     """
+    forms = manifest.get("forms", {})
+    migrated = False
+    for block_id in [1, 2, 3]:
+        old_key = f"block_{block_id}"
+        if old_key in forms and isinstance(forms[old_key], dict):
+            block_data = forms.pop(old_key)
+            # Old format stored sub-dicts keyed by "v1", "v2", …
+            if "v1" in block_data or "v2" in block_data:
+                for v_key, v_data in block_data.items():
+                    new_key = f"block_{block_id}_{v_key}"
+                    forms[new_key] = v_data
+            else:
+                # Even older format: block_data IS the form record directly
+                forms[f"block_{block_id}_v1"] = block_data
+            migrated = True
+    manifest["forms"] = forms
+    return manifest, migrated
+
+
+def load_manifest():
+    """Load deployment_manifest.json, migrating the schema if necessary."""
     if not DEPLOYMENT_MANIFEST_PATH.exists():
         return None
     try:
         with open(DEPLOYMENT_MANIFEST_PATH, encoding="utf-8") as fh:
             manifest = json.load(fh)
-        return (
-            manifest.get("forms", {})
-            .get(f"block_{block_id}", {})
-            .get(f"v{version}", {})
-            .get("form_id")
-        )
-    except (json.JSONDecodeError, KeyError):
+    except json.JSONDecodeError:
         return None
+    manifest, migrated = _migrate_manifest_schema(manifest)
+    if migrated:
+        with open(DEPLOYMENT_MANIFEST_PATH, "w", encoding="utf-8") as fh:
+            json.dump(manifest, fh, indent=2)
+        print("  [INFO] Manifest schema migrated to flat block_N_vM keys.")
+    return manifest
+
+
+def get_existing_form_id(block_id, version):
+    """
+    Return the form ID stored in the deployment manifest for the given block/version,
+    or None if the manifest does not exist or the entry is missing.
+    Looks up the flat key f"block_{block_id}_v{version}".
+    """
+    manifest = load_manifest()
+    if manifest is None:
+        return None
+    return (
+        manifest.get("forms", {})
+        .get(f"block_{block_id}_v{version}", {})
+        .get("form_id")
+    )
+
+
+def get_or_create_form_id(forms_service, block_id, version, dry_run):
+    """
+    Return the form ID for the given block/version.
+    - If the manifest already has a non-empty form_id for that slot, return it (update path).
+    - If absent or empty, create a new Google Form, persist its ID and responder URL to
+      the manifest, and return the new ID (create path).
+    - In dry-run mode, returns "[DRY-RUN]" without touching the manifest.
+    """
+    if dry_run:
+        existing = get_existing_form_id(block_id, version)
+        return existing or "[DRY-RUN]"
+
+    manifest = load_manifest()
+    if manifest is None:
+        raise FileNotFoundError(
+            f"Deployment manifest not found at '{DEPLOYMENT_MANIFEST_PATH}'."
+        )
+
+    form_key = f"block_{block_id}_v{version}"
+    existing_id = manifest.get("forms", {}).get(form_key, {}).get("form_id")
+    if existing_id:
+        return existing_id
+
+    # Create a new form (V2 first run)
+    title = f"Equity Portfolio Decision Survey \u2014 Block {block_id}"
+    print(f"    Creating new form (Block {block_id} V{version})... ", end="", flush=True)
+    form = forms_service.forms().create(body={"info": {"title": title}}).execute()
+    new_id = form["formId"]
+    responder_url = f"https://docs.google.com/forms/d/{new_id}/viewform"
+    print(f"done ({new_id})")
+
+    manifest.setdefault("forms", {})[form_key] = {
+        "form_id": new_id,
+        "responder_url": responder_url,
+    }
+    with open(DEPLOYMENT_MANIFEST_PATH, "w", encoding="utf-8") as fh:
+        json.dump(manifest, fh, indent=2)
+
+    return new_id
 
 
 def batch_update(forms_service, form_id, requests_list, label):
@@ -755,6 +835,7 @@ def try_publish_form(forms_service, form_id):
 def deploy_one_form(
     forms_service,
     block_id,
+    version,
     assembly_guide,
     meta_idx,
     news_idx,
@@ -763,12 +844,11 @@ def deploy_one_form(
     dry_run=False,
 ):
     """
-    Update the existing Google Form for the given block (V1 only).
-    Reads the form ID from deployment_manifest.json, clears all items,
-    then re-populates. Never creates a new form.
+    Update (or create on first run for V2) one Google Form for the given block/version.
+    V1 forms are always updated. V2 forms are created on first run then updated thereafter.
     Returns a dict with form_id, edit_url, responder_url (or DRY-RUN placeholders).
     """
-    respondent_block = f"Block{block_id}_V1"
+    respondent_block = f"Block{block_id}_V{version}"
     guide = (
         assembly_guide[assembly_guide["respondent_block"] == respondent_block]
         .sort_values("presentation_order")
@@ -780,10 +860,10 @@ def deploy_one_form(
         return {}
 
     total_scenarios = len(guide)
-    print(f"\n  > Block {block_id}  ({total_scenarios} scenarios)")
+    print(f"\n  > Block {block_id} V{version}  ({total_scenarios} scenarios)")
 
     if dry_run:
-        form_id = get_existing_form_id(block_id, version=1) or "[MANIFEST MISSING]"
+        form_id = get_or_create_form_id(forms_service, block_id, version, dry_run=True)
         print(f"    Form ID: {form_id}")
         print(f"    Demographics: 8 items (section header + 7 questions)")
         print(f"    Instructions: 2 items (page break + format explanation)")
@@ -795,11 +875,7 @@ def deploy_one_form(
         print(f"    Final questions: 3 items")
         return {"form_id": form_id, "edit_url": "[DRY-RUN]", "responder_url": "[DRY-RUN]"}
 
-    form_id = get_existing_form_id(block_id, version=1)
-    if not form_id:
-        raise ValueError(
-            f"No form ID found for Block {block_id} in '{DEPLOYMENT_MANIFEST_PATH}'."
-        )
+    form_id = get_or_create_form_id(forms_service, block_id, version, dry_run=False)
     print(f"    Updating existing form {form_id}...")
     clear_form_items(forms_service, form_id)
     time.sleep(API_SLEEP)
@@ -896,7 +972,7 @@ def main():
     print("=" * 70)
     print("Shock Score Survey – Form Update")
     print(f"  Mode   : {'DRY-RUN (no API calls)' if dry_run else 'LIVE – UPDATE (existing forms)'}")
-    print(f"  Forms  : Block 1, Block 2, Block 3  (V1 each)")
+    print(f"  Forms  : Block 1, Block 2, Block 3  (V1 and V2 each — update or create)")
     print("=" * 70)
 
     # ------------------------------------------------------------------
@@ -907,11 +983,12 @@ def main():
     n_scenarios = len(meta_idx)
     print(f"  Scenarios: {n_scenarios}")
 
-    # Validate that V1 versions exist for all 3 blocks
+    # Validate that V1 and V2 versions exist for all 3 blocks
     for block_id in [1, 2, 3]:
-        label = f"Block{block_id}_V1"
-        if label not in assembly_guide["respondent_block"].values:
-            print(f"  [WARN] {label} not found in form_assembly_guide.csv – will be skipped.")
+        for version in [1, 2]:
+            label = f"Block{block_id}_V{version}"
+            if label not in assembly_guide["respondent_block"].values:
+                print(f"  [WARN] {label} not found in form_assembly_guide.csv – will be skipped.")
 
     # Validate manifest exists
     if not dry_run and not DEPLOYMENT_MANIFEST_PATH.exists():
@@ -980,17 +1057,19 @@ def main():
 
     results = {}
     for block_id in [1, 2, 3]:
-        result = deploy_one_form(
-            forms_service=forms_service,
-            block_id=block_id,
-            assembly_guide=assembly_guide,
-            meta_idx=meta_idx,
-            news_idx=news_idx,
-            reaction_idx=reaction_idx,
-            image_urls=block_image_urls[block_id],
-            dry_run=dry_run,
-        )
-        results[block_id] = result
+        for version in [1, 2]:
+            result = deploy_one_form(
+                forms_service=forms_service,
+                block_id=block_id,
+                version=version,
+                assembly_guide=assembly_guide,
+                meta_idx=meta_idx,
+                news_idx=news_idx,
+                reaction_idx=reaction_idx,
+                image_urls=block_image_urls[block_id],
+                dry_run=dry_run,
+            )
+            results[(block_id, version)] = result
 
     # ------------------------------------------------------------------
     # Summary
@@ -1000,15 +1079,17 @@ def main():
     print("=" * 70)
 
     for block_id in [1, 2, 3]:
-        info = results.get(block_id, {})
-        if not info:
-            continue
-        if dry_run:
-            print(f"  Block {block_id}: [DRY-RUN]  Form ID: {info.get('form_id', 'N/A')}")
-        else:
-            print(f"  Block {block_id}")
-            print(f"    Edit URL     : {info.get('edit_url', 'N/A')}")
-            print(f"    Responder URL: {info.get('responder_url', 'N/A')}")
+        for version in [1, 2]:
+            info = results.get((block_id, version), {})
+            if not info:
+                continue
+            label = f"Block {block_id} V{version}"
+            if dry_run:
+                print(f"  {label}: [DRY-RUN]  Form ID: {info.get('form_id', 'N/A')}")
+            else:
+                print(f"  {label}")
+                print(f"    Edit URL     : {info.get('edit_url', 'N/A')}")
+                print(f"    Responder URL: {info.get('responder_url', 'N/A')}")
 
     if not dry_run:
         print(f"\n  Images processed : {total_image_count}")
