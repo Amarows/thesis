@@ -358,21 +358,25 @@ def _scale_req(title, low, high, low_label, high_label, required, idx):
 # length. Do not re-introduce this page or function.
 
 
-def build_demographics_requests(start_idx=0):
+def build_demographics_requests(start_idx=0, form_title=None):
     """
     Build batchUpdate requests for the demographics section.
-    Includes updateFormInfo for the form description, a portfolio holdings text item,
-    then the demographics items.
+    Includes updateFormInfo for the form title and description, then the demographics items.
     Returns (requests, next_available_index).
     """
     reqs = []
     idx = start_idx
 
-    # Set form description (combined with demographics to save one API call)
+    # Set form title and description in one call
+    info = {"description": FORM_DESCRIPTION}
+    update_mask = "description"
+    if form_title:
+        info["title"] = form_title
+        update_mask = "title,description"
     reqs.append({
         "updateFormInfo": {
-            "info": {"description": FORM_DESCRIPTION},
-            "updateMask": "description",
+            "info": info,
+            "updateMask": update_mask,
         }
     })
 
@@ -882,7 +886,8 @@ def deploy_one_form(
 
     # Demographics section (also sets form description via updateFormInfo)
     print(f"    Demographics... ", end="", flush=True)
-    demo_reqs, next_idx = build_demographics_requests(start_idx=0)
+    form_title = f"Equity Portfolio Decision Survey \u2014 Block {block_id}"
+    demo_reqs, next_idx = build_demographics_requests(start_idx=0, form_title=form_title)
     ok = batch_update(forms_service, form_id, demo_reqs, "demographics")
     print("ok" if ok else "FAILED")
     time.sleep(API_SLEEP)
