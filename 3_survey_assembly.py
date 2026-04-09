@@ -10,7 +10,7 @@ construct the Google Forms survey instrument:
   survey/charts/             Bloomberg-style intraday shock chart PNGs
   survey/dashboards/         Shock Score dashboard PNGs
   survey/counterbalancing/   Latin square assignment matrix and form assembly guide
-  survey/survey_assembly_report.md
+  diagnostics/survey_assembly_report.md
 
 Usage:
     python 3_survey_assembly.py               # auto-populates manifest from upstream pipeline
@@ -687,22 +687,6 @@ def main(auto_populate: bool = True) -> None:
 
     print(f"  Dashboards: {dashboards_ok}/{len(manifest_df)}")
 
-    # [6b] Test dashboards: one per severity tier → diagnostics/dashboard_test/
-    test_dir = Path("diagnostics") / "dashboard_test"
-    test_dir.mkdir(parents=True, exist_ok=True)
-    print(f"\n  [6b] Saving test dashboards (Low/Medium/High) to {test_dir}/...")
-    for tier in ("Low", "Medium", "High"):
-        tier_rows = sc_df[sc_df["severity_level"] == tier]
-        if tier_rows.empty:
-            print(f"    {tier}: no scenarios in this tier")
-            continue
-        test_row     = tier_rows.iloc[0]
-        test_sid     = str(test_row["scenario_id"])
-        test_sid_key = f"test_{tier.lower()}_{test_sid}"
-        ok = plot_dashboard(test_row, test_sid_key, test_dir)
-        out_name = f"dashboard_{test_sid_key}.png"
-        print(f"    {tier}: {test_sid} -> {out_name}  {'OK' if ok else 'FAILED'}")
-
     # -- [7/9] News text -------------------------------------------------------
     api_status = "ANTHROPIC_API_KEY set" if os.environ.get("ANTHROPIC_API_KEY") else "no API key"
     print(f"\n[7/9] Generating scenario_news_text.csv ({api_status})...")
@@ -751,7 +735,8 @@ def main(auto_populate: bool = True) -> None:
         price_reaction_df=price_reaction_df,
         warnings_list=_WARNINGS,
     )
-    report_path = SURVEY_DIR / "survey_assembly_report.md"
+    report_path = Path("diagnostics") / "survey_assembly_report.md"
+    report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(report_md, encoding="utf-8")
     print(f"\nReport: {report_path}")
 
