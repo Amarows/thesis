@@ -22,10 +22,10 @@ Granularity
     without daylight-saving mismatches.
 
 Design context (updated protocol)
-    The study uses 36 scenarios organised into three mutually exclusive
-    blocks of 12 (Block A, Block B, Block C), each administered to
+    The study uses 24 scenarios organised into three mutually exclusive
+    blocks of 8 (Block A, Block B, Block C), each administered to
     ~33 respondents.  The stock universe contains 39 candidate stocks
-    (36 final + 3 buffer).  Each stock contributes exactly one triple
+    (24 final + 15 buffer).  Each stock contributes exactly one triple
     and appears in exactly one block.
 
 Stage 1 – Statistical Screening
@@ -71,11 +71,11 @@ SC_total construction (compute_sc_total)
 
 §2.3 Multi-Block Balanced Scenario Selection (assign_blocks)
     Selects the best triple per stock (preferring AC_e = 1, then 2, then ≥3),
-    assigns intensity tiers, and partitions 36 stocks into three blocks of 12
+    assigns intensity tiers, and partitions 24 stocks into three blocks of 8
     (A, B, C) satisfying sector, direction, event-type, market-regime, and
     opening-bar balance constraints.
     Hard constraint caps the share of earnings events per block
-    (default: max_earnings_share = 0.5, i.e. ≤6 of 12 per block).
+    (default: max_earnings_share = 0.5, i.e. ≤4 of 8 per block).
 
 §2.4 Selection Summary Tables (print_block_tables)
     Prints Tables 2.4a–c matching the expanded protocol column definitions,
@@ -1054,22 +1054,22 @@ def compute_sc_total(
 
 # ── §2.3 Multi-Block Balanced Scenario Selection ──────────────────────────────
 
-_SCENARIOS_TOTAL     = 36
+_SCENARIOS_TOTAL     = 24
 _BLOCKS              = 3
-_SCENARIOS_PER_BLOCK = _SCENARIOS_TOTAL // _BLOCKS   # 12
+_SCENARIOS_PER_BLOCK = _SCENARIOS_TOTAL // _BLOCKS   # 8
 _BLOCK_LABELS        = ["A", "B", "C"]
 
 # Hard constraint: max same GICS sector per block
 _MAX_SECTOR_PER_BLOCK = 2
 
-# Soft constraint: max opening-bar (09:30) shocks per block (≤1/3 of 12)
-_MAX_OPENING_BAR_PER_BLOCK = 4
+# Soft constraint: max opening-bar (09:30) shocks per block (≤1/4 of 8, rounded down)
+_MAX_OPENING_BAR_PER_BLOCK = 2
 
 
-def _can_add(stock: dict, block: list[dict], max_earnings_count: int = 6) -> bool:
+def _can_add(stock: dict, block: list[dict], max_earnings_count: int = 4) -> bool:
     """
     Hard constraints for adding a stock to a block (§2.3.2):
-      - block not yet full (< 12 scenarios)
+      - block not yet full (< 8 scenarios)
       - sector count for this stock's sector < _MAX_SECTOR_PER_BLOCK
       - earnings events in block < max_earnings_count  (anti-overrepresentation)
       - opening-bar shocks in block < _MAX_OPENING_BAR_PER_BLOCK (§2.3 opening-bar)
@@ -1132,8 +1132,8 @@ def assign_blocks(
 
     Hard constraints (§2.3.2):
       - max 2 stocks from the same GICS sector per block
-      - max floor(max_earnings_share * 12) earnings events per block
-      - max 4 opening-bar shocks per block (≤1/3, §2.3 opening-bar constraint)
+      - max floor(max_earnings_share * 8) earnings events per block
+      - max 2 opening-bar shocks per block (≤1/4, §2.3 opening-bar constraint)
 
     Parameters
     ----------
@@ -1144,7 +1144,7 @@ def assign_blocks(
     Returns
     -------
     dict {"A": DataFrame, "B": DataFrame, "C": DataFrame}
-    Each DataFrame contains up to 12 rows with columns:
+    Each DataFrame contains up to 8 rows with columns:
         scenario_id, symbol, sector, event_time, shock_time_et, event_date,
         event_type, shock_direction, intensity_tier, sc_total, ac_e,
         displayed_headline, rel_abnormal_ret, shock_bar_median_ratio,
@@ -1294,7 +1294,7 @@ def assign_blocks(
         sec_ok     = "✓" if max_sec <= _MAX_SECTOR_PER_BLOCK else f"✗(max {max_sec})"
         dirs       = bdf["shock_direction"].value_counts().to_dict()
         dir_min    = min(dirs.values(), default=0)
-        dir_ok     = "✓" if dir_min >= 4 else f"✗(min {dir_min})"
+        dir_ok     = "✓" if dir_min >= 3 else f"✗(min {dir_min})"
         dir_str    = f"{dirs}"
         n_earn     = int((bdf["event_type"] == "earnings").sum())
         earn_share = n_earn / n
@@ -1307,7 +1307,7 @@ def assign_blocks(
         n_open     = int(bdf.get("is_opening_bar", pd.Series(False, index=bdf.index)).sum())
         open_ok    = "✓" if n_open <= _MAX_OPENING_BAR_PER_BLOCK else f"✗({n_open})"
         print(
-            f"  Block {label}  {n:>3}/12  "
+            f"  Block {label}  {n:>3}/8   "
             f"sector:{sec_ok:<9}  dir:{dir_ok:<12} {dir_str:<18}  "
             f"earn:{earn_str:<12}  types:{type_ok:<6}  regimes:{regime_ok}  "
             f"open:{open_ok}"
