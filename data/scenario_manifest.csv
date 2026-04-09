@@ -1,25 +1,25 @@
 scenario_id,block_id,ticker,company_name,gics_sector,event_date,event_time,event_type,headline,num_articles
-B1_S01,1,SHW,Sherwin-Williams,Materials,2025-04-22,09:30,analyst,"!Morgan Stanley Maintains Overweight on Sherwin-Williams, Lowers Price Target to $385",1
-B1_S04,1,V,Visa,Financials,2025-07-11,09:30,earnings,"!Visa And Mastercard Remain Top Picks, But One May Outpace Growth",1
-B1_S05,1,AMT,American Tower Corp.,Real Estate,2025-04-03,09:30,earnings,"!Lamb Weston Posts Better-Than-Expected Results, Joins Sanofi And Other Big Stocks Moving Higher On Thursday",1
+B1_S01,1,APD,Air Products and Chemicals,Materials,2025-04-09,13:30,analyst,"{A:800015:L:en}!Wells Fargo Maintains Overweight on Air Products & Chemicals, Lowers Price Target to $320",1
+B1_S02,1,COP,ConocoPhillips,Energy,2025-09-08,09:30,analyst,!What Analysts Are Saying About ConocoPhillips Stock,1
+B1_S03,1,LIN,Linde,Materials,2026-02-04,10:00,earnings,!Exploring Linde's Earnings Expectations,1
+B1_S04,1,UNH,UnitedHealth Group,Health Care,2025-12-02,10:00,management,Recent Filing Shows That Sen. Sheldon Whitehouse Bought Over $3K Worth of Guardant Health Stock,1
+B1_S05,1,HD,Home Depot,Consumer Discretionary,2025-08-19,11:00,earnings,!US Stocks Mixed; Home Depot Shares Gain After Q2 Results,1
+B1_S06,1,GE,GE Aerospace,Industrials,2025-07-08,10:00,management,{A:800015:L:en}!Honeywell Eyes Strategic Changes Ahead Of 2026 Split,1
 B1_S07,1,T,AT&T,Communication Services,2026-01-30,09:30,earnings,!Verizon Posts Best Subscriber Growth Since 2019,1
 B1_S08,1,QCOM,Qualcomm Inc.,Information Technology,2025-10-13,09:30,management,!Shares of semiconductor companies are trading higher amid overall market strength. President Trump's recent social media post may have eased economic concerns and boosted trader confidence in growth stocks.,1
-B1_S10,1,MCD,McDonald's,Consumer Discretionary,2025-11-05,09:30,earnings,!McDonald's: International Markets Are 'Loving It',1
-B1_S11,1,CAT,Caterpillar Inc.,Industrials,2025-10-29,09:30,earnings,{A:800015:L:en}!Caterpillar CEO Says Team's Discipline Will Drive Growth Even With Higher Tariffs,1
-B1_S12,1,HON,Honeywell International,Industrials,2025-07-24,09:30,earnings,!Honeywell Lifts Outlook As Transformation Picks Up Speed,1
-B2_S03,2,MRK,Merck & Co.,Health Care,2025-09-30,10:00,earnings,{A:800015:L:en}Merck's Winrevair Cuts Clinical Worsening Risk By 76% Among Hypertension Patients,1
-B2_S05,2,GS,Goldman Sachs,Financials,2025-12-19,09:30,analyst,Here's How Much $100 Invested In Goldman Sachs Group 5 Years Ago Would Be Worth Today,1
-B2_S06,2,PLD,Prologis,Real Estate,2025-03-13,09:30,management,{A:800015:L:en}Smart ETF Picks For A Cooling Inflation Era,1
-B2_S08,2,XOM,ExxonMobil,Energy,2026-03-09,09:30,management,{A:800015:L:en}!Trump Promised Half-Price Energy. His Iran War Delivered $119 Oil Instead,1
-B2_S09,2,DIS,Walt Disney Company,Consumer Discretionary,2025-11-13,10:30,earnings,!Walt Disney Company Q4 FY25 Earnings Call Transcript,1
-B2_S10,2,COST,Costco,Consumer Staples,2026-01-08,10:00,earnings,Costco Wholesale's Options: A Look at What the Big Money is Thinking,1
-B2_S11,2,WMT,Walmart,Consumer Staples,2026-01-16,15:30,analyst,"!Telsey Advisory Group Maintains Outperform on Walmart, Maintains $135 Price Target",1
-B2_S12,2,AMAT,Applied Materials,Information Technology,2025-08-15,09:30,analyst,"!Wells Fargo Maintains Overweight on Applied Mat, Lowers Price Target to $205",1
-B3_S02,3,ORCL,Oracle Corporation,Information Technology,2026-02-11,10:00,analyst,"!Oracle Wins CMS Cloud Contract To Power Medicare, Medicaid Modernization",1
-B3_S03,3,LIN,Linde,Materials,2025-07-31,10:00,earnings,!Insights into Linde's Upcoming Earnings,1
-B3_S04,3,COP,ConocoPhillips,Energy,2026-02-04,09:30,earnings,!Earnings Outlook For ConocoPhillips,1
-B3_S05,3,PG,Procter & Gamble,Consumer Staples,2025-04-03,09:30,analyst,!Apple To $250? Here Are 10 Top Analyst Forecasts For Thursday,1
-B3_S09,3,NEE,NextEra Energy,Utilities,2025-12-08,09:30,earnings,!NEE stock has given up its prior gain. NextEra Energy shares were trading higher after the company issued FY25 and FY26 financial results and expects about a 10% annual dividend growth through 2026. The company will acquire Symmetry Energy Solutions and renewed its Point Beach Nuclear Supply agreement.,1
-B3_S10,3,LOW,Lowe's Companies,Consumer Discretionary,2025-11-18,09:30,earnings,!Lowe's Companies's Earnings Outlook,1
-B3_S11,3,UNH,UnitedHealth Group,Health Care,2026-01-27,10:00,earnings,{A:800015:L:en}UnitedHealth Group Unusual Options Activity For January 27,1
-B3_S12,3,CVX,Chevron Corporation,Energy,2026-01-05,09:30,regulatory,!Biggest Surprise Of 2026 So Far? Oil Stocks,1
+B2_S01,2,MRK,Merck & Co.,Health Care,2025-10-30,13:30,earnings,"!Meta Tumbles 10%, Google Marks Historic Rally: What's Moving Markets Thursday?",1
+B2_S02,2,JPM,JPMorgan Chase,Financials,2026-01-23,09:30,analyst,{A:800015:L:en}Here's How Much $100 Invested In JPMorgan Chase 10 Years Ago Would Be Worth Today,1
+B2_S03,2,CVX,Chevron Corporation,Energy,2026-01-06,10:30,analyst,"!Freedom Capital Markets Downgrades Chevron to Sell, Announces $165 Price Target",1
+B2_S04,2,BAC,Bank of America,Financials,2025-10-14,10:00,earnings,!Preview: Bank of America's Earnings,1
+B2_S05,2,JNJ,Johnson & Johnson,Health Care,2025-12-15,09:30,earnings,!Johnson & Johnson Wins FDA Nod For First Precision Combo For Mutated Prostate Cancer,1
+B2_S06,2,KO,Coca-Cola Company,Consumer Staples,2025-05-05,09:30,management,!3 Stocks Warren Buffett First Bought 24 Years Ago (Hint: Apple's Not One Of Them)',1
+B2_S07,2,CAT,Caterpillar Inc.,Industrials,2025-10-29,09:30,earnings,{A:800015:L:en}!Caterpillar CEO Says Team's Discipline Will Drive Growth Even With Higher Tariffs,1
+B2_S08,2,WMT,Walmart,Consumer Staples,2026-01-16,15:30,analyst,"!Telsey Advisory Group Maintains Outperform on Walmart, Maintains $135 Price Target",1
+B3_S01,3,ORCL,Oracle Corporation,Information Technology,2026-02-11,10:00,analyst,"!Oracle Wins CMS Cloud Contract To Power Medicare, Medicaid Modernization",1
+B3_S02,3,PG,Procter & Gamble,Consumer Staples,2025-03-04,15:30,analyst,Market Whales and Their Recent Bets on Procter & Gamble Options,1
+B3_S03,3,AMT,American Tower Corp.,Real Estate,2025-04-04,11:00,earnings,"!Nasdaq 100 Enters Bear Market, Dow In Correction Territory, Traders Await Fed Chair Powell's Remarks",1
+B3_S04,3,NFLX,Netflix,Communication Services,2026-02-04,10:00,management,{A:800015:L:en}Rep. Cleo Fields Has Bought Up to $580K Worth Of Alphabet Stock: Here's What You Should Know,1
+B3_S05,3,PLD,Prologis,Real Estate,2025-03-13,09:30,management,{A:800015:L:en}Smart ETF Picks For A Cooling Inflation Era,1
+B3_S06,3,PFE,Pfizer Inc.,Health Care,2025-10-01,11:00,earnings,"{A:800015:L:en}!Pfizer's TrumpRx Pact Sends Shockwaves: Why UnitedHealth, Lilly And CVS Can't Look Away",1
+B3_S07,3,MCD,McDonald's,Consumer Discretionary,2025-11-05,09:30,earnings,!McDonald's: International Markets Are 'Loving It',1
+B3_S08,3,AMAT,Applied Materials,Information Technology,2025-08-15,09:30,analyst,"!Wells Fargo Maintains Overweight on Applied Mat, Lowers Price Target to $205",1
