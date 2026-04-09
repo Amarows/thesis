@@ -8,10 +8,17 @@ pd.set_option('display.max_colwidth',10000)
 
 #Step 1: Download offline data
 
-exec(open("2_prepare_data.py").read())
+import subprocess
+import sys
 
-exec(open("3_survey_assembly.py").read())
+print("\n>>> STARTING STAGE 2: PREPARE DATA")
+# Run 2_prepare_data.py as a script
+subprocess.check_call([sys.executable, "2_prepare_data.py"])
 
-exec(open("4_deploy_google_forms.py").read())
+print("\n>>> STARTING STAGE 3: SURVEY ASSEMBLY")
+# Run 3_survey_assembly.py with --skip-auto to avoid duplication
+subprocess.check_call([sys.executable, "3_survey_assembly.py", "--skip-auto"])
 
-
+print("\n>>> STARTING STAGE 4: DEPLOY GOOGLE FORMS")
+# Run 4_deploy_google_forms.py (assuming it's similar)
+subprocess.check_call([sys.executable, "4_deploy_google_forms.py"])
