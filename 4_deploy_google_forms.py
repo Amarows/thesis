@@ -358,27 +358,14 @@ def _scale_req(title, low, high, low_label, high_label, required, idx):
 # length. Do not re-introduce this page or function.
 
 
-def build_demographics_requests(start_idx=0, form_title=None):
+def build_demographics_requests(start_idx=0):
     """
-    Build batchUpdate requests for the demographics section.
-    Includes updateFormInfo for the form title and description, then the demographics items.
+    Build batchUpdate requests for the demographics section (items only).
+    Title and description are set separately via update_form_info().
     Returns (requests, next_available_index).
     """
     reqs = []
     idx = start_idx
-
-    # Set form title and description in one call
-    info = {"description": FORM_DESCRIPTION}
-    update_mask = "description"
-    if form_title:
-        info["title"] = form_title
-        update_mask = "title,description"
-    reqs.append({
-        "updateFormInfo": {
-            "info": info,
-            "updateMask": update_mask,
-        }
-    })
 
     reqs.append(_page_break_req(
         title="Section 1: Professional Profile",
@@ -670,6 +657,33 @@ def build_final_questions_requests(start_idx):
 
 
 # ---------------------------------------------------------------------------
+# Forms API – title / description update
+# ---------------------------------------------------------------------------
+
+def update_form_info(forms_service, form_id, title):
+    """
+    Set the form title and description via a dedicated batchUpdate call.
+    Kept separate from createItem requests to avoid mixing updateFormInfo
+    with item-creation in the same batch (which can silently fail).
+    Returns True on success, False on error.
+    """
+    try:
+        forms_service.forms().batchUpdate(
+            formId=form_id,
+            body={"requests": [{
+                "updateFormInfo": {
+                    "info": {"title": title, "description": FORM_DESCRIPTION},
+                    "updateMask": "title,description",
+                }
+            }]},
+        ).execute()
+        return True
+    except HttpError as exc:
+        print(f"  [ERROR] updateFormInfo failed: {exc}")
+        return False
+
+
+# ---------------------------------------------------------------------------
 # Forms API – population (update only; forms are never created by this script)
 # ---------------------------------------------------------------------------
 
@@ -884,10 +898,16 @@ def deploy_one_form(
     clear_form_items(forms_service, form_id)
     time.sleep(API_SLEEP)
 
-    # Demographics section (also sets form description via updateFormInfo)
+    # Set form title and description first — separate call for reliability (#102)
+    form_title = f"Equity Portfolio Decision Survey \u2014 Block {block_id} V{version}"
+    print(f"    Setting title... ", end="", flush=True)
+    ok = update_form_info(forms_service, form_id, form_title)
+    print("ok" if ok else "FAILED")
+    time.sleep(API_SLEEP)
+
+    # Demographics section items
     print(f"    Demographics... ", end="", flush=True)
-    form_title = f"Equity Portfolio Decision Survey \u2014 Block {block_id}"
-    demo_reqs, next_idx = build_demographics_requests(start_idx=0, form_title=form_title)
+    demo_reqs, next_idx = build_demographics_requests(start_idx=0)
     ok = batch_update(forms_service, form_id, demo_reqs, "demographics")
     print("ok" if ok else "FAILED")
     time.sleep(API_SLEEP)

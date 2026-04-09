@@ -1993,3 +1993,508 @@ def plot_scenario_charts(
     print(f"  Saved : {saved}   Skipped : {skipped}   Total : {total_charts}")
     print(f"  Path  : {os.path.abspath(output_dir)}/")
     print(f"{'─' * 62}\n")
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Survey SC scoring — survey_assembly pipeline helpers
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+# These functions are called by 3_survey_assembly.py to compute SC_total and
+# persistence horizon for a pre-defined set of scenarios (the manifest).  They
+# complement the candidate-pool functions above but operate on a finalised
+# scenario list rather than the full candidate pool.
+#
+# Functions
+# ---------
+# aggregate_daily              – 30-min bars → daily close + volume
+# get_trailing_window          – n trading days before event_date
+# get_event_day_bars           – all 30-min bars on event_date
+# get_event_day_news           – BZ articles for (ticker, event_date)
+# _sentiment_direction_label   – mean score → 7-level label
+# compute_raw_components       – ac_raw / se_raw / ai_raw / es_raw per scenario
+# compute_shock_scores         – z-standardise + PCA → sc_total + dashboard signals
+# compute_persistence_horizon  – CAR-based P_e and horizon bucket
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# ── Survey SC constants ───────────────────────────────────────────────────────
+
+# Sentiment direction thresholds (applied to mean FinBERT score across event-day articles)
+SENTIMENT_THRESHOLDS = [-0.6, -0.3, -0.1, 0.1, 0.3, 0.6]
+SENTIMENT_LABELS = [
+    "Strongly Negative", "Negative", "Mildly Negative",
+    "Neutral",
+    "Mildly Positive", "Positive", "Strongly Positive",
+]
+
+# Placeholder severity mapping for es_raw; requires manual review per protocol §2.2
+EVENT_TYPE_SEVERITY = {
+    "earnings": 1.0, "guidance": 0.9, "regulatory": 1.1,
+    "management": 0.8, "analyst": 0.6, "macro": 0.7,
+    "product": 0.7, "legal": 1.0, "dividend": 0.5, "other": 0.5,
+}
+
+
+# ── Price data helpers ────────────────────────────────────────────────────────
+
+def aggregate_daily(price_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Aggregate 30-min bars to daily close (last bar) and total volume (sum).
+    Groups by ET calendar date.
+    Returns DataFrame[date (datetime.date), close, volume].
+    """
+    df = price_df.copy()
+    df["date_et"] = df["time"].dt.tz_convert("America/New_York").dt.date
+    daily = (
+        df.groupby("date_et")
+        .agg(close=("close", "last"), volume=("volume", "sum"))
+        .reset_index()
+        .rename(columns={"date_et": "date"})
+        .sort_values("date")
+        .reset_index(drop=True)
+    )
+    return daily
+
+
+def get_trailing_window(daily_df: pd.DataFrame, event_date, n: int = 20) -> pd.DataFrame:
+    """
+    Return the n trading days immediately preceding event_date (exclusive).
+    event_date: datetime.date
+    """
+    before = daily_df[daily_df["date"] < event_date].tail(n).copy()
+    return before.reset_index(drop=True)
+
+
+def get_event_day_bars(price_df: pd.DataFrame, event_date) -> pd.DataFrame:
+    """Return all 30-min bars for event_date (in ET)."""
+    df = price_df.copy()
+    df["date_et"] = df["time"].dt.tz_convert("America/New_York").dt.date
+    return df[df["date_et"] == event_date].copy().reset_index(drop=True)
+
+
+def get_event_day_news(
+    news_data: dict,
+    ticker: str,
+    event_date,
+) -> pd.DataFrame:
+    """Return all BZ articles for ticker on event_date (ET calendar date)."""
+    if ticker not in news_data:
+        return pd.DataFrame()
+    df = news_data[ticker].copy()
+    if df.empty or "time" not in df.columns:
+        return pd.DataFrame()
+    df["date_et"] = df["time"].dt.tz_convert("America/New_York").dt.date
+    return df[df["date_et"] == event_date].reset_index(drop=True)
+
+
+# ── Sentiment label ───────────────────────────────────────────────────────────
+
+def _sentiment_direction_label(mean_score: float) -> str:
+    """Map mean sentiment score to a directional label (7-level scale)."""
+    t = SENTIMENT_THRESHOLDS
+    if mean_score <= t[0]:
+        return "Strongly Negative"
+    elif mean_score <= t[1]:
+        return "Negative"
+    elif mean_score <= t[2]:
+        return "Mildly Negative"
+    elif mean_score <= t[3]:
+        return "Neutral"
+    elif mean_score <= t[4]:
+        return "Mildly Positive"
+    elif mean_score <= t[5]:
+        return "Positive"
+    else:
+        return "Strongly Positive"
+
+
+# ── Raw component computation ─────────────────────────────────────────────────
+
+def compute_raw_components(
+    manifest_df: pd.DataFrame,
+    prices: dict,
+    news_data: dict,
+) -> pd.DataFrame:
+    """
+    Compute four raw SC components for each scenario in manifest_df.
+
+    ac_raw  – Article Count: number of BZ articles on event day
+    se_raw  – Sentiment Extremity: max |FinBERT score| across event-day articles
+    ai_raw  – Attention Intensity: event-day volume / 20-day trailing avg daily volume
+    es_raw  – Event-Type Severity: category severity from EVENT_TYPE_SEVERITY mapping
+               (placeholder — requires manual review per protocol §2.2)
+
+    Also records mean_sentiment and sentiment_scores for dashboard signals.
+
+    Parameters
+    ----------
+    manifest_df : scenario manifest (columns: scenario_id, ticker, event_date, event_type)
+    prices      : {ticker: DataFrame[time (UTC tz-aware), close, volume]}
+    news_data   : {ticker: DataFrame[time (UTC tz-aware), headline, article_text, ...]}
+
+    Returns
+    -------
+    DataFrame with one row per scenario and columns:
+        scenario_id, ticker, event_date, event_type,
+        ac_raw, se_raw, ai_raw, es_raw,
+        mean_sentiment, sentiment_scores, num_articles_found
+    """
+    try:
+        from news_processor_toolkit import HAS_FINBERT, _finbert_score
+    except ImportError:
+        HAS_FINBERT = False
+        def _finbert_score(text: str) -> float:
+            return 0.0
+
+    import re as _re
+
+    rows = []
+    for _, mrow in manifest_df.iterrows():
+        sid        = mrow["scenario_id"]
+        ticker     = mrow["ticker"]
+        event_date = mrow["event_date"]
+        event_type = str(mrow.get("event_type", "other")).lower().strip()
+
+        print(f"  {sid} ({ticker} {event_date})...", end="", flush=True)
+
+        # ── AC_raw ────────────────────────────────────────────────────────
+        day_articles = get_event_day_news(news_data, ticker, event_date)
+        ac_raw = len(day_articles)
+        if ac_raw == 0:
+            print(f"  [WARNING] {sid}: no news articles found for {ticker} on {event_date}")
+
+        # ── SE_raw ────────────────────────────────────────────────────────
+        sentiment_scores: list = []
+        mean_sentiment = 0.0
+        se_raw = 0.0
+
+        if not day_articles.empty:
+            if HAS_FINBERT:
+                for _, art in day_articles.iterrows():
+                    hl         = str(art.get("headline", ""))
+                    body       = str(art.get("article_text", ""))
+                    body_clean = _re.sub(r"<[^>]+>", " ", body)
+                    score      = _finbert_score(f"{hl} {body_clean}")
+                    sentiment_scores.append(score)
+                if sentiment_scores:
+                    se_raw         = max(abs(s) for s in sentiment_scores)
+                    mean_sentiment = float(np.mean(sentiment_scores))
+            else:
+                print(
+                    f"  [WARNING] {sid}: FinBERT unavailable – se_raw set to 0 "
+                    "(install transformers torch)"
+                )
+
+        # ── AI_raw ────────────────────────────────────────────────────────
+        ai_raw = 0.0
+        if ticker in prices:
+            daily_df      = aggregate_daily(prices[ticker])
+            trailing_20   = get_trailing_window(daily_df, event_date, n=20)
+            event_day_vol = daily_df[daily_df["date"] == event_date]["volume"]
+
+            if not event_day_vol.empty and not trailing_20.empty:
+                avg_vol = float(trailing_20["volume"].mean())
+                if avg_vol > 0:
+                    ai_raw = float(event_day_vol.iloc[0]) / avg_vol
+                else:
+                    print(f"  [WARNING] {sid}: 20-day average volume is zero; ai_raw set to 0")
+            else:
+                print(f"  [WARNING] {sid}: insufficient volume data for ai_raw computation")
+        else:
+            print(f"  [WARNING] {sid}: no price data for {ticker}; ai_raw set to 0")
+
+        # ── ES_raw ────────────────────────────────────────────────────────
+        es_raw = EVENT_TYPE_SEVERITY.get(event_type, 0.5)
+
+        print(" done")
+
+        rows.append({
+            "scenario_id":       sid,
+            "ticker":            ticker,
+            "event_date":        event_date,
+            "event_type":        event_type,
+            "ac_raw":            ac_raw,
+            "se_raw":            se_raw,
+            "ai_raw":            ai_raw,
+            "es_raw":            es_raw,
+            "mean_sentiment":    mean_sentiment,
+            "sentiment_scores":  sentiment_scores,
+            "num_articles_found": ac_raw,
+        })
+
+    return pd.DataFrame(rows)
+
+
+# ── Shock score computation ───────────────────────────────────────────────────
+
+def compute_shock_scores(
+    components_df: pd.DataFrame,
+) -> tuple:
+    """
+    Z-standardise raw components, run PCA (PC1), compute sc_total.
+    Adds dashboard signal columns to the DataFrame.
+
+    Sign convention: sc_total is oriented so that higher values = higher shock intensity.
+    Verification: PC1 should load positively on ac_raw (article count).
+
+    Parameters
+    ----------
+    components_df : output of compute_raw_components()
+
+    Returns
+    -------
+    (enriched_df, pca_info_dict)
+        enriched_df  – components_df with z-columns, sc_total, and dashboard signals
+        pca_info_dict – {"loadings": {...}, "explained_variance": float, "n_scenarios": int}
+    """
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.decomposition import PCA
+
+    df      = components_df.copy()
+    n       = len(df)
+    raw_cols = ["ac_raw", "se_raw", "ai_raw", "es_raw"]
+    z_cols   = ["ac_z",  "se_z",  "ai_z",  "es_z"]
+
+    if n < 2:
+        print("  [WARNING] Fewer than 2 scenarios – PCA degenerate; sc_total set to 0")
+        for zcol in z_cols:
+            df[zcol] = 0.0
+        df["sc_total"] = 0.0
+        return df, {}
+
+    # Z-standardise
+    X      = df[raw_cols].fillna(0).values.astype(float)
+    scaler = StandardScaler()
+    Z      = scaler.fit_transform(X)
+    for i, zcol in enumerate(z_cols):
+        df[zcol] = Z[:, i]
+
+    # PCA: first principal component
+    pca     = PCA(n_components=1)
+    sc_raw  = pca.fit_transform(Z).flatten()
+    loadings = pca.components_[0]
+    explained_var = float(pca.explained_variance_ratio_[0])
+
+    # Sign convention: pc1 should correlate positively with ac_raw (col 0)
+    if loadings[0] < 0:
+        sc_raw   = -sc_raw
+        loadings = -loadings
+
+    df["sc_total"] = sc_raw
+
+    pca_info = {
+        "loadings": {k: round(float(v), 4)
+                     for k, v in zip(["ac", "se", "ai", "es"], loadings)},
+        "explained_variance": round(explained_var, 4),
+        "n_scenarios": n,
+    }
+
+    print("\n  PCA Results (SC_total construction):")
+    print(f"    PC1 explains {explained_var * 100:.1f}% of variance")
+    print("    Loadings: " + ", ".join(
+        f"{k}={v:.4f}" for k, v in pca_info["loadings"].items()
+    ))
+
+    # ── Dashboard signals ─────────────────────────────────────────────────
+
+    # 1. Sentiment direction (from mean FinBERT score)
+    df["sentiment_direction"] = df["mean_sentiment"].apply(_sentiment_direction_label)
+
+    # 2. Severity level (33rd/66th percentile)
+    p33 = df["sc_total"].quantile(1 / 3)
+    p66 = df["sc_total"].quantile(2 / 3)
+
+    def _severity(sc: float) -> str:
+        if sc < p33:
+            return "Low"
+        elif sc < p66:
+            return "Medium"
+        return "High"
+
+    df["severity_level"] = df["sc_total"].apply(_severity)
+
+    # 3. Protocol recommendation (60th / 85th percentile per thesis design)
+    p60 = df["sc_total"].quantile(0.60)
+    p85 = df["sc_total"].quantile(0.85)
+
+    def _protocol(sc: float) -> str:
+        if sc < p60:
+            return "Standard Process"
+        elif sc < p85:
+            return "Enhanced Review"
+        return "Cooling-Off and Second Review"
+
+    df["protocol_recommendation"] = df["sc_total"].apply(_protocol)
+
+    return df, pca_info
+
+
+# ── Persistence horizon ───────────────────────────────────────────────────────
+
+def _fetch_spx_pct_returns(start: str, end: str) -> pd.Series:
+    """
+    Fetch S&P 500 daily close-to-close simple returns via yfinance.
+    Returns a pd.Series indexed by datetime.date, values are decimal returns.
+    Returns an empty Series on failure so callers can degrade to raw returns.
+
+    Note: differs from _fetch_spx_daily() which returns log returns with an
+    extended look-back for the rolling-window shock identification step.
+    """
+    try:
+        raw  = yf.download("^GSPC", start=start, end=end,
+                           progress=False, auto_adjust=True)
+        if raw.empty:
+            print("  [WARNING] SPX download returned empty data – CAR computed without market adjustment")
+            return pd.Series(dtype=float)
+        closes = raw["Close"].squeeze()
+        rets   = closes.pct_change().dropna()
+        rets.index = pd.to_datetime(rets.index).date
+        return rets
+    except Exception as exc:
+        print(f"  [WARNING] SPX fetch failed ({exc}) – CAR computed without market adjustment")
+        return pd.Series(dtype=float)
+
+
+def compute_persistence_horizon(
+    sc_df: pd.DataFrame,
+    prices: dict,
+) -> pd.DataFrame:
+    """
+    Compute CAR-based persistence horizon for each scenario in sc_df.
+
+    For each event e:
+        base_price  = EOD close of event day (last 30-min bar)
+        CAR_Day_n   = (stock_price_at_day_n / base_price − 1) − cumulative_SPX_return
+        P_e         = CAR_Day5 / CAR_Day1
+
+    If abs(CAR_Day1) < 0.001, P_e is unreliable; scenario is classified
+    directly as Intraday.
+
+    Horizon bucket mapping (validate against distribution after run):
+        Intraday:      |P_e| <= 0.30
+        Several Days:  0.30 < |P_e| <= 0.70
+        Several Weeks: |P_e| > 0.70
+
+    Parameters
+    ----------
+    sc_df  : output of compute_shock_scores() — must contain scenario_id, ticker, event_date
+    prices : {ticker: DataFrame[time (UTC tz-aware), close, volume]}
+
+    Returns
+    -------
+    sc_df with persistence_score and horizon_bucket columns added / overwritten.
+    """
+    df = sc_df.copy()
+
+    event_dates   = pd.to_datetime(df["event_date"]).dt.date
+    spx_start     = str(min(event_dates))
+    spx_end       = str(max(event_dates) + pd.Timedelta(days=20))
+    spx_ret       = _fetch_spx_pct_returns(spx_start, spx_end)
+    spx_available = not spx_ret.empty
+
+    CAR_DAYS           = [1, 3, 5, 10]
+    persistence_scores: list = []
+    horizon_buckets:    list = []
+
+    print("\n  CAR-based persistence horizon computation:")
+    print(f"  {'Scenario':<12} {'Ticker':<6} {'CAR1':>8} {'CAR3':>8} "
+          f"{'CAR5':>8} {'CAR10':>9} {'P_e':>8}  Bucket")
+    print("  " + "-" * 80)
+
+    for _, row in df.iterrows():
+        sid        = str(row["scenario_id"])
+        ticker     = str(row["ticker"])
+        event_date = pd.to_datetime(row["event_date"]).date()
+
+        if ticker not in prices:
+            persistence_scores.append(np.nan)
+            horizon_buckets.append("[NO PRICE DATA]")
+            print(f"  {sid:<12} {ticker:<6}  -- no price data --")
+            continue
+
+        price_df = prices[ticker].copy()
+        price_df["date_et"] = (
+            price_df["time"].dt.tz_convert("America/New_York").dt.date
+        )
+
+        event_day_bars = price_df[price_df["date_et"] == event_date]
+        if event_day_bars.empty:
+            persistence_scores.append(np.nan)
+            horizon_buckets.append("[NO EVENT-DAY PRICE]")
+            print(f"  {sid:<12} {ticker:<6}  -- no event-day bars --")
+            continue
+
+        base_price = float(event_day_bars["close"].iloc[-1])
+
+        after_eod = (
+            price_df[price_df["date_et"] > event_date]
+            .groupby("date_et")["close"]
+            .last()
+            .sort_index()
+        )
+
+        car_vals: dict = {}
+        for n_days in CAR_DAYS:
+            if n_days > len(after_eod) or base_price == 0:
+                car_vals[n_days] = np.nan
+                continue
+            target_price = float(after_eod.iloc[n_days - 1])
+            stock_ret    = (target_price - base_price) / base_price
+
+            if spx_available:
+                trading_dates = list(after_eod.index[:n_days])
+                spx_cum = 1.0
+                for td in trading_dates:
+                    if td in spx_ret.index:
+                        spx_cum *= (1.0 + float(spx_ret[td]))
+                car_vals[n_days] = round(stock_ret - (spx_cum - 1.0), 6)
+            else:
+                car_vals[n_days] = round(stock_ret, 6)
+
+        car1 = car_vals.get(1, np.nan)
+        car5 = car_vals.get(5, np.nan)
+
+        if np.isnan(car1) or np.isnan(car5):
+            p_e    = np.nan
+            bucket = "[INSUFFICIENT DATA]"
+        elif abs(car1) < 0.001:
+            p_e    = np.nan
+            bucket = "Intraday"
+        else:
+            p_e = round(car5 / car1, 4)
+            if abs(p_e) <= 0.30:
+                bucket = "Intraday"
+            elif abs(p_e) <= 0.70:
+                bucket = "Several Days"
+            else:
+                bucket = "Several Weeks"
+
+        persistence_scores.append(p_e)
+        horizon_buckets.append(bucket)
+
+        def _fmt(v):
+            return f"{v:>8.4f}" if not (v is None or np.isnan(v)) else f"{'n/a':>8}"
+
+        print(f"  {sid:<12} {ticker:<6} {_fmt(car_vals.get(1, np.nan))} "
+              f"{_fmt(car_vals.get(3, np.nan))} {_fmt(car_vals.get(5, np.nan))} "
+              f"{_fmt(car_vals.get(10, np.nan))} {_fmt(p_e)}  {bucket}")
+
+    df["persistence_score"] = persistence_scores
+    df["horizon_bucket"]    = horizon_buckets
+
+    valid = pd.Series(
+        [s for s in persistence_scores if s is not None and not np.isnan(float(s))],
+        dtype=float,
+    )
+    print(f"\n  P_e distribution ({len(valid)} valid of {len(df)} scenarios):")
+    if not valid.empty:
+        print(f"    mean={valid.mean():.4f}  median={valid.median():.4f}  "
+              f"std={valid.std():.4f}")
+        print(f"    Q1={valid.quantile(0.25):.4f}  Q3={valid.quantile(0.75):.4f}  "
+              f"min={valid.min():.4f}  max={valid.max():.4f}")
+        print(f"    Current cutoffs: Intraday<=0.30 / SeveralDays<=0.70 / SeveralWeeks>0.70")
+    bkt_counts = pd.Series(horizon_buckets).value_counts()
+    print("  Horizon bucket distribution:")
+    for bkt, cnt in bkt_counts.items():
+        print(f"    {bkt}: {cnt}")
+
+    return df
