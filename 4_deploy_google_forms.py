@@ -788,7 +788,7 @@ def get_or_create_form_id(forms_service, block_id, version, dry_run):
         return existing_id
 
     # Create a new form (V2 first run)
-    title = f"Equity Portfolio Decision Survey \u2014 Block {block_id}"
+    title = f"Equity Portfolio Decision Survey \u2014 Block {block_id}-{version}"
     print(f"    Creating new form (Block {block_id} V{version})... ", end="", flush=True)
     form = forms_service.forms().create(body={"info": {"title": title}}).execute()
     new_id = form["formId"]
@@ -899,7 +899,7 @@ def deploy_one_form(
     time.sleep(API_SLEEP)
 
     # Set form title and description first — separate call for reliability (#102)
-    form_title = f"Equity Portfolio Decision Survey \u2014 Block {block_id} V{version}"
+    form_title = f"Equity Portfolio Decision Survey \u2014 Block {block_id}-{version}"
     print(f"    Setting title... ", end="", flush=True)
     ok = update_form_info(forms_service, form_id, form_title)
     print("ok" if ok else "FAILED")
