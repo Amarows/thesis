@@ -788,7 +788,7 @@ def get_or_create_form_id(forms_service, block_id, version, dry_run):
         return existing_id
 
     # Create a new form (V2 first run)
-    title = f"Equity Portfolio Decision Survey \u2014 Block {block_id}-{version}"
+    title = f"Portfolio Decision Survey \u2014 Block {block_id}-{version}"
     print(f"    Creating new form (Block {block_id} V{version})... ", end="", flush=True)
     form = forms_service.forms().create(body={"info": {"title": title}}).execute()
     new_id = form["formId"]
