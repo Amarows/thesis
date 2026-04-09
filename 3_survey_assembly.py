@@ -426,26 +426,38 @@ def compute_price_reaction(
 
 # ── Deployment manifest ───────────────────────────────────────────────────────
 
-def generate_deployment_manifest(manifest_df: pd.DataFrame) -> None:
+def generate_deployment_manifest(
+    manifest_df: pd.DataFrame,
+    existing_manifest: dict | None = None,
+) -> None:
     """
     Write survey/deployment_manifest.json — required input for 4_deploy_google_forms.py.
 
     Uses the flat key schema (block_1_v1, block_1_v2, …) that 4_deploy_google_forms.py
     expects. Existing form_id and responder_url values are preserved across re-runs so
     manually entered or previously deployed IDs are never overwritten.
+
+    `existing_manifest` must be the pre-wipe manifest dict (passed by main() after
+    snapshotting before shutil.rmtree clears SURVEY_DIR).
     """
     out_path = SURVEY_DIR / "deployment_manifest.json"
 
-    existing_forms: dict = {}
-    existing_drive_folder_id: str = ""
-    if out_path.exists():
+    # Use the pre-wipe snapshot if provided; otherwise fall back to reading from disk
+    # (handles direct calls outside of main()).
+    if existing_manifest is not None:
+        existing_data = existing_manifest
+    elif out_path.exists():
         try:
             with open(out_path, encoding="utf-8") as fh:
                 existing_data = json.load(fh)
-                existing_forms = existing_data.get("forms", {})
-                existing_drive_folder_id = existing_data.get("drive_folder_id", "")
         except (json.JSONDecodeError, IOError):
             _warn(f"Could not parse existing {out_path.name} — regenerating from scratch.")
+            existing_data = {}
+    else:
+        existing_data = {}
+
+    existing_forms: dict = existing_data.get("forms", {})
+    existing_drive_folder_id: str = existing_data.get("drive_folder_id", "")
 
     def _get_existing_form_entry(block_id: int, version: int) -> dict:
         """Return existing form entry supporting both flat and legacy nested schemas."""
@@ -508,6 +520,18 @@ def main(auto_populate: bool = True) -> None:
     print("=" * 65)
     print("Survey Assembly Pipeline  -  3_survey_assembly.py")
     print("=" * 65)
+
+    # -- Snapshot deployment manifest before wiping survey/ -------------------
+    # deployment_manifest.json lives inside SURVEY_DIR and is wiped below.
+    # Read it now so generate_deployment_manifest() can preserve existing form IDs.
+    _manifest_snapshot: dict = {}
+    _manifest_path = SURVEY_DIR / "deployment_manifest.json"
+    if _manifest_path.exists():
+        try:
+            with open(_manifest_path, encoding="utf-8") as _fh:
+                _manifest_snapshot = json.load(_fh)
+        except (json.JSONDecodeError, IOError):
+            pass
 
     # -- Output directories ----------------------------------------------------
     if SURVEY_DIR.exists():
@@ -742,7 +766,7 @@ def main(auto_populate: bool = True) -> None:
 
     # -- [9/9] Deployment manifest ---------------------------------------------
     print("\n[9/9] Writing deployment manifest (survey/deployment_manifest.json)...")
-    generate_deployment_manifest(manifest_df)
+    generate_deployment_manifest(manifest_df, existing_manifest=_manifest_snapshot)
 
     # -- Final summary ---------------------------------------------------------
     print("\n" + "=" * 65)
