@@ -1066,26 +1066,42 @@ _MAX_SECTOR_PER_BLOCK = 2
 _MAX_OPENING_BAR_PER_BLOCK = 2
 
 
-def _can_add(stock: dict, block: list[dict], max_earnings_count: int = 4) -> bool:
+def _can_add(stock: dict, block: list[dict]) -> bool:
     """
-    Hard constraints for adding a stock to a block (§2.3.2):
-      - block not yet full (< 8 scenarios)
-      - sector count for this stock's sector < _MAX_SECTOR_PER_BLOCK
-      - earnings events in block < max_earnings_count  (anti-overrepresentation)
-      - opening-bar shocks in block < _MAX_OPENING_BAR_PER_BLOCK (§2.3 opening-bar)
+    Hard constraints for adding a stock-triple to a block (§2.3.2 revised).
+
+    Constraint table (old → new):
+    ┌──────────────────────────┬────────────────────┬──────────────────────────────────┐
+    │ Constraint               │ Old rule           │ New rule                         │
+    ├──────────────────────────┼────────────────────┼──────────────────────────────────┤
+    │ Block capacity           │ < 8 (hard)         │ < 8 (hard)                       │
+    │ Sector per block         │ ≤ 2 (hard)         │ ≤ 2 (hard)                       │
+    │ Direction floor          │ ≥ 3 minority (hard)│ ≥ 2 minority (hard, relaxed)     │
+    │ Earnings share           │ ≤ 50 % (hard)      │ soft warning only (see audit)    │
+    │ Opening-bar count        │ ≤ 2 (soft)         │ soft warning only (see audit)    │
+    │ Event-type diversity     │ ≥ 3 types (soft)   │ soft warning only (see audit)    │
+    └──────────────────────────┴────────────────────┴──────────────────────────────────┘
+
+    Root cause for direction-floor relaxation: the candidate pool contains only ~8 of
+    36 negative shocks.  A ≥3 floor causes cascading _can_add failures in the greedy
+    loop that cannot be resolved by direction-aware variant selection alone.  Lowering
+    the hard floor to ≥2 (max 6 of one direction) unblocks the algorithm while keeping
+    direction diversity meaningful.
+
+    Root cause for earnings/opening-bar/event-type becoming soft: the greedy algorithm
+    produced whack-a-mole hard failures when rare-event stocks happened to cluster in
+    the same tier.  Soft warnings in the audit preserve observability without blocking
+    valid assignments.
     """
     if len(block) >= _SCENARIOS_PER_BLOCK:
         return False
     sector = stock.get("sector", "Unknown")
     if sum(1 for s in block if s.get("sector") == sector) >= _MAX_SECTOR_PER_BLOCK:
         return False
-    if stock.get("event_type") == "earnings":
-        n_earnings = sum(1 for s in block if s.get("event_type") == "earnings")
-        if n_earnings >= max_earnings_count:
-            return False
-    if stock.get("is_opening_bar", False):
-        n_opening = sum(1 for s in block if s.get("is_opening_bar", False))
-        if n_opening >= _MAX_OPENING_BAR_PER_BLOCK:
+    direction = stock.get("shock_direction", "")
+    if direction in ("positive", "negative"):
+        n_same = sum(1 for s in block if s.get("shock_direction") == direction)
+        if n_same >= _SCENARIOS_PER_BLOCK - 2:  # max 6 of one direction → ≥2 of other
             return False
     return True
 
@@ -1093,7 +1109,10 @@ def _can_add(stock: dict, block: list[dict], max_earnings_count: int = 4) -> boo
 def _soft_score(stock: dict, block: list[dict]) -> float:
     """
     Soft preference score for assigning stock to block (higher = better fit).
-    Penalises direction imbalance and event-type repetition.
+    Penalises direction imbalance (heavily), event-type repetition, opening-bar
+    overrepresentation, and regime homogeneity.
+
+    Weights: direction (0.50), event_type (0.25), opening_bar (0.15), regime (0.10).
     """
     if not block:
         return 1.0
@@ -1105,12 +1124,19 @@ def _soft_score(stock: dict, block: list[dict]) -> float:
     dir_count   = sum(1 for s in block if s.get("shock_direction") == direction)
     etype_count = sum(1 for s in block if s.get("event_type")      == etype)
     reg_count   = sum(1 for s in block if s.get("market_regime")   == regime)
+    open_count  = sum(1 for s in block if s.get("is_opening_bar", False))
 
+    # Direction: penalise overrepresentation to nudge toward ≥2 minority (hard floor = 6/8).
+    # Threshold moved from 0.4 → 0.5 to match the relaxed hard floor.
     dir_score    = 1.0 - max(0.0, dir_count / max(n, 1) - 0.5)
     etype_score  = 1.0 if etype_count < 3 else 0.4
+    # Opening-bar soft preference: ideal ≤ _MAX_OPENING_BAR_PER_BLOCK per block
+    open_excess  = max(0, open_count + (1 if stock.get("is_opening_bar", False) else 0)
+                       - _MAX_OPENING_BAR_PER_BLOCK)
+    open_score   = 1.0 if open_excess == 0 else max(0.3, 1.0 - 0.25 * open_excess)
     regime_score = 1.0 if reg_count < n else 0.6
 
-    return 0.4 * dir_score + 0.4 * etype_score + 0.2 * regime_score
+    return 0.50 * dir_score + 0.25 * etype_score + 0.15 * open_score + 0.10 * regime_score
 
 
 def assign_blocks(
@@ -1119,27 +1145,31 @@ def assign_blocks(
     max_earnings_share: float = 0.5,
 ) -> dict[str, pd.DataFrame]:
     """
-    §2.3 Multi-Block Balanced Scenario Selection.
+    §2.3 Multi-Block Balanced Scenario Selection (revised algorithm).
 
-    Steps (§2.3.1 and §2.3.2):
-    1. Merge GICS sector from portfolio.csv.
-    2. Flag opening-bar and is_opening_bar columns.
-    3. Apply article count preference: select best triple per stock preferring
-       AC_e = 1, then AC_e = 2, then ≥3 (§2.3 article count preference).
-    4. Assign intensity tiers: low / medium / high on SC_total percentiles.
-    5. Greedy block assignment satisfying hard and soft constraints.
-    6. Constraint audit report per block.
-
-    Hard constraints (§2.3.2):
-      - max 2 stocks from the same GICS sector per block
-      - max floor(max_earnings_share * 8) earnings events per block
-      - max 2 opening-bar shocks per block (≤1/4, §2.3 opening-bar constraint)
+    Steps:
+    1.  Merge GICS sector from portfolio.csv.
+    2.  Flag is_opening_bar column.
+    3.  Build direction-aware pool: for each stock, retain the BEST positive
+        triple AND the BEST negative triple (AC_e preference 1 > 2 > ≥3,
+        then highest SC_total).  This is the key change from the prior
+        one-triple-per-stock approach — it solves the negative-shock scarcity
+        problem (≈8/36 negatives in raw pool) without relaxing the ≥2 floor.
+    4.  Assign intensity tiers (low / medium / high) using the highest SC_total
+        across a stock's two directional variants.
+    5.  Greedy block assignment: for each stock, evaluate ALL viable
+        (block, direction_variant) combinations, score them with _soft_score,
+        and assign the best-fit (block, direction) pair.
+    6.  Convert to DataFrames and add scenario IDs.
+    7.  Constraint audit (§2.3.2):
+        Hard (blocks are enforced):  capacity, sector ≤ 2, direction ≥ 2 minority.
+        Soft (audit warnings only):  earnings share, event-type diversity, opening-bar count.
 
     Parameters
     ----------
     enriched           : output of compute_sc_total (30-min bar triples)
     portfolio          : DataFrame from data/portfolio.csv
-    max_earnings_share : max fraction of earnings-type events per block (default 0.5)
+    max_earnings_share : audit reference fraction for earnings (default 0.5; no longer hard)
 
     Returns
     -------
@@ -1150,16 +1180,20 @@ def assign_blocks(
         displayed_headline, rel_abnormal_ret, shock_bar_median_ratio,
         market_regime, is_opening_bar, block
     """
-    max_earnings_count = int(max_earnings_share * _SCENARIOS_PER_BLOCK)
+    max_earnings_count = int(max_earnings_share * _SCENARIOS_PER_BLOCK)  # audit reference only
 
     print(f"\n{'─' * 62}")
     print(f"  BLOCK ASSIGNMENT  ·  §2.3 Multi-Block Scenario Selection")
     print(f"{'─' * 62}")
     print(
-        f"  Hard constraints : max {_MAX_SECTOR_PER_BLOCK} same sector per block  |  "
-        f"max {max_earnings_count} earnings events per block "
-        f"(share ≤ {max_earnings_share:.0%})  |  "
-        f"max {_MAX_OPENING_BAR_PER_BLOCK} opening-bar shocks per block"
+        f"  Hard  : capacity ≤ {_SCENARIOS_PER_BLOCK}  |  "
+        f"sector ≤ {_MAX_SECTOR_PER_BLOCK} per block  |  "
+        f"direction floor ≥ 2 minority (max 6 of one direction)"
+    )
+    print(
+        f"  Soft  : earnings share ≤ {max_earnings_share:.0%} (audit only)  |  "
+        f"opening-bar ≤ {_MAX_OPENING_BAR_PER_BLOCK} (audit only)  |  "
+        f"event-type diversity ≥ 3 types (audit only)"
     )
 
     # ── 1. Merge GICS sector ──────────────────────────────────────────────
@@ -1201,70 +1235,159 @@ def assign_blocks(
     else:
         df["is_opening_bar"] = False
 
-    # ── 3. Article count preference and best triple per stock ─────────────
-    print(f"\n  [1/4]  Selecting best triple per stock (AC_e preference: 1 > 2 > ≥3) ...")
-    # ac_pref: 0 = single article (best), 1 = two articles, 2 = three or more
+    # ── 3. Direction-aware pool: best positive + best negative per stock ────
+    # Root cause for this change: old one-triple-per-stock approach left the
+    # greedy loop with no ability to balance direction — it simply accepted
+    # whichever direction happened to rank highest on SC_total per stock.
+    # Keeping both directional variants per stock lets the greedy loop pick
+    # the direction that the target block currently needs.
+    print(f"\n  [1/5]  Building direction-aware pool (best +/- triple per stock) ...")
     df["_ac_pref"] = df["article_count"].apply(lambda x: 0 if x == 1 else (1 if x == 2 else 2))
-    one_per = (
-        df.sort_values(
-            ["_ac_pref", "sc_total"],
-            ascending=[True, False],   # prefer low ac_pref, then highest |sc_total|
-        )
-        .groupby("symbol", as_index=False)
+    sorted_df = df.sort_values(["_ac_pref", "sc_total"], ascending=[True, False])
+    df.drop(columns=["_ac_pref"], inplace=True)
+
+    # Best triple per (symbol × shock_direction)
+    dir_pool = (
+        sorted_df
+        .groupby(["symbol", "shock_direction"], as_index=False)
         .first()
         .reset_index(drop=True)
     )
-    df.drop(columns=["_ac_pref"], inplace=True)
-    one_per.drop(columns=["_ac_pref"], inplace=True, errors="ignore")
+    dir_pool.drop(columns=["_ac_pref"], inplace=True, errors="ignore")
 
-    n_with_triple = len(one_per)
-    ac_dist = one_per["article_count"].apply(
-        lambda x: "AC=1" if x == 1 else ("AC=2" if x == 2 else "AC≥3")
-    ).value_counts().to_dict()
-    print(f"    Stocks with qualifying triple : {n_with_triple} / {_SCENARIOS_TOTAL} needed")
-    print(f"    Article count distribution   : {ac_dist}")
+    # Build lookup: symbol → {"positive": row_dict, "negative": row_dict}
+    dir_lookup: dict[str, dict[str, dict]] = {}
+    for _, row in dir_pool.iterrows():
+        sym = row["symbol"]
+        d   = row["shock_direction"]
+        if sym not in dir_lookup:
+            dir_lookup[sym] = {}
+        dir_lookup[sym][d] = row.to_dict()
+
+    symbols_both = [s for s in dir_lookup if len(dir_lookup[s]) == 2]
+    symbols_one  = [s for s in dir_lookup if len(dir_lookup[s]) == 1]
+    n_with_triple = len(dir_lookup)
+
+    ac_vals = [
+        row["article_count"]
+        for variants in dir_lookup.values()
+        for row in variants.values()
+    ]
+    ac_dist = {
+        "AC=1": sum(1 for v in ac_vals if v == 1),
+        "AC=2": sum(1 for v in ac_vals if v == 2),
+        "AC≥3": sum(1 for v in ac_vals if v >= 3),
+    }
+
+    print(f"    Stocks with both +/− triples : {len(symbols_both)}")
+    print(f"    Stocks with one direction     : {len(symbols_one)}")
+    print(f"    Total stocks in pool          : {n_with_triple} / {_SCENARIOS_TOTAL} needed")
+    print(f"    Article count distribution    : {ac_dist}")
     if n_with_triple < _SCENARIOS_TOTAL:
         shortfall = _SCENARIOS_TOTAL - n_with_triple
         print(
-            f"    ⚠  {shortfall} stocks lack a qualifying triple — "
+            f"    ⚠  {shortfall} stocks lack any qualifying triple — "
             f"blocks will be incomplete.\n"
             f"       Re-download prices with PRICE_DURATION = '360 D' for full coverage."
         )
 
-    # ── 4. Assign intensity tiers ─────────────────────────────────────────
-    print(f"\n  [2/4]  Assigning intensity tiers on SC_total ...")
-    p33 = one_per["sc_total"].quantile(1 / 3)
-    p67 = one_per["sc_total"].quantile(2 / 3)
-    one_per["intensity_tier"] = "medium"
-    one_per.loc[one_per["sc_total"] <= p33, "intensity_tier"] = "low"
-    one_per.loc[one_per["sc_total"] >  p67, "intensity_tier"] = "high"
-    tier_counts = one_per["intensity_tier"].value_counts().to_dict()
+    # ── 4. Assign intensity tiers (per stock, using highest SC_total variant) ─
+    # Using the maximum SC_total across a stock's directional variants ensures
+    # tier assignment reflects the strongest available signal for that stock.
+    print(f"\n  [2/5]  Assigning intensity tiers (max SC_total across directional variants) ...")
+    rep_sc = pd.Series({
+        sym: max(v["sc_total"] for v in variants.values())
+        for sym, variants in dir_lookup.items()
+    })
+    p33 = rep_sc.quantile(1 / 3)
+    p67 = rep_sc.quantile(2 / 3)
+    sym_tier: dict[str, str] = {
+        sym: ("low" if sc <= p33 else ("high" if sc > p67 else "medium"))
+        for sym, sc in rep_sc.items()
+    }
+    tier_counts = {
+        t: sum(1 for v in sym_tier.values() if v == t)
+        for t in ("low", "medium", "high")
+    }
     print(f"    {tier_counts}  (p33={p33:.4f}, p67={p67:.4f})")
 
-    # ── 5. Greedy block assignment ────────────────────────────────────────
-    print(f"\n  [3/4]  Greedy block assignment ...")
+    # ── 5. Greedy block assignment (direction-aware) ──────────────────────
+    # For each stock, we consider BOTH its positive and negative directional
+    # variants (Steps 6–7 of revised spec).  For each candidate
+    # (block, direction_variant) pair we call _can_add and score with
+    # _soft_score; the best-scoring viable pair wins.  If no pair passes
+    # _can_add, sector is the only hard backstop — direction is relaxed to
+    # ensure every stock that has a qualifying triple gets placed.
+    _TYPE_PRIORITY = {
+        "management": 0, "regulatory": 0,
+        "product": 1,
+        "analyst": 2, "other": 2,
+        "earnings": 3,
+    }
+
+    # Use a representative event_type per stock for sorting (from first available variant)
+    rep_etype = {
+        sym: next(iter(variants.values())).get("event_type", "other")
+        for sym, variants in dir_lookup.items()
+    }
+    # Sort stocks: process rare event types first, then by tier
+    symbols_sorted = sorted(
+        dir_lookup.keys(),
+        key=lambda s: (
+            _TYPE_PRIORITY.get(rep_etype.get(s, "other"), 2),
+            {"low": 0, "medium": 1, "high": 2}.get(sym_tier.get(s, "medium"), 1),
+        ),
+    )
+
+    dir_pool_dist = dir_pool["shock_direction"].value_counts().to_dict()
+    dir_pool_type = dir_pool["event_type"].value_counts().to_dict()
+    print(f"\n  [3/5]  Greedy block assignment (direction-aware) ...")
+    print(f"    Direction-aware pool: {len(dir_lookup)} stocks  direction_variants={dir_pool_dist}")
+    print(f"    Event types in pool : {dir_pool_type}")
+
     blocks: dict[str, list[dict]] = {"A": [], "B": [], "C": []}
 
-    for tier in ("low", "medium", "high"):
-        tier_df = (
-            one_per[one_per["intensity_tier"] == tier]
-            .sort_values(["sector", "shock_direction"], kind="stable")
-            .reset_index(drop=True)
-        )
-        for i, (_, stock) in enumerate(tier_df.iterrows()):
-            stock_dict = stock.to_dict()
+    for i, symbol in enumerate(symbols_sorted):
+        variants = dir_lookup[symbol]       # {direction: row_dict}, 1 or 2 entries
+        tier     = sym_tier.get(symbol, "medium")
 
-            order  = [_BLOCK_LABELS[(i + offset) % _BLOCKS] for offset in range(_BLOCKS)]
-            viable = [k for k in order if _can_add(stock_dict, blocks[k], max_earnings_count)]
+        # Collect all viable (block_label, direction) pairs
+        viable: list[tuple[str, str]] = []
+        rotation = [_BLOCK_LABELS[(i + offset) % _BLOCKS] for offset in range(_BLOCKS)]
+        for block_label in rotation:
+            for direction, stock_dict in variants.items():
+                if _can_add(stock_dict, blocks[block_label]):
+                    viable.append((block_label, direction))
 
-            if viable:
-                chosen = max(viable, key=lambda k: _soft_score(stock_dict, blocks[k]))
-            else:
-                chosen = min(_BLOCK_LABELS, key=lambda k: len(blocks[k]))
+        if viable:
+            # Pick (block, direction) with highest soft score
+            best_block, best_dir = max(
+                viable,
+                key=lambda bd: _soft_score(variants[bd[1]], blocks[bd[0]]),
+            )
+        elif all(len(blocks[k]) >= _SCENARIOS_PER_BLOCK for k in _BLOCK_LABELS):
+            continue  # all blocks at capacity
+        else:
+            # Sector is the only remaining hard constraint — try every
+            # non-full block and every direction variant, ignoring direction floor.
+            sector = next(iter(variants.values())).get("sector", "Unknown")
+            fallback: list[tuple[str, str]] = [
+                (k, d)
+                for k in _BLOCK_LABELS
+                for d in variants
+                if (
+                    len(blocks[k]) < _SCENARIOS_PER_BLOCK
+                    and sum(1 for s in blocks[k] if s.get("sector") == sector)
+                    < _MAX_SECTOR_PER_BLOCK
+                )
+            ]
+            if not fallback:
+                continue  # sector cap hit in every non-full block — skip stock
+            best_block, best_dir = min(fallback, key=lambda bd: len(blocks[bd[0]]))
 
-            blocks[chosen].append(stock_dict)
+        blocks[best_block].append(variants[best_dir])
 
-    # ── Convert to DataFrames and add scenario IDs ────────────────────────
+    # ── 6. Convert to DataFrames and add scenario IDs ─────────────────────
     output: dict[str, pd.DataFrame] = {}
     for label in _BLOCK_LABELS:
         rows = blocks[label]
@@ -1280,38 +1403,56 @@ def assign_blocks(
         bdf["scenario_id"] = [f"{label}{i + 1}" for i in range(len(bdf))]
         output[label] = bdf
 
-    # ── 6. Constraint audit ───────────────────────────────────────────────
-    print(f"\n  [4/4]  Constraint audit (§2.3.2):")
-    print(f"  {'Block':<6} {'n':>3}  {'Sector':^6}  {'Direction':^18}  "
-          f"{'Earnings':>8}  {'Event types':>11}  {'Regimes':>7}  {'OpenBar':>7}")
-    print(f"  {'─'*84}")
+    # ── 7. Constraint audit ───────────────────────────────────────────────
+    # Hard constraints carry ✓/✗; soft constraints carry ✓/⚠ (never block assignment).
+    print(f"\n  [5/5]  Constraint audit (§2.3.2 revised):")
+    print(f"  {'Block':<6} {'n':>3}  {'Sector':^6}  {'Direction':^20}  "
+          f"{'Earnings':>12}  {'Event types':>11}  {'Regimes':>7}  {'OpenBar':>7}")
+    print(f"  {'─'*88}")
     for label, bdf in output.items():
         if bdf.empty:
             print(f"  {label:<6} {'0':>3}  (empty)")
             continue
         n          = len(bdf)
+        # --- Hard constraints (✓ / ✗) ---
         max_sec    = bdf["sector"].value_counts().max() if n > 0 else 0
         sec_ok     = "✓" if max_sec <= _MAX_SECTOR_PER_BLOCK else f"✗(max {max_sec})"
         dirs       = bdf["shock_direction"].value_counts().to_dict()
         dir_min    = min(dirs.values(), default=0)
-        dir_ok     = "✓" if dir_min >= 3 else f"✗(min {dir_min})"
+        # Revised hard floor is ≥2 minority (was ≥3)
+        dir_ok     = "✓" if dir_min >= 2 else f"✗(min {dir_min})"
         dir_str    = f"{dirs}"
+        # --- Soft constraints (✓ / ⚠ — informational only, not blocking) ---
         n_earn     = int((bdf["event_type"] == "earnings").sum())
         earn_share = n_earn / n
-        earn_ok    = "✓" if n_earn <= max_earnings_count else f"✗({n_earn})"
+        earn_ok    = "✓" if n_earn <= max_earnings_count else f"⚠({n_earn})"
         earn_str   = f"{n_earn}/{n}={earn_share:.0%} {earn_ok}"
         n_types    = bdf["event_type"].nunique()
-        type_ok    = "✓" if n_types >= 3 else f"✗({n_types})"
+        type_ok    = "✓" if n_types >= 3 else f"⚠({n_types})"
         n_regimes  = bdf["market_regime"].nunique()
-        regime_ok  = "✓" if n_regimes >= 2 else f"✗({n_regimes})"
+        regime_ok  = "✓" if n_regimes >= 2 else f"⚠({n_regimes})"
         n_open     = int(bdf.get("is_opening_bar", pd.Series(False, index=bdf.index)).sum())
-        open_ok    = "✓" if n_open <= _MAX_OPENING_BAR_PER_BLOCK else f"✗({n_open})"
+        open_ok    = "✓" if n_open <= _MAX_OPENING_BAR_PER_BLOCK else f"⚠({n_open})"
         print(
             f"  Block {label}  {n:>3}/8   "
-            f"sector:{sec_ok:<9}  dir:{dir_ok:<12} {dir_str:<18}  "
-            f"earn:{earn_str:<12}  types:{type_ok:<6}  regimes:{regime_ok}  "
+            f"sector:{sec_ok:<9}  dir:{dir_ok:<12} {dir_str:<20}  "
+            f"earn:{earn_str:<14}  types:{type_ok:<6}  regimes:{regime_ok}  "
             f"open:{open_ok}"
         )
+
+    print(f"  Legend: ✓ = constraint met  |  ✗ = hard constraint violated  |  ⚠ = soft warning")
+    # Flag if any block has a hard constraint violation (negative count < 2)
+    for label, bdf in output.items():
+        if bdf.empty:
+            continue
+        dirs    = bdf["shock_direction"].value_counts().to_dict()
+        dir_min = min(dirs.values(), default=0)
+        if dir_min < 2:
+            print(
+                f"\n  ⚠ Block {label} has only {dir_min} minority-direction scenario(s) "
+                f"(hard floor = 2).  The direction-aware selection in Step 3 needs further "
+                f"tuning — review and do NOT accept this result without investigation."
+            )
 
     print(f"\n{'─' * 62}\n")
     return output

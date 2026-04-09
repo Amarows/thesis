@@ -1,28 +1,54 @@
 {
-  "deployed_at": "2026-04-08T10:34:19.388036+00:00",
-  "sub_blocks": 1,
-  "drive_folder_id": "1-5a6Iy1R0OGT2i-WF9-OGzREDBS6CFNb",
-  "drive_folder_url": "https://drive.google.com/drive/folders/1-5a6Iy1R0OGT2i-WF9-OGzREDBS6CFNb",
+  "generated": "2026-04-09T11:23:12Z",
+  "n_blocks": 3,
+  "n_scenarios_total": 24,
   "forms": {
     "block_1": {
       "v1": {
-        "form_id": "1ZRhNWxUM_HVCcEc2emL6RukF1w8rXgogkHnxDoKkmPA",
-        "edit_url": "https://docs.google.com/forms/d/1ZRhNWxUM_HVCcEc2emL6RukF1w8rXgogkHnxDoKkmPA/edit",
-        "responder_url": "https://docs.google.com/forms/d/e/1ZRhNWxUM_HVCcEc2emL6RukF1w8rXgogkHnxDoKkmPA/viewform"
+        "form_id": "",
+        "n_scenarios": 8,
+        "scenario_ids": [
+          "B1_S01",
+          "B1_S02",
+          "B1_S03",
+          "B1_S04",
+          "B1_S05",
+          "B1_S06",
+          "B1_S07",
+          "B1_S08"
+        ]
       }
     },
     "block_2": {
       "v1": {
-        "form_id": "16ENPx_ir4HPIEi8XgnJfwvRzrpPA8X1lPYk2cjvmV3k",
-        "edit_url": "https://docs.google.com/forms/d/16ENPx_ir4HPIEi8XgnJfwvRzrpPA8X1lPYk2cjvmV3k/edit",
-        "responder_url": "https://docs.google.com/forms/d/e/16ENPx_ir4HPIEi8XgnJfwvRzrpPA8X1lPYk2cjvmV3k/viewform"
+        "form_id": "",
+        "n_scenarios": 8,
+        "scenario_ids": [
+          "B2_S01",
+          "B2_S02",
+          "B2_S03",
+          "B2_S04",
+          "B2_S05",
+          "B2_S06",
+          "B2_S07",
+          "B2_S08"
+        ]
       }
     },
     "block_3": {
       "v1": {
-        "form_id": "15b65j35Zkfjd8UpzOFVuRyIFIKQkzPcA_NuJmFIJCac",
-        "edit_url": "https://docs.google.com/forms/d/15b65j35Zkfjd8UpzOFVuRyIFIKQkzPcA_NuJmFIJCac/edit",
-        "responder_url": "https://docs.google.com/forms/d/e/15b65j35Zkfjd8UpzOFVuRyIFIKQkzPcA_NuJmFIJCac/viewform"
+        "form_id": "",
+        "n_scenarios": 8,
+        "scenario_ids": [
+          "B3_S01",
+          "B3_S02",
+          "B3_S03",
+          "B3_S04",
+          "B3_S05",
+          "B3_S06",
+          "B3_S07",
+          "B3_S08"
+        ]
       }
     }
   }

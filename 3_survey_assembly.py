@@ -23,16 +23,27 @@ If data/scenario_manifest.csv is missing, a template is created and the
 script exits with instructions.
 """
 
+import json
 import os
 import re
 import sys
 import glob
 import shutil
 import warnings
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
-sys.path.insert(0, "toolkits")
+def _add_toolkits_to_path():
+    """Ensure toolkits directory is importable regardless of CWD."""
+    try:
+        toolkits_dir = Path(__file__).resolve().parent / "toolkits"
+        sys.path.insert(0, str(toolkits_dir))
+    except Exception:
+        # Fallback to previous behavior if __file__ is not available
+        sys.path.insert(0, "toolkits")
+
+
+_add_toolkits_to_path()
 
 import numpy as np
 import pandas as pd
@@ -270,29 +281,35 @@ def _create_manifest_template() -> None:
     sys.exit(0)
 
 
-def load_manifest() -> pd.DataFrame:
+def load_manifest(auto_populate: bool = True) -> pd.DataFrame:
     """
     Load and validate scenario_manifest.csv.
 
-    Always re-runs the upstream pipeline (identify_shocks → compute_sc_total →
-    assign_blocks) to regenerate and overwrite the manifest on every run,
-    so that refreshed price/news data is reflected without manual deletion.
-    Falls back to reading the existing file only if auto-population fails.
+    Parameters
+    ----------
+    auto_populate : bool
+        If True (default), re-runs the upstream pipeline to regenerate
+        the manifest on every run. If False, skips auto-population and
+        reads existing manifest file.
     """
-    print("\ndata/scenario_manifest.csv — regenerating from upstream pipeline...")
-    _portfolio = load_portfolio()
-    result = _auto_populate_manifest(_portfolio)
+    if auto_populate:
+        print("\ndata/scenario_manifest.csv — regenerating from upstream pipeline...")
+        _portfolio = load_portfolio()
+        result = _auto_populate_manifest(_portfolio)
 
-    if result is not None:
-        df = result
-        df["event_date"] = pd.to_datetime(df["event_date"]).dt.date
-        df["block_id"] = df["block_id"].astype(int)
-        df["event_time"] = df["event_time"].astype(str).str.strip()
-        n_blocks = df["block_id"].nunique()
-        print(f"Manifest loaded: {len(df)} scenarios in {n_blocks} block(s)")
-        return df
+        if result is not None:
+            df = result
+            df["event_date"] = pd.to_datetime(df["event_date"]).dt.date
+            df["block_id"] = df["block_id"].astype(int)
+            df["event_time"] = df["event_time"].astype(str).str.strip()
+            n_blocks = df["block_id"].nunique()
+            print(f"Manifest loaded: {len(df)} scenarios in {n_blocks} block(s)")
+            return df
+        print("  Auto-population failed — checking for existing manifest.")
+    else:
+        print("\nLoading existing data/scenario_manifest.csv (auto-population skipped)...")
 
-    # Auto-population failed — fall back to existing file if present
+    # Fall back to reading the existing file
     if not MANIFEST_PATH.exists():
         _create_manifest_template()  # prints instructions and exits
 
@@ -2329,8 +2346,93 @@ def generate_report(
 # ------------------------------------------------------------------------------
 # Main
 # ------------------------------------------------------------------------------
+# Section N - Deployment manifest
+# ------------------------------------------------------------------------------
 
-def main() -> None:
+def generate_deployment_manifest(manifest_df: pd.DataFrame) -> None:
+    """
+    Write survey/deployment_manifest.json — required input for 4_deploy_google_forms.py.
+
+    Structure read by get_existing_form_id() in 4_deploy_google_forms.py:
+    {
+      "generated": "<ISO timestamp>",
+      "n_blocks": <int>,
+      "n_scenarios_total": <int>,
+      "forms": {
+        "block_1": {"v1": {"form_id": "...", "n_scenarios": N, "scenario_ids": [...]}},
+        "block_2": {"v1": {"form_id": "...", ...}},
+        "block_3": {"v1": {"form_id": "...", ...}}
+      }
+    }
+
+    Existing form_id values are preserved when the file already exists, so the
+    file can be manually populated once after creating forms in Google Forms and
+    then kept in sync through subsequent assembly runs without losing form IDs.
+
+    New or missing block keys receive an empty string form_id as a placeholder.
+    """
+    out_path = SURVEY_DIR / "deployment_manifest.json"
+
+    # Preserve existing form IDs so re-runs do not wipe manually entered values
+    existing_forms: dict = {}
+    if out_path.exists():
+        try:
+            with open(out_path, encoding="utf-8") as fh:
+                existing_forms = json.load(fh).get("forms", {})
+        except (json.JSONDecodeError, IOError):
+            _warn(f"Could not parse existing {out_path.name} — regenerating from scratch.")
+
+    new_forms: dict = {}
+    for block_id in sorted(manifest_df["block_id"].unique()):
+        block_key    = f"block_{block_id}"
+        block_rows   = manifest_df[manifest_df["block_id"] == block_id]
+        scenario_ids = block_rows["scenario_id"].tolist()
+
+        # Preserve any previously recorded form_id
+        existing_form_id = (
+            existing_forms.get(block_key, {})
+            .get("v1", {})
+            .get("form_id", "")
+        )
+
+        new_forms[block_key] = {
+            "v1": {
+                "form_id":      existing_form_id,
+                "n_scenarios":  len(block_rows),
+                "scenario_ids": scenario_ids,
+            }
+        }
+
+    manifest = {
+        "generated":        datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "n_blocks":         int(manifest_df["block_id"].nunique()),
+        "n_scenarios_total": int(len(manifest_df)),
+        "forms":            new_forms,
+    }
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(out_path, "w", encoding="utf-8") as fh:
+        json.dump(manifest, fh, indent=2)
+
+    populated = sum(
+        1 for v in new_forms.values()
+        if v.get("v1", {}).get("form_id", "")
+    )
+    print(f"\nDeployment manifest written: {out_path}")
+    print(f"  Blocks: {list(new_forms.keys())}")
+    print(f"  Total scenarios: {len(manifest_df)}")
+    print(f"  Form IDs populated: {populated}/{len(new_forms)}")
+    if populated < len(new_forms):
+        missing = [k for k, v in new_forms.items() if not v.get("v1", {}).get("form_id", "")]
+        print(
+            f"  [NOTE] Set form_id for {missing} in {out_path.name} "
+            f"after creating the Google Forms."
+        )
+
+
+# ------------------------------------------------------------------------------
+
+def main(auto_populate: bool = True) -> None:
     print("=" * 65)
     print("Survey Assembly Pipeline  -  3_survey_assembly.py")
     print("=" * 65)
@@ -2351,7 +2453,7 @@ def main() -> None:
 
     # -- [1/8] Load inputs -----------------------------------------------------
     print("\n[1/8] Loading inputs...")
-    manifest_df = load_manifest()
+    manifest_df = load_manifest(auto_populate=auto_populate)
     portfolio_df = load_portfolio()
 
     tickers = manifest_df["ticker"].unique().tolist()
@@ -2542,7 +2644,7 @@ def main() -> None:
     print(f"  Saved: {out_path.relative_to(SURVEY_DIR)}  ({len(news_text_df)} rows)")
 
     # -- [8/8] Counterbalancing ------------------------------------------------
-    print("\n[8/8] Generating counterbalancing matrix and form assembly guide...")
+    print("\n[8/9] Generating counterbalancing matrix and form assembly guide...")
     matrix_df, guide_df = generate_counterbalancing(manifest_df)
 
     out_matrix = out_dirs["counterbalancing"] / "counterbalancing_matrix.csv"
@@ -2584,6 +2686,10 @@ def main() -> None:
     report_path.write_text(report_md, encoding="utf-8")
     print(f"\nReport: {report_path}")
 
+    # -- Deployment manifest ---------------------------------------------------
+    print("\n[9/9] Writing deployment manifest (survey/deployment_manifest.json)...")
+    generate_deployment_manifest(manifest_df)
+
     # -- Final summary ---------------------------------------------------------
     print("\n" + "=" * 65)
     print("Assembly complete.")
@@ -2600,4 +2706,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    # Check if we should skip auto-population (e.g. if called from a demo script)
+    # Default to True for standalone execution.
+    skip_auto = "--skip-auto" in sys.argv
+    main(auto_populate=not skip_auto)
