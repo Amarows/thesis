@@ -22,3 +22,7 @@ subprocess.check_call([sys.executable, "3_survey_assembly.py", "--skip-auto"])
 print("\n>>> STARTING STAGE 4: DEPLOY GOOGLE FORMS")
 # Run 4_deploy_google_forms.py (assuming it's similar)
 subprocess.check_call([sys.executable, "4_deploy_google_forms.py"])
+
+print("\n>>> STARTING STAGE 5: APPEND TEMPORARY QUESTIONS TO GOOGLE FORMS")
+# Run 5_append_pilot_feedback.py
+subprocess.check_call([sys.executable, "5_append_pilot_feedback.py"])
