@@ -158,54 +158,19 @@ Emotional bias refers to systematic deviations in judgment and choice that arise
 
 An external financial information shock is a discrete public information event relevant to a portfolio holding that arrives over a short horizon and has the potential to trigger heightened attention, uncertainty, and rapid market reaction ([Jiang & Zhu, 2016](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2891216)).
 
+
 ### 2.6.3 Shock Score
 
-The Shock Score is a quantitative decision-support indicator designed to summarize the emotional and informational intensity of an external financial information shock in a manager-interpretable format. In this thesis, the Shock Score has two representations: an analytical composite index used for statistical testing and an operational dashboard used for decision support.
-
-Analytical composite index (SC_total):
-SC_total is defined as the first principal component obtained from a set of standardized shock characteristics computed at the event level. This construction follows the established approach of using principal component analysis to derive composite indices in finance ([Baker & Wurgler, 2006](https://doi.org/10.1111/j.1540-6261.2006.00885.x)). 
-
-Let x_e be a vector of K standardized shock components for event e, with K = 4 and each component standardized across events to have mean 0 and standard deviation 1. Principal component analysis produces a loading vector w_1 that defines the first principal component. The composite Shock Score is then:
-
-SC_total_e = w_1' x_e
-
-The first principal component is chosen because it provides a single index capturing the dominant common variation across shock characteristics, enabling parsimonious hypothesis testing while preserving interpretability through the dashboard components. PCA loadings and explained variance of the first component are reported in Chapter 4.
-
-Manager-facing dashboard:
-The Shock Score is displayed to managers as a small set of interpretable signals:
-
-1 Sentiment direction band: a categorical indicator of directional tone.  
-2 Shock severity level: an ordinal or continuous indicator of shock intensity.  
-3 Persistence: a quantitative persistence score mapped into horizon buckets.  
-4 Protocol: a rules-based pre-commitment trigger that recommends a predefined decision step when shock intensity is sufficiently high.
-
-Persistence score and horizon buckets:
-Persistence is operationalized as a quantitative score, developed in this thesis, intended to represent the expected decision-relevance horizon of the event. The horizon-bucket mapping is an original design choice informed by practitioner conventions for classifying event duration (intraday, multi-day, multi-week). Let P_e denote the persistence score for event e. The score is mapped into discrete horizon buckets using predefined cutoffs:
-
-HorizonBucket_e =
-Intraday, if P_e <= c1  
-Several days, if c1 < P_e <= c2  
-Several weeks, if P_e > c2
-
-Cutoffs c1 and c2 and the method used to compute P_e are specified ex ante and documented in Chapter 4.
-
-Rules-based pre-commitment trigger:
-The protocol is defined as a predefined action rule activated by shock intensity, designed for this thesis drawing on the pre-commitment and nudge frameworks of Shefrin (2002) and Thaler & Sunstein (2008). Let T_e denote an intensity trigger variable, which can be SC_total_e or a monotone transformation of SC_total_e. A simple trigger design is:
-
-Protocol_e =
-Standard process, if T_e < t1  
-Enhanced review, if t1 <= T_e < t2  
-Cooling-off and second review, if T_e >= t2
-
-Thresholds t1 and t2 and the operational meaning of each protocol step are specified ex ante in Chapter 4.
+The Shock Score is a quantitative decision-support indicator designed to summarize the emotional and informational intensity of an external financial information shock in a manager-interpretable format. In this thesis, the Shock Score has two representations: an analytical composite index used for statistical testing and an operational dashboard used for decision support. The construction methodology, component definitions, PCA-based composite index computation, and Shock Score dashboard design are documented in Section 4.3.
 
 Treatment indicator for decision support:
 The study distinguishes between the existence of SC_total for an event and whether it is shown to the manager. For each manager i and event e:
 
-ShowSC_i,e = 1 if the Shock Score dashboard is displayed  
+ShowSC_i,e = 1 if the Shock Score dashboard is displayed
 ShowSC_i,e = 0 if the Shock Score dashboard is withheld
 
 When the Shock Score is not displayed, SC_total remains defined at the event level; it is simply not observed by the respondent.
+
 
 ### 2.6.4 Risk – Return Ratio
 
@@ -261,81 +226,13 @@ The study evaluates portfolio risk-return outcomes through simulation rather tha
 ![Figure 2.2: Causal logic of the study design. The left domain (observed) encompasses survey responses and market data. The right domain (simulated) encompasses the translation of stated decisions into portfolio outcomes, introducing model dependency that bounds interpretation of H₂ results.]
 
 
+
 ## 2.9 Chapter Conclusion
 
-Chapter 2 defined the research problem and objectives, formulated research questions and hypotheses, and established key operational definitions, assumptions, and limitations guiding the empirical study. The chapter specified the primary measurement approach for managerial decision response using a single-item Net Risk Stance scale and defined the Shock Score as a PCA-based composite index presented to managers through a dashboard incorporating sentiment direction, shock severity, a quantitative persistence score mapped to horizon buckets, and a rules-based pre-commitment trigger. 
+Chapter 2 defined the research problem and objectives, formulated research questions and hypotheses, and established key operational definitions, assumptions, and limitations guiding the empirical study. The chapter specified the primary measurement approach for managerial decision response using a single-item Net Risk Stance scale and defined the Shock Score as a PCA-based composite decision-support indicator with two representations: an analytical composite index and a manager-facing dashboard. The construction methodology and component definitions are detailed in Chapter 4 (Section 4.3).
 
-Taken together, the study design integrates real-time shock measurement, a professional sample of portfolio managers, behaviorally grounded decision support, and portfolio-level outcome validation -- an integration that, as the gap analysis presented in Chapter 3 (Section 3.6) demonstrates, does not appear to have been attempted in prior research. Chapter 3  examines the theoretical and empirical literature that motivates the study constructs and supports the logic linking information shocks, managerial decision behavior, and portfolio risk–return outcomes.
+Taken together, the study design integrates real-time shock measurement, a professional sample of portfolio managers, behaviorally grounded decision support, and portfolio-level outcome validation -- an integration that, as the gap analysis presented in Chapter 3 (Section 3.6) demonstrates, does not appear to have been attempted in prior research. Chapter 3 examines the theoretical and empirical literature that motivates the study constructs and supports the logic linking information shocks, managerial decision behavior, and portfolio risk-return outcomes.
 
-
-## Technical Appendix 1 -- Model Forms
-
-This section records the intended econometric specifications in compact form to ensure transparency and reproducibility; estimation choices and conventions are detailed in Chapter 4.
-
-Primary regression specification for H1 (survey responses):
-Let y_i,e denote Net Risk Stance of manager i for event e (seven-point scale). Let SC_total_e denote the event-level composite Shock Score. Let X_i,e denote a vector of controls. The baseline model is:
-
-y_i,e = alpha + beta1 * SC_total_e + gamma' * X_i,e + epsilon_i,e
-
-The control vector X_i,e includes respondent-level covariates (professional experience, portfolio mandate type), scenario-level covariates (event type, market context), and experimental design controls (scenario sequence position, counterbalancing block assignment). The full operationalization and variable definitions are specified in Chapter 4.
-
-The following specifications are included as pre-registered analytical extensions. They are not required for the primary hypothesis tests but may be applied if the data structure supports them, as documented in Chapter 4.
-
-Because observations are clustered by manager and by event, inference should account for dependence using clustered standard errors, with two-way clustering by manager and event as the preferred approach.
-
-Primary regression specification for H2 (portfolio outcomes):
-Let Outcome_j denote a portfolio risk – return metric for simulation run or decision condition j. Let ShowSC_j denote the treatment indicator. Let Z_j denote optional controls. The baseline model is:
-
-Outcome_j = alpha + tau * ShowSC_j + delta' * Z_j + u_j
-
-Heterogeneity by shock intensity (optional interaction specification):
-When portfolio outcomes can be indexed to a shock intensity measure, the following interaction form evaluates whether decision support is more effective under higher shock intensity:
-
-Outcome_j = alpha + tau * ShowSC_j + beta2 * SC_total_j + phi * (ShowSC_j * SC_total_j) + delta' * Z_j + u_j
-
-Within-subject design implementation note:
-Because each manager is exposed to both treatment conditions, the H1 dataset may also support specifications with manager fixed effects to absorb stable individual differences:
-
-y_i,e = alpha_i + beta1 * SC_total_e + gamma' * X_i,e + epsilon_i,e
-
-Where alpha_i is a manager-specific intercept. This specification is optional and is chosen based on the final data structure documented in Chapter 4.
-
-## Technical Appendix 2 -- Event Screening Algorithm
-
-**Event screening algorithm for scenario selection.** Candidate event days for the survey scenarios are identified through a three-stage screening process applied to each stock in the selected universe over the historical event window. All intraday price and volume data used in this algorithm are sampled at 30-minute intervals, producing 13 bars per full trading day (09:30 to 16:00 ET). Rolling statistics for 30-minute bar returns and volume are computed over a trailing 60-trading-day window.
-
-Stage 1 -- Statistical screening. For each stock, compute the rolling 60-trading-day historical volatility, defined as the standard deviation of daily log returns over the trailing window. Flag days where the absolute daily return exceeds 2.0 standard deviations from the stock's trailing mean return. This threshold identifies days with statistically unusual price movements relative to the stock's own history.
-
-Additionally, compute the relative abnormal return for each candidate day -- defined as the stock's daily return minus the S&P 500 return on the same day. This step distinguishes firm-specific shocks from market-wide movements. A day on which the entire market declines 3% represents a systematic shock, not a firm-specific information event. Candidate days must exhibit a relative abnormal return exceeding 1.5 standard deviations of the stock's historical relative return distribution. The thresholds (2.0 SD for absolute return, 1.5 SD for relative abnormal return) are calibrated to produce a candidate pool of approximately 50 to 80 events, from which the final 12 are selected according to the balance constraints specified in section 4.2.3. If the initial thresholds produce a pool that is too small or too large, they are adjusted symmetrically (e.g., to 1.5/1.0 or 2.5/2.0) and the adjustment is documented.
-
-Stage 1B -- Within-day causal plausibility screen. Candidate event days that pass Stage 1 are subjected to an additional within-day filter to ensure that the observed price move is temporally attributable to the identified shock bar rather than to a pre-existing intraday trend. For each candidate day, compute the absolute return for each 30-minute bar over the trading session. The shock bar return is the absolute return of the bar to which the news article is assigned. The reference return is the median absolute 30-minute bar return for all non-shock bars on the same day. The candidate passes this screen if the shock bar return exceeds 1.5 times the reference return. Candidate days that fail this screen are excluded; the rationale is that a scenario in which no discernible price acceleration occurs at the shock timestamp presents an ambiguous visual narrative that weakens ecological validity and risks introducing noise into the NRS response. The 1.5x multiplier is calibrated to retain approximately 60 to 70 percent of Stage 1 candidates; if the resulting pool is insufficient it may be relaxed to 1.25x with the adjustment documented.
-
-Stage 2 -- News attribution. For each candidate event day surviving Stage 1 and Stage 1B, verify that the Benzinga news feed via the Interactive Brokers API contains at least one identifiable, firm-specific news item for that stock on the event day or the prior trading session's close. The news item must be attributable to a specific corporate or market event -- such as an earnings surprise, regulatory action, management change, legal proceeding, or product announcement -- rather than to generic market commentary, sector rotation analysis, or analyst opinion pieces without new information content. Candidate days that pass the statistical screens but lack an attributable news event are excluded.
-
-Each candidate news article carries a publication timestamp from the Benzinga feed. The shock is assigned to the 30-minute bar whose interval contains the article timestamp. For articles published outside regular trading hours (before 09:30 or after 16:00 ET), the shock is assigned to the first bar of the next trading session if the article appears after the prior close, or to the last bar of the prior session if it appears before the current open. When multiple articles for the same stock fall within the same 30-minute bar, they are treated as a single shock event; article count (AC_e) records the number of distinct articles within that bar.
-
-The output of this procedure is a set of candidate stock-day-news triples, each associated with a pre-computed SC_total value. The final scenario selection from this pool follows the balance constraints documented in section 4.2.3.
-
-## Technical Appendix 3 -- Shock Score Component Definitions
-
-The composite Shock Score SC_total_e is constructed from four event-level components, each standardized to mean zero and unit variance across all scenarios prior to PCA. This appendix defines each component operationally.
-
-**Article Count (AC_e).** AC_e records the number of distinct Benzinga news articles attributed to the shock bar for event e. An article is attributed to the shock bar if its publication timestamp, sourced from the Benzinga feed via the Interactive Brokers API, falls within the 30-minute interval of the shock bar as defined by the event screening algorithm in Technical Appendix 2. When multiple articles fall within the same bar, they are counted individually; AC_e thus reflects the volume of contemporaneous information flow associated with the event.
-
-**Sentiment Extremity (SE_e).** SE_e measures the maximum absolute sentiment score across all event-day articles for stock e. Sentiment scores are computed using FinBERT ([Huang, Roesler, & Reske, 2020](https://doi.org/10.1145/3583780.3615272)), a transformer-based model pre-trained on financial text, applied to the concatenated headline and article body of each Benzinga article. FinBERT assigns a three-class probability distribution (positive, neutral, negative); the signed sentiment score for each article is defined as P(positive) minus P(negative), with values ranging from -1 to +1. SE_e is then the maximum absolute value across all event-day articles: SE_e = max_j |sentiment_j|. This operationalization captures the peak emotional salience of the information event rather than its average directional tone, consistent with the shock intensity objective of the composite index.
-
-**Attention Intensity (AI_e).** AI_e measures the abnormal trading volume on the event day relative to the stock's recent history. Let V_e denote the total trading volume on the event date for stock e, and let V_bar_e denote the mean daily trading volume over the 20 trading days immediately preceding the event date. Then AI_e = V_e / V_bar_e. Values greater than one indicate above-average attention; values below one indicate below-average attention. Where the 20-day trailing volume is zero or unavailable, AI_e is set to one (neutral) and the scenario is flagged in the assembly log.
-
-**Event-Type Severity (ES_e).** ES_e captures the price-impact severity of the specific shock event, expressed as a unit-free ratio relative to the stock's own baseline intraday volatility. Let r_shock denote the absolute return of the shock bar, defined as |close_shock / close_prev - 1|, where close_prev is the closing price of the bar immediately preceding the shock bar on the same trading day. If no preceding bar exists within the same trading session, the prior trading session's closing price is used as the reference. Let m_e denote the median absolute bar-over-bar return computed across all 30-minute bars in the 20 trading days preceding the event date for the same stock. ES_e is then defined as:
-
-ES_e = r_shock / m_e
-
-This formulation produces a dimensionless ratio that is comparable across stocks with differing baseline volatility levels. A value of ES_e = 3, for example, indicates that the shock bar return was three times the stock's typical intraday movement. ES_e is capped at 10.0 to prevent extreme outliers from distorting the PCA structure; scenarios triggering this cap are recorded in the assembly log. Where insufficient intraday price data preclude computation of r_shock or m_e, ES_e falls back to a category-level weight derived from the event type classification (earnings = 1.0, regulatory = 1.1, management = 0.8, analyst = 0.6, other = 0.5); fallback scenarios are logged and their count is reported in the assembly report.
-
-The shock bar is identified as the 30-minute bar whose timestamp is closest to the event_time field recorded in the scenario manifest. When event_time is unavailable, the bar with the largest absolute return on the event date is used as the shock bar. This identification is consistent with the causal attribution logic described in Technical Appendix 2.
-
-
----
 
 # Chapter 3. Literature Review
 
