@@ -11,7 +11,7 @@ The research examines whether external financial information shocks cause system
 
 - **Design:** Within-subject quasi-experimental using survey scenarios
 - **Participants:** Equity portfolio managers with 5+ years of experience (target N = 100)
-- **Scenarios:** 8 per manager (4 control, 4 treatment), 4-version Latin square counterbalanced
+- **Scenarios:** 8 per manager (4 control, 4 treatment), 2-version (V1/V2) counterbalanced
 - **Primary DV:** Net Risk Stance (NRS) – 7-point scale (1 = strongly reduce to 7 = strongly increase exposure)
 - **Treatment indicator:** ShowSC (0 = control, 1 = Shock Score dashboard shown)
 - **Hypotheses:**
@@ -127,7 +127,7 @@ Yahoo / IB Historical → Market prices → market_data_processor_toolkit.py →
 ## Survey Deployment
 
 - **3 Google Forms** -- one per scenario block (Block 1, Block 2, Block 3), 8 scenarios each
-- **Counterbalancing**: 4 versions per form (Latin square); each scenario appears as treatment (ShowSC = 1) in 2 versions and control (ShowSC = 0) in 2 versions
+- **Counterbalancing**: 2 versions per form (V1 and V2); each scenario appears as treatment (ShowSC = 1) in one version and control (ShowSC = 0) in the other
 - **Randomization**: respondents assigned to blocks via timed distribution or random link routing
 - **Image hosting**: chart and dashboard PNGs hosted on Google Drive (public read); referenced by direct URL in Forms API
 - **Deployment script**: `4_deploy_google_forms.py` uses Google Forms API v1 + Google Drive API v3; update-or-create pattern preserves form IDs across re-runs
