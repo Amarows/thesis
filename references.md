@@ -86,3 +86,4 @@
 | Cameron, Gelbach & Miller, 2011 | https://doi.org/10.1198/jbes.2010.07136                                          | Robust Inference with Multiway Clustering                                                                        |                            |
 | Petersen, 2009               | https://doi.org/10.1093/rfs/hhn053                                                 | Estimating Standard Errors in Finance Panel Data Sets: Comparing Approaches                                      |                            |
 | Thaler & Sunstein, 2008      | https://www.worldcat.org/oclc/191578377                                             | Nudge: Improving decisions about health, wealth, and happiness                                                   |                            |
+| Swiss Business School, 2025 | [internal document] | Master's Thesis Handbook AY 2025-26, C.S.4. v1.8 | C_S_4__Masters_Thesis_Handbook_v_1_8_Ver_1.pdf |
