@@ -91,7 +91,7 @@ thesis/                         # Root directory
 │   ├── charts/                            # Trailing price chart PNGs (pre-event window)
 │   ├── dashboards/                        # Shock Score dashboard PNGs
 │   ├── metadata/                          # Per-scenario data tables (generated)
-│   └── counterbalancing/                  # 4-version Latin square assignment tables (generated)
+│   └── counterbalancing/                  # 2-version counterbalancing assignment tables (V1 and V2 per block, generated)
 ├── src_api_ibkr/               # Interactive Brokers API connector
 │   ├── ibkr_tws_api.py        # TWS API connection layer
 │   ├── ibkr_webapi.py         # Web API connection layer
