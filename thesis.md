@@ -988,21 +988,119 @@ Chapter 5 applies these regression specifications to the primary data collected 
 ---
 
 
+
 # Chapter 5. Analysis and Conclusions
 
 ## 5.1 Chapter Introduction
 
-## 5.2 Hypothesis Testing
-### 5.2.1 Testing of Hypothesis H1
-### 5.2.2 Testing of Hypothesis H2
+This chapter presents the empirical analysis and findings of the study. The chapter is organised as follows. Section 5.2 reports descriptive statistics for both the respondent sample and the collected data, including distributional assessments that inform the choice of inferential methods. Section 5.3 presents the scenario selection outcomes. Section 5.4 reports tests for normality and reliability. Section 5.5 conducts the hypothesis tests specified in Section 4.5. Section 5.6 interprets the results. Section 5.7 presents interim conclusions. Section 5.8 concludes the chapter and provides a transition to Chapter 6.
 
-## 5.3 Results Interpretation
-### 5.3.1 Impact of Information Shocks on Risk–Return
-### 5.3.2 Incremental Effect of the Shock Score
 
-## 5.4 Interim Conclusions
+## 5.2 Descriptive Statistics
 
-## 5.5 Chapter Conclusion
+### 5.2.1 Respondent Descriptive Statistics
+
+[This section will be completed upon survey execution. The planned reporting structure is described below.]
+
+Respondent demographics will be reported in tabular form. Table 5.1 presents the planned demographic summary:
+
+**Table 5.1: Respondent Demographics**
+
+| Characteristic | Categories / Metric | Reporting Format |
+|---|---|---|
+| Years of experience | Continuous | Mean, median, SD, range |
+| AUM managed | Ordinal categories (< $100M, $100M-$500M, $500M-$1B, $1B-$5B, > $5B) | Frequency and percentage per category |
+| Institution type | Asset manager, hedge fund, pension/insurance, family office, private bank, other | Frequency and percentage per category |
+| Investment mandate | Equity only, equity-dominant multi-asset, sector-specific, other | Frequency and percentage per category |
+| Geographic market focus | North America, Europe, Asia-Pacific, Global, other | Frequency and percentage per category |
+| Discretionary authority | Full discretion, partial/committee-based, advisory only | Frequency and percentage per category |
+| Professional certifications | CFA, CAIA, FRM, other, none | Frequency and percentage (multiple selection) |
+
+The demographic profile is examined for notable skews or gaps relative to the target population. If a disproportionate share of respondents falls into a single category on any dimension (e.g., more than 70% from one institution type), this concentration is noted as a sample characteristic that may affect generalisability.
+
+
+### 5.2.2 Descriptive Analysis of Data
+
+[This section will be completed upon survey execution. The planned analytical procedures are described below.]
+
+Descriptive analysis proceeds in three stages: summary statistics, distributional assessment, and graphical representation.
+
+**Summary statistics.** The following summary statistics are computed and reported:
+
+For Net Risk Stance responses: mean, median, standard deviation, minimum, and maximum, reported separately for the overall sample, the control condition (ShowSC = 0), and the treatment condition (ShowSC = 1). A comparison of central tendency and dispersion between conditions provides a preliminary indication of treatment effects before formal hypothesis testing in Section 5.5.
+
+For SC_total across the twenty-four scenarios: mean, median, standard deviation, minimum, and maximum. The distribution of shock intensity across scenarios confirms that the scenario selection (Section 4.3.4) provides adequate variation in the independent variable for the H1 regression. PCA loadings and explained variance for the first principal component are reported here. The four input components -- Article Count (AC_e), Sentiment Extremity (SE_e), Attention Intensity (AI_e), and Event-Type Severity (ES_e) -- are also summarised individually.
+
+For the manipulation check item: frequency distribution of responses (Yes, No, Unsure). A high proportion of "No" or "Unsure" responses would indicate that the treatment manipulation was insufficiently salient and would qualify interpretation of H2 results.
+
+For the usefulness rating: mean, median, and distribution across the five-point scale. This item is reported for descriptive purposes and is used in Chapter 6 practitioner recommendations.
+
+**Graphical representations.** The following figures are planned:
+
+Figure 5.X: Histogram of NRS responses by condition (side-by-side or overlaid).
+Figure 5.X: Box plots comparing NRS distributions between control and treatment conditions.
+Figure 5.X: Scatter plot of SC_total versus NRS (pooled across conditions), providing a visual preview of the H1 relationship.
+Figure 5.X: Bar chart of respondent demographics (experience distribution, institution type breakdown).
+
+All figures follow APA formatting conventions and are numbered consecutively within Chapter 5.
+
+
+## 5.3 Scenario Selection Outcomes
+
+[This section will be completed upon execution of the scenario selection procedure.]
+
+Table 5.2 documents the final scenario selection, reporting the stock, event date, event type, shock direction, SC_total, article count, and market regime for each of the twenty-four scenarios across three blocks.
+
+**Table 5.2: Scenario Selection Summary**
+
+| Scenario | Block | Stock | Ticker | GICS Sector | Event Date | Shock Time (ET) | Event Type | Direction | SC_total | AC_e | Displayed Headline | Rel. Abnormal Return | Shock Bar / Median Bar Ratio | Market Regime |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | 1 | | | | | | | | | | | | | |
+| ... | | | | | | | | | | | | | | |
+| 24 | 3 | | | | | | | | | | | | | |
+
+Shock Time (ET) records the 30-minute bar to which the shock is assigned (e.g., "10:00" denotes the 10:00 to 10:30 bar). Shock Bar / Median Bar Ratio records the ratio of the absolute shock bar return to the median absolute 30-minute bar return on the same day; values above 1.5 (or 2.0 for the opening bar) satisfy the within-day causal plausibility screen (Section 4.3.4). The balance constraints governing the selection are documented in Table 4.X of Section 4.3.4.
+
+
+## 5.4 Tests for Normality and Reliability
+
+Normality of the NRS response distribution is assessed using skewness and kurtosis statistics and the Shapiro-Wilk test, as prescribed by the SBS thesis handbook. Normality assessment is conducted for the overall NRS distribution and separately by condition. If the Shapiro-Wilk test indicates significant departure from normality (p < 0.05), the implications for hypothesis testing are noted. Specifically, if the data are non-normal, this section evaluates whether parametric tests remain appropriate given the sample size and the central limit theorem, or whether non-parametric alternatives should be employed. This assessment informs the test selection in Section 5.5.
+
+[Reliability testing: Cronbach's alpha for the NRS scale will be assessed if the pilot test sample size permits (minimum N = 30 per the SBS handbook). Results to be reported upon survey execution.]
+
+
+## 5.5 Hypothesis Testing
+
+### 5.5.1 Testing of Hypothesis H1
+
+[To be completed upon survey execution. The regression specification is documented in Section 4.5.1.]
+
+### 5.5.2 Testing of Hypothesis H2
+
+[To be completed upon survey execution. The regression specification is documented in Section 4.5.1.]
+
+
+## 5.6 Results Interpretation
+
+### 5.6.1 Impact of Information Shocks on Risk-Return
+
+[To be completed upon analysis.]
+
+### 5.6.2 Incremental Effect of the Shock Score
+
+[To be completed upon analysis.]
+
+
+## 5.7 Interim Conclusions
+
+[To be completed upon analysis.]
+
+
+## 5.8 Chapter Conclusion
+
+[To be completed upon analysis.]
+
+
 
 # Chapter 6. Conclusions and Recommendations
 
