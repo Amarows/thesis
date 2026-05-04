@@ -2,11 +2,11 @@
   "generated": "2026-05-04T09:00:18Z",
   "n_blocks": 3,
   "n_scenarios_total": 24,
-  "drive_folder_id": "",
+  "drive_folder_id": "1MROEZX_to4WQWP_HcyDYGCBBYeN2KMw9",
   "forms": {
     "block_1_v1": {
-      "form_id": "",
-      "responder_url": "",
+      "form_id": "14NTeClu7EADGDIl5gehfQLP20ApDi4KbQmfYVEiqooQ",
+      "responder_url": "https://docs.google.com/forms/d/14NTeClu7EADGDIl5gehfQLP20ApDi4KbQmfYVEiqooQ/viewform",
       "n_scenarios": 8,
       "scenario_ids": [
         "B1_S01",
@@ -20,8 +20,8 @@
       ]
     },
     "block_1_v2": {
-      "form_id": "",
-      "responder_url": "",
+      "form_id": "1e_2mnrr-MwQmghwyX_HHxUsBqNt13bwPxWQAwAzHCfE",
+      "responder_url": "https://docs.google.com/forms/d/1e_2mnrr-MwQmghwyX_HHxUsBqNt13bwPxWQAwAzHCfE/viewform",
       "n_scenarios": 8,
       "scenario_ids": [
         "B1_S01",
@@ -35,8 +35,8 @@
       ]
     },
     "block_2_v1": {
-      "form_id": "",
-      "responder_url": "",
+      "form_id": "1EqR2gOekUqYNWnIUCsbjuKGLeDcJjwL8s7-yNNwMn7Y",
+      "responder_url": "https://docs.google.com/forms/d/1EqR2gOekUqYNWnIUCsbjuKGLeDcJjwL8s7-yNNwMn7Y/viewform",
       "n_scenarios": 8,
       "scenario_ids": [
         "B2_S01",
@@ -50,8 +50,8 @@
       ]
     },
     "block_2_v2": {
-      "form_id": "",
-      "responder_url": "",
+      "form_id": "1e6EZ9RjwZt_KHr92P_bMdO_AWEO31DhvC8KgdfdlKzo",
+      "responder_url": "https://docs.google.com/forms/d/1e6EZ9RjwZt_KHr92P_bMdO_AWEO31DhvC8KgdfdlKzo/viewform",
       "n_scenarios": 8,
       "scenario_ids": [
         "B2_S01",
@@ -65,8 +65,8 @@
       ]
     },
     "block_3_v1": {
-      "form_id": "",
-      "responder_url": "",
+      "form_id": "1C8aF-xB-rP5SI04p3ah2KLQsmTECp276JF999VZMjdM",
+      "responder_url": "https://docs.google.com/forms/d/1C8aF-xB-rP5SI04p3ah2KLQsmTECp276JF999VZMjdM/viewform",
       "n_scenarios": 8,
       "scenario_ids": [
         "B3_S01",
@@ -80,8 +80,8 @@
       ]
     },
     "block_3_v2": {
-      "form_id": "",
-      "responder_url": "",
+      "form_id": "1LLnJPs5zJJO7sUXOdEA-Y4pg8InAYo3jRZYi0lEErbs",
+      "responder_url": "https://docs.google.com/forms/d/1LLnJPs5zJJO7sUXOdEA-Y4pg8InAYo3jRZYi0lEErbs/viewform",
       "n_scenarios": 8,
       "scenario_ids": [
         "B3_S01",
