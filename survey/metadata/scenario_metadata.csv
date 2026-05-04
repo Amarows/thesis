@@ -1,0 +1,25 @@
+scenario_id,block_id,ticker,company_name,gics_sector,event_date,event_time,num_articles,event_type
+B1_S01,1,APD,Air Products and Chemicals,Materials,2025-04-09,13:30,1,analyst
+B1_S02,1,COP,ConocoPhillips,Energy,2025-09-08,09:30,1,analyst
+B1_S03,1,LIN,Linde,Materials,2026-02-04,10:00,1,earnings
+B1_S04,1,UNH,UnitedHealth Group,Health Care,2025-12-02,10:00,1,management
+B1_S05,1,HD,Home Depot,Consumer Discretionary,2025-08-19,11:00,1,earnings
+B1_S06,1,GE,GE Aerospace,Industrials,2025-07-08,10:00,1,management
+B1_S07,1,T,AT&T,Communication Services,2026-01-30,09:30,1,earnings
+B1_S08,1,QCOM,Qualcomm Inc.,Information Technology,2025-10-13,09:30,1,management
+B2_S01,2,MRK,Merck & Co.,Health Care,2025-10-30,13:30,1,earnings
+B2_S02,2,JPM,JPMorgan Chase,Financials,2026-01-23,09:30,1,analyst
+B2_S03,2,CVX,Chevron Corporation,Energy,2026-01-06,10:30,1,analyst
+B2_S04,2,BAC,Bank of America,Financials,2025-10-14,10:00,1,earnings
+B2_S05,2,JNJ,Johnson & Johnson,Health Care,2025-12-15,09:30,1,earnings
+B2_S06,2,KO,Coca-Cola Company,Consumer Staples,2025-05-05,09:30,1,management
+B2_S07,2,CAT,Caterpillar Inc.,Industrials,2025-10-29,09:30,1,earnings
+B2_S08,2,WMT,Walmart,Consumer Staples,2026-01-16,15:30,1,analyst
+B3_S01,3,ORCL,Oracle Corporation,Information Technology,2026-02-11,10:00,1,analyst
+B3_S02,3,PG,Procter & Gamble,Consumer Staples,2025-03-04,15:30,1,analyst
+B3_S03,3,AMT,American Tower Corp.,Real Estate,2025-04-04,11:00,1,earnings
+B3_S04,3,NFLX,Netflix,Communication Services,2026-02-04,10:00,1,management
+B3_S05,3,PLD,Prologis,Real Estate,2025-03-13,09:30,1,management
+B3_S06,3,PFE,Pfizer Inc.,Health Care,2025-10-01,11:00,1,earnings
+B3_S07,3,MCD,McDonald's,Consumer Discretionary,2025-11-05,09:30,1,earnings
+B3_S08,3,AMAT,Applied Materials,Information Technology,2025-08-15,09:30,1,analyst

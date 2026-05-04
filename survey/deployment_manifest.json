@@ -1,0 +1,98 @@
+{
+  "generated": "2026-05-04T09:00:18Z",
+  "n_blocks": 3,
+  "n_scenarios_total": 24,
+  "drive_folder_id": "",
+  "forms": {
+    "block_1_v1": {
+      "form_id": "",
+      "responder_url": "",
+      "n_scenarios": 8,
+      "scenario_ids": [
+        "B1_S01",
+        "B1_S02",
+        "B1_S03",
+        "B1_S04",
+        "B1_S05",
+        "B1_S06",
+        "B1_S07",
+        "B1_S08"
+      ]
+    },
+    "block_1_v2": {
+      "form_id": "",
+      "responder_url": "",
+      "n_scenarios": 8,
+      "scenario_ids": [
+        "B1_S01",
+        "B1_S02",
+        "B1_S03",
+        "B1_S04",
+        "B1_S05",
+        "B1_S06",
+        "B1_S07",
+        "B1_S08"
+      ]
+    },
+    "block_2_v1": {
+      "form_id": "",
+      "responder_url": "",
+      "n_scenarios": 8,
+      "scenario_ids": [
+        "B2_S01",
+        "B2_S02",
+        "B2_S03",
+        "B2_S04",
+        "B2_S05",
+        "B2_S06",
+        "B2_S07",
+        "B2_S08"
+      ]
+    },
+    "block_2_v2": {
+      "form_id": "",
+      "responder_url": "",
+      "n_scenarios": 8,
+      "scenario_ids": [
+        "B2_S01",
+        "B2_S02",
+        "B2_S03",
+        "B2_S04",
+        "B2_S05",
+        "B2_S06",
+        "B2_S07",
+        "B2_S08"
+      ]
+    },
+    "block_3_v1": {
+      "form_id": "",
+      "responder_url": "",
+      "n_scenarios": 8,
+      "scenario_ids": [
+        "B3_S01",
+        "B3_S02",
+        "B3_S03",
+        "B3_S04",
+        "B3_S05",
+        "B3_S06",
+        "B3_S07",
+        "B3_S08"
+      ]
+    },
+    "block_3_v2": {
+      "form_id": "",
+      "responder_url": "",
+      "n_scenarios": 8,
+      "scenario_ids": [
+        "B3_S01",
+        "B3_S02",
+        "B3_S03",
+        "B3_S04",
+        "B3_S05",
+        "B3_S06",
+        "B3_S07",
+        "B3_S08"
+      ]
+    }
+  }
+}

@@ -1,0 +1,25 @@
+scenario_id,ticker,event_date,ac_raw,se_raw,ai_raw,es_raw,ac_z,se_z,ai_z,es_z,sc_total,sentiment_direction,severity_level,persistence_score,horizon_bucket,protocol_recommendation
+B1_S01,APD,2025-04-09,1,0.1074,2.7544,0.6,-0.7976,-1.6435,0.4493,-1.2568,-1.1348,Mildly Negative,Low,0.1724,Intraday,Standard Process
+B1_S02,COP,2025-09-08,4,0.8821,1.8352,0.6,-0.2659,0.5726,-0.2025,-1.2568,-0.1254,Positive,Medium,-3.4569,Several Weeks,Enhanced Review
+B1_S03,LIN,2026-02-04,1,0.5231,1.5731,1.0,-0.7976,-0.4542,-0.3884,1.0634,-0.8805,Positive,Low,1.2834,Several Weeks,Standard Process
+B1_S04,UNH,2025-12-02,2,0.464,0.6233,0.8,-0.6203,-0.6234,-1.0619,-0.0967,-1.327,Positive,Low,-0.1018,Intraday,Standard Process
+B1_S05,HD,2025-08-19,18,0.9516,2.9726,1.0,2.2155,0.7715,0.604,1.0634,2.2601,Neutral,High,0.6763,Several Days,Cooling-Off and Second Review
+B1_S06,GE,2025-07-08,2,0.9313,0.7645,0.8,-0.6203,0.7133,-0.9618,-0.0967,-0.6429,Strongly Positive,Medium,9.8059,Several Weeks,Standard Process
+B1_S07,T,2026-01-30,1,0.9249,1.7673,1.0,-0.7976,0.6952,-0.2507,1.0634,-0.2623,Strongly Positive,Medium,-22.3811,Several Weeks,Standard Process
+B1_S08,QCOM,2025-10-13,1,0.0094,1.467,0.8,-0.7976,-1.9236,-0.4637,-0.0967,-1.7047,Neutral,Low,20.2639,Several Weeks,Standard Process
+B2_S01,MRK,2025-10-30,10,0.9461,1.8022,1.0,0.7976,0.7558,-0.2259,1.0634,0.8337,Neutral,High,-1.6803,Several Weeks,Enhanced Review
+B2_S02,JPM,2026-01-23,3,0.9222,1.3352,0.6,-0.4431,0.6875,-0.5571,-1.2568,-0.3949,Mildly Negative,Medium,3.8986,Several Weeks,Standard Process
+B2_S03,CVX,2026-01-06,11,0.9115,2.5983,0.6,0.9748,0.6569,0.3386,-1.2568,1.048,Mildly Positive,High,-8.3561,Several Weeks,Enhanced Review
+B2_S04,BAC,2025-10-14,4,0.9172,1.6028,1.0,-0.2659,0.6732,-0.3674,1.0634,0.0106,Mildly Positive,Medium,0.3731,Several Days,Enhanced Review
+B2_S05,JNJ,2025-12-15,5,0.3824,0.9375,1.0,-0.0886,-0.8567,-0.8391,1.0634,-0.8631,Mildly Positive,Low,1.991,Several Weeks,Standard Process
+B2_S06,KO,2025-05-05,3,0.0807,0.5898,0.8,-0.4431,-1.7198,-1.0857,-0.0967,-1.7372,Neutral,Low,-9.123,Several Weeks,Standard Process
+B2_S07,CAT,2025-10-29,9,0.966,2.6155,1.0,0.6203,0.8127,0.3508,1.0634,1.0789,Mildly Positive,High,-2.4887,Several Weeks,Enhanced Review
+B2_S08,WMT,2026-01-16,2,0.062,3.3096,0.6,-0.6203,-1.7733,0.843,-1.2568,-0.8495,Neutral,Low,-2.0623,Several Weeks,Standard Process
+B3_S01,ORCL,2026-02-11,3,0.9409,0.8557,0.6,-0.4431,0.7409,-0.8971,-1.2568,-0.5678,Mildly Negative,Medium,0.6727,Several Days,Standard Process
+B3_S02,PG,2025-03-04,2,0.9619,1.9403,0.6,-0.6203,0.8009,-0.128,-1.2568,-0.2092,Negative,Medium,-11.082,Several Weeks,Standard Process
+B3_S03,AMT,2025-04-04,1,0.6402,3.7746,1.0,-0.7976,-0.1192,1.1727,1.0634,0.1847,Strongly Positive,High,3.0413,Several Weeks,Enhanced Review
+B3_S04,NFLX,2026-02-04,3,0.1343,0.9753,0.8,-0.4431,-1.5665,-0.8123,-0.0967,-1.5064,Mildly Positive,Low,-0.7891,Several Weeks,Standard Process
+B3_S05,PLD,2025-03-13,1,0.8654,1.5285,0.8,-0.7976,0.5249,-0.42,-0.0967,-0.5329,Strongly Negative,Medium,1.3807,Several Weeks,Standard Process
+B3_S06,PFE,2025-10-01,11,0.9289,2.9765,1.0,0.9748,0.7064,0.6068,1.0634,1.4121,Positive,High,10.9823,Several Weeks,Cooling-Off and Second Review
+B3_S07,MCD,2025-11-05,12,0.9528,2.9316,1.0,1.1521,0.775,0.5749,1.0634,1.5427,Neutral,High,0.2899,Intraday,Cooling-Off and Second Review
+B3_S08,AMAT,2025-08-15,22,0.9593,7.3692,0.6,2.9244,0.7935,3.7218,-1.2568,4.3677,Neutral,High,0.1684,Intraday,Cooling-Off and Second Review
