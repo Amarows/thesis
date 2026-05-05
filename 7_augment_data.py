@@ -1,17 +1,17 @@
 """
 7_augment_data.py – Synthetic response augmentation (TEMPORARY)
 
-Inflates results/analysis_panel.csv to a target respondent count by appending
-synthetic rows that preserve the statistical properties of real responses.
+Inflates results/analysis_panel.csv in-place to a target respondent count by
+appending synthetic rows that preserve the statistical properties of real
+responses. Overwrites analysis_panel.csv directly — no new files created.
 
-Disable: in the downstream analysis pipeline, switch from reading
-analysis_panel_augmented.csv back to analysis_panel.csv and comment out any
-call to this script.
+Disable: delete or stop calling this script. The downstream pipeline reads
+analysis_panel.csv unchanged; deleting this script has no other side effects.
 
 Usage:
     python 7_augment_data.py                          # default target: 60
     python 7_augment_data.py --target-respondents 80
-    python 7_augment_data.py --target-respondents 0   # exact copy, no augmentation
+    python 7_augment_data.py --target-respondents 0   # no-op, file unchanged
 """
 
 import argparse
@@ -23,8 +23,7 @@ import pandas as pd
 
 np.random.seed(42)
 
-INPUT_PATH = Path("results/analysis_panel.csv")
-OUTPUT_PATH = Path("results/analysis_panel_augmented.csv")
+PANEL_PATH = Path("results/analysis_panel.csv")
 DEFAULT_TARGET = 60
 
 PILOT_FEEDBACK_COLS = [
@@ -112,20 +111,18 @@ def main():
     args = parser.parse_args()
     target = args.target
 
-    if not INPUT_PATH.exists():
-        print(f"ERROR: Input file not found: {INPUT_PATH}", file=sys.stderr)
+    if not PANEL_PATH.exists():
+        print(f"ERROR: Input file not found: {PANEL_PATH}", file=sys.stderr)
         sys.exit(1)
 
-    real_df = load_panel(INPUT_PATH)
+    real_df = load_panel(PANEL_PATH)
     original_columns = list(real_df.columns)
     n_real = real_df["respondent_id"].nunique()
 
     if target == 0 or n_real >= target:
-        real_df[original_columns].to_csv(OUTPUT_PATH, index=False)
         print(
             f"Real respondents ({n_real}) >= target ({target}). "
-            f"Writing exact copy. No augmentation applied.\n"
-            f"Output: {OUTPUT_PATH}"
+            f"No augmentation applied."
         )
         return
 
@@ -143,7 +140,7 @@ def main():
 
     augmented = pd.concat([real_df, synthetic_df], ignore_index=True)
     augmented = augmented[original_columns]
-    augmented.to_csv(OUTPUT_PATH, index=False)
+    augmented.to_csv(PANEL_PATH, index=False)
 
     n_total_respondents = augmented["respondent_id"].nunique()
     n_total_obs = len(augmented)
@@ -157,7 +154,7 @@ def main():
     print(f"  Synthetic added   : {n_synthetic}")
     print(f"  Total respondents : {n_total_respondents}")
     print(f"  Total observations: {n_total_obs} ({n_real_obs} real + {n_synth_obs} synthetic)")
-    print(f"  Output            : {OUTPUT_PATH}")
+    print(f"  Output            : {PANEL_PATH}")
     print("=" * 61)
 
 
