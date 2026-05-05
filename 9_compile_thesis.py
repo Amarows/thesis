@@ -15,13 +15,12 @@ import re
 import shutil
 import subprocess
 import sys
-from pathlib import Path
 
-THESIS_PATH     = Path("thesis.md")
-RESULTS_MD_PATH = Path("results/thesis_results.md")
-OUTPUT_PATH     = Path("thesis_final.md")
-REFERENCE_DOCX  = Path("documents/thesis.docx")
-DOCX_OUTPUT     = Path("documents/thesis_final.docx")
+from config import (
+    THESIS_PATH, THESIS_RESULTS_PATH as RESULTS_MD_PATH,
+    THESIS_FINAL_PATH, REFERENCE_DOCX, DOCX_OUTPUT,
+    append_run_log, _sha256_file,
+)
 
 _RESULTS_PATTERN  = re.compile(
     r"<!-- RESULTS:BEGIN:(\w+) -->\n(.*?)\n<!-- RESULTS:END:\1 -->",
@@ -98,7 +97,7 @@ def main() -> None:
     merged, n_replaced, not_found = merge(thesis_text, results_blocks)
 
     # Write output
-    OUTPUT_PATH.write_text(merged, encoding="utf-8")
+    THESIS_FINAL_PATH.write_text(merged, encoding="utf-8")
 
     print(f"\nReplaced: {n_replaced} placeholder(s)")
     if not_found:
@@ -108,34 +107,47 @@ def main() -> None:
     # Verify no residual [To be populated...] strings
     residual = re.findall(r"\[To be populated by 8_statistical_analysis\.py\]", merged)
     if residual:
-        print(f"\nWARNING: {len(residual)} unreplaced '[To be populated...]' string(s) remain in {OUTPUT_PATH}")
+        print(f"\nWARNING: {len(residual)} unreplaced '[To be populated...]' string(s) remain in {THESIS_FINAL_PATH}")
     else:
-        print(f"\nVerification: no '[To be populated...]' strings remain in {OUTPUT_PATH}.")
+        print(f"\nVerification: no '[To be populated...]' strings remain in {THESIS_FINAL_PATH}.")
 
-    print(f"Output written to {OUTPUT_PATH}")
+    print(f"Output written to {THESIS_FINAL_PATH}")
 
     # Pandoc conversion
+    pandoc_used = False
     if args.no_pandoc:
         print("Pandoc conversion skipped (--no-pandoc).")
-        return
-
-    pandoc = shutil.which("pandoc")
-    if pandoc is None:
-        print("Note: pandoc not found on PATH – DOCX conversion skipped.")
-        return
-
-    cmd = [pandoc, str(OUTPUT_PATH), "-o", str(DOCX_OUTPUT)]
-    if REFERENCE_DOCX.exists():
-        cmd += [f"--reference-doc={REFERENCE_DOCX}"]
     else:
-        print(f"Note: reference DOCX not found at {REFERENCE_DOCX} – using pandoc defaults.")
+        pandoc = shutil.which("pandoc")
+        if pandoc is None:
+            print("Note: pandoc not found on PATH – DOCX conversion skipped.")
+        else:
+            cmd = [pandoc, str(THESIS_FINAL_PATH), "-o", str(DOCX_OUTPUT)]
+            if REFERENCE_DOCX.exists():
+                cmd += [f"--reference-doc={REFERENCE_DOCX}"]
+            else:
+                print(f"Note: reference DOCX not found at {REFERENCE_DOCX} – using pandoc defaults.")
+            print(f"\nRunning: {' '.join(cmd)}")
+            result = subprocess.run(cmd, capture_output=True, text=True)
+            if result.returncode == 0:
+                print(f"DOCX written to {DOCX_OUTPUT}")
+                pandoc_used = True
+            else:
+                print(f"pandoc error:\n{result.stderr}", file=sys.stderr)
 
-    print(f"\nRunning: {' '.join(cmd)}")
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    if result.returncode == 0:
-        print(f"DOCX written to {DOCX_OUTPUT}")
-    else:
-        print(f"pandoc error:\n{result.stderr}", file=sys.stderr)
+    append_run_log(
+        script="9_compile_thesis.py",
+        parameters={"pandoc_used": pandoc_used},
+        inputs=[
+            {"file": str(THESIS_PATH),       "sha256": _sha256_file(THESIS_PATH)},
+            {"file": str(RESULTS_MD_PATH),   "sha256": _sha256_file(RESULTS_MD_PATH)},
+        ],
+        outputs=[
+            {"file": str(THESIS_FINAL_PATH), "rows": None,
+             "sha256": _sha256_file(THESIS_FINAL_PATH)},
+        ],
+        notes=f"{n_replaced} placeholders replaced. {len(not_found)} not found.",
+    )
 
 
 if __name__ == "__main__":

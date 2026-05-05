@@ -21,10 +21,12 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-np.random.seed(42)
+from config import (
+    PANEL_PATH, DEFAULT_TARGET_RESPONDENTS, AUGMENT_NOISE_FLOOR_SD,
+    SEED, append_run_log, _sha256_file,
+)
 
-PANEL_PATH = Path("results/analysis_panel.csv")
-DEFAULT_TARGET = 60
+np.random.seed(SEED)
 
 PILOT_FEEDBACK_COLS = [
     "completion_time",
@@ -167,7 +169,7 @@ def generate_synthetic_rows(
         # Generate NRS values with wide variability
         baseline_nrs = int(np.random.choice(NRS_BASELINE_VALUES,
                                              p=NRS_BASELINE_WEIGHTS))
-        sd = np.random.uniform(0.8, 2.0)
+        sd = np.random.uniform(AUGMENT_NOISE_FLOOR_SD, 2.0)
         nrs_raw    = baseline_nrs + np.random.normal(0, sd, size=len(template_rows))
         nrs_values = np.clip(np.round(nrs_raw), 1, 7).astype(int)
 
@@ -209,7 +211,7 @@ def main():
     parser.add_argument(
         "--target-respondents",
         type=int,
-        default=DEFAULT_TARGET,
+        default=DEFAULT_TARGET_RESPONDENTS,
         dest="target",
         help="Target number of unique respondents (default: 60)",
     )
@@ -228,6 +230,22 @@ def main():
         print(
             f"Real respondents ({n_real}) >= target ({target}). "
             f"No augmentation applied."
+        )
+        append_run_log(
+            script="7_augment_data.py",
+            parameters={
+                "target_respondents": target,
+                "seed": SEED,
+                "noise_floor_sd": AUGMENT_NOISE_FLOOR_SD,
+            },
+            inputs=[
+                {"file": str(PANEL_PATH), "sha256": _sha256_file(PANEL_PATH)},
+            ],
+            outputs=[
+                {"file": str(PANEL_PATH), "rows": len(real_df),
+                 "sha256": _sha256_file(PANEL_PATH)},
+            ],
+            notes=f"{n_real} real respondents. No augmentation needed (target={target}).",
         )
         return
 
@@ -271,6 +289,26 @@ def main():
     print(f"  institution_type (top 4): { {k: v for k, v in list(inst_dist.items())[:4]} }")
     print(f"  manipulation_check: {mc_dist}")
     print("=" * 61)
+
+    append_run_log(
+        script="7_augment_data.py",
+        parameters={
+            "target_respondents": target,
+            "seed": SEED,
+            "noise_floor_sd": AUGMENT_NOISE_FLOOR_SD,
+        },
+        inputs=[
+            {"file": str(PANEL_PATH), "sha256": _sha256_file(PANEL_PATH)},
+        ],
+        outputs=[
+            {"file": str(PANEL_PATH), "rows": len(augmented),
+             "sha256": _sha256_file(PANEL_PATH)},
+        ],
+        notes=(
+            f"{n_real} real + {n_synthetic} synthetic = "
+            f"{n_real + n_synthetic} total respondents."
+        ),
+    )
 
 
 if __name__ == "__main__":
