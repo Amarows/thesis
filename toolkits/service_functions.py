@@ -335,8 +335,14 @@ def generate_bibliography_xml(references_md_path: Path, output_xml_path: Path) -
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    # Resolve project root relative to this file (toolkits/ → root)
-    _root = Path(__name__).resolve().parent.parent
+    # Resolve project root
+    # Using __file__ if available (standard execution), otherwise fallback to cwd
+    try:
+        _root = Path(__file__).resolve().parents[1]
+    except NameError:
+        _root = Path.cwd()
+        if _root.name == "toolkits":
+            _root = _root.parent
 
     _thesis = _root / "thesis.md"
     _references = _root / "references.md"
@@ -348,10 +354,11 @@ if __name__ == "__main__":
         print(f"thesis.md word count: {count_words(_thesis)}")
 
     # Reference analysis
-    analyze_references(_references)
+    if _references.exists():
+        analyze_references(_references)
 
     # Uncomment to convert thesis Markdown → Word document:
-    # convert_md_to_docx(_thesis, _docx)
+     convert_md_to_docx(_thesis, _docx)
 
     # Generate bibliography XML for Word
     generate_bibliography_xml(_references, _xml)
