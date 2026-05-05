@@ -2,7 +2,7 @@
 
 ## 1. Run Metadata
 
-- **Generated:** 2026-05-04 13:51 UTC
+- **Generated:** 2026-05-05 15:07 UTC
 - **Spreadsheet ID:** `1ICjcSZdwuW-xKepA5VMDjO-gfBfAe544wuO-wsmG3fM`
 - **Tabs processed:** Block1_V1, Block1_V2, Block2_V1, Block2_V2, Block3_V1, Block3_V2
 
@@ -14,9 +14,9 @@
 | Block1_V2 | 3 |
 | Block2_V1 | 1 |
 | Block2_V2 | 1 |
-| Block3_V1 | 1 |
-| Block3_V2 | 1 |
-| **Total** | **9** |
+| Block3_V1 | 2 |
+| Block3_V2 | 2 |
+| **Total** | **11** |
 
 ## 3. Exclusion Log
 
@@ -26,11 +26,11 @@ No respondents excluded.
 
 ## 4. Final Panel Summary
 
-- **N respondents:** 9
-- **N observations:** 72
-- **NRS distribution:** mean=4.0556, sd=1.5001, min=1, max=7
-- **ShowSC = 0:** 36 observations
-- **ShowSC = 1:** 36 observations
+- **N respondents:** 11
+- **N observations:** 88
+- **NRS distribution:** mean=4.1591, sd=1.5077, min=1, max=7
+- **ShowSC = 0:** 44 observations
+- **ShowSC = 1:** 44 observations
 - **Scenarios covered:** 24 / 24
 
 ## 5. Pilot Block Summary

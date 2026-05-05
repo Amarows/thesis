@@ -1,0 +1,25 @@
+scenario_id,ticker,horizon_bucket,horizon_days,price_at_event,price_at_horizon,horizon_return_pct,data_source,data_sufficient
+B1_S01,APD,Intraday,1,267.15,261.93,-1.954,ibkr,True
+B1_S02,COP,Several Weeks,20,91.51,94.9,3.7045,ibkr,True
+B1_S03,LIN,Several Weeks,20,473.88,490.07,3.4165,ibkr,True
+B1_S04,UNH,Intraday,1,324.92,339.76,4.5673,ibkr,True
+B1_S05,HD,Several Days,5,407.85,407.61,-0.0588,ibkr,True
+B1_S06,GE,Several Weeks,20,245.34,272.1,10.9073,ibkr,True
+B1_S07,T,Several Weeks,20,25.54,27.99,9.5928,ibkr,True
+B1_S08,QCOM,Several Weeks,20,158.24,171.54,8.405,ibkr,True
+B2_S01,MRK,Several Weeks,20,85.69,104.83,22.3363,ibkr,True
+B2_S02,JPM,Several Weeks,20,299.92,297.72,-0.7335,ibkr,True
+B2_S03,CVX,Several Weeks,20,159.22,181.24,13.8299,ibkr,True
+B2_S04,BAC,Several Days,5,49.41,51.5,4.2299,ibkr,True
+B2_S05,JNJ,Several Weeks,20,213.97,218.61,2.1685,ibkr,True
+B2_S06,KO,Several Weeks,20,71.04,71.2,0.2252,ibkr,True
+B2_S07,CAT,Several Weeks,20,590.59,573.59,-2.8785,ibkr,True
+B2_S08,WMT,Several Weeks,20,120.0,128.85,7.375,ibkr,True
+B3_S01,ORCL,Several Days,5,154.45,156.55,1.3597,ibkr,True
+B3_S02,PG,Several Weeks,20,173.22,170.52,-1.5587,ibkr,True
+B3_S03,AMT,Several Weeks,20,225.93,224.02,-0.8454,ibkr,True
+B3_S04,NFLX,Several Weeks,20,81.37,99.14,21.8385,ibkr,True
+B3_S05,PLD,Several Weeks,20,114.71,94.91,-17.2609,ibkr,True
+B3_S06,PFE,Several Weeks,20,26.98,24.3,-9.9333,ibkr,True
+B3_S07,MCD,Intraday,1,308.85,298.52,-3.3447,ibkr,True
+B3_S08,AMAT,Intraday,1,166.09,163.52,-1.5474,ibkr,True

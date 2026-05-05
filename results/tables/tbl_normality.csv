@@ -1,0 +1,4 @@
+group,n,skewness,excess_kurtosis,shapiro_w,shapiro_p,normal_rejected
+overall,480,-0.2135,-0.9747,0.9321,0.0,True
+ShowSC=0,240,-0.1869,-0.996,0.9333,0.0,True
+ShowSC=1,240,-0.2356,-0.9644,0.9293,0.0,True

@@ -1,0 +1,8 @@
+spec,note,beta1,se,t,p,ci_lo,ci_hi,r2,n_obs,clustering
+spec_1_quintiles,SC_total quintile dummies,see quintile coefficients,,,,,,0.0816,480,HC3
+spec_2_within,Respondent FE (within),0.0522,0.0461,1.1319,0.2577,-0.0382,0.1427,0.0038,480,HC3
+spec_3_component_ac_e,Component: ac_e,0.0222,0.0238,0.933,0.3508,-0.0245,0.0689,0.0126,480,HC3
+spec_3_component_se_e,Component: se_e,0.1106,0.2704,0.4088,0.6827,-0.4194,0.6406,0.0126,480,HC3
+spec_3_component_ai_e,Component: ai_e,-0.0758,0.0883,-0.8584,0.3907,-0.2489,0.0973,0.0126,480,HC3
+spec_3_component_es_raw,Component: es_raw,0.586,0.5174,1.1325,0.2574,-0.4281,1.6,0.0126,480,HC3
+spec_4_interaction,SC_total × ShowSC interaction,-0.0917,0.1189,-0.7716,0.4404,-0.3247,0.1413,0.0819,480,HC3

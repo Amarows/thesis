@@ -41,3 +41,7 @@ subprocess.check_call([sys.executable, "6_process_survey_data.py"])
 print("\n>>> STARTING STAGE 7: Augument Surveydata")
 # Run 7_augment_data.py
 subprocess.check_call([sys.executable, "7_augment_data.py"])
+
+print("\n>>> STARTING STAGE 8: Statistics")
+# Run 8_statistical_analysis.py
+subprocess.check_call([sys.executable, "8_statistical_analysis.py"])
