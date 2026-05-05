@@ -17,7 +17,6 @@ import os
 import sys
 import warnings
 from datetime import datetime
-from pathlib import Path
 
 import matplotlib
 matplotlib.use("Agg")
@@ -26,32 +25,14 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 
-# ---------------------------------------------------------------------------
-# Constants
-# ---------------------------------------------------------------------------
-PANEL_PATH            = Path("results/analysis_panel.csv")
-SHOCK_SCORE_PATH      = Path("survey/metadata/scenario_shock_score.csv")
-METADATA_PATH         = Path("survey/metadata/scenario_metadata.csv")
-PRICE_REACTION_PATH   = Path("survey/metadata/scenario_price_reaction.csv")
-COUNTERBALANCING_PATH = Path("survey/counterbalancing/counterbalancing_matrix.csv")
-DATA_DIR              = Path("data")
-RESULTS_DIR           = Path("results")
-FIGURES_DIR           = RESULTS_DIR / "figures"
-TABLES_DIR            = RESULTS_DIR / "tables"
-RESULTS_MD_PATH       = RESULTS_DIR / "thesis_results.md"
-
-RF_ANNUAL             = 0.05
-NRS_NEUTRAL           = 4
-WEIGHT_STEP           = 0.02
-ALPHA                 = 0.05
-AUM                   = 100_000_000
-SEED                  = 42
-
-HORIZON_DAYS = {
-    "Intraday":      1,
-    "Several Days":  5,
-    "Several Weeks": 20,
-}
+from config import (
+    PANEL_PATH, SHOCK_SCORE_PATH, METADATA_PATH, PRICE_REACTION_PATH,
+    COUNTERBALANCING_PATH, DATA_DIR, RESULTS_DIR, FIGURES_DIR, TABLES_DIR,
+    THESIS_RESULTS_PATH as RESULTS_MD_PATH,
+    RF_ANNUAL, NRS_NEUTRAL, NRS_MIN, NRS_MAX, WEIGHT_STEP, ALPHA, AUM,
+    SEED, HORIZON_DAYS, MIN_YEARS_EXPERIENCE,
+    append_run_log, _sha256_file,
+)
 
 SENTIMENT_TO_EXPECTED = {
     "Negative": "sell",
@@ -1786,6 +1767,41 @@ def main() -> None:
     n_figs   = len(list(FIGURES_DIR.glob("*.png")))
     n_tables = len(list(TABLES_DIR.glob("*.csv")))
     print_summary(desc, h1, h2, conc, horizon_returns, n_figs, n_tables)
+
+    primary = h1.get("primary", {})
+    opt_b_rows = h2.get("opt_b_reg", pd.DataFrame())
+    sharpe_row = (
+        opt_b_rows[opt_b_rows["outcome"] == "sharpe_ratio"].iloc[0].to_dict()
+        if not opt_b_rows.empty and "outcome" in opt_b_rows.columns
+           and (opt_b_rows["outcome"] == "sharpe_ratio").any()
+        else {}
+    )
+    append_run_log(
+        script="8_statistical_analysis.py",
+        parameters={
+            "alpha": ALPHA, "nrs_neutral": NRS_NEUTRAL,
+            "weight_step": WEIGHT_STEP, "rf_annual": RF_ANNUAL,
+            "aum": AUM, "horizon_days": HORIZON_DAYS,
+            "min_years_experience": MIN_YEARS_EXPERIENCE,
+            "seed": SEED,
+        },
+        inputs=[
+            {"file": str(PANEL_PATH),       "sha256": _sha256_file(PANEL_PATH)},
+            {"file": str(SHOCK_SCORE_PATH), "sha256": _sha256_file(SHOCK_SCORE_PATH)},
+        ],
+        outputs=[
+            {"file": str(RESULTS_MD_PATH), "rows": None,
+             "sha256": _sha256_file(RESULTS_MD_PATH)},
+            {"file": str(TABLES_DIR),      "rows": None, "sha256": "dir"},
+            {"file": str(FIGURES_DIR),     "rows": None, "sha256": "dir"},
+        ],
+        notes=(
+            f"H1: beta1={primary.get('beta1', 'n/a')}, p={primary.get('p', 'n/a')} "
+            f"({'supported' if primary.get('p', 1) < ALPHA else 'not supported'}). "
+            f"H2: tau={sharpe_row.get('tau', 'n/a')}, p={sharpe_row.get('p', 'n/a')} "
+            f"({'supported' if sharpe_row.get('h2_supported') else 'not supported'})."
+        ),
+    )
 
 
 if __name__ == "__main__":

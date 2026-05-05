@@ -22,6 +22,11 @@ from pathlib import Path
 
 import pandas as pd
 
+from config import (
+    SPREADSHEET_ID, CREDENTIALS_PATH, METADATA_PATH, COUNTERBALANCING_PATH,
+    RESULTS_DIR, RAW_RESPONSES_DIR, PANEL_PATH, COMMENTS_PATH, EXCLUDED_PATH,
+    MIN_YEARS_EXPERIENCE, append_run_log, _sha256_file,
+)
 from toolkits.data_aggregation_toolkit import (
     authenticate_google,
     build_analysis_panel,
@@ -33,15 +38,6 @@ from toolkits.data_aggregation_toolkit import (
     write_qc_report,
     _normalise_form_key,
 )
-
-# ── Constants ──────────────────────────────────────────────────────────────────
-
-SPREADSHEET_ID        = "1ICjcSZdwuW-xKepA5VMDjO-gfBfAe544wuO-wsmG3fM"
-CREDENTIALS_PATH      = Path("credentials/client_secret.json")
-METADATA_PATH         = Path("survey/metadata/scenario_metadata.csv")
-COUNTERBALANCING_PATH = Path("survey/counterbalancing/counterbalancing_matrix.csv")
-RESULTS_DIR           = Path("results")
-RAW_RESPONSES_DIR     = Path("survey/raw_responses")
 
 
 # ── Dry-run helpers ────────────────────────────────────────────────────────────
@@ -159,25 +155,22 @@ def run(dry_run: bool = False, form_key_filter: str | None = None) -> None:
     panel_df = build_analysis_panel(merged_df)
 
     # 10. Write analysis_panel.csv
-    panel_path = RESULTS_DIR / "analysis_panel.csv"
-    panel_df.to_csv(panel_path, index=False)
-    print(f"Written: {panel_path}  ({len(panel_df)} rows)")
+    panel_df.to_csv(PANEL_PATH, index=False)
+    print(f"Written: {PANEL_PATH}  ({len(panel_df)} rows)")
 
     # 11. Write excluded_respondents.csv
-    excl_path = RESULTS_DIR / "excluded_respondents.csv"
-    excluded_df.to_csv(excl_path, index=False)
-    print(f"Written: {excl_path}  ({len(excluded_df)} rows)")
+    excluded_df.to_csv(EXCLUDED_PATH, index=False)
+    print(f"Written: {EXCLUDED_PATH}  ({len(excluded_df)} rows)")
 
     # 12. Write QC report
-    qc_path = RESULTS_DIR / "analysis_panel_comments.md"
     write_qc_report(
         clean_df=panel_df,
         excluded_df=excluded_df,
         raw_counts=raw_counts,
-        output_path=qc_path,
+        output_path=COMMENTS_PATH,
         spreadsheet_id=SPREADSHEET_ID,
     )
-    print(f"Written: {qc_path}")
+    print(f"Written: {COMMENTS_PATH}")
 
     # 13. Stdout summary
     n_resp = panel_df["respondent_id"].nunique() if not panel_df.empty else 0
@@ -212,6 +205,26 @@ def run(dry_run: bool = False, form_key_filter: str | None = None) -> None:
     print(f"  Pilot block rows  : {pilot_rows} (Block 1 respondents with pilot feedback)")
     print(f"  Outputs           : {RESULTS_DIR}/")
     print("=" * 61)
+
+    append_run_log(
+        script="6_process_survey_data.py",
+        parameters={
+            "min_years_experience": MIN_YEARS_EXPERIENCE,
+            "spreadsheet_id": SPREADSHEET_ID,
+        },
+        inputs=[
+            {"file": str(METADATA_PATH),         "sha256": _sha256_file(METADATA_PATH)},
+            {"file": str(COUNTERBALANCING_PATH),  "sha256": _sha256_file(COUNTERBALANCING_PATH)},
+        ],
+        outputs=[
+            {"file": str(PANEL_PATH),    "rows": len(panel_df),    "sha256": _sha256_file(PANEL_PATH)},
+            {"file": str(EXCLUDED_PATH), "rows": len(excluded_df), "sha256": _sha256_file(EXCLUDED_PATH)},
+        ],
+        notes=(
+            f"{panel_df['respondent_id'].nunique()} respondents in panel. "
+            f"{len(excluded_df) // 8} respondents excluded."
+        ),
+    )
 
 
 # ── Entry point ────────────────────────────────────────────────────────────────

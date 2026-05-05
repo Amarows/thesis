@@ -1125,4 +1125,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    _confirm = input("Warning! You are about to refresh Google Forms. Are you sure you want to do that? [Y/N]: ").strip().upper()
+    if _confirm != "Y":
+        print("Aborted.")
+    else:
+        main()

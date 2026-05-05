@@ -154,12 +154,13 @@ An external financial information shock is a discrete public information event r
 The Shock Score is a quantitative decision-support indicator designed to summarize the emotional and informational intensity of an external financial information shock in a manager-interpretable format. In this thesis, the Shock Score has two representations: an analytical composite index used for statistical testing and an operational dashboard used for decision support. The construction methodology, component definitions, PCA-based composite index computation, and Shock Score dashboard design are documented in Section 4.3.
 
 Treatment indicator for decision support:
-The study distinguishes between the existence of SC_total for an event and whether it is shown to the manager. For each manager i and event e:
+The study distinguishes between the existence of $SC_{total}$ for an event and whether it is shown to the manager. For each manager $i$ and event $e$:
 
-ShowSC_i,e = 1 if the Shock Score dashboard is displayed
-ShowSC_i,e = 0 if the Shock Score dashboard is withheld
+$ShowSC_{i,e} = 1$ if the Shock Score dashboard is displayed
 
-When the Shock Score is not displayed, SC_total remains defined at the event level; it is simply not observed by the respondent.
+$ShowSC_{i,e} = 0$ if the Shock Score dashboard is withheld
+
+When the Shock Score is not displayed, $SC_{total}$ remains defined at the event level; it is simply not observed by the respondent.
 
 
 ### 2.6.4 Risk – Return Ratio
@@ -167,20 +168,26 @@ When the Shock Score is not displayed, SC_total remains defined at the event lev
 Risk – return ratio refers to a risk-adjusted measure of portfolio performance that evaluates return relative to risk exposure. In this thesis, Sharpe ratio and Sortino ratio are specified as primary risk – return metrics for evaluating portfolio outcomes under alternative decision conditions.
 
 Sharpe ratio ([Sharpe, 1966](https://doi.org/10.1086/294846)):
-Let r_t denote portfolio return over period t and r_f denote the risk-free rate over the same period. Let mu denote the mean of excess returns (r_t - r_f) and sigma denote the standard deviation of excess returns. Then:
+Let $r_t$ denote portfolio return over period $t$ and $r_f$ denote the risk-free rate over the same period. Let $\mu$ denote the mean of excess returns $(r_t - r_f)$ and $\sigma$ denote the standard deviation of excess returns. Then:
 
-Sharpe = mu / sigma
+$$
+SR = \frac{\mu}{\sigma}
+$$
 
 Sortino ratio ([Sortino & van der Meer, 1991](https://doi.org/10.3905/jpm.1991.409343)):
-Let MAR denote a minimum acceptable return, often set to the risk-free rate or zero depending on convention. Let mu denote the mean of excess returns (r_t - MAR). Let sigma_d denote downside deviation, defined as the square root of the mean of squared shortfalls below MAR:
+Let $\text{MAR}$ denote a minimum acceptable return, often set to the risk-free rate or zero depending on convention. Let $\mu$ denote the mean of excess returns $(r_t - \text{MAR})$. Let $\sigma_d$ denote downside deviation, defined as the square root of the mean of squared shortfalls below $\text{MAR}$:
 
-sigma_d = sqrt( E[ min(0, r_t - MAR)^2 ] )
+$$
+\sigma_d = \sqrt{\mathbb{E}\!\left[\min(0,\, r_t - \text{MAR})^2\right]}
+$$
 
 Then:
 
-Sortino = mu / sigma_d
+$$
+\text{Sortino} = \frac{\mu}{\sigma_d}
+$$
 
-Exact conventions for r_f, MAR, sampling frequency, and annualization are specified in Chapter 4.
+Exact conventions for $r_f$, $\text{MAR}$, sampling frequency, and annualization are specified in Chapter 4.
 
 ## 2.7 Assumptions
 
@@ -749,9 +756,9 @@ The four components are defined in Table 4.4 and described in detail below.
 | Component | Abbreviation | Measure | Data Source | Computation |
 |-----------|-------------|---------|-------------|-------------|
 | Article Count | AC_e | Number of distinct Benzinga articles in the shock bar | Benzinga news feed (Section 4.3.3) | Count of articles with publication timestamp within the shock bar interval |
-| Sentiment Extremity | SE_e | Peak absolute sentiment score across event-day articles | FinBERT (Huang, Roesler, & Reske, 2020) | max_j \|sentiment_j\|, where sentiment_j = P(positive) - P(negative), range [-1, +1] |
-| Attention Intensity | AI_e | Abnormal trading volume on event day | IBKR intraday volume (Section 4.3.2) | V_e / V_bar_e, where V_bar_e is the 20-day trailing mean daily volume |
-| Event-Type Severity | ES_e | Shock bar price impact relative to baseline volatility | IBKR intraday prices (Section 4.3.2) | r_shock / m_e, where m_e is the 20-day trailing median absolute bar return; capped at 10.0 |
+| Sentiment Extremity | SE_e | Peak absolute sentiment score across event-day articles | FinBERT (Huang, Roesler, & Reske, 2020) | $\max_j \lvert s_j \rvert$, where $s_j = P(\text{pos}) - P(\text{neg}) \in [-1, +1]$ |
+| Attention Intensity | AI_e | Abnormal trading volume on event day | IBKR intraday volume (Section 4.3.2) | $V_e / \bar{V}_e$, where $\bar{V}_e$ is the 20-day trailing mean daily volume |
+| Event-Type Severity | ES_e | Shock bar price impact relative to baseline volatility | IBKR intraday prices (Section 4.3.2) | $r_{shock} / m_e$, where $m_e$ is the 20-day trailing median absolute bar return; capped at 10.0 |
 
 **Article Count (AC_e).** AC_e records the number of distinct Benzinga news articles attributed to the shock bar for event e. An article is attributed to the shock bar if its publication timestamp falls within the 30-minute interval of the shock bar as defined by the event screening algorithm (Section 4.3.4). When multiple articles fall within the same bar, they are counted individually; AC_e thus reflects the volume of contemporaneous information flow associated with the event.
 
@@ -789,7 +796,7 @@ $$
 HorizonBucket_e = \begin{cases} \text{Intraday} & \text{if } P_e \leq c_1 \\ \text{Several days} & \text{if } c_1 < P_e \leq c_2 \\ \text{Several weeks} & \text{if } P_e > c_2 \end{cases}
 $$
 
-Cutoffs c1 and c2 and the method used to compute P_e are specified ex ante and documented in the scenario manifest.
+Cutoffs $c_1$ and $c_2$ and the method used to compute $P_e$ are specified ex ante and documented in the scenario manifest.
 
 **Rules-based pre-commitment trigger (Protocol).** The protocol is defined as a predefined action rule activated by shock intensity, designed for this thesis drawing on the pre-commitment and nudge frameworks of Shefrin (2002) and Thaler & Sunstein (2008). Let $T_e$ denote an intensity trigger variable, which can be $SC_{total}$ or a monotone transformation thereof. The trigger design is:
 
@@ -797,7 +804,7 @@ $$
 Protocol_e = \begin{cases} \text{Standard process} & \text{if } T_e < t_1 \\ \text{Enhanced review} & \text{if } t_1 \leq T_e < t_2 \\ \text{Cooling-off and second review} & \text{if } T_e \geq t_2 \end{cases}
 $$
 
-Thresholds t1 and t2 and the operational meaning of each protocol step are specified ex ante and documented in the scenario manifest.
+Thresholds $t_1$ and $t_2$ and the operational meaning of each protocol step are specified ex ante and documented in the scenario manifest.
 
 
 ## 4.4 Design of the Survey
@@ -974,32 +981,32 @@ Section 4.5 documents the analytical framework planned for hypothesis testing. S
 
 This section records the intended econometric specifications for hypothesis testing. The specifications are pre-registered to ensure transparency and reproducibility.
 
-**Primary specification for H1 (survey responses).** Let NRS_i,e denote Net Risk Stance of manager i for event e (seven-point scale). Let SC_total_e denote the event-level composite Shock Score (Section 4.3.5). Let X_i,e denote a vector of controls. The baseline model is:
+**Primary specification for H1 (survey responses).** Let $NRS_{i,e}$ denote Net Risk Stance of manager $i$ for event $e$ (seven-point scale). Let $SC_{total,e}$ denote the event-level composite Shock Score (Section 4.3.5). Let $\mathbf{X}_{i,e}$ denote a vector of controls. The baseline model is:
 
 $$
-NRS_{i,e} = \alpha + \beta_1 \cdot SC_{total,e} + \boldsymbol{\gamma}^\prime \mathbf{X}_{i,e} + \varepsilon_{i,e}
+NRS_{i,e} = \alpha + \beta_1 \cdot SC_{total,e} + \pmb{\gamma}^\prime \mathbf{X}_{i,e} + \varepsilon_{i,e}
 $$
 
-The control vector X_i,e includes respondent-level covariates (professional experience, portfolio mandate type), scenario-level covariates (event type, market context), and experimental design controls (scenario sequence position, counterbalancing block assignment).
+The control vector $\mathbf{X}_{i,e}$ includes respondent-level covariates (professional experience, portfolio mandate type), scenario-level covariates (event type, market context), and experimental design controls (scenario sequence position, counterbalancing block assignment).
 
-**Primary specification for H2 (portfolio outcomes).** Let Return_j denote a portfolio risk-return metric for simulation run or decision condition j. Let ShowSC_j denote the treatment indicator. Let Z_j denote optional controls. The baseline model is:
+**Primary specification for H2 (portfolio outcomes).** Let $\text{Return}_j$ denote a portfolio risk-return metric for simulation run or decision condition $j$. Let $ShowSC_j$ denote the treatment indicator. Let $\mathbf{Z}_j$ denote optional controls. The baseline model is:
 
 $$
-Return_j = \alpha + \tau \cdot ShowSC_j + \boldsymbol{\delta}^\prime \mathbf{Z}_j + u_j
+Return_j = \alpha + \tau \cdot ShowSC_j + \pmb{\delta}^\prime \mathbf{Z}_j + u_j
 $$
 
 **Robustness specification 3 -- Heterogeneity by shock intensity (optional interaction).** This specification tests whether the treatment effect of the Shock Score dashboard varies with shock intensity. It is an extension of the H2 baseline, not a separate hypothesis:
 
 $$
-Return_j = \alpha + \tau \cdot ShowSC_j + \beta_2 \cdot SC_{total,j} + \phi \cdot (ShowSC_j \times SC_{total,j}) + \boldsymbol{\delta}^\prime \mathbf{Z}_j + u_j
+Return_j = \alpha + \tau \cdot ShowSC_j + \beta_2 \cdot SC_{total,j} + \phi \cdot (ShowSC_j \times SC_{total,j}) + \pmb{\delta}^\prime \mathbf{Z}_j + u_j
 $$
 
-The coefficient phi captures whether decision support is more effective under higher shock intensity.
+The coefficient $\phi$ captures whether decision support is more effective under higher shock intensity.
 
 **Robustness specification 4 -- Manager fixed effects (optional within-subject specification).** Because each manager is exposed to both treatment conditions, the H1 dataset may support specifications with manager fixed effects to absorb stable individual differences:
 
 $$
-NRS_{i,e} = \alpha_i + \beta_1 \cdot SC_{total,e} + \boldsymbol{\gamma}^\prime \mathbf{X}_{i,e} + \varepsilon_{i,e}
+NRS_{i,e} = \alpha_i + \beta_1 \cdot SC_{total,e} + \pmb{\gamma}^\prime \mathbf{X}_{i,e} + \varepsilon_{i,e}
 $$
 
 Where $\alpha_i$ is a manager-specific intercept. This specification is an alternative estimator for the same H1 hypothesis, not a separate test. It is applied if the final data structure supports it.

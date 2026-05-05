@@ -1,6 +1,6 @@
 # Thesis Results – Auto-generated
 
-**Generated:** 2026-05-05 19:51:17
+**Generated:** 2026-05-05 20:47:38
 
 **Panel:** 60 respondents (480 observations)
 
