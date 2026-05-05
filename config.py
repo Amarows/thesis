@@ -8,7 +8,7 @@ import json
 from datetime import datetime, timezone
 
 # ── Respondent eligibility ────────────────────────────────────────────────────
-MIN_YEARS_EXPERIENCE = 5          # Minimum years of experience for inclusion
+MIN_YEARS_EXPERIENCE = 2          # Minimum years of experience for inclusion
 
 # ── Survey instrument ─────────────────────────────────────────────────────────
 NRS_MIN          = 1
