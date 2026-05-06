@@ -1,32 +1,28 @@
 """
-7_augment_data.py – Synthetic response augmentation (TEMPORARY)
+7_augment_data_v2.py – Synthetic response augmentation from Persona file
 
-Inflates results/analysis_panel.csv in-place to a target respondent count by
-appending synthetic rows drawn from realistic population distributions.
-Overwrites analysis_panel.csv directly — no new files created.
-
-Disable: delete or stop calling this script. The downstream pipeline reads
-analysis_panel.csv unchanged; deleting this script has no other side effects.
-
-Usage:
-    python 7_augment_data.py                          # default target: 60
-    python 7_augment_data.py --target-respondents 80
-    python 7_augment_data.py --target-respondents 0   # no-op, file unchanged
+Loads persona responses from survey/persona/persona_responses.csv and appends
+them to results/analysis_panel.csv in the correct long-form format.
+Overwrites analysis_panel.csv directly.
 """
 
 import argparse
 import sys
 from pathlib import Path
+import random
 
 import numpy as np
 import pandas as pd
 
 from config import (
-    PANEL_PATH, DEFAULT_TARGET_RESPONDENTS, AUGMENT_NOISE_FLOOR_SD,
+    PANEL_PATH,
     SEED, append_run_log, _sha256_file,
 )
 
 np.random.seed(SEED)
+random.seed(SEED)
+
+PERSONA_RESPONSES_PATH = Path("survey/persona/persona_responses.csv")
 
 PILOT_FEEDBACK_COLS = [
     "completion_time",
@@ -37,167 +33,107 @@ PILOT_FEEDBACK_COLS = [
     "contact_optional",
 ]
 
-# Realistic population distributions for professional equity portfolio managers.
-# Demographics are drawn independently from these distributions rather than
-# cloned from donor profiles, ensuring synthetic respondents add genuine
-# variability to the regression covariates.
-SYNTHETIC_DISTRIBUTIONS = {
-    "years_experience": {
-        "type": "ordinal_midpoints",
-        "categories": ["1-3", "3-5", "5-10", "10-15", "15-20", "20+"],
-        "midpoints":  [2.0,   4.0,   7.5,   12.5,   17.5,   25.0],
-        "weights":    [0.05,  0.10,  0.30,  0.30,   0.15,   0.10],
-    },
-    "aum_category": {
-        "type": "categorical",
-        "categories": ["Less than $50M", "$50M-$200M", "$200M-$500M",
-                       "$500M-$2B", "$2B-$10B", "More than $10B"],
-        "weights":    [0.10, 0.20, 0.25, 0.25, 0.15, 0.05],
-    },
-    "institution_type": {
-        "type": "categorical",
-        "categories": ["Asset manager", "Hedge fund", "Pension fund",
-                       "Insurance", "Family office", "Private bank",
-                       "Independent/RIA"],
-        "weights":    [0.30, 0.20, 0.15, 0.10, 0.10, 0.08, 0.07],
-    },
-    "investment_mandate": {
-        "type": "categorical",
-        "categories": ["Equity only", "Equity-dominant multi-asset",
-                       "Sector-specific", "Other"],
-        "weights":    [0.40, 0.35, 0.15, 0.10],
-    },
-    "geographic_focus": {
-        "type": "categorical",
-        "categories": ["North America", "Europe", "Asia-Pacific",
-                       "Global", "Other"],
-        "weights":    [0.35, 0.25, 0.15, 0.20, 0.05],
-    },
-    "discretionary_authority": {
-        "type": "categorical",
-        "categories": ["Full discretion", "Partial/committee-based",
-                       "Advisory only"],
-        "weights":    [0.50, 0.35, 0.15],
-    },
-    "certifications": {
-        "type": "categorical",
-        "categories": ["CFA", "CFA, FRM", "CFA, CAIA", "FRM", "None", "Other"],
-        "weights":    [0.45, 0.15, 0.10, 0.10, 0.12, 0.08],
-    },
-    "manipulation_check": {
-        "type": "categorical",
-        "categories": ["Yes", "No", "Unsure"],
-        "weights":    [0.70, 0.15, 0.15],
-    },
-    "usefulness_rating": {
-        "type": "categorical",
-        "categories": ["1", "2", "3", "4", "5"],
-        "weights":    [0.05, 0.10, 0.20, 0.40, 0.25],
-    },
-}
-
-# NRS baseline distribution across the 7-point scale
-NRS_BASELINE_VALUES = [1, 2, 3, 4, 5, 6, 7]
-NRS_BASELINE_WEIGHTS = [0.05, 0.10, 0.15, 0.35, 0.15, 0.12, 0.08]
+CONTROL_COLS = [
+    "manipulation_check",
+    "usefulness_rating",
+    "is_pilot_block",
+    "completion_time",
+    "pilot_clarity",
+    "pilot_dashboard_ease",
+    "pilot_realism",
+    "open_feedback",
+    "contact_optional",
+]
 
 
-def _draw(field: str) -> object:
-    """Draw a single value for a demographic field from its distribution."""
-    dist = SYNTHETIC_DISTRIBUTIONS[field]
-    weights = np.array(dist["weights"], dtype=float)
-    weights /= weights.sum()
-    if dist["type"] == "ordinal_midpoints":
-        return float(np.random.choice(dist["midpoints"], p=weights))
-    return str(np.random.choice(dist["categories"], p=weights))
-
-
-def _exp_label(midpoint: float) -> str:
-    """Map experience midpoint back to the label used in the real panel."""
-    mapping = {2.0: "Less than 2", 4.0: "2-5", 7.5: "5-10",
-               12.5: "10-15", 17.5: "15-20", 25.0: "20+"}
-    return mapping.get(midpoint, str(midpoint))
+def _exp_label(years: float) -> str:
+    """Map years of experience to the label used in the real panel."""
+    if years < 2: return "Less than 2"
+    if years <= 5: return "2-5"
+    if years <= 10: return "6-10"
+    if years <= 15: return "11-15"
+    if years <= 20: return "16-20"
+    return "20+"
 
 
 def load_panel(path: Path) -> pd.DataFrame:
     return pd.read_csv(path)
 
 
-def generate_synthetic_rows(
-    real_df: pd.DataFrame,
-    n_synthetic: int,
+def generate_persona_rows(
+        real_df: pd.DataFrame,
+        persona_df: pd.DataFrame,
 ) -> pd.DataFrame:
     """
-    Generate n_synthetic synthetic respondent blocks. Each synthetic respondent
-    is assigned a form_key sampled uniformly from the six form keys present in
-    the real panel, and demographics drawn independently from SYNTHETIC_DISTRIBUTIONS.
+    Transform persona_df (wide) to long-form rows matching real_df.
+    Processes each persona for each form key exactly once.
+    Resamples control answers from real_df for missing fields.
     """
     all_form_keys = sorted(real_df["form_key"].dropna().unique().tolist())
 
+    # Pre-calculate distributions for resampling control columns from real respondents
+    real_resp_level = real_df.drop_duplicates("respondent_id").copy()
+
     all_synthetic = []
-    for i in range(n_synthetic):
-        synth_id = f"synth_{i + 1:04d}"
 
-        # Assign form_key uniformly across all six blocks
-        form_key = str(np.random.choice(all_form_keys))
+    # Iterate through each persona
+    for _, persona in persona_df.iterrows():
+        persona_id = str(persona["persona_id"])
 
-        # Get template rows for this form_key (scenario metadata, show_sc, etc.)
-        template_rows = real_df[real_df["form_key"] == form_key].copy()
-        if template_rows.empty:
-            continue
-        # Take one representative real respondent's scenario rows as the template
-        first_resp = template_rows["respondent_id"].iloc[0]
-        template_rows = template_rows[template_rows["respondent_id"] == first_resp].copy()
-        template_rows = template_rows.reset_index(drop=True)
+        # Each persona fills each form version once
+        for form_key in all_form_keys:
+            synth_id = f"persona_{persona_id}_{form_key}"
 
-        # Draw demographics independently from realistic distributions
-        exp_midpoint = _draw("years_experience")
-        demographics = {
-            "years_experience": exp_midpoint,
-            "years_experience_label": _exp_label(exp_midpoint),
-            "aum_category": _draw("aum_category"),
-            "institution_type": _draw("institution_type"),
-            "investment_mandate": _draw("investment_mandate"),
-            "geographic_focus": _draw("geographic_focus"),
-            "discretionary_authority": _draw("discretionary_authority"),
-            "certifications": _draw("certifications"),
-        }
+            # Get template rows for this form_key
+            template_rows = real_df[real_df["form_key"] == form_key].copy()
+            if template_rows.empty:
+                continue
 
-        # Draw manipulation_check and usefulness_rating independently
-        manip_check = _draw("manipulation_check")
-        usefulness   = _draw("usefulness_rating")
+            # Take one representative real respondent's scenario rows as the template
+            first_resp = template_rows["respondent_id"].iloc[0]
+            template_rows = template_rows[template_rows["respondent_id"] == first_resp].copy()
+            template_rows = template_rows.sort_values("scenario_position").reset_index(drop=True)
 
-        # Generate NRS values with wide variability
-        baseline_nrs = int(np.random.choice(NRS_BASELINE_VALUES,
-                                             p=NRS_BASELINE_WEIGHTS))
-        sd = np.random.uniform(AUGMENT_NOISE_FLOOR_SD, 2.0)
-        nrs_raw    = baseline_nrs + np.random.normal(0, sd, size=len(template_rows))
-        nrs_values = np.clip(np.round(nrs_raw), 1, 7).astype(int)
+            # Build synthetic rows from template
+            synth_rows = template_rows.copy()
+            synth_rows["respondent_id"] = synth_id
 
-        # Build synthetic rows from template
-        synth_rows = template_rows.copy()
-        synth_rows["respondent_id"] = synth_id
-        synth_rows["nrs"] = nrs_values
-        synth_rows["nrs_invalid"] = False
-        synth_rows["is_synthetic"] = 1
-        synth_rows["timestamp"] = pd.NaT
+            # Map demographics
+            synth_rows["years_experience"] = float(persona["years_experience"])
+            synth_rows["years_experience_label"] = _exp_label(persona["years_experience"])
+            synth_rows["aum_category"] = str(persona["aum_usd_bn"]) + "B"
+            synth_rows["institution_type"] = str(persona["institution_type"])
+            synth_rows["investment_mandate"] = str(persona["investment_mandate"])
+            synth_rows["geographic_focus"] = str(persona["geographic_focus"])
+            synth_rows["discretionary_authority"] = str(persona["discretionary_authority"])
+            synth_rows["certifications"] = str(persona["primary_certifications"])
 
-        # Apply demographics to all rows
-        for col, val in demographics.items():
-            if col in synth_rows.columns:
-                synth_rows[col] = val
+            # Resample control items from a random real respondent
+            donor = real_resp_level.sample(1).iloc[0]
+            for col in CONTROL_COLS:
+                if col in synth_rows.columns:
+                    val = donor[col]
+                    if pd.isna(val):
+                        non_null_vals = real_resp_level[col].dropna()
+                        if not non_null_vals.empty:
+                            val = np.random.choice(non_null_vals)
+                    synth_rows[col] = val
 
-        # Apply respondent-level items (same value across all 8 scenario rows)
-        if "manipulation_check" in synth_rows.columns:
-            synth_rows["manipulation_check"] = manip_check
-        if "usefulness_rating" in synth_rows.columns:
-            synth_rows["usefulness_rating"] = usefulness
+            # Map NRS values
+            nrs_values = []
+            for _, row in synth_rows.iterrows():
+                sc_id = row["scenario_id"].replace("_", "")
+                show_sc = int(row["show_sc"])
+                col_name = f"nrs{show_sc}_{sc_id}"
+                nrs_val = persona[col_name]
+                nrs_values.append(nrs_val)
 
-        # Clear pilot feedback columns
-        for col in PILOT_FEEDBACK_COLS:
-            if col in synth_rows.columns:
-                synth_rows[col] = pd.NA
+            synth_rows["nrs"] = nrs_values
+            synth_rows["nrs_invalid"] = False
+            synth_rows["is_synthetic"] = 1
+            synth_rows["timestamp"] = pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        all_synthetic.append(synth_rows)
+            all_synthetic.append(synth_rows)
 
     if not all_synthetic:
         return pd.DataFrame()
@@ -206,108 +142,64 @@ def generate_synthetic_rows(
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Augment survey panel with synthetic respondents."
+        description="Augment survey panel with persona-based synthetic respondents."
     )
-    parser.add_argument(
-        "--target-respondents",
-        type=int,
-        default=DEFAULT_TARGET_RESPONDENTS,
-        dest="target",
-        help="Target number of unique respondents (default: 60)",
-    )
+    # Target parameter removed as per instructions
     args = parser.parse_args()
-    target = args.target
 
     if not PANEL_PATH.exists():
         print(f"ERROR: Input file not found: {PANEL_PATH}", file=sys.stderr)
         sys.exit(1)
 
+    if not PERSONA_RESPONSES_PATH.exists():
+        print(f"ERROR: Persona file not found: {PERSONA_RESPONSES_PATH}", file=sys.stderr)
+        sys.exit(1)
+
     real_df = load_panel(PANEL_PATH)
+    persona_df = pd.read_csv(PERSONA_RESPONSES_PATH)
+
     original_columns = list(real_df.columns)
     n_real = real_df["respondent_id"].nunique()
 
-    if target == 0 or n_real >= target:
+    # Priority: persona-based augmentation.
+    # We generate ALL persona rows (one per persona per form block).
+
+    synthetic_df = generate_persona_rows(real_df, persona_df)
+    n_synthetic_added = synthetic_df["respondent_id"].nunique()
+
+    if not synthetic_df.empty:
+        # Cast pilot feedback cols to object before concat to avoid pandas dtype warnings
+        for col in PILOT_FEEDBACK_COLS:
+            if col in real_df.columns:
+                real_df[col] = real_df[col].astype(object)
+            if col in synthetic_df.columns:
+                synthetic_df[col] = synthetic_df[col].astype(object)
+
+        augmented = pd.concat([real_df, synthetic_df], ignore_index=True)
+        augmented = augmented[original_columns]
+        augmented.to_csv(PANEL_PATH, index=False)
+
+        n_total_respondents = augmented["respondent_id"].nunique()
         print(
-            f"Real respondents ({n_real}) >= target ({target}). "
-            f"No augmentation applied."
-        )
-        append_run_log(
-            script="7_augment_data.py",
-            parameters={
-                "target_respondents": target,
-                "seed": SEED,
-                "noise_floor_sd": AUGMENT_NOISE_FLOOR_SD,
-            },
-            inputs=[
-                {"file": str(PANEL_PATH), "sha256": _sha256_file(PANEL_PATH)},
-            ],
-            outputs=[
-                {"file": str(PANEL_PATH), "rows": len(real_df),
-                 "sha256": _sha256_file(PANEL_PATH)},
-            ],
-            notes=f"{n_real} real respondents. No augmentation needed (target={target}).",
-        )
-        return
-
-    n_synthetic = target - n_real
-
-    # Cast pilot feedback cols to object before concat to avoid pandas dtype warnings
-    for col in PILOT_FEEDBACK_COLS:
-        if col in real_df.columns:
-            real_df[col] = real_df[col].astype(object)
-
-    synthetic_df = generate_synthetic_rows(real_df, n_synthetic)
-
-    for col in PILOT_FEEDBACK_COLS:
-        if col in synthetic_df.columns:
-            synthetic_df[col] = synthetic_df[col].astype(object)
-
-    augmented = pd.concat([real_df, synthetic_df], ignore_index=True)
-    augmented = augmented[original_columns]
-    augmented.to_csv(PANEL_PATH, index=False)
-
-    n_total_respondents = augmented["respondent_id"].nunique()
-    n_total_obs         = len(augmented)
-    n_real_obs          = len(real_df)
-    n_synth_obs         = len(synthetic_df)
-
-    # Quick distribution check
-    synth_only = augmented[augmented["is_synthetic"] == 1].drop_duplicates("respondent_id")
-    form_dist  = synth_only["form_key"].value_counts().to_dict()
-    inst_dist  = synth_only["institution_type"].value_counts().to_dict() if "institution_type" in synth_only.columns else {}
-    mc_dist    = synth_only["manipulation_check"].value_counts().to_dict() if "manipulation_check" in synth_only.columns else {}
-
-    print("=" * 61)
-    print("Augmentation Complete")
-    print("=" * 61)
-    print(f"  Real respondents  : {n_real}")
-    print(f"  Synthetic added   : {n_synthetic}")
-    print(f"  Total respondents : {n_total_respondents}")
-    print(f"  Total observations: {n_total_obs} ({n_real_obs} real + {n_synth_obs} synthetic)")
-    print(f"  Output            : {PANEL_PATH}")
-    print(f"\n  Synthetic form_key distribution: {form_dist}")
-    print(f"  institution_type (top 4): { {k: v for k, v in list(inst_dist.items())[:4]} }")
-    print(f"  manipulation_check: {mc_dist}")
-    print("=" * 61)
+            f"Augmentation Complete: {n_real} real + {n_synthetic_added} persona-based = {n_total_respondents} total.")
+    else:
+        augmented = real_df
 
     append_run_log(
-        script="7_augment_data.py",
+        script="7_augment_data_v2.py",
         parameters={
-            "target_respondents": target,
             "seed": SEED,
-            "noise_floor_sd": AUGMENT_NOISE_FLOOR_SD,
+            "source": str(PERSONA_RESPONSES_PATH)
         },
         inputs=[
             {"file": str(PANEL_PATH), "sha256": _sha256_file(PANEL_PATH)},
+            {"file": str(PERSONA_RESPONSES_PATH), "sha256": _sha256_file(PERSONA_RESPONSES_PATH)},
         ],
         outputs=[
             {"file": str(PANEL_PATH), "rows": len(augmented),
              "sha256": _sha256_file(PANEL_PATH)},
         ],
-        notes=(
-            f"{n_real} real + {n_synthetic} synthetic = "
-            f"{n_real + n_synthetic} total respondents."
-        ),
+        notes=f"Augmented with persona-based responses from {PERSONA_RESPONSES_PATH.name}."
     )
 
 
