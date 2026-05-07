@@ -1218,11 +1218,26 @@ The present study raises several questions that warrant further investigation an
 <!-- /PLACEHOLDER:s6_7_2_automation -->
 
 ## 6.8 Implications for Sustainable Development Goals
-### 6.8.1 Responsible Decision-Making in Financial Markets
 
-<!-- PLACEHOLDER:s6_8_sdg -->
-*To be completed by the author. Connect the study's findings to relevant SDGs – most directly SDG 8 (Decent Work and Economic Growth) and SDG 17 (Partnerships for the Goals) through the lens of more informed and stable financial market behaviour. Discuss how decision-support tools that reduce behavioural bias in equity portfolio management may contribute to more efficient capital allocation and reduced market volatility, with downstream implications for economic stability.*
-<!-- /PLACEHOLDER:s6_8_sdg -->
+The findings of this study carry implications for two United Nations Sustainable Development Goals: SDG 8 (Decent Work and Economic Growth) and SDG 10 (Reduced Inequalities).
+
+### 6.8.1 SDG 8 – Decent Work and Economic Growth
+
+SDG 8 calls for sustained, inclusive, and sustainable economic growth and productive employment. Target 8.10 specifically addresses the need to strengthen the capacity of domestic financial institutions to expand access to financial services, and more broadly the SDG 8 framework recognises that efficient and stable financial markets are a prerequisite for productive capital allocation and long-term economic development.
+
+The present study addresses a well-documented source of inefficiency in financial markets: systematic behavioural bias in the decision-making of professional equity portfolio managers during information shock events. The evidence base established in Chapter 2 demonstrates that overreaction, loss aversion, herding, and attention-driven trading around news events contribute to price overshooting, excessive short-term volatility, and suboptimal portfolio rebalancing. These effects aggregate across managers to produce market-level inefficiencies that distort the allocation of capital away from its highest-value uses, with downstream consequences for investment, employment, and growth.
+
+The Shock Score framework developed in this thesis is designed to attenuate these behavioural effects by providing professional managers with a structured, quantitative signal at the moment of maximum uncertainty. If the intervention is effective – as the study's directional findings under H1 and H2 suggest – then tools of this kind have the potential to reduce the amplitude and duration of behavioural distortions following information shocks. More disciplined professional decision-making during periods of market stress would contribute to more stable price discovery, reduced unnecessary volatility, and more efficient capital allocation across the economy. These outcomes are directly consistent with the SDG 8 objective of productive and stable financial markets as a foundation for sustainable economic growth.
+
+### 6.8.2 SDG 10 – Reduced Inequalities
+
+SDG 10 targets the reduction of inequality within and among countries, including through ensuring equal opportunity and reducing disparities in access to financial services and information. Target 10.5 specifically calls for improved regulation and monitoring of global financial markets, and Target 10.b addresses the need for development finance that supports productive capacity.
+
+A structural inequality exists in contemporary financial markets between institutional investors and individual retail participants. Professional portfolio managers at large institutions have access to sophisticated analytical infrastructure, real-time data feeds, proprietary research, and experienced risk management teams. Retail investors and smaller market participants, by contrast, make portfolio decisions with limited tools and no structured framework for processing the significance of market-moving events. This informational asymmetry contributes to systematic performance disadvantages for non-professional investors during periods of market stress, when the consequences of behavioural bias are most severe.
+
+The Shock Score concept, as developed in this thesis, is grounded entirely in publicly available data sources: exchange price feeds and publicly distributed news articles. There is no proprietary information requirement. A publicly accessible implementation of the Shock Score – for example, as a free web-based tool or mobile application – would provide retail investors and individuals without professional financial training with access to the same type of structured shock-intensity signal that this study demonstrates can moderate decision behaviour in professional contexts. The four dashboard signals – sentiment direction, shock severity, persistence horizon, and protocol recommendation – are designed to be interpretable without specialist knowledge, communicating the key dimensions of an information shock in intuitive, actionable terms.
+
+In this sense, the broader dissemination of the Shock Score framework represents a practical contribution to SDG 10: reducing the informational inequality between institutional and retail market participants, and equipping a wider population of investors with decision support that has previously existed only within professional institutional settings.
 
 ## 6.9 Chapter Conclusion
 
