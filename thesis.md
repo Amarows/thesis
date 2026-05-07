@@ -596,57 +596,42 @@ Within the U.S. equity market, stocks are drawn from the S&P 500 index using a s
 
 The top 10 constituents by market capitalisation are excluded from the candidate pool. Companies such as Apple, Microsoft, Amazon, and NVIDIA are sufficiently prominent that most portfolio managers hold strong prior beliefs, emotional associations, or active positions in these names. Including them would introduce a familiarity bias confound (Weber, Siebenmorgen, & Weber, 2005): rather than responding to the information shock presented in the scenario, managers might anchor on their existing views of the company, contaminating the NRS response. The remaining S&P 500 constituents are familiar enough that a generalist equity portfolio manager can understand the business model without additional research, preserving ecological validity, while being sufficiently ordinary that strong personal views are unlikely to dominate the response. Company names are not masked. While masking would eliminate familiarity bias, it would do so at a disproportionate cost to ecological validity. Professional portfolio managers make investment decisions about real companies with known business models, competitive positions, and sector exposures; presenting fictitious or anonymised entities would fundamentally alter the decision task and reduce the external validity of the NRS responses. Instead, scenario instructions explicitly direct the manager to respond based on the information presented rather than personal views of the company. Residual familiarity effects are acknowledged as a limitation in Section 2.8.2.
 
-The study requires 36 unique stocks to populate the scenario slots across three blocks of twelve. Each stock contributes exactly one scenario and appears in exactly one block, ensuring that blocks function as fully independent mini-experiments and eliminating cross-block stimulus dependence. A pool of 39 candidate stocks is selected, with the surplus serving as a buffer for pilot-testing attrition or quality screening failures. Each candidate stock must satisfy three additional requirements. First, adequate news coverage: the stock must have sufficient Benzinga article flow during the event selection window to permit Shock Score computation, operationalised as a minimum of one news article per week on average, consistent with the filtering approach used in prior sentiment-based research (Li, Shah, Noyan, & Gao, 2018). Second, sector diversification: stocks are sampled from at least 8 to 10 distinct GICS sectors, with no single sector contributing more than 5 of the 36 stocks and no sector contributing fewer than 1. Sector concentration would introduce a confound, as managers specialising in an over-represented sector would respond from a systematically different knowledge base than generalists. Third, active trading and liquidity: each stock must have average daily trading volume sufficient to make portfolio adjustment decisions plausible in a professional context.
+The study requires 24 unique stocks to populate the scenario slots across three blocks of eight. Each stock contributes exactly one scenario and appears in exactly one block, ensuring that blocks function as fully independent mini-experiments and eliminating cross-block stimulus dependence. Each candidate stock must satisfy three additional requirements. First, adequate news coverage: the stock must have sufficient Benzinga article flow during the event selection window to permit Shock Score computation, operationalised as a minimum of one news article per week on average, consistent with the filtering approach used in prior sentiment-based research (Li, Shah, Noyan, & Gao, 2018). Second, sector diversification: stocks are sampled from at least 8 distinct GICS sectors, with no single sector contributing more than 4 of the 24 stocks and no sector contributing fewer than 1. Sector concentration would introduce a confound, as managers specialising in an over-represented sector would respond from a systematically different knowledge base than generalists. Third, active trading and liquidity: each stock must have average daily trading volume sufficient to make portfolio adjustment decisions plausible in a professional context.
 
-Table 4.1 presents the 39 candidate stocks selected for the study.
+Table 4.1 presents the 24 portfolio stocks assigned to scenario blocks.
 
 **Table 4.1: Portfolio Universe**
 
-| # | Company | Ticker | GICS Sector | Market Cap | S&P 500 Rank |
-|---|---------|--------|-------------|------------|--------------|
-| 1 | Walmart | WMT | Consumer Staples | $1.01T | 11 |
-| 2 | Linde | LIN | Materials | $227.00B | 48 |
-| 3 | JPMorgan Chase | JPM | Financials | $807.85B | 13 |
-| 4 | ExxonMobil | XOM | Energy | $625.76B | 14 |
-| 5 | Visa | V | Financials | $594.40B | 15 |
-| 6 | Johnson & Johnson | JNJ | Health Care | $589.71B | 16 |
-| 7 | Goldman Sachs | GS | Financials | $197.50B | 37 |
-| 8 | Costco | COST | Consumer Staples | $442.84B | 19 |
-| 9 | Oracle Corporation | ORCL | Information Technology | $430.94B | 20 |
-| 10 | Procter & Gamble | PG | Consumer Staples | $383.17B | 22 |
-| 11 | Home Depot | HD | Consumer Discretionary | $380.29B | 23 |
-| 12 | Chevron Corporation | CVX | Energy | $367.67B | 24 |
-| 13 | Bank of America | BAC | Financials | $364.79B | 25 |
-| 14 | GE Aerospace | GE | Industrials | $364.13B | 26 |
-| 15 | Caterpillar | CAT | Industrials | $360.48B | 27 |
-| 16 | Advanced Micro Devices | AMD | Information Technology | $350.03B | 28 |
-| 17 | Coca-Cola Company | KO | Consumer Staples | $346.15B | 29 |
-| 18 | Netflix | NFLX | Communication Services | $334.28B | 30 |
-| 19 | Cisco | CSCO | Information Technology | $310.54B | 33 |
-| 20 | Merck & Co. | MRK | Health Care | $306.95B | 34 |
-| 21 | Applied Materials | AMAT | Information Technology | $306.93B | 35 |
-| 22 | RTX Corporation | RTX | Industrials | $266.73B | 39 |
-| 23 | UnitedHealth Group | UNH | Health Care | $250.39B | 41 |
-| 24 | T-Mobile US | TMUS | Communication Services | $245.69B | 42 |
-| 25 | McDonald's | MCD | Consumer Discretionary | $237.15B | 44 |
-| 26 | Prologis | PLD | Real Estate | $112.50B | 56 |
-| 27 | Verizon | VZ | Communication Services | $209.69B | 50 |
-| 28 | NextEra Energy | NEE | Utilities | $199.81B | 53 |
-| 29 | AT&T | T | Communication Services | $197.59B | 55 |
-| 30 | Walt Disney Company | DIS | Consumer Discretionary | $187.51B | 59 |
-| 31 | ConocoPhillips | COP | Energy | $130B | 32 |
-| 32 | Honeywell International | HON | Industrials | $140B | 36 |
-| 33 | Pfizer | PFE | Health Care | $140B | 43 |
-| 34 | Qualcomm | QCOM | Information Technology | $170B | 31 |
-| 35 | Lowe's Companies | LOW | Consumer Discretionary | $140B | 33 |
-| 36 | American Tower | AMT | Real Estate | $90B | 60 |
-| 37 | Southern Company | SO | Utilities | $90B | 55 |
-| 38 | Air Products and Chemicals | APD | Materials | $65B | 68 |
-| 39 | Sherwin-Williams | SHW | Materials | $80B | 57 |
+| # | Company | Ticker | GICS Sector | Market Cap | S&P 500 Rank | Block |
+|---|---------|--------|-------------|------------|--------------|-------|
+| 1 | Air Products and Chemicals | APD | Materials | $65B | 68 | 1 |
+| 2 | ConocoPhillips | COP | Energy | $130B | 32 | 1 |
+| 3 | Linde | LIN | Materials | $227.00B | 48 | 1 |
+| 4 | UnitedHealth Group | UNH | Health Care | $250.39B | 41 | 1 |
+| 5 | Home Depot | HD | Consumer Discretionary | $380.29B | 23 | 1 |
+| 6 | GE Aerospace | GE | Industrials | $364.13B | 26 | 1 |
+| 7 | AT&T | T | Communication Services | $197.59B | 55 | 1 |
+| 8 | Qualcomm | QCOM | Information Technology | $170B | 31 | 1 |
+| 9 | Merck & Co. | MRK | Health Care | $306.95B | 34 | 2 |
+| 10 | JPMorgan Chase | JPM | Financials | $807.85B | 13 | 2 |
+| 11 | Chevron Corporation | CVX | Energy | $367.67B | 24 | 2 |
+| 12 | Bank of America | BAC | Financials | $364.79B | 25 | 2 |
+| 13 | Johnson & Johnson | JNJ | Health Care | $589.71B | 16 | 2 |
+| 14 | Coca-Cola Company | KO | Consumer Staples | $346.15B | 29 | 2 |
+| 15 | Caterpillar | CAT | Industrials | $360.48B | 27 | 2 |
+| 16 | Walmart | WMT | Consumer Staples | $1.01T | 11 | 2 |
+| 17 | Oracle Corporation | ORCL | Information Technology | $430.94B | 20 | 3 |
+| 18 | Procter & Gamble | PG | Consumer Staples | $383.17B | 22 | 3 |
+| 19 | American Tower | AMT | Real Estate | $90B | 60 | 3 |
+| 20 | Netflix | NFLX | Communication Services | $334.28B | 30 | 3 |
+| 21 | Prologis | PLD | Real Estate | $112.50B | 56 | 3 |
+| 22 | Pfizer | PFE | Health Care | $140B | 43 | 3 |
+| 23 | McDonald's | MCD | Consumer Discretionary | $237.15B | 44 | 3 |
+| 24 | Applied Materials | AMAT | Information Technology | $306.93B | 35 | 3 |
 
-Note: Market capitalisation and S&P 500 rank as of portfolio construction date. The top 10 constituents by market capitalisation (Apple, Microsoft, NVIDIA, Amazon, Alphabet, Meta, Berkshire Hathaway, Broadcom, Tesla, Eli Lilly) are excluded per the recognition-without-dominance criterion. Of the 39 candidates, 36 are assigned to scenario blocks and 3 serve as buffer stocks.
+Note: Market capitalisation and S&P 500 rank as of portfolio construction date. The top 10 constituents by market capitalisation (Apple, Microsoft, NVIDIA, Amazon, Alphabet, Meta, Berkshire Hathaway, Broadcom, Tesla, Eli Lilly) are excluded per the recognition-without-dominance criterion. Each stock is assigned to exactly one block and contributes exactly one scenario.
 
-The portfolio uses equal (1/N) weighting across all 36 constituent stocks assigned to scenario blocks, producing an approximate weight of 2.8% per stock. This decision is motivated by three considerations. First, transparency: equal weighting is immediately interpretable by respondents and requires no auxiliary assumptions, allowing the manager to focus cognitive resources on the shock-response decision rather than evaluating the portfolio construction methodology. Second, neutrality: optimised weights would depend on estimated parameters that are themselves uncertain and potentially contested, and disagreement with the weighting scheme would introduce an uncontrolled confound. Third, precedent: DeMiguel, Garlappi, and Uppal (2009) demonstrated that the 1/N portfolio performs competitively with optimised strategies in out-of-sample evaluation, and naive diversification is widely used as a benchmark in experimental and empirical finance research. The equal-weight assumption is communicated to respondents in the scenario preamble.
+The portfolio uses equal (1/N) weighting across all 24 constituent stocks, producing an approximate weight of 4.2% per stock. This decision is motivated by three considerations. First, transparency: equal weighting is immediately interpretable by respondents and requires no auxiliary assumptions, allowing the manager to focus cognitive resources on the shock-response decision rather than evaluating the portfolio construction methodology. Second, neutrality: optimised weights would depend on estimated parameters that are themselves uncertain and potentially contested, and disagreement with the weighting scheme would introduce an uncontrolled confound. Third, precedent: DeMiguel, Garlappi, and Uppal (2009) demonstrated that the 1/N portfolio performs competitively with optimised strategies in out-of-sample evaluation, and naive diversification is widely used as a benchmark in experimental and empirical finance research. The equal-weight assumption is communicated to respondents in the scenario preamble.
 
 
 ### 4.3.2 Market Price Data
@@ -844,7 +829,7 @@ Each scenario presents the following elements in a standardised template:
 
 All price information is presented in percentage return terms. This eliminates the anchoring effect documented by Tversky and Kahneman (1974), whereby identical percentage moves are processed differently depending on absolute price levels. Percentage framing is also consistent with how professional portfolio managers typically discuss positioning -- in basis points and percentage moves rather than absolute dollar changes.
 
-The portfolio context statement is presented in the survey introduction rather than repeated per scenario: "You manage a diversified equity portfolio with equal weights across [N] stocks. The following events have occurred for individual holdings in your portfolio."
+The portfolio context statement is presented in the survey introduction rather than repeated per scenario: "You manage a diversified equity portfolio with equal weights across 24 stocks. The following events have occurred for individual holdings in your portfolio."
 
 
 ### 4.4.3 Treatment Implementation
@@ -1199,4 +1184,5 @@ Normality of the NRS response distribution is assessed using skewness and kurtos
 - Appendix A. Thesis Approval Form
 - Appendix B. Blank Questionnaire / Instrument
 - Appendix C. Additional Supporting Material
+
 
