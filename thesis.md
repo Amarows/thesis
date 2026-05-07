@@ -1136,10 +1136,30 @@ Normality of the NRS response distribution is assessed using skewness and kurtos
 <!-- /PLACEHOLDER:s5_8_conclusion -->
 
 
+## 5.9 Limitations
+
+This section documents the principal methodological limitations of the study that bear on the interpretation of the empirical results, with particular attention to the constraints affecting Hypothesis H2.
+
+### 5.9.1 Joint Conditionality of H2 Results
+
+The most significant limitation of the study concerns the inferential boundary for Hypothesis H2. The H2 test evaluates whether access to the Shock Score dashboard is associated with changes in portfolio risk-return outcomes, as measured through simulation of stated NRS responses. The portfolio outcome findings are therefore jointly conditional on two distinct elements: (a) whether the Shock Score genuinely changes manager decision behaviour, as captured by the NRS response, and (b) whether the simulation model correctly translates stated decisions into portfolio outcomes. This joint conditionality, first acknowledged in Section 2.8.3, imposes a fundamental constraint on causal attribution: a null result under H2 cannot distinguish between the Shock Score having no behavioural effect and the simulation model failing to capture an effect that is behaviourally present. Conversely, a significant result under H2 reflects the combined operation of both elements and cannot be attributed exclusively to the behavioural intervention. This limitation is inherent to any within-survey design that relies on stated rather than revealed preferences and simulation rather than observed trading. Its implications for the interpretation of H2 results are discussed in Section 5.6.2.
+
+### 5.9.2 Sample Size and Statistical Power
+
+The study relies on a relatively small sample of professional equity portfolio managers. While synthetic augmentation is employed to reach the target observation count for regression estimation, the results derived from the real respondent subsample carry limited statistical power, particularly for the H2 moderation test where the treatment effect is expected to be small in magnitude. Results should therefore be interpreted as directionally indicative rather than conclusive, pending replication on a larger sample.
+
+### 5.9.3 Stated Preference Validity
+
+NRS responses reflect stated decision intentions rather than actual portfolio adjustments. The correspondence between stated intentions and revealed trading behaviour has been documented to be imperfect in experimental finance research (Huber et al., 2022). This limitation is common to survey-based studies of portfolio manager behaviour and does not invalidate the within-subject comparison, but it restricts the external validity of the magnitude estimates.
+
 
 # Chapter 6. Conclusions and Recommendations
 
 ## 6.1 Chapter Introduction
+
+<!-- PLACEHOLDER:s6_1_intro -->
+This chapter presents the conclusions, recommendations, and broader implications of the study. Section 6.2 recaps the research question, hypotheses, and plan, and summarises the key findings from both the literature review and the primary empirical research. Section 6.3 states the overall conclusion. Section 6.4 translates the findings into practical recommendations for portfolio managers and risk governance practitioners. Section 6.5 identifies areas for future research that emerged from the study. Section 6.6 reflects on lessons learned during the research process. Section 6.7 addresses the ethical considerations raised by the findings. Section 6.8 discusses the implications of the study for the United Nations Sustainable Development Goals. Section 6.9 concludes the chapter.
+<!-- /PLACEHOLDER:s6_1_intro -->
 
 ## 6.2 Summary of Findings
 ### 6.2.1 Summary of Secondary Research
@@ -1166,14 +1186,43 @@ Normality of the NRS response distribution is assessed using skewness and kurtos
 
 ## 6.5 Areas for Future Research
 
+The present study raises several questions that warrant further investigation and identifies methodological extensions that would strengthen the evidence base.
+
+**Validation of simulation assumptions through live or paper-trading experiments.** The portfolio outcome results under H2 are jointly conditional on the behavioural effect of the Shock Score and the adequacy of the simulation model that maps stated NRS responses to portfolio returns, as acknowledged in Section 5.9.1. Future research should seek to decouple these two elements by replicating the H2 test in a live or paper-trading environment, where actual portfolio adjustments replace stated intentions. Such a design would enable independent validation of the simulation conventions and provide a direct test of whether Shock Score access produces measurable changes in realised portfolio risk-return characteristics.
+
+**Robustness of H2 results across alternative simulation conventions.** Future work should examine whether the H2 findings are sensitive to the choice of simulation parameters, including rebalancing rules, return attribution horizons, and risk-free rate conventions. Replication using a range of plausible simulation specifications would establish whether the results reflect a robust behavioural effect or are conditional on particular modelling assumptions.
+
+**Extension to multi-stock and portfolio-level shock interactions.** The current design presents shocks to individual holdings in isolation. In practice, portfolio managers respond to concurrent shocks across multiple positions, and the interaction between simultaneous information events may amplify or attenuate the behavioural effects observed here. Future research could extend the experimental design to present simultaneous multi-stock scenarios and examine whether Shock Score guidance is more or less effective under conditions of information overload.
+
+**Longitudinal and cross-market replication.** The study is conducted over a fixed event window using U.S. equity data. Replication across different market regimes, geographic markets, and asset classes would establish the generalisability of the Shock Score framework and test whether the observed behavioural effects are stable across varying information environments.
+
+**SC_total as a predictive signal.** An unexpected finding of the study concerns the limited predictive accuracy of SC_total as a directional signal for subsequent price movements, as discussed in Section 5.6.2. Future research should examine whether refined weighting of the Shock Score components, or the addition of complementary signals such as order flow imbalance or options market activity, improves directional predictive performance. This avenue is relevant both for the decision-support application studied here and for potential algorithmic implementation.
+
 ## 6.6 Lessons Learned
+
+<!-- PLACEHOLDER:s6_6_lessons -->
+*To be completed by the author. This section should reflect personal learnings from both the research process and the subject matter itself – what the author learned about behavioural finance, decision support design, and empirical research methodology through the course of this study.*
+<!-- /PLACEHOLDER:s6_6_lessons -->
 
 ## 6.7 Ethical Considerations
 ### 6.7.1 Ethical Use of Algorithmic Decision Support
+
+<!-- PLACEHOLDER:s6_7_1_ethics -->
+*To be completed by the author. Discuss the business and moral implications raised by the study's findings – for example: the risk of over-reliance on algorithmic signals by professional managers, the accountability question when decision support contributes to a loss, the potential for Shock Score-type tools to homogenise manager responses and reduce market diversity, and the distributional consequences if access to such tools is unequal across institutions.*
+<!-- /PLACEHOLDER:s6_7_1_ethics -->
+
 ### 6.7.2 Risk of Automation Bias
+
+<!-- PLACEHOLDER:s6_7_2_automation -->
+*To be completed by the author. Address the documented tendency of human decision-makers to over-weight algorithmically presented information (automation bias). Discuss whether the Shock Score design mitigates or exacerbates this risk, and what governance mechanisms would be appropriate.*
+<!-- /PLACEHOLDER:s6_7_2_automation -->
 
 ## 6.8 Implications for Sustainable Development Goals
 ### 6.8.1 Responsible Decision-Making in Financial Markets
+
+<!-- PLACEHOLDER:s6_8_sdg -->
+*To be completed by the author. Connect the study's findings to relevant SDGs – most directly SDG 8 (Decent Work and Economic Growth) and SDG 17 (Partnerships for the Goals) through the lens of more informed and stable financial market behaviour. Discuss how decision-support tools that reduce behavioural bias in equity portfolio management may contribute to more efficient capital allocation and reduced market volatility, with downstream implications for economic stability.*
+<!-- /PLACEHOLDER:s6_8_sdg -->
 
 ## 6.9 Chapter Conclusion
 
