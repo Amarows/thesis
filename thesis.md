@@ -1181,8 +1181,37 @@ Normality of the NRS response distribution is assessed using skewness and kurtos
 
 - Glossary
 - References
-- Appendix A. Thesis Approval Form
-- Appendix B. Blank Questionnaire / Instrument
-- Appendix C. Additional Supporting Material
+- Appendix 1. Thesis Approval Form
+- Appendix 2. AI Disclosure Statement
+- Appendix 3. Blank Questionnaire / Instrument
+- Appendix 4. Additional Supporting Material
+
+---
+
+## Appendix 2. AI Disclosure Statement
+
+**AI Disclosure Statement**
+
+I declare that Artificial Intelligence tools were used in the preparation of this work for the following purposes:
+
+- **Sentiment scoring of financial news articles.** FinBERT (Huang, Roesler, & Reske, 2020), a transformer-based language model pre-trained on financial text, was applied programmatically to compute sentence-level sentiment scores for Benzinga news articles. These scores form the Sentiment Extremity component of the Shock Score, as specified in Section 4.3.5. The scoring procedure was fully automated and was designed, configured, and validated by the author.
+
+- **Standardisation of news summaries for survey scenarios.** Claude Sonnet (Anthropic) was used via API to condense raw news articles into 2-to-3-sentence summaries of consistent length, register, and information density for presentation within the survey instrument (Section 4.4.2). The summarisation prompt was authored by the researcher; all summaries were reviewed for factual accuracy and consistency with the source material prior to deployment.
+
+- **Software development support.** Claude Code (Anthropic) was used as a programming assistant to support the development of API interfaces with Interactive Brokers, Google Forms, and Yahoo Finance, and to assist with code optimisation across the data pipeline scripts. All code was reviewed, tested, and validated by the author. The research design, analytical logic, and pipeline architecture were defined independently by the author.
+
+- **Literature search assistance.** OpenAI deep search functionality was used to assist with systematic identification of relevant academic publications during the literature review phase (Chapter 2). All sources were independently read, evaluated, and cited by the author. No AI-generated text was incorporated into the literature review.
+
+- **Language and style review.** Claude Opus (Anthropic) was used to review draft thesis text for grammatical correctness and stylistic consistency. All substantive content, argumentation, analytical interpretation, and conclusions were authored independently. AI suggestions were selectively adopted at the author's discretion and did not alter the intellectual substance of any section.
+
+All analysis, interpretation, conclusions, and final content represent my own intellectual work. I remain fully responsible for the accuracy and originality of this submission.
+
+**Student name:** Aliaksei Malashonak
+
+**Program:** Executive MBA
+
+**Course / Project / Thesis title:** Influence of External Information Shocks on Equity Portfolio Manager Decision-Making
+
+**Date:** *(to be completed upon submission)*
 
 
