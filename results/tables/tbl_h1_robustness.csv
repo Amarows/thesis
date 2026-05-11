@@ -6,3 +6,5 @@ spec_3_component_se_e,Component: se_e,-0.7847,0.1345,-5.8334,<0.0001,-1.0484,-0.
 spec_3_component_ai_e,Component: ai_e,0.0201,0.0625,0.3207,0.7485,-0.1025,0.1426,0.289,536,HC3
 spec_3_component_es_raw,Component: es_raw,3.3418,0.3303,10.1161,<0.0001,2.6943,3.9893,0.289,536,HC3
 spec_4_interaction,SC_total × ShowSC interaction,-0.0465,0.0909,-0.5115,0.6090,-0.2247,0.1317,0.1368,536,HC3
+spec_5_direction_b1,SC_total main effect (positive events),-0.3549,0.0443,-8.0077,<0.0001,-0.4418,-0.268,0.2094,536,HC3
+spec_5_direction_b3,SC_total × D_neg amplification (negative events),-1.9449,0.3007,-6.4676,<0.0001,-2.5344,-1.3555,0.2094,536,HC3

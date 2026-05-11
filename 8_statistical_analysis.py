@@ -686,7 +686,7 @@ def run_h1_regression(df: pd.DataFrame) -> dict:
     h1 = {}
 
     # Prepare data – drop rows missing core vars
-    reg_cols = ["nrs", "sc_total", "show_sc", "exp_cat", "block_id"]
+    reg_cols = ["nrs", "sc_total", "show_sc", "exp_cat", "block_id", "sentiment_direction"]
     reg = df[[c for c in reg_cols if c in df.columns]].copy()
     reg["nrs"]      = pd.to_numeric(reg["nrs"],      errors="coerce")
     reg["sc_total"] = pd.to_numeric(reg["sc_total"], errors="coerce")
@@ -837,6 +837,55 @@ def run_h1_regression(df: pd.DataFrame) -> dict:
         })
     except Exception as e:
         rob_rows.append({"spec": "spec_4_interaction", "note": str(e)})
+
+    # Spec 5: Direction interaction – SC_total × D_neg (loss aversion amplification)
+    # D_neg = 1 for negative-sentiment events (Negative, Mildly Negative, Strongly Negative)
+    # Model: NRS = α + β1·SC_total + β2·D_neg + β3·(SC_total × D_neg) + controls
+    # β1 = SC_total effect for positive events (anchoring/confirmation bias channel)
+    # β3 = incremental SC_total amplification for negative events (loss aversion channel)
+    # β1 + β3 = total SC_total effect for negative events
+    try:
+        reg_r5 = reg.copy()
+        neg_labels = {"Negative", "Mildly Negative", "Strongly Negative"}
+        reg_r5["d_neg"] = reg_r5["sentiment_direction"].apply(
+            lambda x: 1 if str(x) in neg_labels else 0
+        ).astype(float)
+        reg_r5["sc_x_dneg"] = reg_r5["sc_total"] * reg_r5["d_neg"]
+        X_r5 = pd.concat(
+            [reg_r5[["sc_total", "d_neg", "sc_x_dneg", "show_sc"]].astype(float),
+             exp_dummies, block_dummies], axis=1
+        ).astype(float)
+        X_r5 = sm.add_constant(X_r5)
+        m_r5 = sm.OLS(y, X_r5).fit(cov_type="HC3")
+
+        # β1: SC_total main effect (positive events)
+        b1 = m_r5.params.get("sc_total", np.nan)
+        se1 = m_r5.bse.get("sc_total", np.nan)
+        t1 = m_r5.tvalues.get("sc_total", np.nan)
+        p1 = m_r5.pvalues.get("sc_total", np.nan)
+        ci1 = m_r5.conf_int().loc["sc_total"] if "sc_total" in m_r5.conf_int().index else [np.nan, np.nan]
+        rob_rows.append({
+            "spec": "spec_5_direction_b1", "note": "SC_total main effect (positive events)",
+            "beta1": round(b1, 4), "se": round(se1, 4), "t": round(t1, 4),
+            "p": _round4(p1), "ci_lo": round(ci1[0], 4), "ci_hi": round(ci1[1], 4),
+            "r2": round(m_r5.rsquared, 4), "n_obs": int(m_r5.nobs), "clustering": "HC3",
+        })
+
+        # β3: SC_total × D_neg incremental amplification (negative events)
+        b3 = m_r5.params.get("sc_x_dneg", np.nan)
+        se3 = m_r5.bse.get("sc_x_dneg", np.nan)
+        t3 = m_r5.tvalues.get("sc_x_dneg", np.nan)
+        p3 = m_r5.pvalues.get("sc_x_dneg", np.nan)
+        ci3 = m_r5.conf_int().loc["sc_x_dneg"] if "sc_x_dneg" in m_r5.conf_int().index else [np.nan, np.nan]
+        rob_rows.append({
+            "spec": "spec_5_direction_b3", "note": "SC_total × D_neg amplification (negative events)",
+            "beta1": round(b3, 4), "se": round(se3, 4), "t": round(t3, 4),
+            "p": _round4(p3), "ci_lo": round(ci3[0], 4), "ci_hi": round(ci3[1], 4),
+            "r2": round(m_r5.rsquared, 4), "n_obs": int(m_r5.nobs), "clustering": "HC3",
+        })
+    except Exception as e:
+        rob_rows.append({"spec": "spec_5_direction_b1", "note": str(e)})
+        rob_rows.append({"spec": "spec_5_direction_b3", "note": str(e)})
 
     rob_df = pd.DataFrame(rob_rows)
     h1["robustness"] = rob_df
