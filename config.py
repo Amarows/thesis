@@ -32,7 +32,6 @@ ALPHA = 0.05                      # Significance threshold (two-tailed)
 SEED  = 42                        # Random seed for reproducibility
 
 # ── Augmentation ─────────────────────────────────────────────────────────────
-DEFAULT_TARGET_RESPONDENTS = 60
 AUGMENT_NOISE_FLOOR_SD     = 0.8  # Minimum SD for NRS noise generation
 
 # ── Google Sheets ─────────────────────────────────────────────────────────────
