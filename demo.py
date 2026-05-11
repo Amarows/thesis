@@ -25,7 +25,6 @@ print("\n>>> STARTING STAGE 3: SURVEY ASSEMBLY")
 # Run 3_survey_assembly.py directly with skip_auto=True
 survey_assembly.main(auto_populate=False)
 
-
 print("\n>>> STARTING STAGE 4: DEPLOY GOOGLE FORMS")
 # Run 4_deploy_google_forms.py (assuming it's similar)
 #subprocess.check_call([sys.executable, "4_deploy_google_forms.py"])
@@ -45,3 +44,10 @@ subprocess.check_call([sys.executable, "7_augment_data.py"])
 print("\n>>> STARTING STAGE 8: Statistics")
 # Run 8_statistical_analysis.py
 subprocess.check_call([sys.executable, "8_statistical_analysis.py"])
+
+print("\n>>> STARTING STAGE 9: Final")
+# Run 9_compile_thesis.py
+subprocess.check_call([sys.executable, "9_compile_thesis.py"])
+
+
+

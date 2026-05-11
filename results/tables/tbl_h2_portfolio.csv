@@ -1,5 +1,5 @@
 method,outcome,tau,se,t,p,ci_lo,ci_hi,cohens_d,r2,n,h2_supported,sortino_n_note,return_sc0,return_sc1,sharpe_sc0,sharpe_sc1,return_differential,dollar_impact,warning
-option_b_individual,portfolio_return,-0.0015,0.0111,-0.1357,0.8920,-0.0232,0.0202,-0.0241,0.0887,130.0,False,,,,,,,,
-option_b_individual,sharpe_ratio,0.8124,1.698,0.4784,0.6323,-2.5157,4.1404,0.0827,0.1369,114.0,False,,,,,,,,
-option_b_individual,sortino_ratio,5.5175,3.7376,1.4762,0.1399,-1.8081,12.8431,0.4595,0.0507,46.0,False,Computed for 95 of 130 respondent-condition pairs with at least one negative return,,,,,,,
-option_a_collective,portfolio_return,,,,,,,,,,,,0.0091,0.0066,1.151,0.0066,-0.0025,-2500.0,NON-INDEPENDENCE: both portfolios draw from same respondent pool. Descriptive only.
+option_b_individual,portfolio_return,-0.0253,0.015,-1.6812,0.0927,-0.0547,0.0042,-0.277,0.2023,134.0,False,,,,,,,,
+option_b_individual,sharpe_ratio,0.338,1.2656,0.2671,0.7894,-2.1425,2.8186,0.0289,0.1629,122.0,False,,,,,,,,
+option_b_individual,sortino_ratio,-5.5626,3.9969,-1.3917,0.1640,-13.3963,2.2711,-0.361,0.4695,48.0,False,Computed for 109 of 134 respondent-condition pairs with at least one negative return,,,,,,,
+option_a_collective,portfolio_return,,,,,,,,,,,,0.0239,-0.0188,2.239,-0.0188,-0.0427,-42700.0,NON-INDEPENDENCE: both portfolios draw from same respondent pool. Descriptive only.
