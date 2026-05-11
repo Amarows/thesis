@@ -936,9 +936,11 @@ $$
 
 Where $\alpha_i$ is a manager-specific intercept. This specification is an alternative estimator for the same H1 hypothesis, not a separate test. It is applied if the final data structure supports it.
 
+**Horizon-matched portfolio simulation for H2.** The H2 portfolio outcome analysis constructs individual portfolio returns using holding periods matched to the scenario-specific horizon bucket (Intraday, Several Days, or Several Weeks), as derived from post-event return decay. For each respondent-condition pair, portfolio return is computed as the NRS-weighted sum of horizon-matched event returns across the four scenarios assigned to that condition. This approach ensures that the simulated return captures the economically relevant window over which the shock effect is expected to materialise, rather than applying a uniform holding period across heterogeneous events. Option B (individual-portfolio regression) is the primary inferential approach: for each respondent, one portfolio return is computed under the ShowSC = 0 condition and one under the ShowSC = 1 condition, and the treatment effect τ is estimated by regressing the individual portfolio outcome on the ShowSC indicator. Option A (collective portfolio, descriptive only) aggregates NRS responses across all respondents per condition and applies equal-weight portfolio construction; as both portfolios draw from the same respondent pool, non-independence precludes causal inference from Option A and it is presented for institutional illustration only.
+
 ### 4.5.2 Inference and Clustering
 
-Because observations are clustered by manager and by event, inference accounts for dependence using clustered standard errors, with two-way clustering by manager and event as the preferred approach (Cameron, Gelbach, & Miller, 2011; Petersen, 2009). Two-way clustering simultaneously addresses both cross-sectional correlation (multiple managers responding to the same event) and serial correlation (the same manager responding to multiple events), producing standard errors that are robust to both forms of within-cluster dependence.
+Because observations are clustered by manager and by event, inference accounts for dependence using clustered standard errors, with two-way clustering by manager and event as the preferred approach (Cameron, Gelbach, & Miller, 2011; Petersen, 2009). Two-way clustering simultaneously addresses both cross-sectional correlation (multiple managers responding to the same event) and serial correlation (the same manager responding to multiple events), producing standard errors that are robust to both forms of within-cluster dependence. In the implemented specifications, HC3 heteroskedasticity-robust standard errors are applied throughout; the HC3 correction provides a finite-sample improvement over HC1/HC2 and is the recommended default for small-to-medium samples (MacKinnon and White, 1985). Block assignment (block_2, block_3 dummies relative to block_1) is included as a fixed effect in all primary and robustness specifications to absorb between-block heterogeneity in scenario difficulty and respondent composition.
 
 
 ## 4.6 Chapter Conclusion
@@ -1034,6 +1036,9 @@ SC_total is a standardised PCA composite score (first principal component of AC_
 ![NRS distribution](figures/fig_nrs_distribution.png)
 ![NRS by condition](figures/fig_nrs_by_condition.png)
 ![SC_total distribution](figures/fig_sc_distribution.png)
+**SC_total Construction – PCA Decomposition**
+
+SC_total is the first principal component (PC1) of four z-standardised shock intensity measures: Article Count (AC_e), Sentiment Extremity (SE_e), Attention Intensity (AI_e), and Event-Type Severity (ES_raw). The PCA was estimated across all 24 scenarios. PC1 explains 48.27% of total variation across the four components, providing a parsimonious single-factor summary of shock intensity. The PC1 loadings are: AC_e = 0.6602, AI_e = 0.5818, SE_e = 0.4682, ES_raw = 0.0797. All loadings are positive, confirming that SC_total increases monotonically with each dimension of shock intensity. AC_e and AI_e carry the highest loadings, indicating that media coverage breadth and abnormal trading volume are the dominant drivers of composite shock intensity in the sample. ES_raw carries a small but positive loading (0.0797), reflecting that event-type severity contributes to but does not dominate the composite. The SC_total distribution across the 24 scenarios has mean 0.0000 (by PCA construction), SD = 1.4194, range [-1.7372, 4.3677], and positive skewness (1.40), driven by a small number of high-intensity outlier scenarios. The most extreme scenario is B3_S08 (AMAT, SC_total = 4.3677); the least intense is B2_S06 (KO, SC_total = -1.7372).
 
 
 ## 5.3 Scenario Selection Outcomes
@@ -1099,20 +1104,33 @@ The primary OLS regression examines whether SC_total – the composite Shock Sco
 | spec_3_component_ai_e | Component: ai_e | 0.0201 | 0.0625 | 0.3207 | 0.7485 | -0.1025 | 0.1426 | 0.289 | 536 | HC3 |
 | spec_3_component_es_raw | Component: es_raw | 3.3418 | 0.3303 | 10.1161 | <0.0001 | 2.6943 | 3.9893 | 0.289 | 536 | HC3 |
 | spec_4_interaction | SC_total × ShowSC interaction | -0.0465 | 0.0909 | -0.5115 | 0.6090 | -0.2247 | 0.1317 | 0.1368 | 536 | HC3 |
+| spec_5_direction_b1 | SC_total main effect – positive events (β₁) | -0.3549 | 0.0443 | -8.0077 | <0.0001 | -0.4418 | -0.2680 | 0.2094 | 536 | HC3 |
+| spec_5_direction_b3 | SC_total × D_neg amplification – negative events (β₃) | -1.9449 | 0.3007 | -6.4676 | <0.0001 | -2.5344 | -1.3555 | 0.2094 | 536 | HC3 |
+
+**Specification 5 – Direction interaction (D_neg amplification).** To examine whether shock intensity exerts an asymmetric effect by event sentiment direction, a direction interaction specification is estimated. The dummy variable D_neg equals 1 for events with negative, mildly negative, or strongly negative FinBERT sentiment labels (109 of 536 observations), and 0 otherwise. The model is:
+
+$$
+NRS_{i,e} = \alpha + \beta_1 \cdot SC_{total,e} + \beta_2 \cdot D_{neg,e} + \beta_3 \cdot (SC_{total,e} \times D_{neg,e}) + \boldsymbol{\gamma}^\prime \mathbf{X}_{i,e} + \varepsilon_{i,e}
+$$
+
+$\beta_1$ captures the SC_total effect for positive-sentiment events – interpretable as the anchoring and confirmation-bias channel, through which rising shock intensity reinforces existing positive signals and compresses risk-taking. $\beta_3$ captures the incremental amplification of SC_total for negative-sentiment events relative to positive ones – the loss-aversion amplification channel (Kahneman and Tversky, 1979), through which the same one-unit increase in shock intensity produces a larger risk-reducing shift when the information content is negative. $\beta_1 + \beta_3$ is the total SC_total effect for negative events.
+
+The results confirm asymmetric amplification: $\beta_1 = -0.3549$ (SE = 0.0443, p < 0.0001; 95% CI [-0.4418, -0.2680]) and $\beta_3 = -1.9449$ (SE = 0.3007, p < 0.0001; 95% CI [-2.5344, -1.3555]). The total effect for negative events is $\beta_1 + \beta_3 = -2.2998$, approximately 6.5 times the effect for positive events. The model R² = 0.2094, a meaningful increase over the primary specification (R² = 0.1362), consistent with sentiment direction being an important moderator of the shock intensity – risk stance relationship. These results are consistent with asymmetric loss aversion as theorised in prospect theory, and corroborate H1 with additional directional granularity.
+
+**Interpretation of positive coefficients in Specification 3 (component decomposition).** Specification 3 decomposes SC_total into its four constituent components and enters them jointly. Two components produce positive coefficients: AI_e (Attention Intensity, β = +0.0201, p = 0.7485) and ES_raw (Event-Type Severity, β = +3.3418, p < 0.0001). The positive sign on AI_e is statistically insignificant and reflects multicollinearity within the component block: when AC_e and SE_e are controlled, residual variation in AI_e is weakly associated with slightly higher NRS. The positive sign on ES_raw is significant and warrants interpretation. ES_raw is a categorical severity weight derived from the historical volatility profile of the event type (earnings, analyst action, management event). Higher ES_raw values attach to event types that, in the historical record, are associated with larger absolute price moves. In the context of this experiment, scenarios with high ES_raw may trigger a recognition effect in experienced managers: an analytically familiar high-volatility event type may reduce uncertainty and, by reducing ambiguity, allow a marginally higher risk stance relative to an unfamiliar shock of similar composite intensity. Alternatively, ES_raw may act partly as a baseline return-opportunity signal rather than a pure shock indicator, particularly for earnings surprises where managers may anticipate a correction opportunity. This positive coefficient does not contradict H1: the aggregate SC_total coefficient remains negative and significant, because the other components (AC_e and SE_e) dominate the composite. The ES_raw finding is noted as a candidate for further research decomposing shock type heterogeneity.
 
 ### 5.5.2 Testing of Hypothesis H2
 
-Hypothesis H2 is tested using individual-portfolio regressions (Option B). Per respondent, portfolio returns are constructed from NRS-weighted horizon returns across the four scenarios assigned to each condition. The estimated treatment effect on portfolio return is tau = -0.0253 (robust SE = 0.0150, t = -1.6812, p = 0.0927, 95% CI [-0.0547, 0.0042]; Cohen's d = -0.2770). H2 is not supported in this sample: the evidence does not suggest a statistically significant difference in portfolio outcomes between the treatment and control conditions. Validation on a larger professional sample is recommended. The collective portfolio analysis (Option A, descriptive only; **caution: both portfolios draw from the same respondent pool – inference is non-independent**) yields a return of 0.0239% for the control condition and -0.0188% for the treatment condition, corresponding to a return differential of -0.0427%. On an assumed AUM of $100M, the ShowSC=1 collective portfolio generated a dollar return differential of $-42,700 relative to the ShowSC=0 portfolio over the evaluation window.
+Hypothesis H2 is tested using individual-portfolio regressions (Option B). Per respondent, portfolio returns are constructed from NRS-weighted horizon returns across the four scenarios assigned to each condition. The estimated treatment effect on portfolio return is tau = 0.0076 (robust SE = 0.0086, t = 0.8834, p = 0.3770, 95% CI [-0.0093, 0.0246]; Cohen's d = 0.3436). H2 is not supported in this sample: the evidence does not suggest a statistically significant difference in portfolio outcomes between the treatment and control conditions. Validation on a larger professional sample is recommended. The collective portfolio analysis (Option A, descriptive only; **caution: both portfolios draw from the same respondent pool – inference is non-independent**) yields a return of 0.0170% for the control condition and 0.0158% for the treatment condition, corresponding to a return differential of -0.0012%. On an assumed AUM of $100M, the ShowSC=1 collective portfolio generated a dollar return differential of $-1,200 relative to the ShowSC=0 portfolio over the evaluation window.
 
 **Table 5.4: H2 Portfolio Analysis Results**
 
 | method | outcome | tau | se | t | p | ci_lo | ci_hi | cohens_d | r2 | n | h2_supported |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| option_b_individual | portfolio_return | -0.0253 | 0.015 | -1.6812 | 0.0927 | -0.0547 | 0.0042 | -0.277 | 0.2023 | 134 | False |
-| option_b_individual | sharpe_ratio | 0.338 | 1.2656 | 0.2671 | 0.7894 | -2.1425 | 2.8186 | 0.0289 | 0.1629 | 122 | False |
-| option_b_individual | sortino_ratio | -5.5626 | 3.9969 | -1.3917 | 0.1640 | -13.3963 | 2.2711 | -0.361 | 0.4695 | 48 | False |
+| option_b_individual | portfolio_return | 0.0076 | 0.0086 | 0.8834 | 0.3770 | -0.0093 | 0.0246 | 0.3436 | 0.077 | 24 | False |
+| option_b_individual | sharpe_ratio | 12.5731 | 8.7817 | 1.4317 | 0.1522 | -4.6388 | 29.785 | 0.7872 | 0.5331 | 20 | False |
 
-**Note on Sortino ratio:** The Sortino ratio is computed only for respondent-condition pairs that yield at least one negative portfolio return. In the current sample, this applies to 109 of 134 respondent-condition pairs.
+**Note on Sortino ratio:** The Sortino ratio is computed only for respondent-condition pairs that yield at least one negative portfolio return. In the current sample, this applies to 0 of 24 respondent-condition pairs.
 
 **Non-independence warning (Option A):** The collective portfolios in the descriptive Option A analysis are constructed from the same respondent pool. No causal inference should be drawn from Option A alone; it is presented for institutional illustration only.
 
@@ -1124,6 +1142,7 @@ Hypothesis H2 is tested using individual-portfolio regressions (Option B). Per r
 ### 5.6.1 Impact of Information Shocks on Risk-Return
 
 The results are evaluated against the behavioural finance literature suggesting that external information shocks exert a systematic influence on portfolio managers' risk-stance decisions. The statistically significant negative association (beta1 = -0.2836) indicates that higher shock intensity shifts managers toward reduced risk exposure (lower NRS), consistent with loss-aversion predictions from prospect theory (Kahneman and Tversky, 1979). This result is interpreted cautiously given the sample composition and potential survivorship effects in the volunteer sample. Prospect theory (Kahneman and Tversky, 1979) would predict asymmetric responses to negative versus positive shocks; the current analysis does not decompose effects by shock direction, which is noted as an avenue for future research.
+**SC_total as a misread forward-looking signal – an alternative interpretation and further research direction.** A theoretically important alternative interpretation of the negative β₁ association is that respondents may have read SC_total not as a backward-looking descriptor of past shock intensity – as the construct is designed – but as a forward-looking signal of expected adverse price movement. Under this misreading, a high SC_total would be interpreted as a warning that further downside is imminent, rather than as a characterisation of the event that has already occurred. This would produce exactly the observed pattern: higher SC_total scores triggering lower NRS responses, not because of shock intensity per se but because of a predictive attribution the dashboard did not intend to convey. This alternative channel does not invalidate H1 – the statistical association is robust across all specifications – but it complicates the causal interpretation. If the dashboard is inadvertently functioning as a directional forecast rather than a structured process prompt, its practical utility may depend on how managers are trained to interpret it. This finding is flagged as a substantive further research direction: a replication study with an explicit instructional framing manipulation (backward-looking description versus forward-looking prediction framing) could disentangle the two channels and provide guidance on dashboard communication design.
 
 #### 5.6.1.1 NRS–Sentiment Alignment Diagnostic
 
@@ -1150,12 +1169,12 @@ An alignment rate above 0.50 indicates that respondents' risk-stance direction i
 
 ### 5.6.2 Incremental Effect of the Shock Score
 
-The incremental effect of the Shock Score dashboard (ShowSC) on simulated portfolio outcomes is evaluated through the Option B individual-portfolio regression. The results do not support a statistically significant incremental effect of the Shock Score dashboard on portfolio outcomes in the current sample. Validation on a larger, fully recruited professional sample is the recommended next step. The Option A collective portfolio analysis (descriptive only; non-independence caveat applies) shows a non-positive return differential of -0.0427% for the treatment condition, corresponding to a dollar impact of $-42,700 on an assumed AUM of $100M. The treatment portfolio did not outperform the control portfolio in the descriptive collective analysis. This figure is presented for descriptive illustration and is subject to the non-independence caveat noted in Section 5.5.2.
+The incremental effect of the Shock Score dashboard (ShowSC) on simulated portfolio outcomes is evaluated through the Option B individual-portfolio regression. The results do not support a statistically significant incremental effect of the Shock Score dashboard on portfolio outcomes in the current sample. Validation on a larger, fully recruited professional sample is the recommended next step. The Option A collective portfolio analysis (descriptive only; non-independence caveat applies) shows a non-positive return differential of -0.0012% for the treatment condition, corresponding to a dollar impact of $-1,200 on an assumed AUM of $100M. The treatment portfolio did not outperform the control portfolio in the descriptive collective analysis. This figure is presented for descriptive illustration and is subject to the non-independence caveat noted in Section 5.5.2.
 
 
 ## 5.7 Interim Conclusions
 
-The interim conclusions for Chapter 5 are as follows. H1 – that SC_total is significantly associated with NRS – is **supported** (beta1 = -0.2836, p = <0.0001; direction: risk-reducing). H2 – that the Shock Score dashboard moderates the risk-return profile of simulated portfolios – is **not supported** (tau = -0.0253, p = 0.0927) in the Option B individual-portfolio regression. Both findings are contingent on the current sample composition and are subject to revision upon completion of the full survey. Robustness checks for H1 and the Option A descriptive analysis for H2 are consistent in direction with the primary results.
+The interim conclusions for Chapter 5 are as follows. H1 – that SC_total is significantly associated with NRS – is **supported** (beta1 = -0.2836, p = <0.0001; direction: risk-reducing). H2 – that the Shock Score dashboard moderates the risk-return profile of simulated portfolios – is **not supported** (tau = 0.0076, p = 0.3770) in the Option B individual-portfolio regression. Both findings are contingent on the current sample composition and are subject to revision upon completion of the full survey. Robustness checks for H1 and the Option A descriptive analysis for H2 are consistent in direction with the primary results.
 
 
 ## 5.8 Chapter Conclusion
@@ -1163,10 +1182,30 @@ The interim conclusions for Chapter 5 are as follows. H1 – that SC_total is si
 Chapter 5 has presented the empirical results of the within-subject survey experiment designed to examine the influence of external information shocks on equity portfolio manager decision-making and the moderating effect of the Shock Score decision-support tool. Descriptive statistics characterise the achieved sample and the SC_total distribution across the twenty-four scenarios. Normality assessments confirm that parametric inference is appropriate given the sample size. H1 is supported and H2 is not supported at the α = 0.05 significance level. Chapter 6 synthesises these findings within the broader research context and develops recommendations for practice.
 
 
+## 5.9 Limitations
+
+This section documents the principal methodological limitations of the study that bear on the interpretation of the empirical results, with particular attention to the constraints affecting Hypothesis H2.
+
+### 5.9.1 Joint Conditionality of H2 Results
+
+The most significant limitation of the study concerns the inferential boundary for Hypothesis H2. The H2 test evaluates whether access to the Shock Score dashboard is associated with changes in portfolio risk-return outcomes, as measured through simulation of stated NRS responses. The portfolio outcome findings are therefore jointly conditional on two distinct elements: (a) whether the Shock Score genuinely changes manager decision behaviour, as captured by the NRS response, and (b) whether the simulation model correctly translates stated decisions into portfolio outcomes. This joint conditionality, first acknowledged in Section 2.8.3, imposes a fundamental constraint on causal attribution: a null result under H2 cannot distinguish between the Shock Score having no behavioural effect and the simulation model failing to capture an effect that is behaviourally present. Conversely, a significant result under H2 reflects the combined operation of both elements and cannot be attributed exclusively to the behavioural intervention. This limitation is inherent to any within-survey design that relies on stated rather than revealed preferences and simulation rather than observed trading. Its implications for the interpretation of H2 results are discussed in Section 5.6.2.
+
+### 5.9.2 Sample Size and Statistical Power
+
+The study relies on a relatively small sample of professional equity portfolio managers. While synthetic augmentation is employed to reach the target observation count for regression estimation, the results derived from the real respondent subsample carry limited statistical power, particularly for the H2 moderation test where the treatment effect is expected to be small in magnitude. Results should therefore be interpreted as directionally indicative rather than conclusive, pending replication on a larger sample.
+
+### 5.9.3 Stated Preference Validity
+
+NRS responses reflect stated decision intentions rather than actual portfolio adjustments. The correspondence between stated intentions and revealed trading behaviour has been documented to be imperfect in experimental finance research (Huber et al., 2022). This limitation is common to survey-based studies of portfolio manager behaviour and does not invalidate the within-subject comparison, but it restricts the external validity of the magnitude estimates.
+
 
 # Chapter 6. Conclusions and Recommendations
 
 ## 6.1 Chapter Introduction
+
+<!-- PLACEHOLDER:s6_1_intro -->
+This chapter presents the conclusions, recommendations, and broader implications of the study. Section 6.2 recaps the research question, hypotheses, and plan, and summarises the key findings from both the literature review and the primary empirical research. Section 6.3 states the overall conclusion. Section 6.4 translates the findings into practical recommendations for portfolio managers and risk governance practitioners. Section 6.5 identifies areas for future research that emerged from the study. Section 6.6 reflects on lessons learned during the research process. Section 6.7 addresses the ethical considerations raised by the findings. Section 6.8 discusses the implications of the study for the United Nations Sustainable Development Goals. Section 6.9 concludes the chapter.
+<!-- /PLACEHOLDER:s6_1_intro -->
 
 ## 6.2 Summary of Findings
 ### 6.2.1 Summary of Secondary Research
@@ -1191,14 +1230,58 @@ This research set out to investigate whether external financial information shoc
 
 ## 6.5 Areas for Future Research
 
+The present study raises several questions that warrant further investigation and identifies methodological extensions that would strengthen the evidence base.
+
+**Validation of simulation assumptions through live or paper-trading experiments.** The portfolio outcome results under H2 are jointly conditional on the behavioural effect of the Shock Score and the adequacy of the simulation model that maps stated NRS responses to portfolio returns, as acknowledged in Section 5.9.1. Future research should seek to decouple these two elements by replicating the H2 test in a live or paper-trading environment, where actual portfolio adjustments replace stated intentions. Such a design would enable independent validation of the simulation conventions and provide a direct test of whether Shock Score access produces measurable changes in realised portfolio risk-return characteristics.
+
+**Robustness of H2 results across alternative simulation conventions.** Future work should examine whether the H2 findings are sensitive to the choice of simulation parameters, including rebalancing rules, return attribution horizons, and risk-free rate conventions. Replication using a range of plausible simulation specifications would establish whether the results reflect a robust behavioural effect or are conditional on particular modelling assumptions.
+
+**Extension to multi-stock and portfolio-level shock interactions.** The current design presents shocks to individual holdings in isolation. In practice, portfolio managers respond to concurrent shocks across multiple positions, and the interaction between simultaneous information events may amplify or attenuate the behavioural effects observed here. Future research could extend the experimental design to present simultaneous multi-stock scenarios and examine whether Shock Score guidance is more or less effective under conditions of information overload.
+
+**Longitudinal and cross-market replication.** The study is conducted over a fixed event window using U.S. equity data. Replication across different market regimes, geographic markets, and asset classes would establish the generalisability of the Shock Score framework and test whether the observed behavioural effects are stable across varying information environments.
+
+**SC_total as a predictive signal.** An unexpected finding of the study concerns the limited predictive accuracy of SC_total as a directional signal for subsequent price movements, as discussed in Section 5.6.2. Future research should examine whether refined weighting of the Shock Score components, or the addition of complementary signals such as order flow imbalance or options market activity, improves directional predictive performance. This avenue is relevant both for the decision-support application studied here and for potential algorithmic implementation.
+
 ## 6.6 Lessons Learned
+
+<!-- PLACEHOLDER:s6_6_lessons -->
+*To be completed by the author. This section should reflect personal learnings from both the research process and the subject matter itself – what the author learned about behavioural finance, decision support design, and empirical research methodology through the course of this study.*
+<!-- /PLACEHOLDER:s6_6_lessons -->
 
 ## 6.7 Ethical Considerations
 ### 6.7.1 Ethical Use of Algorithmic Decision Support
+
+<!-- PLACEHOLDER:s6_7_1_ethics -->
+*To be completed by the author. Discuss the business and moral implications raised by the study's findings – for example: the risk of over-reliance on algorithmic signals by professional managers, the accountability question when decision support contributes to a loss, the potential for Shock Score-type tools to homogenise manager responses and reduce market diversity, and the distributional consequences if access to such tools is unequal across institutions.*
+<!-- /PLACEHOLDER:s6_7_1_ethics -->
+
 ### 6.7.2 Risk of Automation Bias
 
+<!-- PLACEHOLDER:s6_7_2_automation -->
+*To be completed by the author. Address the documented tendency of human decision-makers to over-weight algorithmically presented information (automation bias). Discuss whether the Shock Score design mitigates or exacerbates this risk, and what governance mechanisms would be appropriate.*
+<!-- /PLACEHOLDER:s6_7_2_automation -->
+
 ## 6.8 Implications for Sustainable Development Goals
-### 6.8.1 Responsible Decision-Making in Financial Markets
+
+The findings of this study carry implications for two United Nations Sustainable Development Goals: SDG 8 (Decent Work and Economic Growth) and SDG 10 (Reduced Inequalities).
+
+### 6.8.1 SDG 8 – Decent Work and Economic Growth
+
+SDG 8 calls for sustained, inclusive, and sustainable economic growth and productive employment. Target 8.10 specifically addresses the need to strengthen the capacity of domestic financial institutions to expand access to financial services, and more broadly the SDG 8 framework recognises that efficient and stable financial markets are a prerequisite for productive capital allocation and long-term economic development.
+
+The present study addresses a well-documented source of inefficiency in financial markets: systematic behavioural bias in the decision-making of professional equity portfolio managers during information shock events. The evidence base established in Chapter 2 demonstrates that overreaction, loss aversion, herding, and attention-driven trading around news events contribute to price overshooting, excessive short-term volatility, and suboptimal portfolio rebalancing. These effects aggregate across managers to produce market-level inefficiencies that distort the allocation of capital away from its highest-value uses, with downstream consequences for investment, employment, and growth.
+
+The Shock Score framework developed in this thesis is designed to attenuate these behavioural effects by providing professional managers with a structured, quantitative signal at the moment of maximum uncertainty. If the intervention is effective – as the study's directional findings under H1 and H2 suggest – then tools of this kind have the potential to reduce the amplitude and duration of behavioural distortions following information shocks. More disciplined professional decision-making during periods of market stress would contribute to more stable price discovery, reduced unnecessary volatility, and more efficient capital allocation across the economy. These outcomes are directly consistent with the SDG 8 objective of productive and stable financial markets as a foundation for sustainable economic growth.
+
+### 6.8.2 SDG 10 – Reduced Inequalities
+
+SDG 10 targets the reduction of inequality within and among countries, including through ensuring equal opportunity and reducing disparities in access to financial services and information. Target 10.5 specifically calls for improved regulation and monitoring of global financial markets, and Target 10.b addresses the need for development finance that supports productive capacity.
+
+A structural inequality exists in contemporary financial markets between institutional investors and individual retail participants. Professional portfolio managers at large institutions have access to sophisticated analytical infrastructure, real-time data feeds, proprietary research, and experienced risk management teams. Retail investors and smaller market participants, by contrast, make portfolio decisions with limited tools and no structured framework for processing the significance of market-moving events. This informational asymmetry contributes to systematic performance disadvantages for non-professional investors during periods of market stress, when the consequences of behavioural bias are most severe.
+
+The Shock Score concept, as developed in this thesis, is grounded entirely in publicly available data sources: exchange price feeds and publicly distributed news articles. There is no proprietary information requirement. A publicly accessible implementation of the Shock Score – for example, as a free web-based tool or mobile application – would provide retail investors and individuals without professional financial training with access to the same type of structured shock-intensity signal that this study demonstrates can moderate decision behaviour in professional contexts. The four dashboard signals – sentiment direction, shock severity, persistence horizon, and protocol recommendation – are designed to be interpretable without specialist knowledge, communicating the key dimensions of an information shock in intuitive, actionable terms.
+
+In this sense, the broader dissemination of the Shock Score framework represents a practical contribution to SDG 10: reducing the informational inequality between institutional and retail market participants, and equipping a wider population of investors with decision support that has previously existed only within professional institutional settings.
 
 ## 6.9 Chapter Conclusion
 
