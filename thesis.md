@@ -840,63 +840,39 @@ The non-probability sampling approach limits the generalisability of findings to
 
 ### 4.4.8 Survey Administration and Response Rates
 
-[This section will be completed upon survey execution. The planned reporting structure is described below.]
+The survey was deployed in two phases. The pilot phase ran from 3 April 2026 to 21 April 2026 using the Block 1 instrument (V1 and V2). The full survey launched on 17 April 2026, overlapping with the final days of the pilot window, and remained open for ongoing respondent recruitment.
 
-The survey is planned for deployment in Q2 2026. The following timeline is anticipated:
-
-Pilot test: Q2 2026. Estimated duration: one week.
-Instrument revision based on pilot feedback: estimated duration three to five days.
-Full survey launch (opening date): to be determined following pilot completion.
-First reminder to non-respondents: one week after launch.
-Second reminder to non-respondents: two weeks after launch.
-Survey closing date: to be determined. Estimated survey window: four to six weeks.
-
-The survey window length reflects the difficulty of recruiting senior professional respondents, who may require multiple reminders and flexible timing to complete the instrument.
-
-Response rates will be reported in the following format:
+Invitations were distributed through two channels. Direct outreach comprised more than 120 personalised LinkedIn connection requests and direct messages to equity portfolio managers meeting the inclusion criteria defined in Section 4.4.7. Indirect outreach comprised more than 700 impressions through LinkedIn posts and shared content targeting investment management professionals. The pilot phase yielded 12 completions on the Block 1 instrument.
 
 **Table 4.7: Survey Response Summary**
 
 | Metric | Count |
 |---|---|
-| Surveys distributed | [N] |
-| Surveys started (partial responses) | [N] |
-| Surveys completed | 100 (target) |
-| Valid responses after quality checks | [N] |
-| Response rate (completed / distributed) | [%] |
-| Valid response rate (valid / distributed) | [%] |
+| Direct invitations distributed | 120+ |
+| Indirect reach (posts and shares) | 700+ |
+| Pilot completions (Block 1) | 12 |
+| Total valid responses included in analysis | 67 |
+| Total scenario-level observations | 536 |
 
-Quality exclusion criteria applied during data cleaning include: incomplete responses (fewer than 6 of 8 scenarios answered), uniform responding (identical NRS value for all 8 scenarios, suggesting inattentive completion), and completion time below a plausibility threshold (under 5 minutes for 8 scenarios, suggesting non-engagement with scenario content).
-
-The target of 100 valid completed questionnaires requires distributing the survey to a substantially larger pool, given expected response rates for professional survey research. Based on published response rate benchmarks for senior financial professionals, a distribution pool of 300 to 500 is anticipated to yield 100 valid completions.
-
+Quality exclusion criteria applied during data cleaning include: incomplete responses (fewer than 6 of 8 scenarios answered), uniform responding (identical NRS value for all 8 scenarios), and completion time below a plausibility threshold (under 5 minutes for 8 scenarios). The final analytical sample of 67 respondents and 536 observations reflects all quality checks applied by the data processing pipeline.
 
 ### 4.4.9 Pilot Test
 
-A pilot test is conducted prior to full survey deployment to evaluate the clarity, feasibility, and reliability of the research instrument. The pilot is administered to a target of 30 respondents, meeting the SBS handbook minimum sample size requirement for Cronbach's alpha reliability testing (Swiss Business School, 2025, Section 1.5). Pilot respondents are recruited through the researcher's professional network and include active portfolio managers and senior investment analysts who meet the inclusion criteria defined in Section 4.4.7. Pilot participants are not included in the final study sample.
+A pilot test was conducted prior to full survey deployment to evaluate the clarity, feasibility, and reliability of the research instrument. The pilot was administered using the Block 1 instrument (V1 and V2) between 3 April 2026 and 21 April 2026, yielding 12 completions from active portfolio managers and senior investment analysts meeting the inclusion criteria defined in Section 4.4.7. Pilot respondents are not included in the final study sample.
 
-The pilot test serves four purposes. First, it evaluates scenario clarity: whether the information shock descriptions, portfolio context, and dashboard displays are interpreted consistently and without ambiguity. Second, it assesses completion time: whether the eight-scenario instrument can be completed within the estimated 15-minute window without inducing fatigue. Third, it verifies the technical implementation of the Google Forms instrument, including counterbalancing block assignment and data recording accuracy. Fourth, it collects structured feedback on the realism of scenarios, the interpretability of the Shock Score dashboard, and any aspects of the survey that create confusion or disengagement.
-
-Structured pilot feedback is collected through five additional questions appended to the Block 1 survey forms:
+The pilot served four purposes: evaluating scenario clarity, assessing completion time against the 15-minute target, verifying the technical implementation of the Google Forms instrument including counterbalancing block assignment and data recording, and collecting structured feedback on scenario realism and dashboard interpretability through the five feedback questions appended to the Block 1 forms (Table 4.8).
 
 **Table 4.8: Pilot Feedback Questions**
 
 | # | Question | Format | Required |
 |---|----------|--------|----------|
-| 1 | How long did it take you to complete the survey? | Radio: Less than 15 min / 15-20 min / 20-25 min / More than 25 min | Yes |
-| 2 | How clear and understandable were the scenario descriptions, including the news events and portfolio context? | Linear scale 1-5 (Very unclear to Very clear) | Yes |
-| 3 | For scenarios that included the decision-support dashboard, how easy was it to interpret the information presented? | Linear scale 1-5 (Very difficult to Very easy) | No |
-| 4 | How realistic did the investment scenarios feel relative to your professional experience? | Linear scale 1-5 (Not realistic to Very realistic) | Yes |
+| 1 | How long did it take you to complete the survey? | Radio: Less than 15 min / 15–20 min / 20–25 min / More than 25 min | Yes |
+| 2 | How clear and understandable were the scenario descriptions, including the news events and portfolio context? | Linear scale 1–5 (Very unclear to Very clear) | Yes |
+| 3 | For scenarios that included the decision-support dashboard, how easy was it to interpret the information presented? | Linear scale 1–5 (Very difficult to Very easy) | No |
+| 4 | How realistic did the investment scenarios feel relative to your professional experience? | Linear scale 1–5 (Not realistic to Very realistic) | Yes |
 | 5 | Please share any observations about aspects of the survey that were confusing, unrealistic, or could be improved. | Open text | No |
 
-The pilot feedback questions are appended only to the Block 1 forms (V1 and V2) and are removed prior to full deployment. This limits the pilot to a single block, ensuring that Block 2 and Block 3 forms remain unmodified for the main study.
-
-Regarding reliability assessment, the primary response measure (Net Risk Stance) is a single-item scale for which traditional internal consistency measures such as Cronbach's alpha do not directly apply. The SBS handbook (Swiss Business School, 2025, Section 3.7.2) requires Cronbach's alpha testing; for the NRS scale, reliability is instead evaluated through consistency of responses across structurally similar scenarios within each condition and through comparison of response variance between pilot and main study samples. For the two post-experiment items (manipulation check and usefulness rating), descriptive statistics from the pilot are examined to verify adequate variance and absence of ceiling or floor effects. If a Cronbach's alpha coefficient of 0.5 or below is obtained on any applicable multi-item construct, the responses to those questions are flagged and the problem identified as a limitation, consistent with the handbook requirement (Swiss Business School, 2025, Section 3.7.2).
-
-Based on pilot feedback, the following adjustments may be made before full deployment: revision of scenario wording for clarity, adjustment of dashboard visual layout for readability, modification of scenario length if completion time substantially exceeds the target, and correction of any technical issues in the survey platform.
-
-The pilot test results and any instrument modifications will be documented in this section upon completion.
-
+Based on pilot feedback, the following instrument modifications were made before full survey deployment: scenario charts were redesigned for clarity; explanatory notes were added to the Shock Score dashboard to clarify the interpretation of each signal; the number of scenarios per block was reduced from 12 to 8 to bring completion time within the 15-minute target; and detailed instructions were added to the survey introduction to orientate respondents to the portfolio context and response scale. These modifications are reflected in the final instrument deployed for the main survey.
 
 ## 4.5 Analytical Framework
 
