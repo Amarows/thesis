@@ -68,9 +68,15 @@ def _apa_style(ax: plt.Axes) -> None:
 
 
 def _round4(x: float) -> str:
-    """Format a float to 4 decimal places."""
+    """Format a float to 4 decimal places. If 0 < x < 0.00005, returns '<0.0001'."""
     if x is None or (isinstance(x, float) and np.isnan(x)):
         return "N/A"
+    # For very small positive p-values or coefficients
+    if 0 < x < 0.00005:
+        return "<0.0001"
+    # For very small negative values (if applicable)
+    if -0.00005 < x < 0:
+        return ">-0.0001"
     return f"{x:.4f}"
 
 
@@ -719,8 +725,12 @@ def run_h1_regression(df: pd.DataFrame) -> dict:
         t    = model.tvalues.iloc[sc_idx]
         p    = model.pvalues.iloc[sc_idx]
         ci   = model.conf_int().iloc[sc_idx]
+        
+        # Determine P-value display string
+        p_str = _round4(p)
+        
         return {"model": model, "beta1": round(beta, 4), "se": round(se, 4),
-                "t": round(t, 4), "p": round(p, 4),
+                "t": round(t, 4), "p": p_str,
                 "ci_lo": round(ci[0], 4), "ci_hi": round(ci[1], 4),
                 "r2": round(model.rsquared, 4), "n_obs": int(model.nobs),
                 "clustering": "HC3"}
@@ -772,7 +782,7 @@ def run_h1_regression(df: pd.DataFrame) -> dict:
             rob_rows.append({
                 "spec": "spec_2_within", "note": "Respondent FE (within)",
                 "beta1": round(b, 4), "se": round(se_, 4), "t": round(t_, 4),
-                "p": round(p_, 4), "ci_lo": round(ci_[0], 4), "ci_hi": round(ci_[1], 4),
+                "p": _round4(p_), "ci_lo": round(ci_[0], 4), "ci_hi": round(ci_[1], 4),
                 "r2": round(m_r2.rsquared, 4), "n_obs": int(m_r2.nobs), "clustering": "HC3",
             })
     except Exception as e:
@@ -798,7 +808,7 @@ def run_h1_regression(df: pd.DataFrame) -> dict:
                 rob_rows.append({
                     "spec": f"spec_3_component_{cc}", "note": f"Component: {cc}",
                     "beta1": round(b, 4), "se": round(se_, 4), "t": round(t_, 4),
-                    "p": round(p_, 4), "ci_lo": round(ci_[0], 4), "ci_hi": round(ci_[1], 4),
+                    "p": _round4(p_), "ci_lo": round(ci_[0], 4), "ci_hi": round(ci_[1], 4),
                     "r2": round(m_r3.rsquared, 4), "n_obs": int(m_r3.nobs), "clustering": "HC3",
                 })
     except Exception as e:
@@ -822,7 +832,7 @@ def run_h1_regression(df: pd.DataFrame) -> dict:
         rob_rows.append({
             "spec": "spec_4_interaction", "note": "SC_total × ShowSC interaction",
             "beta1": round(b, 4), "se": round(se_, 4), "t": round(t_, 4),
-            "p": round(p_, 4), "ci_lo": round(ci_[0], 4), "ci_hi": round(ci_[1], 4),
+            "p": _round4(p_), "ci_lo": round(ci_[0], 4), "ci_hi": round(ci_[1], 4),
             "r2": round(m_r4.rsquared, 4), "n_obs": int(m_r4.nobs), "clustering": "HC3",
         })
     except Exception as e:
@@ -841,7 +851,7 @@ def run_h1_regression(df: pd.DataFrame) -> dict:
                 "beta": round(primary_model.params[covariate], 4),
                 "se":   round(primary_model.bse[covariate], 4),
                 "t":    round(primary_model.tvalues[covariate], 4),
-                "p":    round(primary_model.pvalues[covariate], 4),
+                "p":    _round4(primary_model.pvalues[covariate]),
                 "ci_lo": round(primary_model.conf_int().loc[covariate, 0], 4),
                 "ci_hi": round(primary_model.conf_int().loc[covariate, 1], 4),
                 "r2": primary["r2"], "n_obs": primary["n_obs"],
@@ -969,7 +979,7 @@ def run_h2_analysis(df: pd.DataFrame, horizon_returns: pd.DataFrame,
             opt_b_reg_rows.append({
                 "method": "option_b_individual", "outcome": outcome,
                 "tau": round(tau, 4), "se": round(se_, 4), "t": round(t_, 4),
-                "p": round(p_, 4), "ci_lo": round(ci_[0], 4), "ci_hi": round(ci_[1], 4),
+                "p": _round4(p_), "ci_lo": round(ci_[0], 4), "ci_hi": round(ci_[1], 4),
                 "cohens_d": cohens_d, "r2": round(m.rsquared, 4),
                 "n": int(m.nobs), "h2_supported": p_ < ALPHA,
             })
@@ -1093,17 +1103,34 @@ def _fig_sharpe_comparison(opt_b_df: pd.DataFrame, h2: dict) -> None:
 # Section 7 – Conclusions engine
 # ---------------------------------------------------------------------------
 
+def _parse_p(p_val: float | str) -> float:
+    """Helper to convert P-value (which might be a string like '<0.0001') back to float for threshold checks."""
+    if isinstance(p_val, str):
+        if p_val.startswith("<"):
+            return float(p_val[1:]) - 0.000001
+        if p_val.startswith(">"):
+            return float(p_val[1:]) + 0.000001
+        if p_val == "N/A":
+            return np.nan
+        try:
+            return float(p_val)
+        except ValueError:
+            return np.nan
+    return float(p_val)
+
+
 def generate_conclusions(h1: dict, h2: dict, desc: dict, norm: dict) -> dict:
     conc = {}
 
     # H1
     primary = h1.get("primary", {})
     beta1 = primary.get("beta1", np.nan)
-    h1_p  = primary.get("p", np.nan)
+    h1_p_val  = primary.get("p", np.nan)
+    h1_p_float = _parse_p(h1_p_val)
     h1_t  = primary.get("t", np.nan)
     h1_ci_lo = primary.get("ci_lo", np.nan)
     h1_ci_hi = primary.get("ci_hi", np.nan)
-    h1_supported = (not np.isnan(h1_p)) and (h1_p < ALPHA)
+    h1_supported = (not np.isnan(h1_p_float)) and (h1_p_float < ALPHA)
 
     if np.isnan(beta1):
         _h1_direction_sentence = "The direction of the effect cannot be determined (estimation failed)."
@@ -1128,7 +1155,7 @@ def generate_conclusions(h1: dict, h2: dict, desc: dict, norm: dict) -> dict:
         f"controlling for the ShowSC treatment indicator, years of experience, and block "
         f"fixed effects. The estimated coefficient on SC_total is "
         f"β₁ = {_round4(beta1)} (robust SE = {_round4(primary.get('se', np.nan))}, "
-        f"t = {_round4(h1_t)}, p = {_round4(h1_p)}, "
+        f"t = {_round4(h1_t)}, p = {h1_p_val}, "
         f"95% CI [{_round4(h1_ci_lo)}, {_round4(h1_ci_hi)}]). "
         f"{_h1_direction_sentence} "
         f"{'At the α = 0.05 significance level, H1 is supported: SC_total is a statistically significant predictor of NRS.' if h1_supported else 'At the α = 0.05 significance level, H1 is not supported: the evidence does not suggest a statistically significant association between SC_total and NRS in this sample.'} "
@@ -1148,12 +1175,13 @@ def generate_conclusions(h1: dict, h2: dict, desc: dict, norm: dict) -> dict:
             h2_primary = pr_row.iloc[0].to_dict()
 
     tau = h2_primary.get("tau", np.nan)
-    h2_p = h2_primary.get("p", np.nan)
-    h2_supported = (not np.isnan(h2_p)) and (h2_p < ALPHA)
+    h2_p_val = h2_primary.get("p", np.nan)
+    h2_p_float = _parse_p(h2_p_val)
+    h2_supported = (not np.isnan(h2_p_float)) and (h2_p_float < ALPHA)
     conc["h2_supported"] = h2_supported
     conc["h2_verdict"]   = "Supported" if h2_supported else "Not supported"
     conc["tau"]          = tau
-    conc["h2_p"]         = h2_p
+    conc["h2_p"]         = h2_p_float
 
     ret_diff    = h2.get("return_differential", np.nan)
     dollar_imp  = h2.get("dollar_impact", np.nan)
@@ -1193,7 +1221,7 @@ def generate_conclusions(h1: dict, h2: dict, desc: dict, norm: dict) -> dict:
         f"returns across the four scenarios assigned to each condition. The estimated "
         f"treatment effect on portfolio return is tau = {_round4(tau)} "
         f"(robust SE = {_round4(h2_primary.get('se', np.nan))}, "
-        f"t = {_round4(h2_primary.get('t', np.nan))}, p = {_round4(h2_p)}, "
+        f"t = {_round4(h2_primary.get('t', np.nan))}, p = {h2_p_val}, "
         f"95% CI [{_round4(h2_primary.get('ci_lo', np.nan))}, "
         f"{_round4(h2_primary.get('ci_hi', np.nan))}]; "
         f"Cohen's d = {_round4(h2_primary.get('cohens_d', np.nan))}). "
@@ -1248,7 +1276,8 @@ def write_results_md(
     _h1_supp   = conc["h1_supported"]
     _h1_dir    = conc.get("h1_direction", "unknown")
     _tau       = conc.get("tau", np.nan)
-    _h2_p      = conc.get("h2_p", np.nan)
+    _h2_p_val  = conc.get("h2_p", np.nan)
+    _h2_p_str  = _round4(_h2_p_val) if not isinstance(_h2_p_val, str) else _h2_p_val
     _h2_supp   = conc["h2_supported"]
     _ret_diff  = h2.get("return_differential", np.nan)
     _dollar    = h2.get("dollar_impact", np.nan)
@@ -1443,7 +1472,7 @@ def write_results_md(
     else:
         _impact_effect_sentence = (
             f"The association between SC_total and NRS is not statistically significant in the "
-            f"current sample (beta1 = {_round4(_beta1)}, p = {_round4(primary.get('p', np.nan))}). "
+            f"current sample (beta1 = {_round4(_beta1)}, p = {h1.get('primary', {}).get('p', np.nan)}). "
             f"The absence of significance may reflect insufficient statistical power, heterogeneous "
             f"response patterns, or genuine non-linearity that a linear model does not capture."
         )
@@ -1511,30 +1540,30 @@ def write_results_md(
     if _h1_supp:
         _h1_interim = (
             f"**{conc['h1_verdict'].lower()}** "
-            f"(beta1 = {_round4(_beta1)}, p = {_round4(primary.get('p', np.nan))}; "
+            f"(beta1 = {_round4(_beta1)}, p = {primary.get('p', 'N/A')}; "
             f"direction: {'risk-reducing' if _h1_dir == 'negative' else 'risk-taking'})"
         )
     else:
         _h1_interim = (
             f"**{conc['h1_verdict'].lower()}** "
-            f"(beta1 = {_round4(_beta1)}, p = {_round4(primary.get('p', np.nan))})"
+            f"(beta1 = {_round4(_beta1)}, p = {primary.get('p', 'N/A')})"
         )
 
     if _h2_supp and not np.isnan(_tau):
         if _tau > 0:
             _h2_interim = (
                 f"**{conc['h2_verdict'].lower()}** "
-                f"(tau = {_round4(_tau)}, p = {_round4(_h2_p)}; direction: performance-improving)"
+                f"(tau = {_round4(_tau)}, p = {_h2_p_str}; direction: performance-improving)"
             )
         else:
             _h2_interim = (
                 f"**{conc['h2_verdict'].lower()}** but with a negative treatment effect "
-                f"(tau = {_round4(_tau)}, p = {_round4(_h2_p)}; see caution in Section 5.6.2)"
+                f"(tau = {_round4(_tau)}, p = {_h2_p_str}; see caution in Section 5.6.2)"
             )
     else:
         _h2_interim = (
             f"**{conc['h2_verdict'].lower()}** "
-            f"(tau = {_round4(_tau)}, p = {_round4(_h2_p)})"
+            f"(tau = {_round4(_tau)}, p = {_h2_p_str})"
         )
 
     s57 = block("s5_7_interim", (
@@ -1566,7 +1595,7 @@ def write_results_md(
         f"H1 posits that SC_total – a PCA-based composite of article count, sentiment extremity, "
         f"attention intensity, and event-type severity – is a statistically significant predictor "
         f"of portfolio managers' Net Risk Stance. The evidence {('supports' if conc['h1_supported'] else 'does not support')} this hypothesis "
-        f"(β₁ = {_round4(primary.get('beta1', np.nan))}, p = {_round4(primary.get('p', np.nan))}). "
+        f"(β₁ = {_round4(primary.get('beta1', np.nan))}, p = {primary.get('p', 'N/A')}). "
         f"H2 posits that exposure to the Shock Score dashboard improves the risk-return profile "
         f"of simulated portfolios. The Option B individual-portfolio regression {('supports' if conc['h2_supported'] else 'does not support')} "
         f"this hypothesis at the α = 0.05 level. "
@@ -1706,8 +1735,8 @@ def print_summary(desc: dict, h1: dict, h2: dict, conc: dict,
     print(f"  Respondents       : {desc['n_respondents']} total")
     print(f"  Observations      : {desc['nrs_summary'].loc[desc['nrs_summary']['condition'] == 'overall', 'n'].values[0] if not desc.get('nrs_summary', pd.DataFrame()).empty else 'N/A'}")
     print(f"  Data sufficiency  : {n_suff}/24 scenarios (H2 only)")
-    print(f"  H1 (SC_total->NRS): beta1 = {_round4(primary.get('beta1', np.nan))}, p = {_round4(primary.get('p', np.nan))} -> {conc['h1_verdict']}")
-    print(f"  H2 Option B       : tau  = {_round4(tau)}, p = {_round4(h2_p)} -> {conc['h2_verdict']}")
+    print(f"  H1 (SC_total->NRS): beta1 = {_round4(primary.get('beta1', np.nan))}, p = {primary.get('p', 'N/A')} -> {conc['h1_verdict']}")
+    print(f"  H2 Option B       : tau  = {_round4(tau)}, p = {h2_p if isinstance(h2_p, str) else _round4(h2_p)} -> {conc['h2_verdict']}")
     diff_str = f"{_round4(ret_diff)}%" if not np.isnan(ret_diff) else "N/A"
     dol_str  = f"${dollar_imp:,.0f}" if not np.isnan(dollar_imp) else "N/A"
     print(f"  H2 Option A       : Return differential = {diff_str}, Dollar impact = {dol_str}")
@@ -1797,7 +1826,7 @@ def main() -> None:
         ],
         notes=(
             f"H1: beta1={primary.get('beta1', 'n/a')}, p={primary.get('p', 'n/a')} "
-            f"({'supported' if primary.get('p', 1) < ALPHA else 'not supported'}). "
+            f"({'supported' if _parse_p(primary.get('p', 1)) < ALPHA else 'not supported'}). "
             f"H2: tau={sharpe_row.get('tau', 'n/a')}, p={sharpe_row.get('p', 'n/a')} "
             f"({'supported' if sharpe_row.get('h2_supported') else 'not supported'})."
         ),
