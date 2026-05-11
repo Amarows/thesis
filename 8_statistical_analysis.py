@@ -578,6 +578,21 @@ def _fig_sc_distribution(scen_df: pd.DataFrame) -> None:
 # Section 4 – Normality and reliability
 # ---------------------------------------------------------------------------
 
+def _cronbach_alpha(wide: pd.DataFrame) -> float:
+    """Compute Cronbach alpha from a respondent × item DataFrame (items as columns).
+    Returns np.nan if fewer than 2 items or fewer than 2 respondents."""
+    wide = wide.apply(pd.to_numeric, errors="coerce").dropna()
+    k = wide.shape[1]
+    n = wide.shape[0]
+    if k < 2 or n < 2:
+        return np.nan
+    item_vars = wide.var(axis=0, ddof=1)
+    total_var = wide.sum(axis=1).var(ddof=1)
+    if total_var == 0:
+        return np.nan
+    return round(float((k / (k - 1)) * (1 - item_vars.sum() / total_var)), 4)
+
+
 def compute_normality(df: pd.DataFrame) -> dict:
     nrs_all = pd.to_numeric(df["nrs"], errors="coerce").dropna()
     sc0     = pd.to_numeric(df.loc[df["show_sc"] == 0, "nrs"], errors="coerce").dropna()
@@ -623,11 +638,25 @@ def compute_normality(df: pd.DataFrame) -> dict:
         except Exception:
             pass
 
+    # Per-block Cronbach alpha (Issue #124)
+    cronbach = {}
+    if "respondent_id" in df.columns and "scenario_id" in df.columns and "block_id" in df.columns:
+        for blk in sorted(df["block_id"].dropna().unique()):
+            blk_df = df[df["block_id"] == blk].copy()
+            try:
+                wide_blk = blk_df.pivot_table(
+                    index="respondent_id", columns="scenario_id", values="nrs", aggfunc="mean"
+                )
+                cronbach[int(blk)] = _cronbach_alpha(wide_blk)
+            except Exception:
+                cronbach[int(blk)] = np.nan
+
     result = {
         "norm_df": norm_df,
         "clt_applies": clt_applies,
         "n_respondents": n_resp,
         "mean_pairwise_corr": consistency,
+        "cronbach_per_block": cronbach,
     }
     return result
 
@@ -1470,6 +1499,30 @@ def write_results_md(
         f"single-item measure; traditional internal consistency coefficients do not apply. "
         f"The mean pairwise correlation is reported as a descriptive consistency proxy only.",
     ]
+
+    # Cronbach alpha per block
+    cronbach = norm.get("cronbach_per_block", {})
+    if cronbach:
+        s54_lines.append("")
+        s54_lines.append(
+            "**Instrument reliability – Cronbach alpha by block (main survey sample).**"
+        )
+        threshold = 0.70
+        for blk in sorted(cronbach.keys()):
+            alpha_val = cronbach[blk]
+            if np.isnan(alpha_val):
+                s54_lines.append(f"Block {blk}: alpha could not be computed (insufficient data).")
+            else:
+                s54_lines.append(
+                    f"Block {blk}: Cronbach alpha = {alpha_val:.4f} "
+                    f"({'acceptable' if alpha_val >= threshold else 'below the conventional 0.70 threshold – see Section 5.9'})."
+                )
+        s54_lines.append(
+            "Alpha is computed on the eight NRS items per block across all main-survey respondents "
+            "who completed that block. A value of alpha >= 0.70 is the conventional threshold for "
+            "acceptable internal consistency (Nunnally, 1978)."
+        )
+
     s54 = block("s5_4_normality", "\n".join(s54_lines))
 
     # ---- s5_5_1_h1 ----

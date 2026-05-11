@@ -1036,9 +1036,6 @@ SC_total is a standardised PCA composite score (first principal component of AC_
 ![NRS distribution](figures/fig_nrs_distribution.png)
 ![NRS by condition](figures/fig_nrs_by_condition.png)
 ![SC_total distribution](figures/fig_sc_distribution.png)
-**SC_total Construction – PCA Decomposition**
-
-SC_total is the first principal component (PC1) of four z-standardised shock intensity measures: Article Count (AC_e), Sentiment Extremity (SE_e), Attention Intensity (AI_e), and Event-Type Severity (ES_raw). The PCA was estimated across all 24 scenarios. PC1 explains 48.27% of total variation across the four components, providing a parsimonious single-factor summary of shock intensity. The PC1 loadings are: AC_e = 0.6602, AI_e = 0.5818, SE_e = 0.4682, ES_raw = 0.0797. All loadings are positive, confirming that SC_total increases monotonically with each dimension of shock intensity. AC_e and AI_e carry the highest loadings, indicating that media coverage breadth and abnormal trading volume are the dominant drivers of composite shock intensity in the sample. ES_raw carries a small but positive loading (0.0797), reflecting that event-type severity contributes to but does not dominate the composite. The SC_total distribution across the 24 scenarios has mean 0.0000 (by PCA construction), SD = 1.4194, range [-1.7372, 4.3677], and positive skewness (1.40), driven by a small number of high-intensity outlier scenarios. The most extreme scenario is B3_S08 (AMAT, SC_total = 4.3677); the least intense is B2_S06 (KO, SC_total = -1.7372).
 
 
 ## 5.3 Scenario Selection Outcomes
@@ -1086,6 +1083,12 @@ Central limit theorem applicability: the sample comprises 67 respondents, exceed
 
 Inter-scenario consistency (mean pairwise Pearson correlation across respondent × scenario response matrix): r̄ = 0.2093. Note: this is not Cronbach's alpha. The NRS is a single-item measure; traditional internal consistency coefficients do not apply. The mean pairwise correlation is reported as a descriptive consistency proxy only.
 
+**Instrument reliability – Cronbach alpha by block (main survey sample).**
+Block 1: Cronbach alpha = 0.5200 (below the conventional 0.70 threshold – see Section 5.9).
+Block 2: Cronbach alpha = 0.6894 (below the conventional 0.70 threshold – see Section 5.9).
+Block 3: Cronbach alpha = 0.6901 (below the conventional 0.70 threshold – see Section 5.9).
+Alpha is computed on the eight NRS items per block across all main-survey respondents who completed that block. A value of alpha >= 0.70 is the conventional threshold for acceptable internal consistency (Nunnally, 1978).
+
 
 ## 5.5 Hypothesis Testing
 
@@ -1104,33 +1107,22 @@ The primary OLS regression examines whether SC_total – the composite Shock Sco
 | spec_3_component_ai_e | Component: ai_e | 0.0201 | 0.0625 | 0.3207 | 0.7485 | -0.1025 | 0.1426 | 0.289 | 536 | HC3 |
 | spec_3_component_es_raw | Component: es_raw | 3.3418 | 0.3303 | 10.1161 | <0.0001 | 2.6943 | 3.9893 | 0.289 | 536 | HC3 |
 | spec_4_interaction | SC_total × ShowSC interaction | -0.0465 | 0.0909 | -0.5115 | 0.6090 | -0.2247 | 0.1317 | 0.1368 | 536 | HC3 |
-| spec_5_direction_b1 | SC_total main effect – positive events (β₁) | -0.3549 | 0.0443 | -8.0077 | <0.0001 | -0.4418 | -0.2680 | 0.2094 | 536 | HC3 |
-| spec_5_direction_b3 | SC_total × D_neg amplification – negative events (β₃) | -1.9449 | 0.3007 | -6.4676 | <0.0001 | -2.5344 | -1.3555 | 0.2094 | 536 | HC3 |
-
-**Specification 5 – Direction interaction (D_neg amplification).** To examine whether shock intensity exerts an asymmetric effect by event sentiment direction, a direction interaction specification is estimated. The dummy variable D_neg equals 1 for events with negative, mildly negative, or strongly negative FinBERT sentiment labels (109 of 536 observations), and 0 otherwise. The model is:
-
-$$
-NRS_{i,e} = \alpha + \beta_1 \cdot SC_{total,e} + \beta_2 \cdot D_{neg,e} + \beta_3 \cdot (SC_{total,e} \times D_{neg,e}) + \boldsymbol{\gamma}^\prime \mathbf{X}_{i,e} + \varepsilon_{i,e}
-$$
-
-$\beta_1$ captures the SC_total effect for positive-sentiment events – interpretable as the anchoring and confirmation-bias channel, through which rising shock intensity reinforces existing positive signals and compresses risk-taking. $\beta_3$ captures the incremental amplification of SC_total for negative-sentiment events relative to positive ones – the loss-aversion amplification channel (Kahneman and Tversky, 1979), through which the same one-unit increase in shock intensity produces a larger risk-reducing shift when the information content is negative. $\beta_1 + \beta_3$ is the total SC_total effect for negative events.
-
-The results confirm asymmetric amplification: $\beta_1 = -0.3549$ (SE = 0.0443, p < 0.0001; 95% CI [-0.4418, -0.2680]) and $\beta_3 = -1.9449$ (SE = 0.3007, p < 0.0001; 95% CI [-2.5344, -1.3555]). The total effect for negative events is $\beta_1 + \beta_3 = -2.2998$, approximately 6.5 times the effect for positive events. The model R² = 0.2094, a meaningful increase over the primary specification (R² = 0.1362), consistent with sentiment direction being an important moderator of the shock intensity – risk stance relationship. These results are consistent with asymmetric loss aversion as theorised in prospect theory, and corroborate H1 with additional directional granularity.
-
-**Interpretation of positive coefficients in Specification 3 (component decomposition).** Specification 3 decomposes SC_total into its four constituent components and enters them jointly. Two components produce positive coefficients: AI_e (Attention Intensity, β = +0.0201, p = 0.7485) and ES_raw (Event-Type Severity, β = +3.3418, p < 0.0001). The positive sign on AI_e is statistically insignificant and reflects multicollinearity within the component block: when AC_e and SE_e are controlled, residual variation in AI_e is weakly associated with slightly higher NRS. The positive sign on ES_raw is significant and warrants interpretation. ES_raw is a categorical severity weight derived from the historical volatility profile of the event type (earnings, analyst action, management event). Higher ES_raw values attach to event types that, in the historical record, are associated with larger absolute price moves. In the context of this experiment, scenarios with high ES_raw may trigger a recognition effect in experienced managers: an analytically familiar high-volatility event type may reduce uncertainty and, by reducing ambiguity, allow a marginally higher risk stance relative to an unfamiliar shock of similar composite intensity. Alternatively, ES_raw may act partly as a baseline return-opportunity signal rather than a pure shock indicator, particularly for earnings surprises where managers may anticipate a correction opportunity. This positive coefficient does not contradict H1: the aggregate SC_total coefficient remains negative and significant, because the other components (AC_e and SE_e) dominate the composite. The ES_raw finding is noted as a candidate for further research decomposing shock type heterogeneity.
+| spec_5_direction_b1 | SC_total main effect (positive events) | -0.3549 | 0.0443 | -8.0077 | <0.0001 | -0.4418 | -0.268 | 0.2094 | 536 | HC3 |
+| spec_5_direction_b3 | SC_total × D_neg amplification (negative events) | -1.9449 | 0.3007 | -6.4676 | <0.0001 | -2.5344 | -1.3555 | 0.2094 | 536 | HC3 |
 
 ### 5.5.2 Testing of Hypothesis H2
 
-Hypothesis H2 is tested using individual-portfolio regressions (Option B). Per respondent, portfolio returns are constructed from NRS-weighted horizon returns across the four scenarios assigned to each condition. The estimated treatment effect on portfolio return is tau = 0.0076 (robust SE = 0.0086, t = 0.8834, p = 0.3770, 95% CI [-0.0093, 0.0246]; Cohen's d = 0.3436). H2 is not supported in this sample: the evidence does not suggest a statistically significant difference in portfolio outcomes between the treatment and control conditions. Validation on a larger professional sample is recommended. The collective portfolio analysis (Option A, descriptive only; **caution: both portfolios draw from the same respondent pool – inference is non-independent**) yields a return of 0.0170% for the control condition and 0.0158% for the treatment condition, corresponding to a return differential of -0.0012%. On an assumed AUM of $100M, the ShowSC=1 collective portfolio generated a dollar return differential of $-1,200 relative to the ShowSC=0 portfolio over the evaluation window.
+Hypothesis H2 is tested using individual-portfolio regressions (Option B). Per respondent, portfolio returns are constructed from NRS-weighted horizon returns across the four scenarios assigned to each condition. The estimated treatment effect on portfolio return is tau = -0.0253 (robust SE = 0.0150, t = -1.6812, p = 0.0927, 95% CI [-0.0547, 0.0042]; Cohen's d = -0.2770). H2 is not supported in this sample: the evidence does not suggest a statistically significant difference in portfolio outcomes between the treatment and control conditions. Validation on a larger professional sample is recommended. The collective portfolio analysis (Option A, descriptive only; **caution: both portfolios draw from the same respondent pool – inference is non-independent**) yields a return of 0.0239% for the control condition and -0.0188% for the treatment condition, corresponding to a return differential of -0.0427%. On an assumed AUM of $100M, the ShowSC=1 collective portfolio generated a dollar return differential of $-42,700 relative to the ShowSC=0 portfolio over the evaluation window.
 
 **Table 5.4: H2 Portfolio Analysis Results**
 
 | method | outcome | tau | se | t | p | ci_lo | ci_hi | cohens_d | r2 | n | h2_supported |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| option_b_individual | portfolio_return | 0.0076 | 0.0086 | 0.8834 | 0.3770 | -0.0093 | 0.0246 | 0.3436 | 0.077 | 24 | False |
-| option_b_individual | sharpe_ratio | 12.5731 | 8.7817 | 1.4317 | 0.1522 | -4.6388 | 29.785 | 0.7872 | 0.5331 | 20 | False |
+| option_b_individual | portfolio_return | -0.0253 | 0.015 | -1.6812 | 0.0927 | -0.0547 | 0.0042 | -0.277 | 0.2023 | 134 | False |
+| option_b_individual | sharpe_ratio | 0.338 | 1.2656 | 0.2671 | 0.7894 | -2.1425 | 2.8186 | 0.0289 | 0.1629 | 122 | False |
+| option_b_individual | sortino_ratio | -5.5626 | 3.9969 | -1.3917 | 0.1640 | -13.3963 | 2.2711 | -0.361 | 0.4695 | 48 | False |
 
-**Note on Sortino ratio:** The Sortino ratio is computed only for respondent-condition pairs that yield at least one negative portfolio return. In the current sample, this applies to 0 of 24 respondent-condition pairs.
+**Note on Sortino ratio:** The Sortino ratio is computed only for respondent-condition pairs that yield at least one negative portfolio return. In the current sample, this applies to 109 of 134 respondent-condition pairs.
 
 **Non-independence warning (Option A):** The collective portfolios in the descriptive Option A analysis are constructed from the same respondent pool. No causal inference should be drawn from Option A alone; it is presented for institutional illustration only.
 
@@ -1142,7 +1134,6 @@ Hypothesis H2 is tested using individual-portfolio regressions (Option B). Per r
 ### 5.6.1 Impact of Information Shocks on Risk-Return
 
 The results are evaluated against the behavioural finance literature suggesting that external information shocks exert a systematic influence on portfolio managers' risk-stance decisions. The statistically significant negative association (beta1 = -0.2836) indicates that higher shock intensity shifts managers toward reduced risk exposure (lower NRS), consistent with loss-aversion predictions from prospect theory (Kahneman and Tversky, 1979). This result is interpreted cautiously given the sample composition and potential survivorship effects in the volunteer sample. Prospect theory (Kahneman and Tversky, 1979) would predict asymmetric responses to negative versus positive shocks; the current analysis does not decompose effects by shock direction, which is noted as an avenue for future research.
-**SC_total as a misread forward-looking signal – an alternative interpretation and further research direction.** A theoretically important alternative interpretation of the negative β₁ association is that respondents may have read SC_total not as a backward-looking descriptor of past shock intensity – as the construct is designed – but as a forward-looking signal of expected adverse price movement. Under this misreading, a high SC_total would be interpreted as a warning that further downside is imminent, rather than as a characterisation of the event that has already occurred. This would produce exactly the observed pattern: higher SC_total scores triggering lower NRS responses, not because of shock intensity per se but because of a predictive attribution the dashboard did not intend to convey. This alternative channel does not invalidate H1 – the statistical association is robust across all specifications – but it complicates the causal interpretation. If the dashboard is inadvertently functioning as a directional forecast rather than a structured process prompt, its practical utility may depend on how managers are trained to interpret it. This finding is flagged as a substantive further research direction: a replication study with an explicit instructional framing manipulation (backward-looking description versus forward-looking prediction framing) could disentangle the two channels and provide guidance on dashboard communication design.
 
 #### 5.6.1.1 NRS–Sentiment Alignment Diagnostic
 
@@ -1169,12 +1160,12 @@ An alignment rate above 0.50 indicates that respondents' risk-stance direction i
 
 ### 5.6.2 Incremental Effect of the Shock Score
 
-The incremental effect of the Shock Score dashboard (ShowSC) on simulated portfolio outcomes is evaluated through the Option B individual-portfolio regression. The results do not support a statistically significant incremental effect of the Shock Score dashboard on portfolio outcomes in the current sample. Validation on a larger, fully recruited professional sample is the recommended next step. The Option A collective portfolio analysis (descriptive only; non-independence caveat applies) shows a non-positive return differential of -0.0012% for the treatment condition, corresponding to a dollar impact of $-1,200 on an assumed AUM of $100M. The treatment portfolio did not outperform the control portfolio in the descriptive collective analysis. This figure is presented for descriptive illustration and is subject to the non-independence caveat noted in Section 5.5.2.
+The incremental effect of the Shock Score dashboard (ShowSC) on simulated portfolio outcomes is evaluated through the Option B individual-portfolio regression. The results do not support a statistically significant incremental effect of the Shock Score dashboard on portfolio outcomes in the current sample. Validation on a larger, fully recruited professional sample is the recommended next step. The Option A collective portfolio analysis (descriptive only; non-independence caveat applies) shows a non-positive return differential of -0.0427% for the treatment condition, corresponding to a dollar impact of $-42,700 on an assumed AUM of $100M. The treatment portfolio did not outperform the control portfolio in the descriptive collective analysis. This figure is presented for descriptive illustration and is subject to the non-independence caveat noted in Section 5.5.2.
 
 
 ## 5.7 Interim Conclusions
 
-The interim conclusions for Chapter 5 are as follows. H1 – that SC_total is significantly associated with NRS – is **supported** (beta1 = -0.2836, p = <0.0001; direction: risk-reducing). H2 – that the Shock Score dashboard moderates the risk-return profile of simulated portfolios – is **not supported** (tau = 0.0076, p = 0.3770) in the Option B individual-portfolio regression. Both findings are contingent on the current sample composition and are subject to revision upon completion of the full survey. Robustness checks for H1 and the Option A descriptive analysis for H2 are consistent in direction with the primary results.
+The interim conclusions for Chapter 5 are as follows. H1 – that SC_total is significantly associated with NRS – is **supported** (beta1 = -0.2836, p = <0.0001; direction: risk-reducing). H2 – that the Shock Score dashboard moderates the risk-return profile of simulated portfolios – is **not supported** (tau = -0.0253, p = 0.0927) in the Option B individual-portfolio regression. Both findings are contingent on the current sample composition and are subject to revision upon completion of the full survey. Robustness checks for H1 and the Option A descriptive analysis for H2 are consistent in direction with the primary results.
 
 
 ## 5.8 Chapter Conclusion
