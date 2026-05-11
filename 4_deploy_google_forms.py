@@ -52,7 +52,7 @@ CB_DIR = SURVEY_DIR / "counterbalancing"
 DEPLOYMENT_MANIFEST_PATH = SURVEY_DIR / "deployment_manifest.json"
 
 # Portfolio context: equal-weight portfolio of PORTFOLIO_N stocks (per presentation protocol)
-PORTFOLIO_N = 30
+PORTFOLIO_N = 24
 
 FORM_DESCRIPTION = (
     "This survey is part of an academic research study on how equity portfolio managers "
