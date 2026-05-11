@@ -417,16 +417,6 @@ In sum, existing decision-support tools are dynamic in their treatment of prices
 
 Table 3.1 systematically maps these gaps across relevant studies. The table demonstrates that while individual components of real-time decision support have been addressed in isolation – shock measurement (Song et al., 2015), professional behavioral responses (Huber et al., 2022), decision-support systems (Angelova et al., 2023), and portfolio outcomes (Tetlock, 2007) – no prior research integrates all four elements in a controlled setting. This thesis fills this gap by combining real-time shock measurement via the Shock Score, a professional sample of portfolio managers, behavioral decision-support interventions linked to Investment Policy Statements, and portfolio-level risk-return validation.
 
-```{=openxml}
-<w:p>
-  <w:pPr>
-    <w:sectPr>
-      <w:pgSz w:w="15840" w:h="12240" w:orient="landscape"/>
-    </w:sectPr>
-  </w:pPr>
-</w:p>
-```
-
 [Table 3.1: Systematic Gap Mapping in Information Shock Decision Support]
 
 | Study                      | Real-time Shock Measurement | Professional Sample | Behavioral Decision Support | Portfolio Outcome Validation | Primary Gap |
@@ -439,16 +429,6 @@ Table 3.1 systematically maps these gaps across relevant studies. The table demo
 | Huber et al. (2022)        | Yes – experimental volatility shocks | Yes – professionals vs. students | No – observational study | Partial – risk perception, not portfolios | Demonstrates professional behavioral differences but lacks decision-support intervention |
 | Lim (2025)                 | Yes – real-time sentiment + behavioral classification | No – simulated trading environment | Yes – emotion-aware advisory with XAI | No – trading behavior only, no portfolio risk-return metrics | Closest comparator; integrates XAI but lacks professional validation and portfolio outcome assessment |
 | **This Thesis**            | **Yes – PCA-based Shock Score combining news intensity, sentiment, attention** | **Yes – portfolio managers with 5+ years experience** | **Yes – real-time bias mitigation via IPS-linked cooling-off protocols** | **Yes – Sharpe ratio, Sortino ratio, max drawdown, volatility** | **Integrates all components: real-time shock measurement, professional context, behavioral intervention, and portfolio performance validation in a single controlled study** |
-
-```{=openxml}
-<w:p>
-  <w:pPr>
-    <w:sectPr>
-      <w:pgSz w:w="12240" w:h="15840" w:orient="portrait"/>
-    </w:sectPr>
-  </w:pPr>
-</w:p>
-```
 
 ### 3.6.3 Positioning of the Shock Score within Existing Literature
 
@@ -486,16 +466,6 @@ The Shock Score differs from all these approaches in three critical dimensions. 
 
 Table 3.2 systematically compares the Shock Score against representative measures from each category.
 
-```{=openxml}
-<w:p>
-  <w:pPr>
-    <w:sectPr>
-      <w:pgSz w:w="15840" w:h="12240" w:orient="landscape"/>
-    </w:sectPr>
-  </w:pPr>
-</w:p>
-```
-
 ### Table 3.2: Shock Score Benchmarking Against Existing Measures
 
 | Measure | Purpose | Frequency | Scope | Behavioral Component | Decision Output |
@@ -511,16 +481,6 @@ Table 3.2 systematically compares the Shock Score against representative measure
 | AndesRisk 4D Framework | Client risk profiling | Static | Client classification | Behavioral investor types | Portfolio allocation recommendations |
 | Pocket Risk | Suitability assessment | Static | Individual risk tolerance | Loss aversion measurement | Model portfolio matching |
 | **This Thesis: Shock Score** | **Behavioral decision support** | **Real-time** | **Portfolio-specific** | **Pre-commitment protocols** | **IPS-linked cooling-off triggers** |
-
-```{=openxml}
-<w:p>
-  <w:pPr>
-    <w:sectPr>
-      <w:pgSz w:w="12240" w:h="15840" w:orient="portrait"/>
-    </w:sectPr>
-  </w:pPr>
-</w:p>
-```
 
 **Technical Distinction: PCA Application**
 
@@ -646,16 +606,6 @@ In addition to individual stock data, daily closing prices for the S&P 500 index
 
 Table 4.2 summarises all secondary data sources used in this study.
 
-```{=openxml}
-<w:p>
-  <w:pPr>
-    <w:sectPr>
-      <w:pgSz w:w="15840" w:h="12240" w:orient="landscape"/>
-    </w:sectPr>
-  </w:pPr>
-</w:p>
-```
-
 **Table 4.2: Secondary Data Sources**
 
 | Data Type | Source | Coverage Period | Resolution | Purpose |
@@ -667,16 +617,6 @@ Table 4.2 summarises all secondary data sources used in this study.
 | Sentiment scores | [FinBERT](https://finbert.org/) (Huang, Roesler, & Reske, 2020) | Computed at analysis time | Per article | Sentiment Extremity component of Shock Score |
 | News summaries | [Claude](https://www.anthropic.com) (Anthropic) | Computed at analysis time | Per scenario | Simplified article text for survey presentation |
 
-
-```{=openxml}
-<w:p>
-  <w:pPr>
-    <w:sectPr>
-      <w:pgSz w:w="12240" w:h="15840" w:orient="portrait"/>
-    </w:sectPr>
-  </w:pPr>
-</w:p>
-```
 
 ### 4.3.3 News Data
 
@@ -1046,36 +986,7 @@ This chapter presents the empirical analysis and findings of the study. The chap
 [To be populated by 8_statistical_analysis.py]
 <!-- /PLACEHOLDER:s5_3_scenarios -->
 
-```{=openxml}
-<w:p>
-  <w:pPr>
-    <w:sectPr>
-      <w:pgSz w:w="15840" w:h="12240" w:orient="landscape"/>
-    </w:sectPr>
-  </w:pPr>
-</w:p>
-```
-
-**Table 5.2: Scenario Selection Summary**
-
-| Scenario | Block | Stock | Ticker | GICS Sector | Event Date | Shock Time (ET) | Event Type | Direction | SC_total | AC_e | Displayed Headline | Rel. Abnormal Return | Shock Bar / Median Bar Ratio | Market Regime |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | 1 | | | | | | | | | | | | | |
-| ... | | | | | | | | | | | | | | |
-| 24 | 3 | | | | | | | | | | | | | |
-
 Shock Time (ET) records the 30-minute bar to which the shock is assigned (e.g., "10:00" denotes the 10:00 to 10:30 bar). Shock Bar / Median Bar Ratio records the ratio of the absolute shock bar return to the median absolute 30-minute bar return on the same day; values above 1.5 (or 2.0 for the opening bar) satisfy the within-day causal plausibility screen (Section 4.3.4). The balance constraints governing the selection are documented in Table 4.X of Section 4.3.4.
-
-
-```{=openxml}
-<w:p>
-  <w:pPr>
-    <w:sectPr>
-      <w:pgSz w:w="12240" w:h="15840" w:orient="portrait"/>
-    </w:sectPr>
-  </w:pPr>
-</w:p>
-```
 
 ## 5.4 Tests for Normality and Reliability
 
