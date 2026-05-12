@@ -1207,7 +1207,7 @@ Thank you for participating in this study. You will be presented with a series o
 
 There are no right or wrong answers. The study is interested in your genuine professional judgment. All responses are anonymised and used solely for academic research purposes.
 
-**Eligibility requirement:** Participation is limited to equity portfolio managers with a minimum of five years of professional experience.
+**Eligibility requirement:** Participation is limited to equity portfolio managers with a minimum of two years of professional portfolio management experience and an active role in equity or equity-dominant investment decision-making.
 
 ## Section 1. Respondent Background
 
