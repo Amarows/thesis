@@ -57,14 +57,57 @@ title: Title Page
 </div>
 
 # Reducing Emotional Biases in Investment Portfolio Management
-- Authentication of Work
-- Foreword
-- Acknowledgements
+## Authentication of Work
+
+I, Aliaksei Malashonak (Student ID: 19795, Matriculation Number: 24891798), hereby declare that this thesis, submitted in partial fulfillment of the requirements for the degree of Executive Master of Business Administration at SBS Swiss Business School, Kloten-Zurich, Switzerland, is my own work. All sources consulted have been acknowledged in the references. This thesis has not been submitted for any other degree or qualification at any other institution.
+
+Signature: ______________________________
+
+Date: ______________________________
+
+Mentor certification: I, Dr. Stefano Canossa, confirm that this thesis meets the academic standards required for the Executive Master of Business Administration programme at SBS Swiss Business School.
+
+Mentor signature: ______________________________
+
+Date: ______________________________
+
+---
+
+## Foreword
+
+This thesis examines whether a structured, quantitative decision-support indicator can moderate behavioral bias in professional equity portfolio management. The research question emerged from direct professional experience in financial risk management, where the gap between the theoretical predictions of behavioral finance and the practical tools available to investment practitioners is persistently apparent. Despite a substantial body of evidence documenting systematic decision errors under conditions of information overload and emotional salience, the field has produced few operational instruments designed to identify and mitigate such errors at the point of decision.
+
+The Shock Score, developed and evaluated in this thesis, represents an attempt to close this gap. It combines real-time market and sentiment signals into a single composite indicator that portfolio managers can consult when external information events create elevated conditions for bias-driven behavior. The empirical study tests whether exposure to this indicator is associated with changes in decision outcomes among professional portfolio managers.
+
+The research draws on the behavioral finance literature, quantitative methods in financial economics, and applied survey design. It is intended to contribute both to academic understanding of decision-making under uncertainty and to the practical toolkit available to investment risk professionals.
+
+---
+
 - Table of Contents
 - List of Tables
 - List of Figures
 - List of Abbreviations and Acronyms
 - Executive Summary
+
+## Executive Summary
+
+This thesis investigates the influence of external information shocks on equity portfolio manager decision-making and evaluates whether a structured decision-support indicator – the Shock Score – moderates behavioral bias in professional investment decisions.
+
+The research is motivated by a documented gap between the theoretical predictions of behavioral finance and the practical tools available to investment practitioners. While the literature establishes that discrete, emotionally salient information events can produce systematic deviations from disciplined portfolio management, existing decision-support systems are predominantly designed for quantitative analytics rather than ex-ante bias mitigation. This thesis addresses that gap through the design, construction, and empirical evaluation of an original composite indicator.
+
+The Shock Score aggregates four components – Article Count, Sentiment Extremity, Attention Intensity, and Event-Type Severity – into a single standardised composite index via principal component analysis. The index quantifies the emotional and informational intensity of an external shock and is presented to portfolio managers through an interpretable dashboard incorporating a pre-commitment protocol. Two hypotheses are evaluated. Hypothesis H1 posits that higher Shock Score intensity is associated with a risk-reducing shift in managers' Net Risk Stance. Hypothesis H2 posits that exposure to the Shock Score dashboard moderates decision outcomes under shock conditions.
+
+The empirical study employs a within-subject quasi-experimental scenario survey administered to professional equity portfolio managers. The survey presents 24 real-market scenarios across three blocks, each accompanied by news information and, in the treatment condition, the Shock Score dashboard. The primary analytical method is two-way cluster-robust OLS regression with respondent fixed effects.
+
+The analysis is based on a sample of 67 respondents yielding 536 scenario-level observations. Results support Hypothesis H1: the Shock Score composite is a statistically significant negative predictor of Net Risk Stance (β₁ = -0.2836, p < 0.0001), indicating that higher shock intensity is systematically associated with a risk-reducing decision shift among professional managers. Hypothesis H2 is not supported in the current sample: the estimated treatment effect of the Shock Score dashboard on portfolio outcomes is positive in direction but does not reach statistical significance (τ = 0.0076, p = 0.3770), a result attributed primarily to limited statistical power rather than to an absence of effect.
+
+The thesis concludes that external information shocks are associated with measurable systematic changes in professional portfolio managers' risk stance, consistent with behavioral finance theory. The Shock Score demonstrates construct validity and directional alignment with the hypothesized moderation mechanism. Replication on a larger sample is recommended to evaluate Hypothesis H2 with adequate statistical power. Practical recommendations are offered for portfolio managers, risk governance frameworks, and future integration of behavioral indicators into investment decision processes.
+
+*Note: Results reported above are based on the sample available at the time of writing. Final results will be updated upon completion of data collection.*
+
+---
+
+
 
 # Chapter 1. Introduction
 
@@ -563,6 +606,19 @@ Taken together, these contributions are original to this thesis. By integrating 
 ---
 
 
+## 3.7 Chapter Conclusion
+
+Chapter 3 reviewed the theoretical and empirical literature underpinning the two research hypotheses. Three streams of scholarship were examined.
+
+The first stream documented the prevalence and mechanisms of behavioral biases in investment decision-making. Loss aversion, overconfidence, attention-driven extrapolation, and the disposition effect have been shown to produce systematic deviations from rational portfolio adjustment, particularly in response to emotionally salient discrete events. The evidence supports treating elevated shock conditions as an environment in which bias-driven decision errors are more likely to occur, providing the behavioral foundation for Hypothesis H1.
+
+The second stream examined managerial decision-making under uncertainty. Research on professional portfolio managers demonstrates that experience and institutional constraints do not eliminate behavioral bias and may, under time pressure and information overload, amplify procyclical responses. This stream situates the study population within the behavioral finance literature and reinforces the relevance of testing H1 on a sample of experienced practitioners rather than student proxies.
+
+The third stream reviewed tools designed to mitigate emotional and cognitive bias in investment contexts. Rule-based pre-commitment mechanisms, structured checklists, and decision-support frameworks have demonstrated efficacy in laboratory and field settings. However, the literature reveals a gap: existing tools are predominantly designed for quantitative analytics and algorithmic execution, with limited provision for ex-ante identification and moderation of bias at the point of decision. The Shock Score is positioned to address this gap, providing the theoretical motivation for Hypothesis H2.
+
+Section 3.6 identified limitations in the existing literature, including the predominance of laboratory studies with student subjects, reliance on return-based rather than decision-based outcome measures, and the absence of composite shock indicators combining sentiment, attention, and event-type signals. Table 3.2 benchmarked the Shock Score against existing measures and identified its distinguishing characteristics. Chapter 4 describes the research design and data collection procedures developed to test H1 and H2 in a professional sample.
+
+
 # Chapter 4. Research Data and Primary Data Collection
 
 ## 4.1 Chapter Introduction
@@ -986,6 +1042,8 @@ Section 4.4 described the survey instrument: a four-section Google Forms questio
 Section 4.5 specified the analytical framework, including the primary regression specifications for H1 and H2, robustness specifications, and the two-way clustering approach for inference.
 
 Chapter 5 applies these regression specifications to the primary data collected through the survey, testing H1 (whether shock intensity is associated with NRS responses) and H2 (whether the Shock Score treatment is associated with changes in portfolio risk-return outcomes). Descriptive statistics for the respondent sample and collected data are presented first, followed by normality and reliability assessments, hypothesis testing, and results interpretation.
+
+Note on placement of descriptive statistics: the SBS handbook template (section 3.6.1) locates descriptive statistics within Chapter 4. In this thesis, descriptive statistics are presented in Chapter 5 (Section 5.2) to allow direct contextual juxtaposition with the hypothesis testing results. This placement facilitates the reader's evaluation of sample characteristics alongside regression outputs and is consistent with the analytical rather than purely procedural role that descriptive statistics play in within-subject regression designs.
 
 ---
 
