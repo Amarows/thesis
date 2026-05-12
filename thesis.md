@@ -1537,6 +1537,66 @@ There are no right or wrong answers. The study is interested in your genuine pro
 
 ---
 
+## Appendix 1. Thesis Proposal Approval Form
+
+*The original signed document is attached as a separate PDF at submission. The text below reproduces the form content for reference.*
+
+---
+
+**SBS SWISS BUSINESS SCHOOL**
+
+**THESIS PROPOSAL APPROVAL FORM**
+
+---
+
+**Student Name:** Aliaksei Malashonak
+
+**Proposed Thesis Title:** Reducing Emotional Biases in Investment Portfolio Management
+
+**Proposed Hypothesis Statements:**
+
+**H1 – Influence of Information Shocks on Decisions**
+
+- H1o: The intensity of external financial information shocks has no statistically significant effect on managers' Net Risk Stance responses.
+- H1a: The intensity of external financial information shocks has a statistically significant effect on managers' Net Risk Stance responses.
+
+**H2 – Value Added of the Shock Score (the main one)**
+
+- H2o: Introducing the Shock Score for investment decision-making has no statistically significant effect on the risk–return ratio of the portfolio.
+- H2a: Introducing the Shock Score for investment decision-making has a statistically significant effect on the risk–return ratio of the portfolio.
+
+*Note: The Shock Score is a numerical indicator that measures how emotionally and informationally intense a piece of financial news is. It is used in two ways: first, to test whether stronger shocks lead to different portfolio decisions (H1); second, to test whether showing the score to managers improves their investment outcomes (H2). Net Risk Stance is the scale used to record managers' decisions – a seven-point scale from "Strongly reduce exposure" to "Strongly increase exposure."*
+
+I understand that I must follow the SBS thesis guidelines during the writing and presentation of this project. Further, should I change either the thesis topic, hypothesis statement or mentor, I must obtain the permission of the Dean.
+
+**Date:** 15 January 2026
+
+**Signature of Student:** Digitally signed by Aliaksei Malashonak (2026-04-08)
+
+---
+
+**Mentor Name:** Dr. Stefano Canossa
+
+I agree to mentor the above-named student during the thesis writing process, to include:
+
+- Review of thesis outline.
+- Interim reviews as required.
+- Review of the final draft of the complete project, including adherence to SBS format, plagiarism and footnoting guidance as specified in the current thesis guidance.
+
+**Signature of Mentor:** Signed (original on file)
+
+---
+
+*NOTE TO STUDENT: Turn this completed document in to your Program Manager.*
+
+**Approved:** ______________________________
+
+**Date:** ______________________________
+
+**Signature of Academic Dean or his representative:** ______________________________
+
+---
+
 ## Appendix 2. AI Disclosure Statement
 
 **AI Disclosure Statement**
