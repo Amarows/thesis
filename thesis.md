@@ -4,7 +4,7 @@ title: Cover Page
 
 <div style="text-align:center; margin-top:180px;">
 
-**INFLUENCE OF EXTERNAL INFORMATION SHOCKS ON EQUITY PORTFOLIO MANAGER DECISION-MAKING**
+**REDUCING EMOTIONAL BIASES IN INVESTMENT PORTFOLIO MANAGEMENT**
 
 **A THESIS**
 **PRESENTED TO THE FACULTY OF**
@@ -33,7 +33,7 @@ title: Title Page
 
 <div style="text-align:center; margin-top:180px;">
 
-**INFLUENCE OF EXTERNAL INFORMATION SHOCKS ON EQUITY PORTFOLIO MANAGER DECISION-MAKING**
+**REDUCING EMOTIONAL BIASES IN INVESTMENT PORTFOLIO MANAGEMENT**
 
 **A THESIS**
 **PRESENTED TO THE FACULTY OF**
@@ -91,7 +91,7 @@ The research draws on the behavioral finance literature, quantitative methods in
 
 ## Executive Summary
 
-This thesis investigates the influence of external information shocks on equity portfolio manager decision-making and evaluates whether a structured decision-support indicator – the Shock Score – moderates behavioral bias in professional investment decisions.
+This thesis investigates whether a structured decision-support indicator – the Shock Score – can reduce emotional biases in equity portfolio manager decision-making. The study evaluates whether – the Shock Score – moderates behavioral bias in professional investment decisions.
 
 The research is motivated by a documented gap between the theoretical predictions of behavioral finance and the practical tools available to investment practitioners. While the literature establishes that discrete, emotionally salient information events can produce systematic deviations from disciplined portfolio management, existing decision-support systems are predominantly designed for quantitative analytics rather than ex-ante bias mitigation. This thesis addresses that gap through the design, construction, and empirical evaluation of an original composite indicator.
 
@@ -1559,7 +1559,7 @@ All analysis, interpretation, conclusions, and final content represent my own in
 
 **Program:** Executive MBA
 
-**Course / Project / Thesis title:** Influence of External Information Shocks on Equity Portfolio Manager Decision-Making
+**Course / Project / Thesis title:** Reducing Emotional Biases in Investment Portfolio Management
 
 **Date:** *(to be completed upon submission)*
 
