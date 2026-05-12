@@ -136,7 +136,6 @@ _PANEL_COLUMNS = [
     "es_raw",
     "market_regime",
     # Augmentation placeholder
-    "is_synthetic",
 ]
 
 # Normalised form_key → respondent_block label in counterbalancing matrix
@@ -504,7 +503,6 @@ def parse_response_tab(raw_df: pd.DataFrame, form_key: str) -> pd.DataFrame:
                     "ai_e": pd.NA,
                     "es_raw": pd.NA,
                     "market_regime": pd.NA,
-                    "is_synthetic": 0,
                 }
             )
 
@@ -676,7 +674,7 @@ def merge_metadata(
 
 def build_analysis_panel(merged_df: pd.DataFrame) -> pd.DataFrame:
     """
-    Enforce final column order, types, and add the is_synthetic placeholder.
+    Enforce final column order and types.
 
     Parameters
     ----------
@@ -702,7 +700,6 @@ def build_analysis_panel(merged_df: pd.DataFrame) -> pd.DataFrame:
     df["block_id"] = pd.array(df["block_id"], dtype="Int64")
     df["version"] = pd.array(df["version"], dtype="Int64")
     df["scenario_position"] = pd.array(df["scenario_position"], dtype="Int64")
-    df["is_synthetic"] = pd.array(df["is_synthetic"].fillna(0), dtype="Int64")
 
     for col in ["show_sc"]:
         if col in df.columns:

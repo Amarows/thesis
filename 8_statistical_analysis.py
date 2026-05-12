@@ -124,7 +124,7 @@ def load_and_enrich() -> pd.DataFrame:
     df = df.merge(ss[ss_keep], on="scenario_id", how="left")
 
     # Ensure numeric types
-    for col in ["nrs", "sc_total", "show_sc", "block_id", "years_experience", "is_synthetic"]:
+    for col in ["nrs", "sc_total", "show_sc", "block_id", "years_experience"]:
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors="coerce")
 
