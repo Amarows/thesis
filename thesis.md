@@ -1194,6 +1194,280 @@ In this sense, the broader dissemination of the Shock Score framework represents
 
 ## 6.9 Chapter Conclusion
 
+
+# Appendix 4. Survey Questionnaire (Block 1 – Representative Example)
+
+This appendix presents the survey instrument as administered to respondents. The full survey comprised three blocks of eight scenarios each (24 scenarios in total), deployed as six separate Google Forms (three blocks times two counterbalancing versions). Block 1 is reproduced here as a representative example; Blocks 2 and 3 follow an identical structure with different scenarios.
+
+Each block was administered in two versions. In Version 1, respondents in Group A received the Shock Score dashboard alongside the scenario information (ShowSC = 1); respondents in Group B received scenario information only (ShowSC = 0). Version 2 reversed the assignment. The Shock Score dashboard design is documented in Chapter 4, Section 4.3.6. Dashboard images are not reproduced here; the textual scenario content below is identical across both versions.
+
+## Respondent Instructions
+
+Thank you for participating in this study. You will be presented with a series of brief investment scenarios. Each scenario describes a real external information event affecting a publicly listed equity. For each scenario, please indicate your intended portfolio decision on a seven-point scale.
+
+There are no right or wrong answers. The study is interested in your genuine professional judgment. All responses are anonymised and used solely for academic research purposes.
+
+**Eligibility requirement:** Participation is limited to equity portfolio managers with a minimum of five years of professional experience.
+
+## Section 1. Respondent Background
+
+*The following questions are asked once at the start of each block.*
+
+**Q1.** How many years of experience do you have as an equity portfolio manager?
+
+- Less than 5 years
+- 5 – 10 years
+- 11 – 20 years
+- More than 20 years
+
+**Q2.** Which of the following best describes the primary focus of your portfolio?
+
+- Large-cap equities
+- Mid-cap equities
+- Small-cap equities
+- Multi-cap / broad market
+- Sector-specific
+- Other
+
+**Q3.** In which region are you primarily based?
+
+- North America
+- Europe
+- Asia-Pacific
+- Middle East / Africa
+- Latin America
+- Other
+
+## Section 2. Investment Scenarios – Block 1
+
+*Eight scenarios are presented sequentially. The format is repeated for each scenario. Respondents may not navigate back to previous scenarios.*
+
+### Scenario 1 of 8 (ID: B1_S01)
+
+**Company:** Air Products and Chemicals (APD) – Materials
+
+**Event date:** 2025-04-09 | **Event time:** 13:30 ET | **Event type:** Analyst
+
+**News headline:** Wells Fargo Maintains Overweight on Air Products & Chemicals, Lowers Price Target to $320
+
+**News summary:** Wells Fargo analyst Michael Sison maintained an Overweight rating on Air Products & Chemicals (NYSE: APD) while cutting the price target from $365 to $320. The price target reduction represents a 12.3% decrease from the previous target.
+
+**Market context:** Price before event: USD 261.17 | Price 2 hours post-event: USD 270.07 | Reaction: +3.41%
+
+*Note: In Version 1 (ShowSC = 1), the Shock Score dashboard was displayed here, showing the composite score, sentiment direction, severity level, persistence horizon, and protocol recommendation. In Version 2 (ShowSC = 0), this panel was not shown.*
+
+**Q4. Decision:** Based on the information above, what is your intended portfolio action for this holding?
+
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|
+| Strongly reduce | Reduce | Slightly reduce | Hold / no change | Slightly increase | Increase | Strongly increase |
+
+**Q5. Confidence:** How confident are you in your decision above?
+
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|
+| Not at all confident | | | Moderately confident | | | Completely confident |
+
+---
+
+### Scenario 2 of 8 (ID: B1_S02)
+
+**Company:** ConocoPhillips (COP) – Energy
+
+**Event date:** 2025-09-08 | **Event time:** 09:30 ET | **Event type:** Analyst
+
+**News headline:** What Analysts Are Saying About ConocoPhillips Stock
+
+**News summary:** Raymond James analyst John Freeman maintained an Outperform rating on ConocoPhillips (NYSE: COP) while lowering the price target from $117 to $115. Separately, NextDecade Corporation announced it has executed a 20-year LNG sale and purchase agreement with ConocoPhillips for 1.0 MTPA of LNG offtake from Rio Grande LNG Train 5, with pricing indexed to Henry Hub and subject to a positive final investment decision expected in Q4 2025.
+
+**Market context:** Price before event: USD 92.91 | Price 2 hours post-event: USD 90.86 | Reaction: -2.21%
+
+*Note: In Version 1 (ShowSC = 1), the Shock Score dashboard was displayed here, showing the composite score, sentiment direction, severity level, persistence horizon, and protocol recommendation. In Version 2 (ShowSC = 0), this panel was not shown.*
+
+**Q4. Decision:** Based on the information above, what is your intended portfolio action for this holding?
+
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|
+| Strongly reduce | Reduce | Slightly reduce | Hold / no change | Slightly increase | Increase | Strongly increase |
+
+**Q5. Confidence:** How confident are you in your decision above?
+
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|
+| Not at all confident | | | Moderately confident | | | Completely confident |
+
+---
+
+### Scenario 3 of 8 (ID: B1_S03)
+
+**Company:** Linde (LIN) – Materials
+
+**Event date:** 2026-02-04 | **Event time:** 10:00 ET | **Event type:** Earnings
+
+**News headline:** Exploring Linde's Earnings Expectations
+
+**News summary:** Linde (NASDAQ: LIN) is set to report quarterly earnings on February 5, 2026, with analysts expecting an earnings per share of $4.17. Investors are hoping the industrial gas giant will beat estimates and provide positive forward guidance. Stock performance will likely hinge on management's outlook rather than just historical results.
+
+**Market context:** Price before event: USD 469.05 | Price 2 hours post-event: USD 475.97 | Reaction: +1.48%
+
+*Note: In Version 1 (ShowSC = 1), the Shock Score dashboard was displayed here, showing the composite score, sentiment direction, severity level, persistence horizon, and protocol recommendation. In Version 2 (ShowSC = 0), this panel was not shown.*
+
+**Q4. Decision:** Based on the information above, what is your intended portfolio action for this holding?
+
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|
+| Strongly reduce | Reduce | Slightly reduce | Hold / no change | Slightly increase | Increase | Strongly increase |
+
+**Q5. Confidence:** How confident are you in your decision above?
+
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|
+| Not at all confident | | | Moderately confident | | | Completely confident |
+
+---
+
+### Scenario 4 of 8 (ID: B1_S04)
+
+**Company:** UnitedHealth Group (UNH) – Health Care
+
+**Event date:** 2025-12-02 | **Event time:** 10:00 ET | **Event type:** Management
+
+**News headline:** Recent Filing Shows That Sen. Sheldon Whitehouse Bought Over $3K Worth of Guardant Health Stock
+
+**News summary:** UnitedHealth Group has delivered strong long-term performance, generating an average annual return of 15.61% over the past 15 years and outperforming the market by 3.54% annually. A $100 investment in UNH stock 15 years ago would be worth $882.62 today, with shares currently trading at $324.31 and the company maintaining a market cap of $293.77 billion.
+
+**Market context:** Price before event: USD 328.49 | Price 2 hours post-event: USD 324.81 | Reaction: -1.12%
+
+*Note: In Version 1 (ShowSC = 1), the Shock Score dashboard was displayed here, showing the composite score, sentiment direction, severity level, persistence horizon, and protocol recommendation. In Version 2 (ShowSC = 0), this panel was not shown.*
+
+**Q4. Decision:** Based on the information above, what is your intended portfolio action for this holding?
+
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|
+| Strongly reduce | Reduce | Slightly reduce | Hold / no change | Slightly increase | Increase | Strongly increase |
+
+**Q5. Confidence:** How confident are you in your decision above?
+
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|
+| Not at all confident | | | Moderately confident | | | Completely confident |
+
+---
+
+### Scenario 5 of 8 (ID: B1_S05)
+
+**Company:** Home Depot (HD) – Consumer Discretionary
+
+**Event date:** 2025-08-19 | **Event time:** 11:00 ET | **Event type:** Earnings
+
+**News headline:** US Stocks Mixed; Home Depot Shares Gain After Q2 Results
+
+**News summary:** Home Depot reported Q2 adjusted earnings of $4.68 per share, missing the consensus estimate of $4.71 by 0.66%, while revenue of $45.277 billion also fell short of the $45.356 billion estimate by 0.18%. Despite the misses, the home improvement retailer posted year-over-year growth with earnings up 0.21% and sales increasing 4.87% from the same period last year.
+
+**Market context:** Price before event: USD 411.00 | Price 2 hours post-event: USD 408.58 | Reaction: -0.59%
+
+*Note: In Version 1 (ShowSC = 1), the Shock Score dashboard was displayed here, showing the composite score, sentiment direction, severity level, persistence horizon, and protocol recommendation. In Version 2 (ShowSC = 0), this panel was not shown.*
+
+**Q4. Decision:** Based on the information above, what is your intended portfolio action for this holding?
+
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|
+| Strongly reduce | Reduce | Slightly reduce | Hold / no change | Slightly increase | Increase | Strongly increase |
+
+**Q5. Confidence:** How confident are you in your decision above?
+
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|
+| Not at all confident | | | Moderately confident | | | Completely confident |
+
+---
+
+### Scenario 6 of 8 (ID: B1_S06)
+
+**Company:** GE Aerospace (GE) – Industrials
+
+**Event date:** 2025-07-08 | **Event time:** 10:00 ET | **Event type:** Management
+
+**News headline:** Honeywell Eyes Strategic Changes Ahead Of 2026 Split
+
+**News summary:** GE Aerospace has surged 46% year-to-date to trade near $244, approaching its 52-week high of $260.55, driven by robust aerospace demand, expanding margins, and tariff-driven pricing strategies. The stock is currently trading above its 50-day moving average of $235, with investors showing optimism about the company's operational efficiency gains and solid order volumes. GE Aerospace recently announced a multi-year service, repair, and overhaul agreement with China on July 7.
+
+**Market context:** Price before event: USD 249.15 | Price 2 hours post-event: USD 246.77 | Reaction: -0.96%
+
+*Note: In Version 1 (ShowSC = 1), the Shock Score dashboard was displayed here, showing the composite score, sentiment direction, severity level, persistence horizon, and protocol recommendation. In Version 2 (ShowSC = 0), this panel was not shown.*
+
+**Q4. Decision:** Based on the information above, what is your intended portfolio action for this holding?
+
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|
+| Strongly reduce | Reduce | Slightly reduce | Hold / no change | Slightly increase | Increase | Strongly increase |
+
+**Q5. Confidence:** How confident are you in your decision above?
+
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|
+| Not at all confident | | | Moderately confident | | | Completely confident |
+
+---
+
+### Scenario 7 of 8 (ID: B1_S07)
+
+**Company:** AT&T (T) – Communication Services
+
+**Event date:** 2026-01-30 | **Event time:** 09:30 ET | **Event type:** Earnings
+
+**News headline:** Verizon Posts Best Subscriber Growth Since 2019
+
+**News summary:** Verizon Communications Inc. (NYSE: VZ) stock gained Friday after reporting fourth-quarter revenue of $36.40 billion, up 2.0% year-over-year and beating analyst estimates of $36.06 billion. The telecom giant posted adjusted EPS of $1.09, topping consensus estimates of $1.05, while delivering its strongest postpaid phone subscriber growth since 2019 with 616,000 net additions versus 504,000 in the prior year quarter.
+
+**Market context:** Price before event: USD 25.11 | Price 2 hours post-event: USD 25.87 | Reaction: +3.03%
+
+*Note: In Version 1 (ShowSC = 1), the Shock Score dashboard was displayed here, showing the composite score, sentiment direction, severity level, persistence horizon, and protocol recommendation. In Version 2 (ShowSC = 0), this panel was not shown.*
+
+**Q4. Decision:** Based on the information above, what is your intended portfolio action for this holding?
+
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|
+| Strongly reduce | Reduce | Slightly reduce | Hold / no change | Slightly increase | Increase | Strongly increase |
+
+**Q5. Confidence:** How confident are you in your decision above?
+
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|
+| Not at all confident | | | Moderately confident | | | Completely confident |
+
+---
+
+### Scenario 8 of 8 (ID: B1_S08)
+
+**Company:** Qualcomm Inc. (QCOM) – Information Technology
+
+**Event date:** 2025-10-13 | **Event time:** 09:30 ET | **Event type:** Management
+
+**News headline:** Shares of semiconductor companies are trading higher amid overall market strength. President Trump's recent social media post may have eased economic concerns and boosted trader confidence in growth stocks.
+
+**News summary:** Semiconductor stocks including Qualcomm are trading higher amid broad market strength. President Trump's recent social media post appears to have eased economic concerns and boosted trader confidence in growth stocks.
+
+**Market context:** Price before event: USD 153.52 | Price 2 hours post-event: USD 160.98 | Reaction: +4.86%
+
+*Note: In Version 1 (ShowSC = 1), the Shock Score dashboard was displayed here, showing the composite score, sentiment direction, severity level, persistence horizon, and protocol recommendation. In Version 2 (ShowSC = 0), this panel was not shown.*
+
+**Q4. Decision:** Based on the information above, what is your intended portfolio action for this holding?
+
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|
+| Strongly reduce | Reduce | Slightly reduce | Hold / no change | Slightly increase | Increase | Strongly increase |
+
+**Q5. Confidence:** How confident are you in your decision above?
+
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|
+| Not at all confident | | | Moderately confident | | | Completely confident |
+
+---
+
+*End of Block 1. Upon completion, respondents were thanked and provided with a contact address for questions. Blocks 2 and 3 were administered as separate survey links.*
+
 # Back Matter
 
 - Glossary
