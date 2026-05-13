@@ -1,5 +1,0 @@
-method,outcome,tau,se,t,p,ci_lo,ci_hi,cohens_d,r2,n,h2_supported,sortino_n_note,return_sc0,return_sc1,sharpe_sc0,sharpe_sc1,return_differential,dollar_impact,warning
-option_b_individual,portfolio_return,-0.0253,0.015,-1.6812,0.0927,-0.0547,0.0042,-0.277,0.2023,134.0,False,,,,,,,,
-option_b_individual,sharpe_ratio,0.338,1.2656,0.2671,0.7894,-2.1425,2.8186,0.0289,0.1629,122.0,False,,,,,,,,
-option_b_individual,sortino_ratio,-5.5626,3.9969,-1.3917,0.1640,-13.3963,2.2711,-0.361,0.4695,48.0,False,Computed for 109 of 134 respondent-condition pairs with at least one negative return,,,,,,,
-option_a_collective,portfolio_return,,,,,,,,,,,,0.0239,-0.0188,2.239,-0.0188,-0.0427,-42700.0,NON-INDEPENDENCE: both portfolios draw from same respondent pool. Descriptive only.
