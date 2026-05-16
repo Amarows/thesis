@@ -651,19 +651,9 @@ While both the Baker-Wurgler index and the Shock Score use principal component a
 
 In sum, existing measures either forecast returns (sentiment indices), describe market conditions (volatility gauges), or profile static risk preferences (behavioral tools). None operationalizes information shock intensity as a real-time behavioral risk mitigation trigger for discretionary portfolio managers. The Shock Score fills this gap by bridging real-time news analytics with behavioral governance frameworks.
 
-### 3.6.4 Summary of Theoretical and Empirical Contributions
+### 3.6.4 Relevance of Reviewed Literature to Research Hypotheses
 
-The contributions of this thesis can be grouped along five dimensions. First, the study formalizes the connection between behavioral finance theory and portfolio decision-making. The proposed Shock Score translates cognitive biases such as loss aversion and overconfidence into a quantifiable indicator, responding to calls for tools that integrate psychological insights into investment practice and enabling these concepts to be monitored and managed in real time.
-
-Second, the thesis introduces a methodology that combines market information (news events and sentiment indicators) with behavioral parameters (bias triggers and stress factors). This combination of data-driven analytics and psychological modeling has not, to the author's knowledge, been implemented in prior work. In contrast to static factor models, the Shock Score uses dynamic event-level inputs to generate forward-looking risk assessments at the level of individual managers.
-
-Third, by explicitly designing the Shock Score for ex-ante decision support, the work addresses a gap in empirical research. It offers a mechanism for anticipating and mitigating biases before they affect portfolio decisions, directly engaging limitations identified in the decision-support literature — namely, that prevailing systems emphasize quantitative analysis and offer limited proactive bias alerts.
-
-Fourth, the contributions emphasize realistic professional context. The Shock Score is intended for trained portfolio managers and risk officers rather than student subjects, reflecting established evidence that professional decision-makers exhibit behavioral responses distinct from those of non-professionals. The framework can be calibrated to professional users through empirical studies or surveys, which supports external validity and incorporates decision-maker psychology alongside market outcomes.
-
-Fifth, on a theoretical level, the work extends the financial decision-making framework by adding a behavioral risk factor to traditional models. Empirically, it suggests new ways to test behavioral theories using real-time events; applying the Shock Score in experiments or simulations can yield data on how specific biases — such as anchoring on recent data — propagate into portfolio choices. These contributions enrich both academic theory, by formalizing bias-driven risk modeling, and applied finance, by providing a prototype for a new generation of decision-support tools.
-
-Taken together, these contributions are original to this thesis. By integrating psychology with quantitative finance and constructing an anticipatory risk indicator, the Shock Score advances the literature on decision-making under uncertainty and illustrates how behavioral finance can move from explanation toward operational support for practitioners.
+The literature reviewed in this chapter provides the theoretical foundation for both research hypotheses. Hirshleifer (2015) and Barberis & Thaler (2002) establish the behavioral mechanisms through which information shocks produce systematic decision errors, supporting H1. Henderson et al. (2018), Statman (2019), and Bianchi et al. (2022) demonstrate that structured, rule-based decision support can reduce emotional reactivity in investment contexts, supporting the design rationale for H2. The Shock Score is positioned as a novel construct that bridges these two streams; its construction, empirical evaluation, and contribution relative to existing measures are addressed in Chapters 4 and 5.
 
 ---
 
@@ -1251,6 +1241,20 @@ Section 6.2 summarises the findings from both the literature review and the empi
 <!-- PLACEHOLDER:s6_3_conclusions -->
 [To be populated by 8_statistical_analysis.py]
 <!-- /PLACEHOLDER:s6_3_conclusions -->
+
+## 6.3.1 Theoretical and Methodological Contributions
+
+The contributions of this thesis can be grouped along five dimensions. First, the study formalizes the connection between behavioral finance theory and portfolio decision-making. The proposed Shock Score translates cognitive biases such as loss aversion and overconfidence into a quantifiable indicator, responding to calls for tools that integrate psychological insights into investment practice and enabling these concepts to be monitored and managed in real time.
+
+Second, the thesis introduces a methodology that combines market information (news events and sentiment indicators) with behavioral parameters (bias triggers and stress factors). This combination of data-driven analytics and psychological modeling has not, to the author's knowledge, been implemented in prior work. In contrast to static factor models, the Shock Score uses dynamic event-level inputs to generate forward-looking risk assessments at the level of individual managers.
+
+Third, by explicitly designing the Shock Score for ex-ante decision support, the work addresses a gap in empirical research. It offers a mechanism for anticipating and mitigating biases before they affect portfolio decisions, directly engaging limitations identified in the decision-support literature — namely, that prevailing systems emphasize quantitative analysis and offer limited proactive bias alerts.
+
+Fourth, the contributions emphasize realistic professional context. The Shock Score is intended for trained portfolio managers and risk officers rather than student subjects, reflecting established evidence that professional decision-makers exhibit behavioral responses distinct from those of non-professionals. The framework can be calibrated to professional users through empirical studies or surveys, which supports external validity and incorporates decision-maker psychology alongside market outcomes.
+
+Fifth, on a theoretical level, the work extends the financial decision-making framework by adding a behavioral risk factor to traditional models. Empirically, it suggests new ways to test behavioral theories using real-time events; applying the Shock Score in experiments or simulations can yield data on how specific biases — such as anchoring on recent data — propagate into portfolio choices. These contributions enrich both academic theory, by formalizing bias-driven risk modeling, and applied finance, by providing a prototype for a new generation of decision-support tools.
+
+Taken together, these contributions are original to this thesis. By integrating psychology with quantitative finance and constructing an anticipatory risk indicator, the Shock Score advances the literature on decision-making under uncertainty and illustrates how behavioral finance can move from explanation toward operational support for practitioners.
 
 ## 6.4 Recommendations
 
