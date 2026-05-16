@@ -396,11 +396,10 @@ Taken together, the study design integrates real-time shock measurement, a profe
 
 # Chapter 3. Literature Review
 
->The literature review is designed to bridge foundational behavioral finance theory with applied challenges in professional investment decision-making, culminating in the rationale for structured debiasing tools.
+>The literature review is designed to bridge foundational behavioral finance theory with applied challenges in professional investment decision-making, culminating in the rationale for structured debiasing tools. This body of literature directly supports the two hypotheses of the study: H1, which posits that shock intensity predicts decision deviation, and H2, which posits that the Shock Score moderates that deviation.
 
 ## 3.1 Link Between Literature and Research Hypotheses
 
->This introductory section defines key theoretical constructs (e.g., information shocks, behavioral bias, Shock Score) and links them to the research problem.
 
 The research hypotheses draw on key concepts from behavioral finance ([Barberis & Thaler, 2003](https://doi.org/10.1016/S1574-0102(03)01027-6)) and decision-making literature ([Kahneman, 2011](https://www.worldcat.org/oclc/706020998)), focusing on how information shocks affect market behavior. An **information shock** refers to publicly available news or updates about individual stocks that generate a material short-term market reaction, typically observable at a daily frequency. Such shocks affect short-term price dynamics and volatility without necessarily changing the long-term fundamentals of the underlying firm and, therefore, its valuation.
 
