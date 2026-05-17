@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" font-family="Calibri, Arial, sans-serif">
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 686.799 348.824" width="686.799px" height="348.824px">
   <defs>
     <marker id="arrow" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="10" markerHeight="6" orient="auto-start-reverse">
       <path d="M 0 0 L 10 3 L 0 6 z" fill="#333"/>
@@ -8,84 +8,39 @@
       <path d="M 0 0 L 10 3 L 0 6 z" fill="#B33"/>
     </marker>
   </defs>
-
-  <!-- Title -->
-  <text x="360" y="28" text-anchor="middle" font-size="14" font-weight="bold" fill="#222">Figure 2.2: Causal Logic and Simulation Dependency</text>
-
-  <!-- === OBSERVED DOMAIN (left side) === -->
-  <!-- Background -->
-  <rect x="20" y="45" width="370" height="340" rx="8" fill="#F4F7FA" stroke="#B0BEC5" stroke-width="1" stroke-dasharray="6,3"/>
-  <text x="205" y="68" text-anchor="middle" font-size="11" fill="#607D8B" font-style="italic">Observed (Survey + Market Data)</text>
-
-  <!-- Box 1: Information Shock -->
-  <rect x="50" y="85" width="170" height="50" rx="6" fill="#fff" stroke="#444" stroke-width="1.5"/>
-  <text x="135" y="107" text-anchor="middle" font-size="12" font-weight="bold" fill="#222">External Information</text>
-  <text x="135" y="123" text-anchor="middle" font-size="12" font-weight="bold" fill="#222">Shock</text>
-
-  <!-- Box 2: Shock Score (SC_total) -->
-  <rect x="50" y="170" width="170" height="50" rx="6" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5"/>
-  <text x="135" y="192" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565C0">Shock Score (SC_total)</text>
-  <text x="135" y="208" text-anchor="middle" font-size="10" fill="#1565C0">Intensity measure — H₁ IV</text>
-
-  <!-- Arrow: Shock → SC_total -->
-  <line x1="135" y1="135" x2="135" y2="168" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
-
-  <!-- Box 3: Shock Score Dashboard -->
-  <rect x="50" y="255" width="170" height="50" rx="6" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.5"/>
-  <text x="135" y="275" text-anchor="middle" font-size="12" font-weight="bold" fill="#2E7D32">Shock Score Dashboard</text>
-  <text x="135" y="291" text-anchor="middle" font-size="10" fill="#2E7D32">Treatment — H₂ IV (ShowSC)</text>
-
-  <!-- Arrow: SC_total → Dashboard -->
-  <line x1="135" y1="220" x2="135" y2="253" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
-
-  <!-- Box 4: Manager Decision (NRS) -->
-  <rect x="265" y="170" width="170" height="50" rx="6" fill="#fff" stroke="#444" stroke-width="1.5"/>
-  <text x="350" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#222">Manager Decision</text>
-  <text x="350" y="207" text-anchor="middle" font-size="10" fill="#555">Net Risk Stance — H₁ DV</text>
-
-  <!-- Arrow: SC_total → NRS (horizontal) -->
-  <line x1="220" y1="195" x2="263" y2="195" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
-
-  <!-- Arrow: Dashboard → NRS (diagonal) -->
-  <line x1="220" y1="275" x2="270" y2="215" stroke="#2E7D32" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <text x="230" y="250" font-size="9" fill="#2E7D32" transform="rotate(-35, 230, 250)">intervention</text>
-
-  <!-- === SIMULATED DOMAIN (right side) === -->
-  <!-- Background with red-tinted border -->
-  <rect x="440" y="45" width="260" height="340" rx="8" fill="#FFF8F6" stroke="#C62828" stroke-width="1.5" stroke-dasharray="6,3"/>
-  <text x="570" y="68" text-anchor="middle" font-size="11" fill="#C62828" font-style="italic">Simulated (Model-Dependent)</text>
-
-  <!-- Box 5: Translation Rules -->
-  <rect x="470" y="170" width="200" height="50" rx="6" fill="#FFEBEE" stroke="#C62828" stroke-width="1.5"/>
-  <text x="570" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#C62828">Translation Rules</text>
-  <text x="570" y="207" text-anchor="middle" font-size="10" fill="#C62828">NRS → Portfolio weights</text>
-
-  <!-- Arrow: NRS → Translation (horizontal, red) -->
-  <line x1="435" y1="195" x2="468" y2="195" stroke="#C62828" stroke-width="1.5" marker-end="url(#arrow-red)"/>
-
-  <!-- Box 6: Portfolio Outcomes -->
-  <rect x="470" y="275" width="200" height="55" rx="6" fill="#FFEBEE" stroke="#C62828" stroke-width="1.5"/>
-  <text x="570" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#C62828">Portfolio Outcomes</text>
-  <text x="570" y="312" text-anchor="middle" font-size="10" fill="#C62828">Sharpe / Sortino — H₂ DV</text>
-
-  <!-- Arrow: Translation → Outcomes -->
-  <line x1="570" y1="220" x2="570" y2="273" stroke="#C62828" stroke-width="1.5" marker-end="url(#arrow-red)"/>
-
-  <!-- === LEGEND === -->
-  <rect x="50" y="345" width="12" height="12" rx="2" fill="#F4F7FA" stroke="#B0BEC5" stroke-width="1"/>
-  <text x="68" y="356" font-size="10" fill="#555">Directly observed</text>
-
-  <rect x="180" y="345" width="12" height="12" rx="2" fill="#FFF8F6" stroke="#C62828" stroke-width="1"/>
-  <text x="198" y="356" font-size="10" fill="#555">Model-dependent (limitation 2.8.3)</text>
-
-  <rect x="370" y="345" width="12" height="12" rx="2" fill="#E3F2FD" stroke="#1565C0" stroke-width="1"/>
-  <text x="388" y="356" font-size="10" fill="#555">Shock Score as measure (H₁)</text>
-
-  <rect x="530" y="345" width="12" height="12" rx="2" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1"/>
-  <text x="548" y="356" font-size="10" fill="#555">Shock Score as intervention (H₂)</text>
-
-  <!-- Joint-test annotation -->
-  <text x="570" y="355" text-anchor="middle" font-size="9" fill="#C62828" font-weight="bold"></text>
-  <rect x="455" y="365" width="230" height="28" rx="4" fill="#FFEBEE" stroke="#C62828" stroke-width="1"/>
-  <text x="570" y="383" text-anchor="middle" font-size="10" fill="#C62828" font-weight="bold">H₂ results are jointly conditional on (a) + (b)</text>
+  <rect x="9.252" y="8.113" width="402.437" height="283.383" rx="8" fill="#F4F7FA" stroke="#B0BEC5" stroke-width="1" stroke-dasharray="6,3" style="stroke-width: 1;" transform="matrix(0.9999889731407166, 0.0046350001357495785, 0, 1.0000109672546387, -2.4525750048842276, 30.39408347597842)"/>
+  <text x="191.799" y="62.407" text-anchor="middle" font-size="11" fill="#607D8B" font-style="italic" style="white-space: pre; stroke-width: 1; font-size: 11px;">Observed (Survey + Market Data)</text>
+  <rect x="22.005" y="78.554" width="170" height="50" rx="6" fill="#fff" stroke="#444" stroke-width="1.5" style="stroke-width: 1.5;"/>
+  <text x="107.005" y="100.554" text-anchor="middle" font-size="12" font-weight="bold" fill="#222" style="white-space: pre; stroke-width: 1; font-size: 12px;">External Information</text>
+  <text x="107.005" y="116.554" text-anchor="middle" font-size="12" font-weight="bold" fill="#222" style="white-space: pre; stroke-width: 1; font-size: 12px;">Shock</text>
+  <rect x="22.005" y="163.554" width="170" height="50" rx="6" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5" style="stroke-width: 1.5;"/>
+  <text x="107.005" y="185.554" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565C0" style="white-space: pre; stroke-width: 1; font-size: 12px;">Shock Score (SC_total)</text>
+  <text x="107.005" y="201.554" text-anchor="middle" font-size="10" fill="#1565C0" style="white-space: pre; stroke-width: 1; font-size: 10px;">Intensity measure — H₁ IV</text>
+  <line x1="107.005" y1="128.554" x2="107.005" y2="161.554" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)" style="stroke-width: 1.5;"/>
+  <rect x="22.005" y="248.554" width="170" height="50" rx="6" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.5" style="stroke-width: 1.5;"/>
+  <text x="107.005" y="268.554" text-anchor="middle" font-size="12" font-weight="bold" fill="#2E7D32" style="white-space: pre; stroke-width: 1; font-size: 12px;">Shock Score Dashboard</text>
+  <text x="107.005" y="284.554" text-anchor="middle" font-size="10" fill="#2E7D32" style="white-space: pre; stroke-width: 1; font-size: 10px;">Treatment — H₂ IV (ShowSC)</text>
+  <line x1="107.005" y1="213.554" x2="107.005" y2="246.554" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)" style="stroke-width: 1.5;"/>
+  <rect x="250.661" y="165.26" width="144.964" height="50" rx="6" fill="#fff" stroke="#444" stroke-width="1.5" style="stroke-width: 1.5;"/>
+  <text x="325.988" y="184.407" text-anchor="middle" font-size="12" font-weight="bold" fill="#222" style="white-space: pre; stroke-width: 1; font-size: 12px;">Manager Decision</text>
+  <text x="324.85" y="199.131" text-anchor="middle" font-size="10" fill="#555" style="white-space: pre; stroke-width: 1; font-size: 10px;">Net Risk Stance — H₁ DV</text>
+  <line x1="193.428" y1="189.327" x2="250.937" y2="190.056" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)" style="stroke-width: 1.5;"/>
+  <line x1="193.428" y1="277.657" x2="250.541" y2="205.424" stroke="#2E7D32" stroke-width="1.5" marker-end="url(#arrow)" style="stroke-width: 1.5;"/>
+  <text transform="matrix(0.61541611, -0.73342413, 0.73991799, 0.62086213, -37.05294502, -7.96041166)" style="white-space: pre; stroke-width: 1; font-size: 9px; transform-origin: 253.265px 246.746px;" x="230" y="250" font-size="9" fill="#2E7D32">intervention</text>
+  <rect x="431.92" y="39.407" width="254.879" height="285.093" rx="8" fill="#FFF8F6" stroke="#C62828" stroke-width="1.5" stroke-dasharray="6,3" style="stroke-width: 1.5;"/>
+  <text x="556.799" y="62.407" text-anchor="middle" font-size="11" fill="#C62828" font-style="italic" style="white-space: pre; stroke-width: 1; font-size: 11px;">Simulated (Model-Dependent)</text>
+  <rect x="456.799" y="164.407" width="200" height="50" rx="6" fill="#FFEBEE" stroke="#C62828" stroke-width="1.5" style="stroke-width: 1.5;"/>
+  <text x="556.799" y="184.407" text-anchor="middle" font-size="12" font-weight="bold" fill="#C62828" style="white-space: pre; stroke-width: 1; font-size: 12px;">Translation Rules</text>
+  <text x="556.799" y="201.407" text-anchor="middle" font-size="10" fill="#C62828" style="white-space: pre; stroke-width: 1; font-size: 10px;">NRS → Portfolio weights</text>
+  <line x1="396.763" y1="189.407" x2="456.222" y2="189.407" stroke="#C62828" stroke-width="1.5" marker-end="url(#arrow-red)" style="stroke-width: 1.5;"/>
+  <rect x="456.799" y="236.407" width="200" height="55" rx="6" fill="#FFEBEE" stroke="#C62828" stroke-width="1.5" style="stroke-width: 1.5;"/>
+  <text x="556.799" y="256.407" text-anchor="middle" font-size="12" font-weight="bold" fill="#C62828" style="white-space: pre; stroke-width: 1; font-size: 12px;">Portfolio Outcomes</text>
+  <text x="556.799" y="273.407" text-anchor="middle" font-size="10" fill="#C62828" style="white-space: pre; stroke-width: 1; font-size: 10px;">Sharpe / Sortino — H₂ DV</text>
+  <line x1="556.799" y1="214.407" x2="556.799" y2="235.828" stroke="#C62828" stroke-width="1.5" marker-end="url(#arrow-red)" style="stroke-width: 1.5;"/>
+  <rect x="28.208" y="334.57" width="12" height="12" rx="2" fill="#E3F2FD" stroke="#1565C0" stroke-width="1" style="stroke-width: 1;"/>
+  <text x="41.656" y="343.863" font-size="10" fill="#555" style="white-space: pre; stroke-width: 1; font-size: 10px;">Shock Score as measure (H₁)</text>
+  <rect x="179.388" y="335.993" width="12" height="12" rx="2" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1" style="stroke-width: 1;"/>
+  <text x="194.259" y="346.424" font-size="10" fill="#555" style="white-space: pre; stroke-width: 1; font-size: 10px;">Shock Score as intervention (H₂)</text>
+  <text x="570" y="355" text-anchor="middle" font-size="9" fill="#C62828" font-weight="bold" style="white-space: pre; stroke-width: 1; font-size: 9px;"/>
+  <text style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 25px; white-space: pre;" x="212.802" y="180.228" transform="matrix(0.3087010085582733, 0, 0, 0.34343400597572327, 129.75563242667363, 123.58751099687083)">measurment</text>
 </svg>
