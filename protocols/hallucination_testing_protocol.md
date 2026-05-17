@@ -198,12 +198,67 @@ Before running the full audit, the following are already flagged from prior revi
 
 This protocol is designed to be executed by Claude Code or Cowork, which have direct access to the local PDF folder. Do NOT run this in the Claude.ai chat interface — use the tools with filesystem access instead.
 
+---
+
+### CRITICAL RULE: LOCAL FILE FIRST — NO EXCEPTIONS
+
+**Every citation verification MUST follow this strict two-step source hierarchy:**
+
+1. **Local PDF file** — if `references.md` has a non-empty `file` column for this reference, read the local PDF. This is mandatory. Do not skip to web search even if the PDF seems hard to parse.
+2. **Web search via DOI** — ONLY if the `file` column is empty or the local file does not exist on disk. Log the fallback explicitly.
+
+**If neither local file nor DOI URL is available:**
+- Log as `UNVERIFIABLE` — do NOT guess, infer, or construct the paper's content from memory
+- Do NOT return any verdict other than UNVERIFIABLE
+- Flag for manual review
+
+**Rationale:** The phantom Li, Shah, Noyan & Gao (2018) citation — a paper that does not exist — was not caught because the model relied on training memory rather than a real source. This rule prevents that failure mode entirely.
+
+---
+
+### BATCHED EXECUTION — REQUIRED
+
+Running all 92 references in a single session is not feasible and risks context exhaustion and degraded accuracy. **Always run in batches of 10–15 references per session.**
+
+#### Persistent log file: `protocols/hallucination_audit_log.md`
+
+Before starting any batch, check whether `protocols/hallucination_audit_log.md` exists in the repo. If it does, read it and identify the last completed reference. Start the new batch from the next unaudited reference in tier order (Tier 1 → Tier 2 → Tier 3).
+
+At the end of each batch, append results to `hallucination_audit_log.md` and commit before stopping. This ensures progress is never lost.
+
+**Log file format:**
+
+```markdown
+# Hallucination Audit Log
+Last updated: YYYY-MM-DD
+Last completed: [Author, Year] (Tier X, batch N)
+Total verified: N / 92
+Total flags: N (UNSUPPORTED: N, PARTIAL: N)
+
+---
+
+## Batch 1 — [date] — References 1–12 (Tier 1)
+
+| Reference | Source used | Verdict | Notes |
+|-----------|-------------|---------|-------|
+| Loewenstein et al., 2001 | LOCAL: loewenstein2001.pdf | SUPPORTED | Paper confirms affect diverges from cognition |
+| Ben-David et al., 2013 | LOCAL: ben-david2013.pdf | SUPPORTED | CFOs — population correct in thesis after fix |
+| Henderson et al., 2018 | LOCAL: henderson2018.pdf | PARTIAL | See issue #XXX |
+| Huang, Roesler & Reske, 2020 | WEB: doi.org/10.1145/... | SUPPORTED | FinBERT paper confirmed |
+| [Author, Year] | UNVERIFIABLE — no file, no DOI | — | Flag for manual review |
+
+## Batch 2 — [date] — References 13–24 (Tier 1 cont.)
+...
+```
+
+---
+
 ### Prerequisites
 
 1. **Local PDF folder** — all papers listed in `references.md` with a non-empty `file` column must be present in the local papers directory (e.g., `C:/thesis/papers/` or `~/thesis/papers/`). The file names match the `file` column in `references.md` exactly.
 2. **`references.md`** — must be current (pull latest from `main` branch before starting).
 3. **`thesis_final.md`** — must be current (regenerate via `9_compile_thesis.py` before starting).
-4. **Web search** — required for papers without a local file (39 of 91). Claude Code can use `requests` + DOI URL to fetch abstracts; Cowork can use browser access.
+4. **Web search** — FALLBACK ONLY for papers without a local file (currently 12 of 92). Log every web fallback explicitly in the audit log.
 
 ---
 
@@ -248,73 +303,78 @@ print("Saved to protocols/hallucination_audit_inventory.json")
 
 ---
 
-### Step 2 — Verify each citation
+### Step 2 — Verify each citation (STRICT LOCAL-FIRST)
 
 For each citation in the inventory, working through risk tiers (Tier 1 first):
 
 ```python
-import json, os
+import json, os, pdfplumber, requests
 
-with open('protocols/hallucination_audit_inventory.json') as f:
-    inventory = json.load(f)
-
-# Load references.md to get local file names
-# ... (parse references.md to get file column per citation key)
+PAPERS_DIR = 'papers'  # adjust to local path — must be absolute path to local folder
 
 def verify_citation(citation_key, sentences, local_file=None, doi_url=None):
     """
     Verify a citation against its source paper.
-    
-    1. If local_file exists in papers/ folder:
-       - Read the PDF (first 3 pages for abstract, last 3 for conclusion)
-       - Extract text and check if claim is supported
-    
-    2. If no local_file:
-       - Fetch DOI URL abstract via requests
-       - Check if claim is supported
-    
-    Returns: dict with verdict (SUPPORTED/PARTIAL/UNSUPPORTED), 
-             evidence, and proposed_fix if needed
+    STRICT RULE: always try local file first. Only fall back to web if no local file.
+    Never use model memory as a source — return UNVERIFIABLE if no source available.
     """
-    
-    papers_dir = 'papers'  # adjust to local path
-    
-    if local_file and os.path.exists(os.path.join(papers_dir, local_file)):
-        # Use pdfplumber or pypdf2 to extract text
-        import pdfplumber
-        with pdfplumber.open(os.path.join(papers_dir, local_file)) as pdf:
-            # Read first 3 pages (abstract/intro) and last 2 (conclusion)
-            abstract_text = ' '.join(
-                page.extract_text() or '' 
-                for page in pdf.pages[:3]
-            )
-            conclusion_text = ' '.join(
-                page.extract_text() or '' 
-                for page in pdf.pages[-2:]
-            )
-        paper_text = abstract_text + ' ' + conclusion_text
-    
-    elif doi_url:
-        import requests
-        resp = requests.get(doi_url, headers={'User-Agent': 'Mozilla/5.0'}, timeout=10)
-        paper_text = resp.text[:5000]  # abstract typically in first 5000 chars
-    
-    else:
-        return {'verdict': 'UNVERIFIABLE', 'evidence': 'No local file and no DOI URL'}
-    
-    # Check each sentence claim against paper text
+
+    source_used = None
+    paper_text = None
+
+    # STEP 1: Try local file — MANDATORY if file column is non-empty
+    if local_file and local_file not in ('', '[DOI unverified]'):
+        local_path = os.path.join(PAPERS_DIR, local_file)
+        if os.path.exists(local_path):
+            try:
+                with pdfplumber.open(local_path) as pdf:
+                    abstract_text = ' '.join(
+                        page.extract_text() or ''
+                        for page in pdf.pages[:3]
+                    )
+                    conclusion_text = ' '.join(
+                        page.extract_text() or ''
+                        for page in pdf.pages[-2:]
+                    )
+                paper_text = abstract_text + ' ' + conclusion_text
+                source_used = f'LOCAL: {local_file}'
+            except Exception as e:
+                # Log the error but do NOT fall back to memory
+                source_used = f'LOCAL_ERROR: {local_file} ({e})'
+        else:
+            # File listed but not on disk — log as missing, fall back to web
+            source_used = f'LOCAL_MISSING: {local_file} — falling back to web'
+
+    # STEP 2: Web fallback — ONLY if no local file available
+    if paper_text is None and doi_url:
+        try:
+            resp = requests.get(doi_url, headers={'User-Agent': 'Mozilla/5.0'}, timeout=10)
+            paper_text = resp.text[:8000]
+            source_used = source_used or f'WEB: {doi_url}'
+        except Exception as e:
+            source_used = f'WEB_ERROR: {doi_url} ({e})'
+
+    # STEP 3: No source available — return UNVERIFIABLE, do NOT guess
+    if paper_text is None:
+        return [{
+            'verdict': 'UNVERIFIABLE',
+            'source': source_used or 'NO SOURCE',
+            'evidence': 'No local PDF and no accessible DOI URL. Do not infer from memory.',
+            'action': 'Flag for manual review'
+        }]
+
+    # Verify each sentence claim against paper text
     results = []
     for item in sentences:
-        sentence = item['sentence']
-        line = item['line']
-        # Claude Code will analyze whether paper_text supports sentence
-        # This requires LLM judgment — pass to Claude for assessment
         results.append({
-            'line': line,
-            'sentence': sentence,
-            'paper_excerpt': paper_text[:2000]
+            'citation_key': citation_key,
+            'line': item['line'],
+            'sentence': item['sentence'],
+            'source': source_used,
+            'paper_excerpt': paper_text[:3000],
+            # Claude Code assesses whether paper_excerpt supports sentence
         })
-    
+
     return results
 ```
 
