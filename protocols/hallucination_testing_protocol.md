@@ -191,3 +191,202 @@ Before running the full audit, the following are already flagged from prior revi
 3. **Loewenstein et al., 2001** — "complement deliberative reasoning" phrasing needs verification against paper's actual framing.
 4. **Henderson et al., 2018** — investment pre-commitment context needs verification.
 5. **Statman, 2019** — cited for pre-commitment claim; paper is likely a general behavioral finance survey.
+
+---
+
+## EXECUTION METHOD — CLAUDE CODE OR COWORK
+
+This protocol is designed to be executed by Claude Code or Cowork, which have direct access to the local PDF folder. Do NOT run this in the Claude.ai chat interface — use the tools with filesystem access instead.
+
+### Prerequisites
+
+1. **Local PDF folder** — all papers listed in `references.md` with a non-empty `file` column must be present in the local papers directory (e.g., `C:/thesis/papers/` or `~/thesis/papers/`). The file names match the `file` column in `references.md` exactly.
+2. **`references.md`** — must be current (pull latest from `main` branch before starting).
+3. **`thesis_final.md`** — must be current (regenerate via `9_compile_thesis.py` before starting).
+4. **Web search** — required for papers without a local file (39 of 91). Claude Code can use `requests` + DOI URL to fetch abstracts; Cowork can use browser access.
+
+---
+
+### Step 1 — Build the citation inventory
+
+Run this to extract every citation instance from `thesis_final.md` and map it to its reference entry:
+
+```python
+# Run from repo root
+import re, json
+
+with open('thesis_final.md', 'r') as f:
+    thesis = f.read()
+with open('references.md', 'r') as f:
+    refs = f.read()
+
+# Extract all markdown citations: [Author, year](url)
+citations = re.findall(r'\[([^\]]+,\s*\d{4}[a-z]?)\]\((https?://[^)]+)\)', thesis)
+
+# Extract all prose citations: Author (year) or Author et al. (year)
+prose = re.findall(r'([A-Z][a-z]+(?:\s+(?:et\s+al\.?|&|and)\s+[A-Z][a-z]+)?)\s*\((\d{4}[a-z]?)\)', thesis)
+
+# Build inventory: citation key -> list of (line_number, sentence) 
+lines = thesis.split('\n')
+inventory = {}
+for i, line in enumerate(lines, 1):
+    for m in re.finditer(r'\[([^\]]+,\s*\d{4}[a-z]?)\]\((https?://[^)]+)\)', line):
+        key = m.group(1).strip()
+        if key not in inventory:
+            inventory[key] = []
+        # Extract containing sentence
+        sentence_start = max(0, line.rfind('.', 0, m.start()) + 1)
+        sentence_end = line.find('.', m.end())
+        sentence = line[sentence_start:sentence_end if sentence_end > 0 else len(line)].strip()
+        inventory[key].append({'line': i, 'sentence': sentence, 'url': m.group(2)})
+
+print(f"Unique citations found: {len(inventory)}")
+with open('protocols/hallucination_audit_inventory.json', 'w') as f:
+    json.dump(inventory, f, indent=2)
+print("Saved to protocols/hallucination_audit_inventory.json")
+```
+
+---
+
+### Step 2 — Verify each citation
+
+For each citation in the inventory, working through risk tiers (Tier 1 first):
+
+```python
+import json, os
+
+with open('protocols/hallucination_audit_inventory.json') as f:
+    inventory = json.load(f)
+
+# Load references.md to get local file names
+# ... (parse references.md to get file column per citation key)
+
+def verify_citation(citation_key, sentences, local_file=None, doi_url=None):
+    """
+    Verify a citation against its source paper.
+    
+    1. If local_file exists in papers/ folder:
+       - Read the PDF (first 3 pages for abstract, last 3 for conclusion)
+       - Extract text and check if claim is supported
+    
+    2. If no local_file:
+       - Fetch DOI URL abstract via requests
+       - Check if claim is supported
+    
+    Returns: dict with verdict (SUPPORTED/PARTIAL/UNSUPPORTED), 
+             evidence, and proposed_fix if needed
+    """
+    
+    papers_dir = 'papers'  # adjust to local path
+    
+    if local_file and os.path.exists(os.path.join(papers_dir, local_file)):
+        # Use pdfplumber or pypdf2 to extract text
+        import pdfplumber
+        with pdfplumber.open(os.path.join(papers_dir, local_file)) as pdf:
+            # Read first 3 pages (abstract/intro) and last 2 (conclusion)
+            abstract_text = ' '.join(
+                page.extract_text() or '' 
+                for page in pdf.pages[:3]
+            )
+            conclusion_text = ' '.join(
+                page.extract_text() or '' 
+                for page in pdf.pages[-2:]
+            )
+        paper_text = abstract_text + ' ' + conclusion_text
+    
+    elif doi_url:
+        import requests
+        resp = requests.get(doi_url, headers={'User-Agent': 'Mozilla/5.0'}, timeout=10)
+        paper_text = resp.text[:5000]  # abstract typically in first 5000 chars
+    
+    else:
+        return {'verdict': 'UNVERIFIABLE', 'evidence': 'No local file and no DOI URL'}
+    
+    # Check each sentence claim against paper text
+    results = []
+    for item in sentences:
+        sentence = item['sentence']
+        line = item['line']
+        # Claude Code will analyze whether paper_text supports sentence
+        # This requires LLM judgment — pass to Claude for assessment
+        results.append({
+            'line': line,
+            'sentence': sentence,
+            'paper_excerpt': paper_text[:2000]
+        })
+    
+    return results
+```
+
+---
+
+### Step 3 — Record results
+
+For each citation verified, append to `protocols/hallucination_audit_results.md`:
+
+```markdown
+## [Author, Year]
+
+**Citations in thesis:** N instances
+**Local file:** filename.pdf (or WEB SEARCH)
+**Verification date:** YYYY-MM-DD
+
+### Instance 1 — L[line]
+**Claim:** "[exact sentence from thesis]"
+**Paper says:** [what abstract/conclusion actually states]
+**Verdict:** SUPPORTED / PARTIAL / UNSUPPORTED
+**Action required:** [if PARTIAL or UNSUPPORTED]
+
+---
+```
+
+---
+
+### Step 4 — Create GitHub issues for failures
+
+For each UNSUPPORTED or PARTIAL verdict, create a GitHub issue:
+- Title: `hallucination: [Author, Year] — [brief description of mismatch]`
+- Label: P1
+- Body: exact sentence, paper's actual claim, proposed fix
+
+Use the GitHub API pattern already established in the repo:
+```python
+import requests
+token = open('.github_token').read().strip()
+headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github+json"}
+requests.post(
+    "https://api.github.com/repos/Amarows/thesis/issues",
+    headers=headers,
+    json={"title": "...", "body": "...", "labels": ["P1"]}
+)
+```
+
+---
+
+### Execution order
+
+1. Pull latest `main`
+2. Run `9_compile_thesis.py` to regenerate `thesis_final.md`
+3. Run Step 1 (build inventory) — produces `hallucination_audit_inventory.json`
+4. Work through Tier 1 references first (17 entries, 11 have local PDFs)
+5. Then Tier 2 (31 entries, 24 have local PDFs)
+6. Then Tier 3 (42 entries, 17 have local PDFs)
+7. For each without local PDF — use web fetch of DOI URL
+8. Record all results in `hallucination_audit_results.md`
+9. Create GitHub issues for all failures
+10. Do NOT edit `thesis.md` directly during this run — record issues only
+
+### Expected time
+- Tier 1 (11 local PDFs + 6 web): ~2 hours
+- Tier 2 (24 local PDFs + 7 web): ~3 hours  
+- Tier 3 (17 local PDFs + 25 web): ~3 hours
+- Total: ~8 hours of Claude Code / Cowork execution
+
+### Known failures from spot-check (already fixed)
+These four were identified and fixed in the May 2026 review session:
+- Loewenstein et al. (2001) — "complement" → "diverge from and override"
+- Ben-David et al. (2013) — CFOs only, not portfolio managers (5 locations fixed)
+- Angelova et al. (2023) — bail decisions, not finance DSS (8 locations fixed)
+- Frazzini (2006) — underreaction, not overreaction (1 location fixed)
+
+Start Tier 1 verification from the remaining 13 unfixed papers.
