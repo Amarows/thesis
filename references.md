@@ -61,7 +61,7 @@
 | Song et al., 2015            | https://dx.doi.org/10.2139/ssrn.2631135                                            | An Extreme Firm-Specific News Sentiment Asymmetry Based Trading Strategy                                         | ssrn-2631135.pdf           
 | Lim, 2025                    | http://dx.doi.org/10.1080/15427560.2025.2609644                                    | Emotion-Aware Decision Support System for Real-Time Financial Sentiment and Behavior-Based Trading Risk Advisory | ssrn-5183852.pdf           
 | Kahneman, 2011               | https://www.worldcat.org/oclc/706020998                                            | Thinking, fast and slow                                                                                          | 
-| Da, Engelberg & Gao, 2015    | https://doi.org/10.1093/rfs/hhv003                                                 | The Sum of All FEARS: Investor Sentiment and Asset Prices                                                        | biais2015.pdf              
+| Da, Engelberg & Gao, 2015    | https://doi.org/10.1093/rfs/hhv003                                                 | The Sum of All FEARS: Investor Sentiment and Asset Prices                                                        |               
 | RavenPack, 2017              | https://www.ravenpack.com/research/introducing-ravenpack-sentiment-index           | Introducing The RavenPack Sentiment Index                                                                        |
 | Whaley, 2000                 | https://doi.org/10.3905/jpm.2000.319728                                            | The Investor Fear Gauge                                                                                          | whaley2000.pdf             
 | Sharpe, 1966                 | https://doi.org/10.1086/294846                                                     | Mutual fund performance.                                                                                         | 
@@ -75,10 +75,10 @@
 | Jiang & Verardo, 2018        | https://doi.org/10.1111/jofi.12699 | Does Herding Behavior Reveal Skill? An Analysis of Mutual Fund Performance
 | Angelova et al., 2023        | https://doi.org/10.3386/w31747 | Algorithmic recommendations and human discretion. NBER WP. 
 | Henderson et al., 2018       | https://doi.org/10.1016/j.jet.2018.10.002 | Probability weighting, stop-loss and the disposition effect
-| Peng & Xiong, 2006 | https://doi.org/10.1016/j.jfineco.2005.05.003 | Investor attention, overconfidence and category learning | Journal of Financial Economics |
-| Kahneman, 2003 | https://doi.org/10.1257/000282803322655392 | Maps of bounded rationality: Psychology for behavioral economics | American Economic Review |
-| Bergkvist & Rossiter, 2007 | https://doi.org/10.1509/jmkr.44.2.175 | The predictive validity of multiple-item versus single-item measures of the same constructs | Journal of Marketing Research |
-| Barber & Odean, 2008 | https://doi.org/10.1093/rfs/hhm079 | All that glitters: The effect of attention and news on the buying behavior of individual and institutional investors | Review of Financial Studies |
+| Peng & Xiong, 2006 | https://doi.org/10.1016/j.jfineco.2005.05.003 | Investor attention, overconfidence and category learning |                            |
+| Kahneman, 2003 | https://doi.org/10.1257/000282803322655392 | Maps of bounded rationality: Psychology for behavioral economics |                            |
+| Bergkvist & Rossiter, 2007 | https://doi.org/10.1509/jmkr.44.2.175 | The predictive validity of multiple-item versus single-item measures of the same constructs |                            |
+| Barber & Odean, 2008 | https://doi.org/10.1093/rfs/hhm079 | All that glitters: The effect of attention and news on the buying behavior of individual and institutional investors |                            |
 | DeMiguel, Garlappi & Uppal, 2009 | https://doi.org/10.1093/rfs/hhm075 | Versus Naive Diversification: How Inefficient Is the 1/N Portfolio Strategy? | 
 | Li, Shah, Noyan & Gao, 2018 | https://doi.org/10.1109/BigData.2018.8621884 | Prediction Based on News Sentiment Analysis | 
 | Weber, Siebenmorgen & Weber, 2005 | https://psycnet.apa.org/doi/10.1111/j.1539-6924.2005.00627.x | Asset Risk: How Name Recognition and the Format of Historic Volatility Information Affect Risk Perception and Investment Decisions |
@@ -91,4 +91,5 @@
 | Jolliffe & Cadima, 2016      | https://doi.org/10.1098/rsta.2015.0202                                             | Principal component analysis: a review and recent developments                                                    |                            |
 | Bikhchandani & Sharma, 2001  | https://doi.org/10.2307/3867650                                                    | Herd Behavior in Financial Markets                                                                                                |                            |
 | De Bondt & Thaler, 1985      | https://doi.org/10.1111/j.1540-6261.1985.tb05004.x                                 | Does the Stock Market Overreact?                                                                                                  |                            |
+| Biais et al., 2015           | https://doi.org/10.1093/rfs/hhv011                                                 | Dynamics of Innovation and Risk                                                                                                   | biais2015.pdf              |
 | Swiss Business School, 2025 | [internal document] | Master's Thesis Handbook AY 2025-26, C.S.4. v1.8 | C_S_4__Masters_Thesis_Handbook_v_1_8_Ver_1.pdf |
