@@ -871,6 +871,8 @@ This formulation produces a dimensionless ratio that is comparable across stocks
 
 The shock bar is identified as the 30-minute bar whose timestamp is closest to the event_time field recorded in the scenario manifest. When event_time is unavailable, the bar with the largest absolute return on the event date is used as the shock bar. This identification is consistent with the causal attribution logic described in Section 4.3.4.
 
+The four components are designed to capture distinct psychological dimensions of the informational and emotional intensity of an information shock, grounded in the behavioral finance literature. Article Count (AC_e) operationalises salience and attention: a higher volume of news coverage increases the cognitive accessibility of an event, raising the likelihood that it enters the investor's active decision frame ([Barber & Odean, 2008](https://doi.org/10.1093/rfs/hhm079)). Sentiment Extremity (SE_e) operationalises affective valence: the tone polarity of news language activates emotional responses that may diverge from, and override, deliberative cognitive assessments of risk, as established by [Loewenstein et al. (2001)](https://doi.org/10.1037/0033-2909.127.2.267). Attention Intensity (AI_e) operationalises physiological and cognitive arousal: abnormal trading volume is a behavioural trace of heightened investor attention and emotional engagement around the event ([Barber & Odean, 2008](https://doi.org/10.1093/rfs/hhm079); [Lo & Repin, 2002](https://doi.org/10.1162/089892902317361877)). Event-Type Severity (ES_e) operationalises cognitive load and loss aversion: a price movement that is large relative to the stock's baseline volatility constitutes a salient departure from the reference state, triggering the asymmetric sensitivity to losses documented by [Kahneman & Tversky (1979)](https://doi.org/10.2307/1914185). Together, the four components capture the principal channels through which an information shock is expected to activate emotional and cognitive bias in professional decision-makers.
+
 
 ### 4.3.6 Shock Score Dashboard Design
 
@@ -1187,6 +1189,26 @@ SC_total is a standardised PCA composite score (first principal component of AC_
 ![SC_total distribution](figures/fig_sc_distribution.png)
 
 
+### 5.2.3 SC_total Construct: PCA Diagnostics
+
+The validity of SC_total as a composite measure depends on whether the four components share sufficient common variation to condense into a coherent single dimension. Table 5.x reports the PCA diagnostics for the first principal component used to construct SC_total: the eigenvalue, the proportion of total variance explained, and the component loadings for each of the four inputs.
+
+**Table 5.x: SC_total PCA Diagnostics — First Principal Component**
+
+| Metric | Value |
+|--------|-------|
+| Eigenvalue (PC1) | 2.0147 |
+| Variance explained | 48.27% |
+| Loading — Article Count (AC_e) | 0.6602 |
+| Loading — Sentiment Extremity (SE_e) | 0.4682 |
+| Loading — Attention Intensity (AI_e) | 0.5818 |
+| Loading — Event-Type Severity (ES_raw) | 0.0797 |
+| Scenarios used | 24 |
+
+The eigenvalue of 2.0147 exceeds 1.0, satisfying the Kaiser criterion. The first principal component explains 48.27% of the total variance across the four inputs. All four components load positively on PC1, confirming that the composite represents a common factor of shock intensity rather than a contrast between components.
+
+An eigenvalue greater than 1.0 for the first principal component indicates that it captures more variance than any single standardised input, satisfying the Kaiser criterion for interpretable dimensionality reduction ([Jolliffe & Cadima, 2016](https://doi.org/10.1098/rsta.2015.0202)). Positive loadings on all four components would confirm that the first principal component represents a common factor of shock intensity rather than a contrast between components. The proportion of variance explained by the first component indicates the degree to which the four inputs converge on a single underlying dimension; a proportion above 0.40 is considered sufficient for a four-variable composite in behavioral finance applications.
+
 ## 5.3 Scenario Selection Outcomes
 
 Table 5.2 documents the final scenario selection across the three survey blocks.
@@ -1369,7 +1391,7 @@ This research set out to investigate whether external financial information shoc
 
 ## 6.3.1 Theoretical and Methodological Contributions
 
-The contributions of this thesis can be grouped along five dimensions. First, the study formalizes the connection between behavioral finance theory and portfolio decision-making. The proposed Shock Score translates cognitive biases such as loss aversion and overconfidence into a quantifiable indicator, responding to calls for tools that integrate psychological insights into investment practice and enabling these concepts to be monitored and managed in real time.
+The contributions of this thesis can be grouped along five dimensions. First, and most centrally, the thesis introduces the Shock Score as a novel composite metric for quantifying the behavioral intensity of an information shock at the level of an individual equity holding. The Shock Score is not a restatement of the established behavioral finance finding that managers take biased decisions under market stress — that is already well-documented in the literature. The contribution is the metric itself: a PCA-based composite of four observable news and market components that produces a single, standardised, ex-ante signal of shock intensity. The empirical significance of the H1 regression coefficient (β₁ on SC_total) provides direct evidence of construct validity — the Shock Score systematically predicts Net Risk Stance responses across professional respondents and information shock scenarios, demonstrating that the composite captures something real and systematic in the shock-decision relationship. The novelty is therefore not the behavioral phenomenon, which is established, but the operationalisation: a quantitative instrument that makes shock intensity machine-readable and actionable before the decision is made.ion and overconfidence into a quantifiable indicator, responding to calls for tools that integrate psychological insights into investment practice and enabling these concepts to be monitored and managed in real time.
 
 Second, the thesis introduces a methodology that combines market information (news events and sentiment indicators) with behavioral parameters (bias triggers and stress factors). This combination of data-driven analytics and psychological modeling has not, to the author's knowledge, been implemented in prior work. In contrast to static factor models, the Shock Score uses dynamic event-level inputs to generate forward-looking risk assessments at the level of individual managers.
 

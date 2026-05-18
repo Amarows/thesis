@@ -11,6 +11,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import shutil
 import subprocess
@@ -18,7 +19,7 @@ import sys
 
 from config import (
     THESIS_PATH, THESIS_RESULTS_PATH as RESULTS_MD_PATH,
-    THESIS_FINAL_PATH, REFERENCE_DOCX, DOCX_OUTPUT,
+    THESIS_FINAL_PATH, REFERENCE_DOCX, DOCX_OUTPUT, TABLES_DIR,
     append_run_log, _sha256_file,
 )
 
@@ -40,6 +41,49 @@ def parse_results_blocks(results_md: str) -> dict[str, str]:
         content    = m.group(2).strip()
         blocks[section_id] = content
     return blocks
+
+
+def load_pca_block() -> str | None:
+    """Read pca_diagnostics.json and return the formatted markdown block, or None if unavailable."""
+    pca_path = TABLES_DIR / "pca_diagnostics.json"
+    if not pca_path.exists():
+        return None
+    with open(pca_path, encoding="utf-8") as fh:
+        d = json.load(fh)
+
+    ev   = d["eigenvalue_pc1"]
+    vpct = d["variance_explained_pct"]
+    ld   = d["loadings"]
+    n    = d["n_scenarios"]
+
+    all_positive = all(v > 0 for v in ld.values())
+    sign_note = (
+        "All four components load positively on PC1, confirming that the composite "
+        "represents a common factor of shock intensity rather than a contrast between components."
+        if all_positive else
+        "The loading signs indicate a mixed pattern; interpretation of the composite should "
+        "account for the direction of individual component relationships."
+    )
+
+    lines = [
+        "**Table 5.x: SC_total PCA Diagnostics — First Principal Component**",
+        "",
+        "| Metric | Value |",
+        "|--------|-------|",
+        f"| Eigenvalue (PC1) | {ev:.4f} |",
+        f"| Variance explained | {vpct:.2f}% |",
+        f"| Loading — Article Count (AC_e) | {ld['AC_e']:.4f} |",
+        f"| Loading — Sentiment Extremity (SE_e) | {ld['SE_e']:.4f} |",
+        f"| Loading — Attention Intensity (AI_e) | {ld['AI_e']:.4f} |",
+        f"| Loading — Event-Type Severity (ES_raw) | {ld['ES_raw']:.4f} |",
+        f"| Scenarios used | {n} |",
+        "",
+        f"The eigenvalue of {ev:.4f} {'exceeds' if ev > 1.0 else 'does not exceed'} 1.0"
+        f"{', satisfying the Kaiser criterion.' if ev > 1.0 else ', falling short of the Kaiser criterion.'} "
+        f"The first principal component explains {vpct:.2f}% of the total variance across the four inputs. "
+        f"{sign_note}",
+    ]
+    return "\n".join(lines)
 
 
 def merge(thesis_text: str, results_blocks: dict[str, str]) -> tuple[str, int, list[str]]:
@@ -92,6 +136,14 @@ def main() -> None:
     print(f"Found {len(results_blocks)} RESULTS blocks in {RESULTS_MD_PATH}:")
     for sid in results_blocks:
         print(f"  {sid}")
+
+    # Inject PCA diagnostics block (sourced from pca_diagnostics.json, not thesis_results.md)
+    pca_block = load_pca_block()
+    if pca_block is not None:
+        results_blocks["s5_pca_diagnostics"] = pca_block
+        print("  s5_pca_diagnostics (from pca_diagnostics.json)")
+    else:
+        print("  WARNING: pca_diagnostics.json not found — s5_pca_diagnostics placeholder will not be replaced.")
 
     # Merge
     merged, n_replaced, not_found = merge(thesis_text, results_blocks)

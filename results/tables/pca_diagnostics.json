@@ -1,0 +1,12 @@
+{
+  "eigenvalue_pc1": 2.0147,
+  "variance_explained_pc1": 0.4827,
+  "variance_explained_pct": 48.27,
+  "loadings": {
+    "AC_e": 0.6602,
+    "SE_e": 0.4682,
+    "AI_e": 0.5818,
+    "ES_raw": 0.0797
+  },
+  "n_scenarios": 24
+}

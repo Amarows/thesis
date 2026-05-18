@@ -13,10 +13,14 @@ from __future__ import annotations
 
 import argparse
 import glob
+import json
 import os
 import sys
 import warnings
 from datetime import datetime
+
+from sklearn.decomposition import PCA as _PCA
+from sklearn.preprocessing import StandardScaler as _StandardScaler
 
 import matplotlib
 matplotlib.use("Agg")
@@ -1849,6 +1853,55 @@ def print_summary(desc: dict, h1: dict, h2: dict, conc: dict,
 
 
 # ---------------------------------------------------------------------------
+# Section 10 – PCA diagnostics
+# ---------------------------------------------------------------------------
+
+def compute_pca_diagnostics() -> dict:
+    """Refit PCA on z-standardised components from the authoritative shock score CSV and save diagnostics."""
+    ss = pd.read_csv(SHOCK_SCORE_PATH)
+
+    z_cols  = ["ac_z", "se_z", "ai_z", "es_z"]
+    raw_cols = ["ac_raw", "se_raw", "ai_raw", "es_raw"]
+
+    if all(c in ss.columns for c in z_cols):
+        Z = ss[z_cols].fillna(0.0).values.astype(float)
+    elif all(c in ss.columns for c in raw_cols):
+        Z = _StandardScaler().fit_transform(ss[raw_cols].fillna(0.0).values.astype(float))
+    else:
+        print("WARNING: PCA diagnostics — required z-columns not found in shock score CSV; skipping.")
+        return {}
+
+    n = len(ss)
+    pca = _PCA(n_components=1)
+    pca.fit(Z)
+    loadings = pca.components_[0].copy()
+
+    # Sign convention: loading on AC_e (index 0) must be positive
+    if loadings[0] < 0:
+        loadings = -loadings
+
+    diag = {
+        "eigenvalue_pc1":        round(float(pca.explained_variance_[0]),       4),
+        "variance_explained_pc1": round(float(pca.explained_variance_ratio_[0]), 4),
+        "variance_explained_pct": round(float(pca.explained_variance_ratio_[0]) * 100, 2),
+        "loadings": {
+            "AC_e":   round(float(loadings[0]), 4),
+            "SE_e":   round(float(loadings[1]), 4),
+            "AI_e":   round(float(loadings[2]), 4),
+            "ES_raw": round(float(loadings[3]), 4),
+        },
+        "n_scenarios": n,
+    }
+
+    out_path = TABLES_DIR / "pca_diagnostics.json"
+    with open(out_path, "w", encoding="utf-8") as fh:
+        json.dump(diag, fh, indent=2)
+    print(f"  PCA diagnostics saved to {out_path}")
+    print(f"  Eigenvalue PC1 = {diag['eigenvalue_pc1']}, variance explained = {diag['variance_explained_pct']}%")
+    return diag
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -1891,6 +1944,9 @@ def main() -> None:
 
     print("\nComputing NRS/sentiment alignment diagnostic...")
     alignment = compute_nrs_sentiment_alignment(df)
+
+    print("\nComputing PCA diagnostics...")
+    compute_pca_diagnostics()
 
     print("\nWriting thesis_results.md...")
     write_results_md(df, desc, norm, h1, h2, conc, horizon_returns, scenarios, alignment=alignment)
