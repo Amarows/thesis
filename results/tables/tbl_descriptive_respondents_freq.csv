@@ -1,0 +1,19 @@
+field,value,count,pct
+aum_category,Less than $50M,4,66.67
+aum_category,$500M–$2B,1,16.67
+aum_category,$50M–$500M,1,16.67
+institution_type,Family office,3,50.0
+institution_type,Independent/RIA,2,33.33
+institution_type,Asset manager,1,16.67
+investment_mandate,Multi-asset,3,50.0
+investment_mandate,Equity long-only,2,33.33
+investment_mandate,Equity long-short,1,16.67
+geographic_focus,Global/multi-region,5,83.33
+geographic_focus,Europe,1,16.67
+discretionary_authority,Full discretion,5,83.33
+discretionary_authority,Partial (committee-based),1,16.67
+certifications,"CFA, FRM",2,33.33
+certifications,"FRM, Other",1,16.67
+certifications,"CFA, Other",1,16.67
+certifications,,1,16.67
+certifications,"CFA, FRM, CAIA, Other",1,16.67

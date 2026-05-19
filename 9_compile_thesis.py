@@ -117,7 +117,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--no-pandoc", action="store_true",
                         help="Skip pandoc DOCX conversion even if pandoc is available")
-    args = parser.parse_args()
+    args, _ = parser.parse_known_args()
 
     # Validate inputs
     if not THESIS_PATH.exists():

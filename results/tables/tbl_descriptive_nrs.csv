@@ -1,0 +1,4 @@
+condition,n,mean,median,sd,min,max
+overall,48,4.1667,4.0,1.098,1,7
+ShowSC=0,24,4.2083,4.0,1.0624,2,6
+ShowSC=1,24,4.125,4.0,1.1539,1,7

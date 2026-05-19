@@ -109,6 +109,10 @@ def run(dry_run: bool = False, form_key_filter: str | None = None) -> None:
     raw_counts: dict[str, int] = {}
     parsed_frames: list[pd.DataFrame] = []
 
+    if not tab_map:
+        print("No response tabs found in mapping.")
+        return
+
     for tab_name, form_key in tab_map.items():
         if dry_run:
             print(f"  [dry-run] Loading cached: {tab_name} …")

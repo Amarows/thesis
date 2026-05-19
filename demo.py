@@ -1,53 +1,60 @@
 import pandas as pd
+
+# --- Configuration & Setup ---
 pd.options.mode.chained_assignment = None
 pd.set_option('display.max_columns', 50)
 pd.set_option('display.max_rows', 50)
 pd.set_option('display.width', 200)
-pd.set_option('display.max_colwidth',10000)
+pd.set_option('display.max_colwidth', 10000)
 
+def run_demo():
+    # --- STAGE 1: DOWNLOAD DATA ---
+    # Commented out: Requires live IBKR TWS connection
+    # import importlib
+    # s1_download = importlib.import_module("1_download")
+    # print("\n>>> STARTING STAGE 1: DOWNLOAD")
+    # s1_download.download_prices()
+    # s1_download.download_news()
 
-#Step 1: Download offline data
+    print("\n>>> STARTING STAGE 2: PREPARE DATA")
+    import importlib
+    s2_prepare = importlib.import_module("2_prepare_data")
+    s2_prepare.main()
 
-import subprocess
-import sys
+    print("\n>>> STARTING STAGE 3: SURVEY ASSEMBLY")
+    # auto_populate=False to read existing data/scenario_manifest.csv if needed, 
+    # but usually True for full pipeline
+    s3_assembly = importlib.import_module("3_survey_assembly")
+    s3_assembly.main(auto_populate=False)
 
-# Import the main functions from the scripts to run them in the same process
-# This allows access to generated variables in the Variable Explorer
-import importlib
-prepare_data = importlib.import_module("2_prepare_data")
-survey_assembly = importlib.import_module("3_survey_assembly")
+    # --- STAGE 4 & 5: DEPLOYMENT ---
+    # Commented out: Requires Google API credentials and special permission
+    # print("\n>>> STARTING STAGE 4: DEPLOY GOOGLE FORMS")
+    # s4_deploy = importlib.import_module("4_deploy_google_forms")
+    # s4_deploy.main()
+    # print("\n>>> STARTING STAGE 5: APPEND PILOT FEEDBACK")
+    # s5_pilot = importlib.import_module("5_append_pilot_feedback")
+    # s5_pilot.main()
 
-print("\n>>> STARTING STAGE 2: PREPARE DATA")
-# Run 2_prepare_data.py directly
-prepare_data.main()
+    import importlib
+    print("\n>>> STARTING STAGE 6: PROCESS SURVEY DATA")
+    s6_process = importlib.import_module("6_process_survey_data")
+    # By default, use live API. If no internet/credentials, use --dry-run
+    s6_process.run(dry_run=False) 
 
-print("\n>>> STARTING STAGE 3: SURVEY ASSEMBLY")
-# Run 3_survey_assembly.py directly with skip_auto=True
-survey_assembly.main(auto_populate=False)
+    print("\n>>> STARTING STAGE 7: AUGMENT SURVEY DATA")
+    s7_augment = importlib.import_module("7_augment_data")
+    s7_augment.main()
 
-print("\n>>> STARTING STAGE 4: DEPLOY GOOGLE FORMS")
-# Run 4_deploy_google_forms.py (assuming it's similar)
-#subprocess.check_call([sys.executable, "4_deploy_google_forms.py"])
+    print("\n>>> STARTING STAGE 8: STATISTICAL ANALYSIS")
+    s8_stats = importlib.import_module("8_statistical_analysis")
+    s8_stats.main()
 
-print("\n>>> STARTING STAGE 5: APPEND TEMPORARY QUESTIONS TO GOOGLE FORMS")
-# Run 5_append_pilot_feedback.py
-#subprocess.check_call([sys.executable, "5_append_pilot_feedback.py"])
+    print("\n>>> STARTING STAGE 9: COMPILE THESIS")
+    s9_compile = importlib.import_module("9_compile_thesis")
+    s9_compile.main()
 
-print("\n>>> STARTING STAGE 6: Process Surveydata")
-# Run 6_process_survey_data.py
-subprocess.check_call([sys.executable, "6_process_survey_data.py"])
+    print("\n>>> DEMO COMPLETED SUCCESSFULLY")
 
-print("\n>>> STARTING STAGE 7: Augument Surveydata")
-# Run 7_augment_data.py
-subprocess.check_call([sys.executable, "7_augment_data.py"])
-
-print("\n>>> STARTING STAGE 8: Statistics")
-# Run 8_statistical_analysis.py
-subprocess.check_call([sys.executable, "8_statistical_analysis.py"])
-
-print("\n>>> STARTING STAGE 9: Final")
-# Run 9_compile_thesis.py
-subprocess.check_call([sys.executable, "9_compile_thesis.py"])
-
-
-
+if __name__ == "__main__":
+    run_demo()

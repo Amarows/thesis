@@ -23,9 +23,9 @@ import json
 import os
 import pickle
 import re
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
+
 
 import numpy as np
 import pandas as pd
@@ -737,7 +737,7 @@ def write_qc_report(
     output_path     : Path          – write destination
     spreadsheet_id  : str           – logged in run metadata section
     """
-    now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+
     lines: list[str] = []
 
     def _h(n: int, title: str) -> str:
@@ -749,7 +749,6 @@ def write_qc_report(
     # ── Section 1: Run metadata ───────────────────────────────────────────────
     lines.append(_h(2, "1. Run Metadata"))
     lines.append("")
-    lines.append(f"- **Generated:** {now}")
     lines.append(f"- **Spreadsheet ID:** `{spreadsheet_id}`")
     tabs_processed = list(raw_counts.keys())
     lines.append(f"- **Tabs processed:** {', '.join(tabs_processed) if tabs_processed else 'none'}")

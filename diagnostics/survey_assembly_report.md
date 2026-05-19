@@ -1,7 +1,5 @@
 # Survey Assembly Report
 
-Generated: 2026-05-19 11:20:09
-
 ---
 
 ## Overview

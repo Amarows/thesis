@@ -17,7 +17,6 @@ self-contained Markdown report consumed by the thesis.
 from __future__ import annotations
 
 import os
-from datetime import datetime
 from pathlib import Path
 
 import pandas as pd
@@ -235,12 +234,10 @@ def generate_report(
     output_dir   = Path(output_dir)
     if warnings_list is None:
         warnings_list = []
-    ts      = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     n_total = len(manifest_df)
 
     lines: list[str] = [
         "# Survey Assembly Report",
-        f"\nGenerated: {ts}",
         "",
         "---",
         "",

@@ -37,7 +37,6 @@ import glob
 import re
 import shutil
 import warnings as _warnings_module
-from datetime import datetime, timezone
 from pathlib import Path
 
 
@@ -490,7 +489,6 @@ def generate_deployment_manifest(
             }
 
     manifest = {
-        "generated":         datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "n_blocks":          int(manifest_df["block_id"].nunique()),
         "n_scenarios_total": int(len(manifest_df)),
         "drive_folder_id":   existing_drive_folder_id,
@@ -783,5 +781,8 @@ def main(auto_populate: bool = True) -> None:
 
 
 if __name__ == "__main__":
-    skip_auto = "--skip-auto" in sys.argv
-    main(auto_populate=not skip_auto)
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--skip-auto", action="store_true")
+    args, _ = parser.parse_known_args()
+    main(auto_populate=not args.skip_auto)

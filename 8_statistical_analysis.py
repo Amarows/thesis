@@ -17,8 +17,8 @@ import json
 import os
 import sys
 import warnings
-from datetime import datetime
 
+from datetime import datetime
 from sklearn.decomposition import PCA as _PCA
 from sklearn.preprocessing import StandardScaler as _StandardScaler
 
@@ -1367,7 +1367,6 @@ def write_results_md(
 
     lines = [
         "# Thesis Results – Auto-generated",
-        f"**Generated:** {ts}",
         f"**Panel:** {n_total} respondents ({n_obs} observations)",
         f"**Data sufficiency:** {n_suff}/24 scenarios",
         f"**H1 verdict:** {h1_v}",
@@ -1909,7 +1908,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--no-augment",    action="store_true")
     parser.add_argument("--skip-figures",  action="store_true")
-    args = parser.parse_args()
+    args, _ = parser.parse_known_args()
 
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
     TABLES_DIR.mkdir(parents=True, exist_ok=True)
