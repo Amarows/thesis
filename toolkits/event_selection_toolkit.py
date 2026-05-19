@@ -2112,56 +2112,90 @@ def _sentiment_direction_label(mean_score: float) -> str:
 def _compute_es_severity(
     ticker: str,
     event_date,
+    event_time: str,
     event_type: str,
     prices: dict,
-    manifest_df: pd.DataFrame,
 ) -> float:
     """
-    ES_raw = sigma_k / sigma_all
-    sigma_k   = std of max-abs-30min-return for events of type k
-    sigma_all = std of max-abs-30min-return across all manifest events
-    Falls back to EVENT_TYPE_SEVERITY if <2 events of type k or no prices.
+    ES_raw = r_shock / m_e  (thesis §4.3.5)
+
+    r_shock  absolute return of the shock bar:
+             |close_shock / close_prev - 1|
+             close_prev = preceding bar in same session; if none, prior session close.
+    m_e      median absolute bar-over-bar return across all 30-min bars in the
+             20 trading days immediately preceding the event date (same stock).
+    Capped at 10.0.
+    Falls back to EVENT_TYPE_SEVERITY if price data are insufficient.
     """
-    def _get_shock_return(tkr, edate):
-        if tkr not in prices:
-            return None
-        pdf = prices[tkr]
-        if hasattr(edate, "date"):
-            ed = edate.date()
-        else:
-            ed = pd.Timestamp(edate).date()
-        day = pdf[
-            pdf["time"].dt.tz_convert("America/New_York").dt.date == ed
-        ].copy()
-        if day.empty or len(day) < 2:
-            return None
-        day["ret"] = day["close"].pct_change().abs()
-        val = day["ret"].max()
-        return float(val) if not pd.isna(val) else None
+    fallback = EVENT_TYPE_SEVERITY.get(event_type, 0.5)
 
-    all_returns, type_returns = [], []
-    for _, row in manifest_df.iterrows():
-        r = _get_shock_return(row["ticker"], row["event_date"])
-        if r is None:
-            continue
-        all_returns.append(r)
-        et = str(row.get("event_type", "other")).lower().strip()
-        if et == event_type:
-            type_returns.append(r)
-
-    sigma_all = float(np.std(all_returns, ddof=1)) if len(all_returns) >= 2 else 0.0
-    sigma_k   = float(np.std(type_returns, ddof=1)) if len(type_returns) >= 2 else 0.0
-
-    if sigma_all == 0:
-        fallback = EVENT_TYPE_SEVERITY.get(event_type, 0.5)
-        print(f"  [WARNING] ES_raw: no price data; fallback={fallback} ({event_type})")
+    if ticker not in prices:
+        print(f"  [WARNING] ES_raw: no price data for {ticker}; fallback={fallback}")
         return fallback
 
-    if sigma_k == 0:
-        print(f"  [WARNING] ES_raw: <2 events of type '{event_type}'; using 1.0")
-        return 1.0
+    pdf = prices[ticker].copy().sort_values("time").reset_index(drop=True)
+    pdf["time_et"] = pdf["time"].dt.tz_convert("America/New_York")
+    pdf["date_et"] = pdf["time_et"].dt.date
 
-    return round(sigma_k / sigma_all, 4)
+    # Normalise event_date to a date object
+    if hasattr(event_date, "date"):
+        ed = event_date.date()
+    else:
+        ed = pd.Timestamp(event_date).date()
+
+    # ── Shock bar ─────────────────────────────────────────────────────────────
+    # event_time is "HH:MM" in ET; matches the bar start time.
+    try:
+        h, m = int(str(event_time).split(":")[0]), int(str(event_time).split(":")[1])
+        shock_mask = (pdf["date_et"] == ed) & (pdf["time_et"].dt.hour == h) & (pdf["time_et"].dt.minute == m)
+        shock_rows = pdf[shock_mask]
+        if shock_rows.empty:
+            print(f"  [WARNING] ES_raw: shock bar {ed} {event_time} not found for {ticker}; fallback={fallback}")
+            return fallback
+        shock_idx   = shock_rows.index[0]
+        close_shock = float(pdf.loc[shock_idx, "close"])
+    except Exception as exc:
+        print(f"  [WARNING] ES_raw: shock bar parse error ({exc}); fallback={fallback}")
+        return fallback
+
+    # ── close_prev ────────────────────────────────────────────────────────────
+    # Preceding bar in the same session; else last bar of prior session.
+    same_day_before = pdf[(pdf["date_et"] == ed) & (pdf.index < shock_idx)]
+    if not same_day_before.empty:
+        close_prev = float(same_day_before.iloc[-1]["close"])
+    else:
+        prior_sessions = pdf[pdf["date_et"] < ed]
+        if prior_sessions.empty:
+            print(f"  [WARNING] ES_raw: no prior session for {ticker} on {ed}; fallback={fallback}")
+            return fallback
+        close_prev = float(prior_sessions.iloc[-1]["close"])
+
+    if close_prev == 0:
+        print(f"  [WARNING] ES_raw: close_prev=0 for {ticker} on {ed}; fallback={fallback}")
+        return fallback
+
+    r_shock = abs(close_shock / close_prev - 1)
+
+    # ── m_e: 20-day trailing median absolute bar return ────────────────────────
+    pre_event = pdf[pdf["date_et"] < ed].copy()
+    trailing_dates = sorted(pre_event["date_et"].unique())[-20:]
+    trailing = pre_event[pre_event["date_et"].isin(trailing_dates)].copy()
+
+    if len(trailing) < 2:
+        print(f"  [WARNING] ES_raw: insufficient trailing bars for {ticker}; fallback={fallback}")
+        return fallback
+
+    bar_rets = trailing["close"].pct_change().abs().dropna()
+    if bar_rets.empty:
+        print(f"  [WARNING] ES_raw: no bar returns for {ticker}; fallback={fallback}")
+        return fallback
+
+    m_e = float(bar_rets.median())
+    if m_e == 0:
+        print(f"  [WARNING] ES_raw: m_e=0 for {ticker} on {ed}; fallback={fallback}")
+        return fallback
+
+    return round(min(r_shock / m_e, 10.0), 4)
 
 
 def compute_raw_components(
@@ -2175,8 +2209,8 @@ def compute_raw_components(
     ac_raw  – Article Count: number of BZ articles on event day
     se_raw  – Sentiment Extremity: max |FinBERT score| across event-day articles
     ai_raw  – Attention Intensity: event-day volume / 20-day trailing avg daily volume
-    es_raw  – Event-Type Severity: sigma_k / sigma_all from 30-min bar returns
-               (data-derived; falls back to EVENT_TYPE_SEVERITY if <2 events of type k)
+    es_raw  – Event-Type Severity: r_shock / m_e per thesis §4.3.5
+               (shock bar return / 20-day trailing median bar return; capped at 10)
 
     Also records mean_sentiment and sentiment_scores for dashboard signals.
 
@@ -2207,6 +2241,7 @@ def compute_raw_components(
         sid        = mrow["scenario_id"]
         ticker     = mrow["ticker"]
         event_date = mrow["event_date"]
+        event_time = str(mrow.get("event_time", "09:30"))
         event_type = str(mrow.get("event_type", "other")).lower().strip()
 
         print(f"  {sid} ({ticker} {event_date})...", end="", flush=True)
@@ -2258,10 +2293,9 @@ def compute_raw_components(
             print(f"  [WARNING] {sid}: no price data for {ticker}; ai_raw set to 0")
 
         # ── ES_raw ────────────────────────────────────────────────────────
-        # Data-derived severity ratio: sigma_k / sigma_all from 30-min bar returns.
-        # Replaces the hardcoded EVENT_TYPE_SEVERITY lookup table (placeholder).
+        # Per-event severity ratio per thesis §4.3.5: r_shock / m_e.
         es_raw = _compute_es_severity(
-            ticker, event_date, event_type, prices, manifest_df
+            ticker, event_date, event_time, event_type, prices
         )
 
         print(" done")
