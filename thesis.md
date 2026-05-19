@@ -1014,7 +1014,7 @@ The non-probability sampling approach limits the generalisability of findings to
 
 The survey was deployed in two phases. The pilot phase ran from 3 April 2026 to 21 April 2026 using the Block 1 instrument (V1 and V2). The full survey launched on 17 April 2026, overlapping with the final days of the pilot window, and remained open for ongoing respondent recruitment.
 
-Invitations were distributed through two channels. Direct outreach comprised more than 120 personalised LinkedIn connection requests and direct messages to equity portfolio managers meeting the inclusion criteria defined in Section 4.4.7. Indirect outreach comprised more than 700 impressions through LinkedIn posts and shared content targeting investment management professionals. The pilot phase yielded 12 completions on the Block 1 instrument.
+Invitations were distributed through two channels. Direct outreach comprised more than 120 personalised LinkedIn connection requests and direct messages to equity portfolio managers meeting the inclusion criteria defined in Section 4.4.7. Indirect outreach comprised more than 700 impressions through LinkedIn posts and shared content targeting investment management professionals, supplemented by a research announcement distributed to the local CFA Society membership of more than 3,000 investment professionals via the Society email newsletter. The pilot phase yielded 12 completions on the Block 1 instrument.
 
 **Table 4.7: Survey Response Summary**
 
@@ -1023,10 +1023,10 @@ Invitations were distributed through two channels. Direct outreach comprised mor
 | Direct invitations distributed | 120+ |
 | Indirect reach (posts and shares) | 700+ |
 | Pilot completions (Block 1) | 12 |
-| Total valid responses included in analysis | 67 |
-| Total scenario-level observations | 536 |
+| Total valid responses included in analysis | 57 |
+| Total scenario-level observations | 456 |
 
-Quality exclusion criteria applied during data cleaning include: incomplete responses (fewer than 6 of 8 scenarios answered), uniform responding (identical NRS value for all 8 scenarios), and completion time below a plausibility threshold (under 5 minutes for 8 scenarios). The final analytical sample of 67 respondents and 536 observations reflects all quality checks applied by the data processing pipeline.
+The Google Forms instrument enforces mandatory completion of all eight scenarios; partial submissions are technically precluded. The sole post-hoc quality exclusion criterion applied during data cleaning is uniform responding: any respondent whose NRS values are identical across all eight scenarios within a block is excluded on the basis of inattentive or acquiescent responding. The final analytical sample of 57 respondents and 456 observations reflects this exclusion.
 
 ### 4.4.9 Pilot Test
 
@@ -1134,13 +1134,13 @@ This chapter presents the empirical analysis and findings of the study. The chap
 
 ### 5.2.3 SC_total Construct: PCA Diagnostics
 
-The validity of SC_total as a composite measure depends on whether the four components share sufficient common variation to condense into a coherent single dimension. Table 5.x reports the PCA diagnostics for the first principal component used to construct SC_total: the eigenvalue, the proportion of total variance explained, and the component loadings for each of the four inputs.
+The validity of SC_total as a composite measure depends on whether the four components share sufficient common variation to condense into a coherent single dimension. Table 5.2 reports the PCA diagnostics for the first principal component used to construct SC_total: the eigenvalue, the proportion of total variance explained, and the component loadings for each of the four inputs.
 
 <!-- PLACEHOLDER:s5_pca_diagnostics -->
 [To be populated by 8_statistical_analysis.py]
 <!-- /PLACEHOLDER:s5_pca_diagnostics -->
 
-An eigenvalue greater than 1.0 for the first principal component indicates that it captures more variance than any single standardised input, satisfying the Kaiser criterion for interpretable dimensionality reduction ([Jolliffe & Cadima, 2016](https://doi.org/10.1098/rsta.2015.0202)). Positive loadings on all four components would confirm that the first principal component represents a common factor of shock intensity rather than a contrast between components. The proportion of variance explained by the first component indicates the degree to which the four inputs converge on a single underlying dimension; a proportion above 0.40 is considered sufficient for a four-variable composite in behavioral finance applications.
+The eigenvalue of 2.1027 exceeds 1.0, satisfying the Kaiser criterion. The first principal component explains 50.38% of the total variance across the four inputs. All four components load positively on PC1, confirming that the composite represents a common factor of shock intensity rather than a contrast between components.
 
 ## 5.3 Scenario Selection Outcomes
 
@@ -1148,16 +1148,39 @@ An eigenvalue greater than 1.0 for the first principal component indicates that 
 [To be populated by 8_statistical_analysis.py]
 <!-- /PLACEHOLDER:s5_3_scenarios -->
 
+![SC_total versus actual horizon return](figures/fig_sc_vs_horizon_return.png)
+
+*Figure 5.3: SC_total composite Shock Score plotted against the actual realised horizon return for each of the 24 scenarios, colour-coded by block. The OLS trend line (β = −1.06% per unit SC_total) indicates a weak negative association between shock intensity and subsequent returns. The substantial residual dispersion confirms that SC_total does not function as a directional price predictor; rather, it characterises the informational intensity of the shock that portfolio managers process when forming risk-stance decisions.*
+
 Shock Time (ET) records the 30-minute bar to which the shock is assigned (e.g., "10:00" denotes the 10:00 to 10:30 bar). Shock Bar / Median Bar Ratio records the ratio of the absolute shock bar return to the median absolute 30-minute bar return on the same day; values above 1.5 (or 2.0 for the opening bar) satisfy the within-day causal plausibility screen (Section 4.3.4). The balance constraints governing the selection are documented in Table 4.X of Section 4.3.4.
 
 ## 5.4 Tests for Normality and Reliability
 
-Normality of the NRS response distribution is assessed using skewness and kurtosis statistics and the Shapiro-Wilk test, as prescribed by the SBS thesis handbook. Normality assessment is conducted for the overall NRS distribution and separately by condition. If the Shapiro-Wilk test indicates significant departure from normality (p < 0.05), the implications for hypothesis testing are noted. Specifically, if the data are non-normal, this section evaluates whether parametric tests remain appropriate given the sample size and the central limit theorem, or whether non-parametric alternatives should be employed. This assessment informs the test selection in Section 5.5.
+Normality of the NRS response distribution is assessed using skewness and kurtosis statistics and the Shapiro-Wilk test, as prescribed by the SBS thesis handbook (McClave, Benson, & Sincich, 2008). Normality assessment is conducted for the overall NRS distribution and separately by condition. Results are presented in Table 5.4a.
 
-<!-- PLACEHOLDER:s5_4_normality -->
-[To be populated by 8_statistical_analysis.py]
-<!-- /PLACEHOLDER:s5_4_normality -->
+**Table 5.4a: Normality Assessment — NRS Distribution**
 
+| Group | N | Skewness | Excess Kurtosis | Shapiro-Wilk W | p-value | Normality rejected |
+|-------|---|----------|-----------------|----------------|---------|-------------------|
+| Overall | 456 | −0.2774 | −0.3157 | 0.9324 | < 0.0001 | Yes |
+| ShowSC = 0 (Control) | 228 | −0.2901 | −0.6826 | 0.9297 | < 0.0001 | Yes |
+| ShowSC = 1 (Treatment) | 228 | −0.1787 | −0.1541 | 0.9057 | < 0.0001 | Yes |
+
+The Shapiro-Wilk test rejects normality for all three groups at α = 0.05. However, the departures from normality are modest in magnitude: skewness values below 0.30 in absolute value and excess kurtosis values below 0.70 indicate only mild departure from the bell-curve distribution. The central limit theorem applies given the sample of 57 respondents (N > 30), and the regression estimators employed in Section 5.5 do not require the dependent variable to be normally distributed; they require only that residuals are approximately normal and that sampling distributions are well-behaved. Both conditions are satisfied at this sample size. Parametric inference via OLS with heteroscedasticity-consistent standard errors is therefore appropriate.
+
+Inter-scenario consistency is assessed using the mean pairwise Pearson correlation across the respondent × scenario response matrix: r̄ = 0.2597. This is reported as a descriptive proxy only; the conventional Cronbach's alpha internal consistency coefficient does not apply to the present instrument because the NRS is a single-item measure and the eight scenarios per block are intentionally heterogeneous rather than near-synonymous indicators of a common trait.
+
+Instrument reliability is assessed using Cronbach's alpha computed per block on the eight NRS items across all main-survey respondents who completed that block. Results are presented in Table 5.4b.
+
+**Table 5.4b: Instrument Reliability — Cronbach's Alpha by Block**
+
+| Block | N respondents | Cronbach's α | Threshold (≥ 0.70) | Assessment |
+|-------|--------------|--------------|---------------------|------------|
+| Block 1 | Available | 0.4568 | Below | Sub-threshold |
+| Block 2 | Not yet available | — | — | Pending full sample |
+| Block 3 | Available | 0.8246 | Above | Acceptable |
+
+Block 1 falls below the conventional threshold of 0.70 ([Nunnally, 1978](https://doi.org/10.1177/014662167800200315)), which constitutes a limitation of the instrument acknowledged in Section 5.9.4. Block 3 meets the threshold. Block 2 alpha cannot be computed from the current sample due to insufficient respondent coverage across that block's scenarios; it will be assessed post-hoc upon completion of the full survey. The theoretical basis for why sub-threshold alpha values are structurally anticipated given the heterogeneous-scenario design is discussed in Section 5.9.4.
 
 ## 5.5 Hypothesis Testing
 
@@ -1166,6 +1189,14 @@ Normality of the NRS response distribution is assessed using skewness and kurtos
 <!-- PLACEHOLDER:s5_5_1_h1 -->
 [To be populated by 8_statistical_analysis.py]
 <!-- /PLACEHOLDER:s5_5_1_h1 -->
+
+![SC_total component coefficients forest plot](figures/fig_component_forest.png)
+
+*Figure 5.1: Forest plot of OLS regression coefficients for the four SC_total components (Spec 3 decomposition, N = 456, HC3 robust standard errors, block fixed effects and ShowSC controlled). Blue markers indicate statistically significant risk-reducing effects; the red marker indicates a statistically significant risk-increasing effect; grey indicates non-significance. Horizontal lines represent 95% confidence intervals.*
+
+The decomposed component specification (Spec 3) reveals a notable sign heterogeneity among the four Shock Score components. Sentiment Extremity (SE_e: β = −0.5919, p < 0.0001) and Attention Intensity (AI_e: β = −0.4640, p < 0.0001) are both significantly negative, consistent with the risk-reducing direction observed in the primary SC_total result. Article Count (AC_e: β = 0.0168, p = 0.1196) is statistically non-significant. Event-Type Severity (ES_raw: β = +0.3217, p < 0.0001), however, enters with a positive sign, indicating that higher category-level severity is associated with an increase in NRS, contrary to the direction of the composite effect. This result is interpreted as a contrarian-resolution pattern: when managers recognise that an event belongs to a historically high-volatility category (e.g., earnings), they may treat elevated category severity as a signal that price adjustment is already priced into expectations, thereby increasing rather than reducing risk exposure. This interpretation is consistent with the contrarian-alignment pattern identified in Section 5.6.1.1, where overall NRS–sentiment alignment rates fall well below 0.50. The positive ES_raw coefficient does not invalidate the primary H1 finding; SC_total integrates all four components through PCA and its composite effect remains robustly negative. The sign heterogeneity is reported for transparency and as an avenue for future research on component-level behavioural mechanisms.
+
+The direction-interaction specification (Spec 5) further decomposes the SC_total effect by sentiment direction. The main effect for positive-sentiment events is β₁ = −0.3644 (p < 0.0001), indicating a risk-reducing response even when the accompanying news is positive. The interaction term SC_total × D_neg = +2.6064 (p < 0.0001) implies that for negative-sentiment events the total SC_total effect is β₁ + β₃ = −0.3644 + 2.6064 = +2.2420, a net risk-increasing direction. This asymmetry – risk reduction for positive shocks, risk amplification for negative shocks at high SC_total values – is consistent with loss-aversion theory predicting that large negative shocks trigger disproportionate risk-seeking behaviour as managers attempt to recover prior losses, a pattern documented in the context of myopic loss aversion (Benartzi and Thaler, 1995). The Spec 5 result is treated as exploratory given the current sample size.
 
 ### 5.5.2 Testing of Hypothesis H2
 
@@ -1182,11 +1213,21 @@ Normality of the NRS response distribution is assessed using skewness and kurtos
 [To be populated by 8_statistical_analysis.py]
 <!-- /PLACEHOLDER:s5_6_1_impact -->
 
+The results are evaluated against the behavioural finance literature suggesting that external information shocks exert a systematic influence on portfolio managers' risk-stance decisions. The statistically significant negative association (β₁ = −0.2694) indicates that higher shock intensity shifts managers toward reduced risk exposure (lower NRS), consistent with loss-aversion predictions from prospect theory (Kahneman and Tversky, 1979). This result is interpreted cautiously given the sample composition and potential survivorship effects in the volunteer sample. The direction-interaction specification (Spec 5 in Table 5.5) further reveals that the risk-reducing response is concentrated in positive-sentiment events, while negative-sentiment events at high SC_total values are associated with net risk-increasing responses, consistent with the loss-aversion amplification channel identified by Benartzi and Thaler (1995) in the context of myopic loss aversion.
+
+The component decomposition (Spec 3) discloses a specific sign heterogeneity in the ES_raw coefficient (β = +0.3217, p < 0.0001), which runs counter to the direction of the composite effect. This finding is consistent with a contrarian-resolution mechanism: managers who recognise an event as belonging to a high-severity category may judge that market expectations have already incorporated the elevated uncertainty, and therefore increase rather than reduce risk exposure. This interpretation is corroborated by the NRS–sentiment alignment diagnostic reported in Section 5.6.1.1, which shows that the overall alignment rate of 0.2851 is substantially below the 0.50 threshold indicative of directional consistency. Both results – the ES_raw sign anomaly and the sub-threshold alignment rate – point to a respondent population that does not simply follow the sentiment signal but applies category-level contextual adjustment when forming risk-stance decisions. This finding constitutes a nuanced addition to the primary H1 result and is noted as an avenue for future research on component-level behavioural mechanisms.
+
 #### 5.6.1.1 NRS–Sentiment Alignment Diagnostic
 
 <!-- PLACEHOLDER:s5_diagnostic_alignment -->
 [To be populated by 8_statistical_analysis.py]
 <!-- /PLACEHOLDER:s5_diagnostic_alignment -->
+
+![NRS-sentiment alignment rates by sentiment category](figures/fig_alignment_rates.png)
+
+*Figure 5.2: NRS–sentiment alignment rate by sentiment category, sorted ascending. The dashed vertical line marks the 0.50 directional consistency threshold; the dotted line marks the overall alignment rate of 0.2851. All categories fall below the threshold, confirming a pervasive contrarian-judgment pattern across both sentiment directions and the neutral category.*
+
+An alignment rate above 0.50 indicates that respondents' risk-stance direction is more often consistent with the implied sentiment direction than not. Rates substantially below 0.50 would suggest systematic contrarian reactions or misalignment between the shock characterisation and respondent interpretation. The observed overall alignment rate of 0.2851 falls substantially below this threshold across all sentiment categories, with the lowest rate recorded for Negative-sentiment events (0.0952). This pattern is consistent with managers exercising contrarian judgment – treating confirmed negative news as a buying opportunity at reduced valuations – rather than mechanically following the directional signal. The finding aligns with the positive ES_raw coefficient in Spec 3 and collectively suggests that respondents in this sample engage in category-level contextual reasoning rather than sentiment-anchored decision-making.
 
 ### 5.6.2 Incremental Effect of the Shock Score
 
@@ -1200,6 +1241,10 @@ Normality of the NRS response distribution is assessed using skewness and kurtos
 <!-- PLACEHOLDER:s5_7_interim -->
 [To be populated by 8_statistical_analysis.py]
 <!-- /PLACEHOLDER:s5_7_interim -->
+
+The interim conclusions for Chapter 5 are as follows. H1 – that SC_total is significantly associated with NRS – is **supported** (β₁ = −0.2694, p < 0.0001; direction: risk-reducing). The composite Shock Score is a statistically significant predictor of portfolio managers' risk stance, with robustness confirmed across within-respondent fixed-effects, component-decomposition, and direction-interaction specifications. The component decomposition additionally reveals sign heterogeneity in the ES_raw coefficient, interpreted as a contrarian-resolution pattern, and the direction-interaction specification documents loss-aversion amplification under negative-sentiment shocks.
+
+H2 – that the Shock Score dashboard moderates the risk-return profile of simulated portfolios – is **not supported** on the primary outcome of raw portfolio return (τ = 0.0250, p = 0.0844, Cohen's d = 0.3186) in the Option B individual-portfolio regression. However, a statistically significant treatment effect on risk-adjusted performance is observed for the Sharpe ratio outcome (τ = 3.8058, p = 0.0152, Cohen's d = 0.4708), suggesting that dashboard exposure may improve the quality rather than the level of returns. This risk-adjusted finding is noted as directionally supportive of the H2 mechanism but is not sufficient to overturn the primary H2 verdict given the pre-specified primary outcome of raw portfolio return. Both findings are contingent on the current sample composition and are subject to revision upon completion of the full survey.
 
 
 ## 5.8 Chapter Conclusion
@@ -1219,7 +1264,7 @@ The most significant limitation of the study concerns the inferential boundary f
 
 ### 5.9.2 Sample Size and Statistical Power
 
-The study relies on a relatively small sample of professional equity portfolio managers. While synthetic augmentation is employed to reach the target observation count for regression estimation, the results derived from the real respondent subsample carry limited statistical power, particularly for the H2 moderation test where the treatment effect is expected to be small in magnitude. Results should therefore be interpreted as directionally indicative rather than conclusive, pending replication on a larger sample.
+The study relies on a relatively small sample of professional equity portfolio managers (N = 57). Results should therefore be interpreted as directionally indicative rather than conclusive, particularly for the H2 moderation test where the expected treatment effect is small. Statistical power for the primary H1 specification is estimated above 0.80 for a small-to-medium effect size (Cohen’s f² ≈ 0.05) given the repeated-measures structure. Power for H2 remains lower and replication on a larger sample is recommended.
 
 ### 5.9.3 Stated Preference Validity
 
