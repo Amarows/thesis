@@ -650,9 +650,10 @@ def generate_report(
             for val, cnt in es_counts.items():
                 lines.append(f"| {val} | {cnt} |")
             lines.append("")
-            lines.append("Most scenarios map to the baseline severity (1.0). "
-                         "This component is currently based on a placeholder "
-                         "severity mapping and requires manual review.")
+            lines.append("ES_raw is computed per-event as r_shock / m_e "
+                         "(shock bar return / 20-day trailing median bar return; "
+                         "capped at 10.0; thesis §4.3.5). Falls back to "
+                         "EVENT_TYPE_SEVERITY only when price data are unavailable.")
 
     # -- Price reaction statistics ---------------------------------------------
     if price_reaction_df is not None and "price_reaction_pct" in price_reaction_df.columns:
@@ -792,10 +793,11 @@ def generate_report(
         "## 9. Notes and Caveats",
         "",
         "### 9a. ES_raw (Event-Type Severity)",
-        "Uses a placeholder category-level severity mapping "
-        "(see `EVENT_TYPE_SEVERITY` in `toolkits/event_selection_toolkit.py`). "
-        "**Requires manual review** against actual event characteristics "
-        "before finalising SC_total for the thesis.",
+        "Computed per-event as **r_shock / m_e** (thesis §4.3.5): "
+        "shock bar absolute return divided by the 20-day trailing median "
+        "absolute bar return for the same stock; capped at 10.0. "
+        "Falls back to the EVENT_TYPE_SEVERITY category weights only "
+        "when intraday price data are unavailable.",
         "",
         "### 9b. Sentiment Scoring",
         "Scores use **FinBERT** (`ProsusAI/finbert`) via HuggingFace Transformers. "

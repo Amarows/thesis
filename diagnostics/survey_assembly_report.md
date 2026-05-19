@@ -1,6 +1,6 @@
 # Survey Assembly Report
 
-Generated: 2026-05-05 20:47:25
+Generated: 2026-05-19 11:20:09
 
 ---
 
@@ -98,18 +98,18 @@ These are derived from SC_total and its components to populate the visual Shock 
 
 Principal Component Analysis was applied to the four z-standardised shock components across all 24 scenarios. The first principal component (PC1) is retained as SC_total.
 
-- **PC1 explained variance: 0.4827 (48.3%)**
+- **PC1 explained variance: 0.5038 (50.4%)**
 
-This means PC1 captures nearly 48% of the total variation across the four components -- a strong single-factor summary.
+This means PC1 captures nearly 50% of the total variation across the four components -- a strong single-factor summary.
 
 - **Loadings (w_1):**
 
 | Component | Loading | Interpretation |
 |---|---|---|
-| AC (Article Count) | **0.6602** | Media coverage breadth |
-| AI (Attention Intensity) | **0.5818** | Abnormal trading volume |
-| SE (Sentiment Extremity) | **0.4682** | Emotional intensity of news |
-| ES (Event-Type Severity) | **0.0797** | Historical category volatility |
+| AI (Attention Intensity) | **0.6161** | Abnormal trading volume |
+| AC (Article Count) | **0.6120** | Media coverage breadth |
+| SE (Sentiment Extremity) | **0.3990** | Emotional intensity of news |
+| ES (Event-Type Severity) | **0.2944** | Historical category volatility |
 
 All four loadings are positive, confirming that SC_total increases when any dimension of shock intensity increases.
 
@@ -120,13 +120,13 @@ All four loadings are positive, confirming that SC_total increases when any dime
 | Statistic | Value |
 |-----------|-------|
 | Mean      | -0.0000 |
-| Std       | 1.4194 |
-| Min       | -1.7372 |
-| Q1        | -0.8675 |
-| Median    | -0.3286 |
-| Q3        | 0.8873 |
-| Max       | 4.3677 |
-| Skewness  | 1.40 (positive -- right tail from high-intensity outliers) |
+| Std       | 1.4501 |
+| Min       | -2.1832 |
+| Q1        | -0.9830 |
+| Median    | -0.2273 |
+| Q3        | 0.4984 |
+| Max       | 4.7132 |
+| Skewness  | 1.48 (positive -- right tail from high-intensity outliers) |
 
 The distribution is centred near zero (by construction, since PCA operates on z-standardised inputs) but right-skewed: a small number of scenarios have very high shock scores.
 
@@ -134,11 +134,11 @@ The distribution is centred near zero (by construction, since PCA operates on z-
 
 | Rank | Scenario | Ticker | SC_total | Key Drivers |
 |---|---|---|---|---|
-| Highest | B3_S08 | AMAT | **4.3677** | 22 articles, volume 7.4x normal |
-| 2nd highest | B1_S05 | HD | **2.2601** | 18 articles, volume 3.0x normal |
-| 3rd highest | B3_S07 | MCD | **1.5427** | 12 articles, volume 2.9x normal |
-| Lowest | B2_S06 | KO | **-1.7372** | 3 articles, sentiment 0.08 |
-| 2nd lowest | B1_S08 | QCOM | **-1.7047** | 1 article, sentiment 0.01 |
+| Highest | B3_S08 | AMAT | **4.7132** | 22 articles, volume 7.4x normal |
+| 2nd highest | B3_S07 | MCD | **1.6822** | 12 articles, volume 2.9x normal |
+| 3rd highest | B1_S05 | HD | **1.6628** | 18 articles, volume 3.0x normal |
+| Lowest | B2_S06 | KO | **-2.1832** | 3 articles, sentiment 0.08 |
+| 2nd lowest | B1_S04 | UNH | **-1.8231** | 2 articles, sentiment 0.46 |
 
 ### SC_total by Severity Bucket
 
@@ -146,17 +146,17 @@ Scenarios are split into terciles to create the severity_level dashboard signal:
 
 | Bucket | n | Mean SC_total | Range |
 |--------|---|---------------|-------|
-| **Low** | 8 | -1.2504 | [-1.7372, -0.8495] |
-| **Medium** | 8 | -0.3406 | [-0.6429, 0.0106] |
-| **High** | 8 | 1.5910 | [0.1847, 4.3677] |
+| **Low** | 8 | -1.2887 | [-2.1832, -0.6654] |
+| **Medium** | 8 | -0.2453 | [-0.6176, 0.1932] |
+| **High** | 8 | 1.5340 | [0.2608, 4.7132] |
 
 ### SC_total by Block
 
 | Block | n | Mean | Std | Min | Max |
 |-------|---|------|-----|-----|-----|
-| Block 1 | 8 | -0.4772 | 1.2256 | -1.7047 | 2.2601 |
-| Block 2 | 8 | -0.1092 | 1.0353 | -1.7372 | 1.0789 |
-| Block 3 | 8 | 0.5864 | 1.8382 | -1.5064 | 4.3677 |
+| Block 1 | 8 | -0.4865 | 1.0397 | -1.8231 | 1.6628 |
+| Block 2 | 8 | -0.1033 | 1.0951 | -2.1832 | 1.2337 |
+| Block 3 | 8 | 0.5898 | 1.9871 | -1.2902 | 4.7132 |
 
 ### Protocol Distribution
 
@@ -210,11 +210,26 @@ A value of 1.0 means normal volume. The median of 1.78 means the typical event-b
 
 | Value | Count |
 |-------|-------|
-| 0.6 | 8 |
-| 0.8 | 6 |
-| 1.0 | 10 |
+| 4.0807 | 1 |
+| 4.1893 | 1 |
+| 4.299 | 1 |
+| 5.4162 | 1 |
+| 5.7519 | 1 |
+| 6.9479 | 1 |
+| 6.9761 | 1 |
+| 6.9911 | 1 |
+| 7.152 | 1 |
+| 7.5286 | 1 |
+| 7.5846 | 1 |
+| 8.374 | 1 |
+| 8.3995 | 1 |
+| 8.6174 | 1 |
+| 8.7643 | 1 |
+| 8.8855 | 1 |
+| 9.7927 | 1 |
+| 10.0 | 7 |
 
-Most scenarios map to the baseline severity (1.0). This component is currently based on a placeholder severity mapping and requires manual review.
+ES_raw is computed per-event as r_shock / m_e (shock bar return / 20-day trailing median bar return; capped at 10.0; thesis §4.3.5). Falls back to EVENT_TYPE_SEVERITY only when price data are unavailable.
 
 ---
 
@@ -247,8 +262,8 @@ Each scenario records the immediate price reaction in the 2-hour window followin
 
 | Severity | Mean Reaction | Std |
 |---|---|---|
-| Low | +1.58% | 1.89% |
-| Medium | -0.37% | 2.20% |
+| Low | +0.46% | 2.21% |
+| Medium | +0.75% | 2.39% |
 | High | -0.21% | 7.10% |
 
 High-severity scenarios show the widest dispersion in price reactions, consistent with the interpretation that intense shocks create uncertainty rather than a uniform directional move.
@@ -289,7 +304,7 @@ This design ensures that:
 ## 9. Notes and Caveats
 
 ### 9a. ES_raw (Event-Type Severity)
-Uses a placeholder category-level severity mapping (see `EVENT_TYPE_SEVERITY` in `toolkits/event_selection_toolkit.py`). **Requires manual review** against actual event characteristics before finalising SC_total for the thesis.
+Computed per-event as **r_shock / m_e** (thesis §4.3.5): shock bar absolute return divided by the 20-day trailing median absolute bar return for the same stock; capped at 10.0. Falls back to the EVENT_TYPE_SEVERITY category weights only when intraday price data are unavailable.
 
 ### 9b. Sentiment Scoring
 Scores use **FinBERT** (`ProsusAI/finbert`) via HuggingFace Transformers. The sentiment score is `positive_prob - negative_prob` in [-1, 1]. See `toolkits/news_processor_toolkit.py` for the shared scorer.
@@ -340,13 +355,13 @@ Each chart shows the stock's 90-day trailing price history up to the event, givi
 ### Dashboards (Shock Score dashboard PNGs)
 Each dashboard visualises the four Shock Score signals (sentiment direction, severity level, horizon bucket, protocol recommendation) for one scenario. Shown only to treatment-group respondents.
 
-- `survey/dashboards\dashboard_B1_S01.png` (26.8 KB)
-- `survey/dashboards\dashboard_B1_S02.png` (27.2 KB)
+- `survey/dashboards\dashboard_B1_S01.png` (27.2 KB)
+- `survey/dashboards\dashboard_B1_S02.png` (27.6 KB)
 - `survey/dashboards\dashboard_B1_S03.png` (27.2 KB)
 - `survey/dashboards\dashboard_B1_S04.png` (25.7 KB)
 - `survey/dashboards\dashboard_B1_S05.png` (28.0 KB)
 - `survey/dashboards\dashboard_B1_S06.png` (29.0 KB)
-- `survey/dashboards\dashboard_B1_S07.png` (29.0 KB)
+- `survey/dashboards\dashboard_B1_S07.png` (28.6 KB)
 - `survey/dashboards\dashboard_B1_S08.png` (26.7 KB)
 - `survey/dashboards\dashboard_B2_S01.png` (26.3 KB)
 - `survey/dashboards\dashboard_B2_S02.png` (28.7 KB)
@@ -355,12 +370,12 @@ Each dashboard visualises the four Shock Score signals (sentiment direction, sev
 - `survey/dashboards\dashboard_B2_S05.png` (28.0 KB)
 - `survey/dashboards\dashboard_B2_S06.png` (26.7 KB)
 - `survey/dashboards\dashboard_B2_S07.png` (27.5 KB)
-- `survey/dashboards\dashboard_B2_S08.png` (26.7 KB)
-- `survey/dashboards\dashboard_B3_S01.png` (28.4 KB)
+- `survey/dashboards\dashboard_B2_S08.png` (27.1 KB)
+- `survey/dashboards\dashboard_B3_S01.png` (28.0 KB)
 - `survey/dashboards\dashboard_B3_S02.png` (27.9 KB)
 - `survey/dashboards\dashboard_B3_S03.png` (28.2 KB)
 - `survey/dashboards\dashboard_B3_S04.png` (28.0 KB)
-- `survey/dashboards\dashboard_B3_S05.png` (29.3 KB)
+- `survey/dashboards\dashboard_B3_S05.png` (28.9 KB)
 - `survey/dashboards\dashboard_B3_S06.png` (28.8 KB)
 - `survey/dashboards\dashboard_B3_S07.png` (26.8 KB)
 - `survey/dashboards\dashboard_B3_S08.png` (26.8 KB)
@@ -373,7 +388,7 @@ Each dashboard visualises the four Shock Score signals (sentiment direction, sev
 - `survey/metadata\scenario_metadata.csv` (1.8 KB)
 - `survey/metadata\scenario_news_text.csv` (13.4 KB)
 - `survey/metadata\scenario_price_reaction.csv` (1.7 KB)
-- `survey/metadata\scenario_shock_score.csv` (3.4 KB)
+- `survey/metadata\scenario_shock_score.csv` (3.5 KB)
 
 ---
 

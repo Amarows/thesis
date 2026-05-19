@@ -521,22 +521,21 @@ def main(auto_populate: bool = True) -> None:
     print("Survey Assembly Pipeline  -  3_survey_assembly.py")
     print("=" * 65)
 
-    # -- Snapshot deployment manifest before wiping survey/ -------------------
-    # deployment_manifest.json lives inside SURVEY_DIR and is wiped below.
-    # Read it now so generate_deployment_manifest() can preserve existing form IDs.
-    _manifest_snapshot: dict = {}
-    _manifest_path = SURVEY_DIR / "deployment_manifest.json"
-    if _manifest_path.exists():
-        try:
-            with open(_manifest_path, encoding="utf-8") as _fh:
-                _manifest_snapshot = json.load(_fh)
-        except (json.JSONDecodeError, IOError):
-            pass
-
     # -- Output directories ----------------------------------------------------
+    # Wipe survey/ subdirectories only; never delete deployment_manifest.json.
+    # Deleting and re-reading the manifest risks losing live form_ids if a
+    # prior run had already cleared them (the snapshot pattern is fragile because
+    # it captures whatever state the file is in — including a previously cleared state).
     if SURVEY_DIR.exists():
-        shutil.rmtree(SURVEY_DIR, ignore_errors=True)
-        print(f"\nCleared existing {SURVEY_DIR}/")
+        for _item in SURVEY_DIR.iterdir():
+            if _item.name == "deployment_manifest.json":
+                continue
+            if _item.is_dir():
+                shutil.rmtree(_item, ignore_errors=True)
+            else:
+                _item.unlink(missing_ok=True)
+        print(f"\nCleared existing {SURVEY_DIR}/ (deployment_manifest.json preserved)")
+    _manifest_snapshot: dict = {}  # kept for generate_deployment_manifest signature compat
 
     out_dirs = {
         "metadata":         SURVEY_DIR / "metadata",
@@ -766,7 +765,7 @@ def main(auto_populate: bool = True) -> None:
 
     # -- [9/9] Deployment manifest ---------------------------------------------
     print("\n[9/9] Writing deployment manifest (survey/deployment_manifest.json)...")
-    generate_deployment_manifest(manifest_df, existing_manifest=_manifest_snapshot)
+    generate_deployment_manifest(manifest_df, existing_manifest=None)
 
     # -- Final summary ---------------------------------------------------------
     print("\n" + "=" * 65)
