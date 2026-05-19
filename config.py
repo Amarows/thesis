@@ -104,25 +104,23 @@ def append_run_log(
     script : str
         Name of the calling script, e.g. "6_process_survey_data.py".
     parameters : dict
-        Key analytical parameters active during this run.
-        Use config constants: {"min_years_experience": MIN_YEARS_EXPERIENCE, ...}
+        Ignored; kept for call-site compatibility.
     inputs : list[dict]
         Each entry: {"file": str, "sha256": str}.
         Use _sha256_file(path) to populate sha256.
     outputs : list[dict]
-        Each entry: {"file": str, "rows": int | None, "sha256": str}.
+        Each entry: {"file": str, "sha256": str}. Any "rows" key is stripped.
     notes : str
-        Free-text run summary (e.g. respondent counts, H1/H2 verdicts).
+        Ignored; kept for call-site compatibility.
     """
     RUN_LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
+    clean_outputs = [{"file": o["file"], "sha256": o["sha256"]} for o in outputs]
     record = {
         "timestamp":  datetime.now(timezone.utc).isoformat(),
         "script":     script,
         "git_commit": _get_git_commit(),
-        "parameters": parameters,
         "inputs":     inputs,
-        "outputs":    outputs,
-        "notes":      notes,
+        "outputs":    clean_outputs,
     }
     with open(RUN_LOG_PATH, "a", encoding="utf-8") as f:
         f.write(json.dumps(record) + "\n")
