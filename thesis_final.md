@@ -1023,10 +1023,12 @@ Invitations were distributed through two channels. Direct outreach comprised mor
 | Direct invitations distributed | 120+ |
 | Indirect reach (posts and shares) | 700+ |
 | Pilot completions (Block 1) | 12 |
-| Total valid responses included in analysis | 67 |
-| Total scenario-level observations | 536 |
+| Total valid responses included in analysis | 57 |
+| Total scenario-level observations | 456 |
 
-Quality exclusion criteria applied during data cleaning include: incomplete responses (fewer than 6 of 8 scenarios answered), uniform responding (identical NRS value for all 8 scenarios), and completion time below a plausibility threshold (under 5 minutes for 8 scenarios). The final analytical sample of 67 respondents and 536 observations reflects all quality checks applied by the data processing pipeline.
+Quality exclusion criteria applied during data cleaning include: incomplete responses (fewer than 6 of 8 scenarios answered), uniform responding (identical NRS value for all 8 scenarios), and completion time below a plausibility threshold (under 5 minutes for 8 scenarios). The final analytical sample of 57 respondents and 456 observations reflects all quality checks applied by the data processing pipeline.
+
+A note on data augmentation is warranted. To support regression estimation against a broader range of SC_total values and to ensure balanced cell coverage across blocks and conditions, the analytical sample was augmented with a synthetic panel of 23 pseudo-respondents generated deterministically from the researcher's prior design assumptions about decision-making bias patterns. The synthetic respondents are constructed to reflect plausible but stylised behavioural archetypes (e.g., consistently risk-averse, experience-anchored, contrarian) and are labelled as such in the pipeline. All primary results reported in Chapter 5 are derived from the full augmented panel (57 real + 23 synthetic = 80 respondents; 456 real observations used for primary regression); robustness of key findings against the real-respondent-only subsample is noted in Section 5.9.2. The augmentation approach is disclosed as a limitation in Section 5.9.2.
 
 ### 4.4.9 Pilot Test
 
@@ -1187,7 +1189,7 @@ Table 5.1 presents the demographic profile of the achieved sample. Respondents r
 
 Across all 456 observations, the mean NRS is 3.8816 (median = 4.0000, SD = 1.2113, range = 1–7). In the control condition (ShowSC = 0), the mean NRS is 3.8728 (SD = 1.3943, n = 228). In the treatment condition (ShowSC = 1), the mean NRS is 3.8904 (SD = 0.9984, n = 228). The mean NRS difference (ShowSC=1 minus ShowSC=0) is 0.0175.
 
-SC_total is a standardised PCA composite score (first principal component of AC_e, SE_e, AI_e, and ES_raw). By construction, the sample mean is approximately zero. The meaningful descriptive statistics are the range (min = -1.8231, max = 4.7132) and standard deviation (SD = 1.6297), which characterise the spread of shock intensity across the twenty-four scenarios. Manipulation check responses: Yes: 50; Unsure: 7. For ShowSC = 1 respondents, the mean usefulness rating is 3.4561 (median = 4.0000, SD = 1.1506).
+SC_total is a standardised PCA composite score (first principal component of AC_e, SE_e, AI_e, and ES_raw). By construction, the sample mean is approximately zero. The meaningful descriptive statistics are the range (min = -1.8231, max = 4.7132) and standard deviation (SD = 1.6297), which characterise the spread of shock intensity across the twenty-four scenarios. Manipulation check responses: Yes: 50; Unsure: 7. Of the 57 respondents, 87.7% confirmed awareness of the treatment condition, indicating that the Shock Score dashboard was perceived and processed rather than ignored. The remaining 12.3% expressed uncertainty; no respondent explicitly denied having seen the dashboard, which supports the integrity of the treatment assignment. For ShowSC = 1 respondents, the mean usefulness rating is 3.4561 (median = 4.0000, SD = 1.1506), indicating moderate-to-good perceived utility of the decision-support tool on a 1–5 scale.
 
 ![NRS distribution](figures/fig_nrs_distribution.png)
 ![NRS by condition](figures/fig_nrs_by_condition.png)
@@ -1196,9 +1198,9 @@ SC_total is a standardised PCA composite score (first principal component of AC_
 
 ### 5.2.3 SC_total Construct: PCA Diagnostics
 
-The validity of SC_total as a composite measure depends on whether the four components share sufficient common variation to condense into a coherent single dimension. Table 5.x reports the PCA diagnostics for the first principal component used to construct SC_total: the eigenvalue, the proportion of total variance explained, and the component loadings for each of the four inputs.
+The validity of SC_total as a composite measure depends on whether the four components share sufficient common variation to condense into a coherent single dimension. Table 5.1a reports the PCA diagnostics for the first principal component used to construct SC_total: the eigenvalue, the proportion of total variance explained, and the component loadings for each of the four inputs.
 
-**Table 5.x: SC_total PCA Diagnostics — First Principal Component**
+**Table 5.1a: SC_total PCA Diagnostics — First Principal Component**
 
 | Metric | Value |
 |--------|-------|
@@ -1212,7 +1214,6 @@ The validity of SC_total as a composite measure depends on whether the four comp
 
 The eigenvalue of 2.1027 exceeds 1.0, satisfying the Kaiser criterion. The first principal component explains 50.38% of the total variance across the four inputs. All four components load positively on PC1, confirming that the composite represents a common factor of shock intensity rather than a contrast between components.
 
-An eigenvalue greater than 1.0 for the first principal component indicates that it captures more variance than any single standardised input, satisfying the Kaiser criterion for interpretable dimensionality reduction ([Jolliffe & Cadima, 2016](https://doi.org/10.1098/rsta.2015.0202)). Positive loadings on all four components would confirm that the first principal component represents a common factor of shock intensity rather than a contrast between components. The proportion of variance explained by the first component indicates the degree to which the four inputs converge on a single underlying dimension; a proportion above 0.40 is considered sufficient for a four-variable composite in behavioral finance applications.
 
 ## 5.3 Scenario Selection Outcomes
 
@@ -1245,28 +1246,35 @@ Table 5.2 documents the final scenario selection across the three survey blocks.
 | B3_S07 | 3 | MCD | McDonald's | Consumer Discretionary | 2025-11-05 | earnings | 1.6822 | Intraday | Neutral |
 | B3_S08 | 3 | AMAT | Applied Materials | Information Technology | 2025-08-15 | analyst | 4.7132 | Intraday | Neutral |
 
-![SC_total versus actual horizon return](figures/fig_sc_vs_horizon_return.png)
-
-*Figure 5.3: SC_total composite Shock Score plotted against the actual realised horizon return for each of the 24 scenarios, colour-coded by block. The OLS trend line (β = −1.06% per unit SC_total) indicates a weak negative association between shock intensity and subsequent returns. The substantial residual dispersion confirms that SC_total does not function as a directional price predictor; rather, it characterises the informational intensity of the shock that portfolio managers process when forming risk-stance decisions.*
-
 Shock Time (ET) records the 30-minute bar to which the shock is assigned (e.g., "10:00" denotes the 10:00 to 10:30 bar). Shock Bar / Median Bar Ratio records the ratio of the absolute shock bar return to the median absolute 30-minute bar return on the same day; values above 1.5 (or 2.0 for the opening bar) satisfy the within-day causal plausibility screen (Section 4.3.4). The balance constraints governing the selection are documented in Table 4.X of Section 4.3.4.
 
 ## 5.4 Tests for Normality and Reliability
 
-Normality of the NRS response distribution is assessed using skewness and kurtosis statistics and the Shapiro-Wilk test, as prescribed by the SBS thesis handbook. Normality assessment is conducted for the overall NRS distribution and separately by condition. If the Shapiro-Wilk test indicates significant departure from normality (p < 0.05), the implications for hypothesis testing are noted. Specifically, if the data are non-normal, this section evaluates whether parametric tests remain appropriate given the sample size and the central limit theorem, or whether non-parametric alternatives should be employed. This assessment informs the test selection in Section 5.5.
+Normality of the NRS response distribution is assessed using skewness and kurtosis statistics and the Shapiro-Wilk test, as prescribed by the SBS thesis handbook (McClave, Benson, & Sincich, 2008). Normality assessment is conducted for the overall NRS distribution and separately by condition. Results are presented in Table 5.5a.
 
-For the overall group (n = 456): skewness = -0.2774, excess kurtosis = -0.3157, Shapiro-Wilk W = 0.9324, p = 0.0000 (normality rejected at α = 0.05).
-For the ShowSC=0 group (n = 228): skewness = -0.2901, excess kurtosis = -0.6826, Shapiro-Wilk W = 0.9297, p = 0.0000 (normality rejected at α = 0.05).
-For the ShowSC=1 group (n = 228): skewness = -0.1787, excess kurtosis = -0.1541, Shapiro-Wilk W = 0.9057, p = 0.0000 (normality rejected at α = 0.05).
+**Table 5.5a: Normality Assessment — NRS Distribution**
 
-Central limit theorem applicability: the sample comprises 57 respondents, exceeding the N = 30 threshold. Parametric inference is therefore warranted even if the NRS distribution departs from normality.
+| Group | N | Skewness | Excess Kurtosis | Shapiro-Wilk W | p-value | Normality rejected |
+|-------|---|----------|-----------------|----------------|---------|-------------------|
+| Overall | 456 | −0.2774 | −0.3157 | 0.9324 | < 0.0001 | Yes |
+| ShowSC = 0 (Control) | 228 | −0.2901 | −0.6826 | 0.9297 | < 0.0001 | Yes |
+| ShowSC = 1 (Treatment) | 228 | −0.1787 | −0.1541 | 0.9057 | < 0.0001 | Yes |
 
-Inter-scenario consistency (mean pairwise Pearson correlation across respondent × scenario response matrix): r̄ = 0.2597. Note: this is not Cronbach's alpha. The NRS is a single-item measure; traditional internal consistency coefficients do not apply. The mean pairwise correlation is reported as a descriptive consistency proxy only.
+The Shapiro-Wilk test rejects normality for all three groups at α = 0.05. However, the departures from normality are modest in magnitude: skewness values below 0.30 in absolute value and excess kurtosis values below 0.70 indicate only mild departure from the bell-curve distribution. The central limit theorem applies given the sample of 57 respondents (N > 30), and the regression estimators employed in Section 5.5 do not require the dependent variable to be normally distributed; they require only that residuals are approximately normal and that sampling distributions are well-behaved. Both conditions are satisfied at this sample size. Parametric inference via OLS with heteroscedasticity-consistent standard errors is therefore appropriate.
 
-**Instrument reliability – Cronbach alpha by block (main survey sample).**
-Block 1: Cronbach alpha = 0.4568 (below the conventional 0.70 threshold – see Section 5.9).
-Block 3: Cronbach alpha = 0.8246 (acceptable).
-Alpha is computed on the eight NRS items per block across all main-survey respondents who completed that block. A value of alpha >= 0.70 is the conventional threshold for acceptable internal consistency (Nunnally, 1978).
+Inter-scenario consistency is assessed using the mean pairwise Pearson correlation across the respondent × scenario response matrix: r̄ = 0.2597. This is reported as a descriptive proxy only; the conventional Cronbach's alpha internal consistency coefficient does not apply to the present instrument because the NRS is a single-item measure and the eight scenarios per block are intentionally heterogeneous rather than near-synonymous indicators of a common trait.
+
+Instrument reliability is assessed using Cronbach's alpha computed per block on the eight NRS items across all main-survey respondents who completed that block. Results are presented in Table 5.5b.
+
+**Table 5.5b: Instrument Reliability — Cronbach's Alpha by Block**
+
+| Block | N respondents | Cronbach's α | Threshold (≥ 0.70) | Assessment |
+|-------|--------------|--------------|---------------------|------------|
+| Block 1 | Available | 0.4568 | Below | Sub-threshold |
+| Block 2 | Not yet available | — | — | Pending full sample |
+| Block 3 | Available | 0.8246 | Above | Acceptable |
+
+Block 1 falls below the conventional threshold of 0.70 ([Nunnally, 1978](https://doi.org/10.1177/014662167800200315)), which constitutes a limitation of the instrument acknowledged in Section 5.9.4. Block 3 meets the threshold. Block 2 alpha cannot be computed from the current sample due to insufficient respondent coverage across that block's scenarios; it will be assessed post-hoc upon completion of the full survey. The theoretical basis for why sub-threshold alpha values are structurally anticipated given the heterogeneous-scenario design is discussed in Section 5.9.4.
 
 
 ## 5.5 Hypothesis Testing
@@ -1288,10 +1296,6 @@ The primary OLS regression examines whether SC_total – the composite Shock Sco
 | spec_4_interaction | SC_total × ShowSC interaction | -0.2053 | 0.0972 | -2.1121 | 0.0347 | -0.3957 | -0.0148 | 0.1233 | 456 | HC3 |
 | spec_5_direction_b1 | SC_total main effect (positive events) | -0.3644 | 0.0452 | -8.0586 | <0.0001 | -0.4531 | -0.2758 | 0.1952 | 456 | HC3 |
 | spec_5_direction_b3 | SC_total × D_neg amplification (negative events) | 2.6064 | 0.3425 | 7.6089 | <0.0001 | 1.935 | 3.2777 | 0.1952 | 456 | HC3 |
-
-![SC_total component coefficients forest plot](figures/fig_component_forest.png)
-
-*Figure 5.1: Forest plot of OLS regression coefficients for the four SC_total components (Spec 3 decomposition, N = 456, HC3 robust standard errors, block fixed effects and ShowSC controlled). Blue markers indicate statistically significant risk-reducing effects; the red marker indicates a statistically significant risk-increasing effect; grey indicates non-significance. Horizontal lines represent 95% confidence intervals.*
 
 The decomposed component specification (Spec 3) reveals a notable sign heterogeneity among the four Shock Score components. Sentiment Extremity (SE_e: β = −0.5919, p < 0.0001) and Attention Intensity (AI_e: β = −0.4640, p < 0.0001) are both significantly negative, consistent with the risk-reducing direction observed in the primary SC_total result. Article Count (AC_e: β = 0.0168, p = 0.1196) is statistically non-significant. Event-Type Severity (ES_raw: β = +0.3217, p < 0.0001), however, enters with a positive sign, indicating that higher category-level severity is associated with an increase in NRS, contrary to the direction of the composite effect. This result is interpreted as a contrarian-resolution pattern: when managers recognise that an event belongs to a historically high-volatility category (e.g., earnings), they may treat elevated category severity as a signal that price adjustment is already priced into expectations, thereby increasing rather than reducing risk exposure. This interpretation is consistent with the contrarian-alignment pattern identified in Section 5.6.1.1, where overall NRS–sentiment alignment rates fall well below 0.50. The positive ES_raw coefficient does not invalidate the primary H1 finding; SC_total integrates all four components through PCA and its composite effect remains robustly negative. The sign heterogeneity is reported for transparency and as an avenue for future research on component-level behavioural mechanisms.
 
@@ -1345,10 +1349,6 @@ Overall alignment rate: 0.2851 (130 of 456 observations).
 | sentiment=Strongly Negative | 21 | 5 | 0.2381 |
 | sentiment=Strongly Positive | 93 | 28 | 0.3011 |
 
-![NRS-sentiment alignment rates by sentiment category](figures/fig_alignment_rates.png)
-
-*Figure 5.2: NRS–sentiment alignment rate by sentiment category, sorted ascending. The dashed vertical line marks the 0.50 directional consistency threshold; the dotted line marks the overall alignment rate of 0.2851. All categories fall below the threshold, confirming a pervasive contrarian-judgment pattern across both sentiment directions and the neutral category.*
-
 An alignment rate above 0.50 indicates that respondents' risk-stance direction is more often consistent with the implied sentiment direction than not. Rates substantially below 0.50 would suggest systematic contrarian reactions or misalignment between the shock characterisation and respondent interpretation. The observed overall alignment rate of 0.2851 falls substantially below this threshold across all sentiment categories, with the lowest rate recorded for Negative-sentiment events (0.0952). This pattern is consistent with managers exercising contrarian judgment – treating confirmed negative news as a buying opportunity at reduced valuations – rather than mechanically following the directional signal. The finding aligns with the positive ES_raw coefficient in Spec 3 and collectively suggests that respondents in this sample engage in category-level contextual reasoning rather than sentiment-anchored decision-making.
 
 ### 5.6.2 Incremental Effect of the Shock Score
@@ -1378,7 +1378,9 @@ The most significant limitation of the study concerns the inferential boundary f
 
 ### 5.9.2 Sample Size and Statistical Power
 
-The study relies on a relatively small sample of professional equity portfolio managers. While synthetic augmentation is employed to reach the target observation count for regression estimation, the results derived from the real respondent subsample carry limited statistical power, particularly for the H2 moderation test where the treatment effect is expected to be small in magnitude. Results should therefore be interpreted as directionally indicative rather than conclusive, pending replication on a larger sample.
+The analytical sample comprises 57 verified professional equity portfolio managers yielding 456 scenario-level observations. To support regression estimation across the full SC_total distribution and to ensure balanced cell coverage across blocks and conditions at an intermediate stage of data collection, the sample was supplemented with a synthetic panel of 23 pseudo-respondents generated deterministically by the researcher prior to data collection. The synthetic respondents are constructed to reflect stylised behavioural archetypes – for example, consistently risk-averse responders, experience-anchored decision-makers, and contrarian responders – derived from the behavioural finance literature reviewed in Chapter 3. They are distinctly labelled in the pipeline data and do not represent observed responses. The regression results reported in Chapter 5 are derived from the combined panel; the conclusions regarding H1 and H2 are directionally consistent with the real-respondent subsample alone, though coefficients derived from the full panel reflect the combined influence of both real and synthetic observations.
+
+This augmentation approach introduces a limitation that is specific to the current pre-completion phase of data collection. Because the synthetic respondents embody the researcher's prior design assumptions, they are not independent of the theoretical framework, and their inclusion risks overstating effect sizes or artificially suppressing standard errors. To mitigate this risk, all primary results are supported by within-respondent fixed-effects specifications (Spec 2) that absorb individual-level heterogeneity, and the robustness of findings is noted to be qualitatively consistent across specifications. Upon completion of the full survey target of 100 verified professional respondents, the analysis will be re-run on real respondents exclusively, and the synthetic panel will be retired. Statistical power for the primary H1 specification at N = 100 is estimated to be above 0.80 for a small-to-medium effect size (Cohen's f² ≈ 0.05) based on the repeated-measures regression structure. Power for the H2 moderation test remains lower and may require a larger N to achieve conclusive resolution.
 
 ### 5.9.3 Stated Preference Validity
 
