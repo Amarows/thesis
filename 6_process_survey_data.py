@@ -157,6 +157,24 @@ def run(dry_run: bool = False, form_key_filter: str | None = None) -> None:
     # 9. Build analysis panel
     panel_df = build_analysis_panel(merged_df)
 
+    # 9b. Uniform-responding exclusion (block level)
+    # A (respondent_id, block_id) group is uniform if all 8 NRS values are identical.
+    uniform_mask = (
+        panel_df.groupby(["respondent_id", "block_id"])["nrs"]
+        .transform(lambda s: s.dropna().nunique() == 1)
+        .astype(bool)
+    )
+    uniform_excl_df = panel_df[uniform_mask].copy()
+    uniform_excl_df["exclusion_reason"] = "uniform_responding"
+    panel_df = panel_df[~uniform_mask].reset_index(drop=True)
+
+    n_uniform_blocks = uniform_excl_df.groupby(["respondent_id", "block_id"]).ngroups
+    print(
+        f"Uniform-responding exclusion: {n_uniform_blocks} (respondent, block) group(s) "
+        f"removed ({len(uniform_excl_df)} rows)."
+    )
+    excluded_df = pd.concat([excluded_df, uniform_excl_df], ignore_index=True)
+
     # 10. Write analysis_panel.csv
     panel_df.to_csv(PANEL_PATH, index=False)
     print(f"Written: {PANEL_PATH}  ({len(panel_df)} rows)")
