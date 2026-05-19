@@ -1,10 +1,10 @@
 spec,note,beta1,se,t,p,ci_lo,ci_hi,r2,n_obs,clustering
-spec_1_quintiles,SC_total quintile dummies,see quintile coefficients,,,,,,0.2101,48,HC3
-spec_2_within,Respondent FE (within),-0.1012,0.09,-1.1247,0.2607,-0.2777,0.0752,0.0158,48,HC3
-spec_3_component_ac_e,Component: ac_e,-0.0438,0.042,-1.0421,0.2974,-0.1261,0.0386,0.1067,48,HC3
-spec_3_component_se_e,Component: se_e,0.8101,0.5352,1.5136,0.1301,-0.2389,1.8591,0.1067,48,HC3
-spec_3_component_ai_e,Component: ai_e,-0.0706,0.2343,-0.3014,0.7631,-0.5298,0.3886,0.1067,48,HC3
-spec_3_component_es_raw,Component: es_raw,0.0701,0.0914,0.7672,0.4430,-0.109,0.2493,0.1067,48,HC3
-spec_4_interaction,SC_total × ShowSC interaction,0.1323,0.2694,0.4912,0.6233,-0.3957,0.6603,0.0406,48,HC3
-spec_5_direction_b1,SC_total main effect (positive events),-0.1511,0.1127,-1.3406,0.1800,-0.372,0.0698,0.0949,48,HC3
-spec_5_direction_b3,SC_total × D_neg amplification (negative events),0.0696,1.4692,0.0474,0.9622,-2.81,2.9491,0.0949,48,HC3
+spec_1_quintiles,SC_total quintile dummies,see quintile coefficients,,,,,,0.1611,456,HC3
+spec_2_within,Respondent FE (within),-0.2694,0.044,-6.1275,<0.0001,-0.3556,-0.1832,0.0965,456,HC3
+spec_3_component_ac_e,Component: ac_e,0.0168,0.0108,1.5564,0.1196,-0.0043,0.0379,0.3712,456,HC3
+spec_3_component_se_e,Component: se_e,-0.5919,0.1389,-4.2629,<0.0001,-0.8641,-0.3198,0.3712,456,HC3
+spec_3_component_ai_e,Component: ai_e,-0.464,0.0557,-8.3271,<0.0001,-0.5733,-0.3548,0.3712,456,HC3
+spec_3_component_es_raw,Component: es_raw,0.3217,0.0261,12.3143,<0.0001,0.2705,0.3729,0.3712,456,HC3
+spec_4_interaction,SC_total × ShowSC interaction,-0.2053,0.0972,-2.1121,0.0347,-0.3957,-0.0148,0.1233,456,HC3
+spec_5_direction_b1,SC_total main effect (positive events),-0.3644,0.0452,-8.0586,<0.0001,-0.4531,-0.2758,0.1952,456,HC3
+spec_5_direction_b3,SC_total × D_neg amplification (negative events),2.6064,0.3425,7.6089,<0.0001,1.935,3.2777,0.1952,456,HC3
