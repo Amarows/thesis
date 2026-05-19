@@ -1182,7 +1182,7 @@ Table 5.1 presents the demographic profile of the achieved sample. Respondents r
 
 Across all 536 observations, the mean NRS is 4.0653 (median = 4.0000, SD = 1.3218, range = 1–7). In the control condition (ShowSC = 0), the mean NRS is 3.9590 (SD = 1.2903, n = 268). In the treatment condition (ShowSC = 1), the mean NRS is 4.1716 (SD = 1.3465, n = 268). The mean NRS difference (ShowSC=1 minus ShowSC=0) is 0.2127.
 
-SC_total is a standardised PCA composite score (first principal component of AC_e, SE_e, AI_e, and ES_raw). By construction, the sample mean is approximately zero. The meaningful descriptive statistics are the range (min = -1.7372, max = 4.3677) and standard deviation (SD = 1.4194), which characterise the spread of shock intensity across the twenty-four scenarios. Manipulation check responses: Yes: 59; Unsure: 8. For ShowSC = 1 respondents, the mean usefulness rating is 3.4627 (median = 4.0000, SD = 1.1459).
+SC_total is a standardised PCA composite score (first principal component of AC_e, SE_e, AI_e, and ES_raw). By construction, the sample mean is approximately zero. The meaningful descriptive statistics are the range (min = -2.1832, max = 4.7132) and standard deviation (SD = 1.4501), which characterise the spread of shock intensity across the twenty-four scenarios. Manipulation check responses: Yes: 59; Unsure: 8. For ShowSC = 1 respondents, the mean usefulness rating is 3.4627 (median = 4.0000, SD = 1.1459).
 
 ![NRS distribution](figures/fig_nrs_distribution.png)
 ![NRS by condition](figures/fig_nrs_by_condition.png)
@@ -1197,15 +1197,15 @@ The validity of SC_total as a composite measure depends on whether the four comp
 
 | Metric | Value |
 |--------|-------|
-| Eigenvalue (PC1) | 2.0147 |
-| Variance explained | 48.27% |
-| Loading — Article Count (AC_e) | 0.6602 |
-| Loading — Sentiment Extremity (SE_e) | 0.4682 |
-| Loading — Attention Intensity (AI_e) | 0.5818 |
-| Loading — Event-Type Severity (ES_raw) | 0.0797 |
+| Eigenvalue (PC1) | 2.1027 |
+| Variance explained | 50.38% |
+| Loading — Article Count (AC_e) | 0.6120 |
+| Loading — Sentiment Extremity (SE_e) | 0.3990 |
+| Loading — Attention Intensity (AI_e) | 0.6161 |
+| Loading — Event-Type Severity (ES_raw) | 0.2944 |
 | Scenarios used | 24 |
 
-The eigenvalue of 2.0147 exceeds 1.0, satisfying the Kaiser criterion. The first principal component explains 48.27% of the total variance across the four inputs. All four components load positively on PC1, confirming that the composite represents a common factor of shock intensity rather than a contrast between components.
+The eigenvalue of 2.1027 exceeds 1.0, satisfying the Kaiser criterion. The first principal component explains 50.38% of the total variance across the four inputs. All four components load positively on PC1, confirming that the composite represents a common factor of shock intensity rather than a contrast between components.
 
 An eigenvalue greater than 1.0 for the first principal component indicates that it captures more variance than any single standardised input, satisfying the Kaiser criterion for interpretable dimensionality reduction ([Jolliffe & Cadima, 2016](https://doi.org/10.1098/rsta.2015.0202)). Positive loadings on all four components would confirm that the first principal component represents a common factor of shock intensity rather than a contrast between components. The proportion of variance explained by the first component indicates the degree to which the four inputs converge on a single underlying dimension; a proportion above 0.40 is considered sufficient for a four-variable composite in behavioral finance applications.
 
@@ -1215,30 +1215,30 @@ Table 5.2 documents the final scenario selection across the three survey blocks.
 
 | scenario_id | block_id | ticker | company_name | gics_sector | event_date | event_type | sc_total | horizon_bucket | sentiment_direction |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| B1_S01 | 1 | APD | Air Products and Chemicals | Materials | 2025-04-09 | analyst | -1.1348 | Intraday | Mildly Negative |
-| B1_S02 | 1 | COP | ConocoPhillips | Energy | 2025-09-08 | analyst | -0.1254 | Several Weeks | Positive |
-| B1_S03 | 1 | LIN | Linde | Materials | 2026-02-04 | earnings | -0.8805 | Several Weeks | Positive |
-| B1_S04 | 1 | UNH | UnitedHealth Group | Health Care | 2025-12-02 | management | -1.327 | Intraday | Positive |
-| B1_S05 | 1 | HD | Home Depot | Consumer Discretionary | 2025-08-19 | earnings | 2.2601 | Several Days | Neutral |
-| B1_S06 | 1 | GE | GE Aerospace | Industrials | 2025-07-08 | management | -0.6429 | Several Weeks | Strongly Positive |
-| B1_S07 | 1 | T | AT&T | Communication Services | 2026-01-30 | earnings | -0.2623 | Several Weeks | Strongly Positive |
-| B1_S08 | 1 | QCOM | Qualcomm Inc. | Information Technology | 2025-10-13 | management | -1.7047 | Several Weeks | Neutral |
-| B2_S01 | 2 | MRK | Merck & Co. | Health Care | 2025-10-30 | earnings | 0.8337 | Several Weeks | Neutral |
-| B2_S02 | 2 | JPM | JPMorgan Chase | Financials | 2026-01-23 | analyst | -0.3949 | Several Weeks | Mildly Negative |
-| B2_S03 | 2 | CVX | Chevron Corporation | Energy | 2026-01-06 | analyst | 1.048 | Several Weeks | Mildly Positive |
-| B2_S04 | 2 | BAC | Bank of America | Financials | 2025-10-14 | earnings | 0.0106 | Several Days | Mildly Positive |
-| B2_S05 | 2 | JNJ | Johnson & Johnson | Health Care | 2025-12-15 | earnings | -0.8631 | Several Weeks | Mildly Positive |
-| B2_S06 | 2 | KO | Coca-Cola Company | Consumer Staples | 2025-05-05 | management | -1.7372 | Several Weeks | Neutral |
-| B2_S07 | 2 | CAT | Caterpillar Inc. | Industrials | 2025-10-29 | earnings | 1.0789 | Several Weeks | Mildly Positive |
-| B2_S08 | 2 | WMT | Walmart | Consumer Staples | 2026-01-16 | analyst | -0.8495 | Several Weeks | Neutral |
-| B3_S01 | 3 | ORCL | Oracle Corporation | Information Technology | 2026-02-11 | analyst | -0.5678 | Several Days | Mildly Negative |
-| B3_S02 | 3 | PG | Procter & Gamble | Consumer Staples | 2025-03-04 | analyst | -0.2092 | Several Weeks | Negative |
-| B3_S03 | 3 | AMT | American Tower Corp. | Real Estate | 2025-04-04 | earnings | 0.1847 | Several Weeks | Strongly Positive |
-| B3_S04 | 3 | NFLX | Netflix | Communication Services | 2026-02-04 | management | -1.5064 | Several Weeks | Mildly Positive |
-| B3_S05 | 3 | PLD | Prologis | Real Estate | 2025-03-13 | management | -0.5329 | Several Weeks | Strongly Negative |
-| B3_S06 | 3 | PFE | Pfizer Inc. | Health Care | 2025-10-01 | earnings | 1.4121 | Several Weeks | Positive |
-| B3_S07 | 3 | MCD | McDonald's | Consumer Discretionary | 2025-11-05 | earnings | 1.5427 | Intraday | Neutral |
-| B3_S08 | 3 | AMAT | Applied Materials | Information Technology | 2025-08-15 | analyst | 4.3677 | Intraday | Neutral |
+| B1_S01 | 1 | APD | Air Products and Chemicals | Materials | 2025-04-09 | analyst | -0.5843 | Intraday | Mildly Negative |
+| B1_S02 | 1 | COP | ConocoPhillips | Energy | 2025-09-08 | analyst | -0.2026 | Several Weeks | Positive |
+| B1_S03 | 1 | LIN | Linde | Materials | 2026-02-04 | earnings | -1.048 | Several Weeks | Positive |
+| B1_S04 | 1 | UNH | UnitedHealth Group | Health Care | 2025-12-02 | management | -1.8231 | Intraday | Positive |
+| B1_S05 | 1 | HD | Home Depot | Consumer Discretionary | 2025-08-19 | earnings | 1.6628 | Several Days | Neutral |
+| B1_S06 | 1 | GE | GE Aerospace | Industrials | 2025-07-08 | management | -0.6176 | Several Weeks | Strongly Positive |
+| B1_S07 | 1 | T | AT&T | Communication Services | 2026-01-30 | earnings | -0.0516 | Several Weeks | Strongly Positive |
+| B1_S08 | 1 | QCOM | Qualcomm Inc. | Information Technology | 2025-10-13 | management | -1.2276 | Several Weeks | Neutral |
+| B2_S01 | 2 | MRK | Merck & Co. | Health Care | 2025-10-30 | earnings | 0.3277 | Several Weeks | Neutral |
+| B2_S02 | 2 | JPM | JPMorgan Chase | Financials | 2026-01-23 | analyst | -0.1934 | Several Weeks | Mildly Negative |
+| B2_S03 | 2 | CVX | Chevron Corporation | Energy | 2026-01-06 | analyst | 1.0107 | Several Weeks | Mildly Positive |
+| B2_S04 | 2 | BAC | Bank of America | Financials | 2025-10-14 | earnings | 0.1932 | Several Days | Mildly Positive |
+| B2_S05 | 2 | JNJ | Johnson & Johnson | Health Care | 2025-12-15 | earnings | -0.9613 | Several Weeks | Mildly Positive |
+| B2_S06 | 2 | KO | Coca-Cola Company | Consumer Staples | 2025-05-05 | management | -2.1832 | Several Weeks | Neutral |
+| B2_S07 | 2 | CAT | Caterpillar Inc. | Industrials | 2025-10-29 | earnings | 1.2337 | Several Weeks | Mildly Positive |
+| B2_S08 | 2 | WMT | Walmart | Consumer Staples | 2026-01-16 | analyst | -0.2541 | Several Weeks | Neutral |
+| B3_S01 | 3 | ORCL | Oracle Corporation | Information Technology | 2026-02-11 | analyst | -0.6654 | Several Days | Mildly Negative |
+| B3_S02 | 3 | PG | Procter & Gamble | Consumer Staples | 2025-03-04 | analyst | -0.252 | Several Weeks | Negative |
+| B3_S03 | 3 | AMT | American Tower Corp. | Real Estate | 2025-04-04 | earnings | 0.2608 | Several Weeks | Strongly Positive |
+| B3_S04 | 3 | NFLX | Netflix | Communication Services | 2026-02-04 | management | -1.2902 | Several Weeks | Mildly Positive |
+| B3_S05 | 3 | PLD | Prologis | Real Estate | 2025-03-13 | management | -1.1107 | Several Weeks | Strongly Negative |
+| B3_S06 | 3 | PFE | Pfizer Inc. | Health Care | 2025-10-01 | earnings | 1.3808 | Several Weeks | Positive |
+| B3_S07 | 3 | MCD | McDonald's | Consumer Discretionary | 2025-11-05 | earnings | 1.6822 | Intraday | Neutral |
+| B3_S08 | 3 | AMAT | Applied Materials | Information Technology | 2025-08-15 | analyst | 4.7132 | Intraday | Neutral |
 
 Shock Time (ET) records the 30-minute bar to which the shock is assigned (e.g., "10:00" denotes the 10:00 to 10:30 bar). Shock Bar / Median Bar Ratio records the ratio of the absolute shock bar return to the median absolute 30-minute bar return on the same day; values above 1.5 (or 2.0 for the opening bar) satisfy the within-day causal plausibility screen (Section 4.3.4). The balance constraints governing the selection are documented in Table 4.X of Section 4.3.4.
 
@@ -1265,21 +1265,21 @@ Alpha is computed on the eight NRS items per block across all main-survey respon
 
 ### 5.5.1 Testing of Hypothesis H1
 
-The primary OLS regression examines whether SC_total – the composite Shock Score – is significantly associated with Net Risk Stance (NRS) after controlling for the ShowSC treatment indicator, years of experience, and block fixed effects. The estimated coefficient on SC_total is β₁ = -0.2088 (robust SE = 0.0476, t = -4.3850, p = <0.0001, 95% CI [-0.3021, -0.1155]). Higher shock intensity is associated with lower mean NRS responses, indicating a risk-reducing shift in portfolio managers' stance. At the α = 0.05 significance level, H1 is supported: SC_total is a statistically significant predictor of NRS. Robustness checks using quintile dummies, respondent fixed effects, decomposed components, and an interaction term are reported in Table 5.3.
+The primary OLS regression examines whether SC_total – the composite Shock Score – is significantly associated with Net Risk Stance (NRS) after controlling for the ShowSC treatment indicator, years of experience, and block fixed effects. The estimated coefficient on SC_total is β₁ = -0.1271 (robust SE = 0.0524, t = -2.4234, p = 0.0154, 95% CI [-0.2298, -0.0243]). Higher shock intensity is associated with lower mean NRS responses, indicating a risk-reducing shift in portfolio managers' stance. At the α = 0.05 significance level, H1 is supported: SC_total is a statistically significant predictor of NRS. Robustness checks using quintile dummies, respondent fixed effects, decomposed components, and an interaction term are reported in Table 5.3.
 
 **Table 5.3: H1 Main Regression Results**
 
 | spec | note | beta1 | se | t | p | ci_lo | ci_hi | r2 | n_obs | clustering |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| spec_1_quintiles | SC_total quintile dummies | see quintile coefficients |  |  | nan |  |  | 0.166 | 536 | HC3 |
-| spec_2_within | Respondent FE (within) | -0.2088 | 0.0462 | -4.5191 | <0.0001 | -0.2993 | -0.1182 | 0.0518 | 536 | HC3 |
-| spec_3_component_ac_e | Component: ac_e | -0.063 | 0.0181 | -3.4774 | 0.0005 | -0.0985 | -0.0275 | 0.3069 | 536 | HC3 |
-| spec_3_component_se_e | Component: se_e | -0.6318 | 0.1266 | -4.9915 | <0.0001 | -0.8798 | -0.3837 | 0.3069 | 536 | HC3 |
-| spec_3_component_ai_e | Component: ai_e | 0.0842 | 0.0673 | 1.2517 | 0.2107 | -0.0476 | 0.216 | 0.3069 | 536 | HC3 |
-| spec_3_component_es_raw | Component: es_raw | 3.7123 | 0.3408 | 10.8933 | <0.0001 | 3.0443 | 4.3802 | 0.3069 | 536 | HC3 |
-| spec_4_interaction | SC_total × ShowSC interaction | 0.0523 | 0.0987 | 0.5297 | 0.5963 | -0.1412 | 0.2457 | 0.0939 | 536 | HC3 |
-| spec_5_direction_b1 | SC_total main effect (positive events) | -0.2828 | 0.0482 | -5.8651 | <0.0001 | -0.3774 | -0.1883 | 0.1723 | 536 | HC3 |
-| spec_5_direction_b3 | SC_total × D_neg amplification (negative events) | -1.9179 | 0.3081 | -6.224 | <0.0001 | -2.5218 | -1.3139 | 0.1723 | 536 | HC3 |
+| spec_1_quintiles | SC_total quintile dummies | see quintile coefficients |  |  | nan |  |  | 0.1476 | 536 | HC3 |
+| spec_2_within | Respondent FE (within) | -0.1271 | 0.0512 | -2.4841 | 0.0130 | -0.2273 | -0.0268 | 0.0244 | 536 | HC3 |
+| spec_3_component_ac_e | Component: ac_e | 0.0558 | 0.0131 | 4.2701 | <0.0001 | 0.0302 | 0.0814 | 0.3391 | 536 | HC3 |
+| spec_3_component_se_e | Component: se_e | -0.7597 | 0.1354 | -5.6105 | <0.0001 | -1.025 | -0.4943 | 0.3391 | 536 | HC3 |
+| spec_3_component_ai_e | Component: ai_e | -0.566 | 0.0574 | -9.8664 | <0.0001 | -0.6784 | -0.4536 | 0.3391 | 536 | HC3 |
+| spec_3_component_es_raw | Component: es_raw | 0.4015 | 0.0263 | 15.2463 | <0.0001 | 0.3498 | 0.4531 | 0.3391 | 536 | HC3 |
+| spec_4_interaction | SC_total × ShowSC interaction | 0.0632 | 0.1071 | 0.59 | 0.5552 | -0.1467 | 0.273 | 0.0698 | 536 | HC3 |
+| spec_5_direction_b1 | SC_total main effect (positive events) | -0.1834 | 0.0541 | -3.3922 | 0.0007 | -0.2893 | -0.0774 | 0.103 | 536 | HC3 |
+| spec_5_direction_b3 | SC_total × D_neg amplification (negative events) | 0.0464 | 0.29 | 0.1601 | 0.8728 | -0.5219 | 0.6148 | 0.103 | 536 | HC3 |
 
 ### 5.5.2 Testing of Hypothesis H2
 
@@ -1304,7 +1304,7 @@ Hypothesis H2 is tested using individual-portfolio regressions (Option B). Per r
 
 ### 5.6.1 Impact of Information Shocks on Risk-Return
 
-The results are evaluated against the behavioural finance literature suggesting that external information shocks exert a systematic influence on portfolio managers' risk-stance decisions. The statistically significant negative association (beta1 = -0.2088) indicates that higher shock intensity shifts managers toward reduced risk exposure (lower NRS), consistent with loss-aversion predictions from prospect theory (Kahneman and Tversky, 1979). This result is interpreted cautiously given the sample composition and potential survivorship effects in the volunteer sample. Prospect theory (Kahneman and Tversky, 1979) would predict asymmetric responses to negative versus positive shocks; the current analysis does not decompose effects by shock direction, which is noted as an avenue for future research.
+The results are evaluated against the behavioural finance literature suggesting that external information shocks exert a systematic influence on portfolio managers' risk-stance decisions. The statistically significant negative association (beta1 = -0.1271) indicates that higher shock intensity shifts managers toward reduced risk exposure (lower NRS), consistent with loss-aversion predictions from prospect theory (Kahneman and Tversky, 1979). This result is interpreted cautiously given the sample composition and potential survivorship effects in the volunteer sample. Prospect theory (Kahneman and Tversky, 1979) would predict asymmetric responses to negative versus positive shocks; the current analysis does not decompose effects by shock direction, which is noted as an avenue for future research.
 
 #### 5.6.1.1 NRS–Sentiment Alignment Diagnostic
 
@@ -1336,7 +1336,7 @@ The incremental effect of the Shock Score dashboard (ShowSC) on simulated portfo
 
 ## 5.7 Interim Conclusions
 
-The interim conclusions for Chapter 5 are as follows. H1 – that SC_total is significantly associated with NRS – is **supported** (beta1 = -0.2088, p = <0.0001; direction: risk-reducing). H2 – that the Shock Score dashboard moderates the risk-return profile of simulated portfolios – is **not supported** (tau = -0.0022, p = 0.8771) in the Option B individual-portfolio regression. Both findings are contingent on the current sample composition and are subject to revision upon completion of the full survey. Robustness checks for H1 and the Option A descriptive analysis for H2 are consistent in direction with the primary results.
+The interim conclusions for Chapter 5 are as follows. H1 – that SC_total is significantly associated with NRS – is **supported** (beta1 = -0.1271, p = 0.0154; direction: risk-reducing). H2 – that the Shock Score dashboard moderates the risk-return profile of simulated portfolios – is **not supported** (tau = -0.0022, p = 0.8771) in the Option B individual-portfolio regression. Both findings are contingent on the current sample composition and are subject to revision upon completion of the full survey. Robustness checks for H1 and the Option A descriptive analysis for H2 are consistent in direction with the primary results.
 
 
 ## 5.8 Chapter Conclusion
@@ -1383,7 +1383,7 @@ Section 6.2 summarises the findings from both the literature review and the empi
 ### 6.2.1 Summary of Secondary Research
 ### 6.2.2 Summary of Primary Research
 
-The primary research contributes empirical evidence on two hypotheses. H1 posits that SC_total – a PCA-based composite of article count, sentiment extremity, attention intensity, and event-type severity – is a statistically significant predictor of portfolio managers' Net Risk Stance. The evidence supports this hypothesis (β₁ = -0.2088, p = <0.0001). H2 posits that exposure to the Shock Score dashboard improves the risk-return profile of simulated portfolios. The Option B individual-portfolio regression does not support this hypothesis at the α = 0.05 level. These findings are based on 67 respondents (536 observations).
+The primary research contributes empirical evidence on two hypotheses. H1 posits that SC_total – a PCA-based composite of article count, sentiment extremity, attention intensity, and event-type severity – is a statistically significant predictor of portfolio managers' Net Risk Stance. The evidence supports this hypothesis (β₁ = -0.1271, p = 0.0154). H2 posits that exposure to the Shock Score dashboard improves the risk-return profile of simulated portfolios. The Option B individual-portfolio regression does not support this hypothesis at the α = 0.05 level. These findings are based on 67 respondents (536 observations).
 
 ## 6.3 Overall Conclusions
 
