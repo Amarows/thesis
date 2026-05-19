@@ -2109,6 +2109,61 @@ def _sentiment_direction_label(mean_score: float) -> str:
 
 # ── Raw component computation ─────────────────────────────────────────────────
 
+def _compute_es_severity(
+    ticker: str,
+    event_date,
+    event_type: str,
+    prices: dict,
+    manifest_df: pd.DataFrame,
+) -> float:
+    """
+    ES_raw = sigma_k / sigma_all
+    sigma_k   = std of max-abs-30min-return for events of type k
+    sigma_all = std of max-abs-30min-return across all manifest events
+    Falls back to EVENT_TYPE_SEVERITY if <2 events of type k or no prices.
+    """
+    def _get_shock_return(tkr, edate):
+        if tkr not in prices:
+            return None
+        pdf = prices[tkr]
+        if hasattr(edate, "date"):
+            ed = edate.date()
+        else:
+            ed = pd.Timestamp(edate).date()
+        day = pdf[
+            pdf["time"].dt.tz_convert("America/New_York").dt.date == ed
+        ].copy()
+        if day.empty or len(day) < 2:
+            return None
+        day["ret"] = day["close"].pct_change().abs()
+        val = day["ret"].max()
+        return float(val) if not pd.isna(val) else None
+
+    all_returns, type_returns = [], []
+    for _, row in manifest_df.iterrows():
+        r = _get_shock_return(row["ticker"], row["event_date"])
+        if r is None:
+            continue
+        all_returns.append(r)
+        et = str(row.get("event_type", "other")).lower().strip()
+        if et == event_type:
+            type_returns.append(r)
+
+    sigma_all = float(np.std(all_returns, ddof=1)) if len(all_returns) >= 2 else 0.0
+    sigma_k   = float(np.std(type_returns, ddof=1)) if len(type_returns) >= 2 else 0.0
+
+    if sigma_all == 0:
+        fallback = EVENT_TYPE_SEVERITY.get(event_type, 0.5)
+        print(f"  [WARNING] ES_raw: no price data; fallback={fallback} ({event_type})")
+        return fallback
+
+    if sigma_k == 0:
+        print(f"  [WARNING] ES_raw: <2 events of type '{event_type}'; using 1.0")
+        return 1.0
+
+    return round(sigma_k / sigma_all, 4)
+
+
 def compute_raw_components(
     manifest_df: pd.DataFrame,
     prices: dict,
@@ -2120,8 +2175,8 @@ def compute_raw_components(
     ac_raw  – Article Count: number of BZ articles on event day
     se_raw  – Sentiment Extremity: max |FinBERT score| across event-day articles
     ai_raw  – Attention Intensity: event-day volume / 20-day trailing avg daily volume
-    es_raw  – Event-Type Severity: category severity from EVENT_TYPE_SEVERITY mapping
-               (placeholder — requires manual review per protocol §2.2)
+    es_raw  – Event-Type Severity: sigma_k / sigma_all from 30-min bar returns
+               (data-derived; falls back to EVENT_TYPE_SEVERITY if <2 events of type k)
 
     Also records mean_sentiment and sentiment_scores for dashboard signals.
 
@@ -2203,7 +2258,11 @@ def compute_raw_components(
             print(f"  [WARNING] {sid}: no price data for {ticker}; ai_raw set to 0")
 
         # ── ES_raw ────────────────────────────────────────────────────────
-        es_raw = EVENT_TYPE_SEVERITY.get(event_type, 0.5)
+        # Data-derived severity ratio: sigma_k / sigma_all from 30-min bar returns.
+        # Replaces the hardcoded EVENT_TYPE_SEVERITY lookup table (placeholder).
+        es_raw = _compute_es_severity(
+            ticker, event_date, event_type, prices, manifest_df
+        )
 
         print(" done")
 
