@@ -1198,9 +1198,9 @@ SC_total is a standardised PCA composite score (first principal component of AC_
 
 ### 5.2.3 SC_total Construct: PCA Diagnostics
 
-The validity of SC_total as a composite measure depends on whether the four components share sufficient common variation to condense into a coherent single dimension. Table 5.1a reports the PCA diagnostics for the first principal component used to construct SC_total: the eigenvalue, the proportion of total variance explained, and the component loadings for each of the four inputs.
+The validity of SC_total as a composite measure depends on whether the four components share sufficient common variation to condense into a coherent single dimension. Table 5.2 reports the PCA diagnostics for the first principal component used to construct SC_total: the eigenvalue, the proportion of total variance explained, and the component loadings for each of the four inputs.
 
-**Table 5.1a: SC_total PCA Diagnostics — First Principal Component**
+**Table 5.2: SC_total PCA Diagnostics — First Principal Component**
 
 | Metric | Value |
 |--------|-------|
@@ -1217,7 +1217,9 @@ The eigenvalue of 2.1027 exceeds 1.0, satisfying the Kaiser criterion. The first
 
 ## 5.3 Scenario Selection Outcomes
 
-Table 5.2 documents the final scenario selection across the three survey blocks.
+Table 5.3 documents the final scenario selection across the three survey blocks.
+
+**Table 5.3: Scenario Selection**
 
 | scenario_id | block_id | ticker | company_name | gics_sector | event_date | event_type | sc_total | horizon_bucket | sentiment_direction |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1250,9 +1252,9 @@ Shock Time (ET) records the 30-minute bar to which the shock is assigned (e.g., 
 
 ## 5.4 Tests for Normality and Reliability
 
-Normality of the NRS response distribution is assessed using skewness and kurtosis statistics and the Shapiro-Wilk test, as prescribed by the SBS thesis handbook (McClave, Benson, & Sincich, 2008). Normality assessment is conducted for the overall NRS distribution and separately by condition. Results are presented in Table 5.5a.
+Normality of the NRS response distribution is assessed using skewness and kurtosis statistics and the Shapiro-Wilk test, as prescribed by the SBS thesis handbook (McClave, Benson, & Sincich, 2008). Normality assessment is conducted for the overall NRS distribution and separately by condition. Results are presented in Table 5.4a.
 
-**Table 5.5a: Normality Assessment — NRS Distribution**
+**Table 5.4a: Normality Assessment — NRS Distribution**
 
 | Group | N | Skewness | Excess Kurtosis | Shapiro-Wilk W | p-value | Normality rejected |
 |-------|---|----------|-----------------|----------------|---------|-------------------|
@@ -1264,9 +1266,9 @@ The Shapiro-Wilk test rejects normality for all three groups at α = 0.05. Howev
 
 Inter-scenario consistency is assessed using the mean pairwise Pearson correlation across the respondent × scenario response matrix: r̄ = 0.2597. This is reported as a descriptive proxy only; the conventional Cronbach's alpha internal consistency coefficient does not apply to the present instrument because the NRS is a single-item measure and the eight scenarios per block are intentionally heterogeneous rather than near-synonymous indicators of a common trait.
 
-Instrument reliability is assessed using Cronbach's alpha computed per block on the eight NRS items across all main-survey respondents who completed that block. Results are presented in Table 5.5b.
+Instrument reliability is assessed using Cronbach's alpha computed per block on the eight NRS items across all main-survey respondents who completed that block. Results are presented in Table 5.4b.
 
-**Table 5.5b: Instrument Reliability — Cronbach's Alpha by Block**
+**Table 5.4b: Instrument Reliability — Cronbach's Alpha by Block**
 
 | Block | N respondents | Cronbach's α | Threshold (≥ 0.70) | Assessment |
 |-------|--------------|--------------|---------------------|------------|
@@ -1281,9 +1283,9 @@ Block 1 falls below the conventional threshold of 0.70 ([Nunnally, 1978](https:/
 
 ### 5.5.1 Testing of Hypothesis H1
 
-The primary OLS regression examines whether SC_total – the composite Shock Score – is significantly associated with Net Risk Stance (NRS) after controlling for the ShowSC treatment indicator, years of experience, and block fixed effects. The estimated coefficient on SC_total is β₁ = -0.2694 (robust SE = 0.0465, t = -5.7906, p = <0.0001, 95% CI [-0.3606, -0.1782]). Higher shock intensity is associated with lower mean NRS responses, indicating a risk-reducing shift in portfolio managers' stance. At the α = 0.05 significance level, H1 is supported: SC_total is a statistically significant predictor of NRS. Robustness checks using quintile dummies, respondent fixed effects, decomposed components, and an interaction term are reported in Table 5.3.
+The primary OLS regression examines whether SC_total – the composite Shock Score – is significantly associated with Net Risk Stance (NRS) after controlling for the ShowSC treatment indicator, years of experience, and block fixed effects. The estimated coefficient on SC_total is β₁ = -0.2694 (robust SE = 0.0465, t = -5.7906, p = <0.0001, 95% CI [-0.3606, -0.1782]). Higher shock intensity is associated with lower mean NRS responses, indicating a risk-reducing shift in portfolio managers' stance. At the α = 0.05 significance level, H1 is supported: SC_total is a statistically significant predictor of NRS. Robustness checks using quintile dummies, respondent fixed effects, decomposed components, and an interaction term are reported in Table 5.5.
 
-**Table 5.3: H1 Main Regression Results**
+**Table 5.5: H1 Main Regression Results**
 
 | spec | note | beta1 | se | t | p | ci_lo | ci_hi | r2 | n_obs | clustering |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1305,7 +1307,7 @@ The direction-interaction specification (Spec 5) further decomposes the SC_total
 
 Hypothesis H2 is tested using individual-portfolio regressions (Option B). Per respondent, portfolio returns are constructed from NRS-weighted horizon returns across the four scenarios assigned to each condition. The estimated treatment effect on portfolio return is tau = 0.0250 (robust SE = 0.0145, t = 1.7257, p = 0.0844, 95% CI [-0.0034, 0.0534]; Cohen's d = 0.3186). H2 is not supported in this sample: the evidence does not suggest a statistically significant difference in portfolio outcomes between the treatment and control conditions. Validation on a larger professional sample is recommended. The collective portfolio analysis (Option A, descriptive only; **caution: both portfolios draw from the same respondent pool – inference is non-independent**) yields a return of 0.0152% for the control condition and 0.0383% for the treatment condition, corresponding to a return differential of 0.0231%. On an assumed AUM of $100M, the ShowSC=1 collective portfolio generated a dollar return differential of $23,100 relative to the ShowSC=0 portfolio over the evaluation window.
 
-**Table 5.4: H2 Portfolio Analysis Results**
+**Table 5.6: H2 Portfolio Analysis Results**
 
 | method | outcome | tau | se | t | p | ci_lo | ci_hi | cohens_d | r2 | n | h2_supported |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1324,7 +1326,7 @@ Hypothesis H2 is tested using individual-portfolio regressions (Option B). Per r
 
 ### 5.6.1 Impact of Information Shocks on Risk-Return
 
-The results are evaluated against the behavioural finance literature suggesting that external information shocks exert a systematic influence on portfolio managers' risk-stance decisions. The statistically significant negative association (β₁ = −0.2694) indicates that higher shock intensity shifts managers toward reduced risk exposure (lower NRS), consistent with loss-aversion predictions from prospect theory (Kahneman and Tversky, 1979). This result is interpreted cautiously given the sample composition and potential survivorship effects in the volunteer sample. The direction-interaction specification (Spec 5 in Table 5.3) further reveals that the risk-reducing response is concentrated in positive-sentiment events, while negative-sentiment events at high SC_total values are associated with net risk-increasing responses, consistent with the loss-aversion amplification channel identified by Benartzi and Thaler (1995) in the context of myopic loss aversion.
+The results are evaluated against the behavioural finance literature suggesting that external information shocks exert a systematic influence on portfolio managers' risk-stance decisions. The statistically significant negative association (β₁ = −0.2694) indicates that higher shock intensity shifts managers toward reduced risk exposure (lower NRS), consistent with loss-aversion predictions from prospect theory (Kahneman and Tversky, 1979). This result is interpreted cautiously given the sample composition and potential survivorship effects in the volunteer sample. The direction-interaction specification (Spec 5 in Table 5.5) further reveals that the risk-reducing response is concentrated in positive-sentiment events, while negative-sentiment events at high SC_total values are associated with net risk-increasing responses, consistent with the loss-aversion amplification channel identified by Benartzi and Thaler (1995) in the context of myopic loss aversion.
 
 The component decomposition (Spec 3) discloses a specific sign heterogeneity in the ES_raw coefficient (β = +0.3217, p < 0.0001), which runs counter to the direction of the composite effect. This finding is consistent with a contrarian-resolution mechanism: managers who recognise an event as belonging to a high-severity category may judge that market expectations have already incorporated the elevated uncertainty, and therefore increase rather than reduce risk exposure. This interpretation is corroborated by the NRS–sentiment alignment diagnostic reported in Section 5.6.1.1, which shows that the overall alignment rate of 0.2851 is substantially below the 0.50 threshold indicative of directional consistency. Both results – the ES_raw sign anomaly and the sub-threshold alignment rate – point to a respondent population that does not simply follow the sentiment signal but applies category-level contextual adjustment when forming risk-stance decisions. This finding constitutes a nuanced addition to the primary H1 result and is noted as an avenue for future research on component-level behavioural mechanisms.
 
@@ -1334,7 +1336,7 @@ As a diagnostic check, the alignment between respondents' NRS direction (buy: NR
 
 Overall alignment rate: 0.2851 (130 of 456 observations).
 
-**Table 5.5: NRS–Sentiment Alignment by Group**
+**Table 5.7: NRS–Sentiment Alignment by Group**
 
 | group | n | n_aligned | alignment_rate |
 | --- | --- | --- | --- |
