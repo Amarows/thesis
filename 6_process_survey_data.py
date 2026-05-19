@@ -35,7 +35,6 @@ from toolkits.data_aggregation_toolkit import (
     merge_metadata,
     parse_response_tab,
     validate_and_exclude,
-    write_qc_report,
     _normalise_form_key,
 )
 
@@ -166,68 +165,18 @@ def run(dry_run: bool = False, form_key_filter: str | None = None) -> None:
     excluded_df.to_csv(EXCLUDED_PATH, index=False)
     print(f"Written: {EXCLUDED_PATH}  ({len(excluded_df)} rows)")
 
-    # 12. Write QC report
-    write_qc_report(
-        clean_df=panel_df,
-        excluded_df=excluded_df,
-        raw_counts=raw_counts,
-        output_path=COMMENTS_PATH,
-        spreadsheet_id=SPREADSHEET_ID,
-    )
-    print(f"Written: {COMMENTS_PATH}")
-
-    # 13. Stdout summary
-    n_resp = panel_df["respondent_id"].nunique() if not panel_df.empty else 0
-    n_obs  = len(panel_df)
-    show0  = int((panel_df["show_sc"] == 0).sum()) if not panel_df.empty else 0
-    show1  = int((panel_df["show_sc"] == 1).sum()) if not panel_df.empty else 0
-    scen   = panel_df["scenario_id"].nunique() if not panel_df.empty else 0
-    pilot_rows = int(panel_df["is_pilot_block"].sum()) if not panel_df.empty else 0
-
-    excl_by_reason: dict[str, int] = {}
-    if not excluded_df.empty and "exclusion_reason" in excluded_df.columns:
-        excl_by_reason = (
-            excluded_df.drop_duplicates("respondent_id")["exclusion_reason"]
-            .value_counts()
-            .to_dict()
-        )
-
-    total_raw = sum(raw_counts.values())
-
-    print()
-    print("=" * 61)
-    print("Survey Data Processing Complete")
-    print("=" * 61)
-    print(f"  Spreadsheet       : {SPREADSHEET_ID}")
-    print(f"  Tabs processed    : {len(raw_counts)}")
-    print(f"  Raw responses     : {total_raw} rows total")
-    excl_detail = " | ".join(f"{r}: {c}" for r, c in excl_by_reason.items()) or "0"
-    print(f"  Excluded          : {n_excl} ({excl_detail})")
-    print(f"  Final panel       : {n_resp} respondents x {n_obs} observations")
-    print(f"  ShowSC balance    : ShowSC=0: {show0} | ShowSC=1: {show1}")
-    print(f"  Scenarios covered : {scen} / 24")
-    print(f"  Pilot block rows  : {pilot_rows} (Block 1 respondents with pilot feedback)")
-    print(f"  Outputs           : {RESULTS_DIR}/")
-    print("=" * 61)
-
     append_run_log(
         script="6_process_survey_data.py",
-        parameters={
-            "min_years_experience": MIN_YEARS_EXPERIENCE,
-            "spreadsheet_id": SPREADSHEET_ID,
-        },
+        parameters={},
         inputs=[
             {"file": str(METADATA_PATH),         "sha256": _sha256_file(METADATA_PATH)},
             {"file": str(COUNTERBALANCING_PATH),  "sha256": _sha256_file(COUNTERBALANCING_PATH)},
         ],
         outputs=[
-            {"file": str(PANEL_PATH),    "rows": len(panel_df),    "sha256": _sha256_file(PANEL_PATH)},
-            {"file": str(EXCLUDED_PATH), "rows": len(excluded_df), "sha256": _sha256_file(EXCLUDED_PATH)},
+            {"file": str(PANEL_PATH),    "sha256": _sha256_file(PANEL_PATH)},
+            {"file": str(EXCLUDED_PATH), "sha256": _sha256_file(EXCLUDED_PATH)},
         ],
-        notes=(
-            f"{panel_df['respondent_id'].nunique()} respondents in panel. "
-            f"{len(excluded_df) // 8} respondents excluded."
-        ),
+        notes="",
     )
 
 
