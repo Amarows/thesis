@@ -1245,6 +1245,10 @@ Table 5.2 documents the final scenario selection across the three survey blocks.
 | B3_S07 | 3 | MCD | McDonald's | Consumer Discretionary | 2025-11-05 | earnings | 1.6822 | Intraday | Neutral |
 | B3_S08 | 3 | AMAT | Applied Materials | Information Technology | 2025-08-15 | analyst | 4.7132 | Intraday | Neutral |
 
+![SC_total versus actual horizon return](figures/fig_sc_vs_horizon_return.png)
+
+*Figure 5.3: SC_total composite Shock Score plotted against the actual realised horizon return for each of the 24 scenarios, colour-coded by block. The OLS trend line (β = −1.06% per unit SC_total) indicates a weak negative association between shock intensity and subsequent returns. The substantial residual dispersion confirms that SC_total does not function as a directional price predictor; rather, it characterises the informational intensity of the shock that portfolio managers process when forming risk-stance decisions.*
+
 Shock Time (ET) records the 30-minute bar to which the shock is assigned (e.g., "10:00" denotes the 10:00 to 10:30 bar). Shock Bar / Median Bar Ratio records the ratio of the absolute shock bar return to the median absolute 30-minute bar return on the same day; values above 1.5 (or 2.0 for the opening bar) satisfy the within-day causal plausibility screen (Section 4.3.4). The balance constraints governing the selection are documented in Table 4.X of Section 4.3.4.
 
 ## 5.4 Tests for Normality and Reliability
@@ -1284,6 +1288,10 @@ The primary OLS regression examines whether SC_total – the composite Shock Sco
 | spec_4_interaction | SC_total × ShowSC interaction | -0.2053 | 0.0972 | -2.1121 | 0.0347 | -0.3957 | -0.0148 | 0.1233 | 456 | HC3 |
 | spec_5_direction_b1 | SC_total main effect (positive events) | -0.3644 | 0.0452 | -8.0586 | <0.0001 | -0.4531 | -0.2758 | 0.1952 | 456 | HC3 |
 | spec_5_direction_b3 | SC_total × D_neg amplification (negative events) | 2.6064 | 0.3425 | 7.6089 | <0.0001 | 1.935 | 3.2777 | 0.1952 | 456 | HC3 |
+
+![SC_total component coefficients forest plot](figures/fig_component_forest.png)
+
+*Figure 5.1: Forest plot of OLS regression coefficients for the four SC_total components (Spec 3 decomposition, N = 456, HC3 robust standard errors, block fixed effects and ShowSC controlled). Blue markers indicate statistically significant risk-reducing effects; the red marker indicates a statistically significant risk-increasing effect; grey indicates non-significance. Horizontal lines represent 95% confidence intervals.*
 
 The decomposed component specification (Spec 3) reveals a notable sign heterogeneity among the four Shock Score components. Sentiment Extremity (SE_e: β = −0.5919, p < 0.0001) and Attention Intensity (AI_e: β = −0.4640, p < 0.0001) are both significantly negative, consistent with the risk-reducing direction observed in the primary SC_total result. Article Count (AC_e: β = 0.0168, p = 0.1196) is statistically non-significant. Event-Type Severity (ES_raw: β = +0.3217, p < 0.0001), however, enters with a positive sign, indicating that higher category-level severity is associated with an increase in NRS, contrary to the direction of the composite effect. This result is interpreted as a contrarian-resolution pattern: when managers recognise that an event belongs to a historically high-volatility category (e.g., earnings), they may treat elevated category severity as a signal that price adjustment is already priced into expectations, thereby increasing rather than reducing risk exposure. This interpretation is consistent with the contrarian-alignment pattern identified in Section 5.6.1.1, where overall NRS–sentiment alignment rates fall well below 0.50. The positive ES_raw coefficient does not invalidate the primary H1 finding; SC_total integrates all four components through PCA and its composite effect remains robustly negative. The sign heterogeneity is reported for transparency and as an avenue for future research on component-level behavioural mechanisms.
 
@@ -1336,6 +1344,10 @@ Overall alignment rate: 0.2851 (130 of 456 observations).
 | sentiment=Positive | 129 | 44 | 0.3411 |
 | sentiment=Strongly Negative | 21 | 5 | 0.2381 |
 | sentiment=Strongly Positive | 93 | 28 | 0.3011 |
+
+![NRS-sentiment alignment rates by sentiment category](figures/fig_alignment_rates.png)
+
+*Figure 5.2: NRS–sentiment alignment rate by sentiment category, sorted ascending. The dashed vertical line marks the 0.50 directional consistency threshold; the dotted line marks the overall alignment rate of 0.2851. All categories fall below the threshold, confirming a pervasive contrarian-judgment pattern across both sentiment directions and the neutral category.*
 
 An alignment rate above 0.50 indicates that respondents' risk-stance direction is more often consistent with the implied sentiment direction than not. Rates substantially below 0.50 would suggest systematic contrarian reactions or misalignment between the shock characterisation and respondent interpretation. The observed overall alignment rate of 0.2851 falls substantially below this threshold across all sentiment categories, with the lowest rate recorded for Negative-sentiment events (0.0952). This pattern is consistent with managers exercising contrarian judgment – treating confirmed negative news as a buying opportunity at reduced valuations – rather than mechanically following the directional signal. The finding aligns with the positive ES_raw coefficient in Spec 3 and collectively suggests that respondents in this sample engage in category-level contextual reasoning rather than sentiment-anchored decision-making.
 
