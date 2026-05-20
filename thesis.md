@@ -1046,10 +1046,11 @@ Invitations were distributed through two channels. Direct outreach comprised mor
 | Direct invitations distributed | 120+ |
 | Indirect reach (posts and shares) | 700+ |
 | Pilot completions (Block 1) | 12 |
-| Total valid responses included in analysis | 57 |
-| Total scenario-level observations | 456 |
+<!-- PLACEHOLDER:tbl_4_7_counts -->
+[To be populated by 8_statistical_analysis.py]
+<!-- /PLACEHOLDER:tbl_4_7_counts -->
 
-The Google Forms instrument enforces mandatory completion of all eight scenarios; partial submissions are technically precluded. The sole post-hoc quality exclusion criterion applied during data cleaning is uniform responding: any respondent whose NRS values are identical across all eight scenarios within a block is excluded on the basis of inattentive or acquiescent responding. The final analytical sample of 57 respondents and 456 observations reflects this exclusion.
+The Google Forms instrument enforces mandatory completion of all eight scenarios; partial submissions are technically precluded. The sole post-hoc quality exclusion criterion applied during data cleaning is uniform responding: any respondent whose NRS values are identical across all eight scenarios within a block is excluded on the basis of inattentive or acquiescent responding. The final analytical sample size and observation count are reported in the pipeline-generated rows above and reflect this exclusion.
 
 ### 4.4.9 Pilot Test
 
@@ -1183,35 +1184,9 @@ Shock Time (ET) records the 30-minute bar to which the shock is assigned (e.g., 
 
 ## 5.4 Tests for Normality and Reliability
 
-Normality of the NRS response distribution is assessed using skewness and kurtosis statistics and the Shapiro-Wilk test, as prescribed by the SBS thesis handbook (McClave, Benson, & Sincich, 2008). Normality assessment is conducted for the overall NRS distribution and separately by condition. Results are presented in Table 5.4a.
-
-**Table 5.4a** *Normality Assessment – NRS Distribution*
-
-| Group | N | Skewness | Excess Kurtosis | Shapiro-Wilk W | p-value | Normality rejected |
-|-------|---|----------|-----------------|----------------|---------|-------------------|
-| Overall | 456 | −0.2774 | −0.3157 | 0.9324 | < 0.0001 | Yes |
-| ShowSC = 0 (Control) | 228 | −0.2901 | −0.6826 | 0.9297 | < 0.0001 | Yes |
-| ShowSC = 1 (Treatment) | 228 | −0.1787 | −0.1541 | 0.9057 | < 0.0001 | Yes |
-
-*Note.* Skewness and excess kurtosis computed from the raw NRS response distribution. Shapiro-Wilk test conducted at significance level alpha = 0.05. N = number of scenario-level observations per group (N = 456 total, 228 per condition).
-
-The Shapiro-Wilk test rejects normality for all three groups at α = 0.05. However, the departures from normality are modest in magnitude: skewness values below 0.30 in absolute value and excess kurtosis values below 0.70 indicate only mild departure from the bell-curve distribution. The central limit theorem applies given the sample of 57 respondents (N > 30), and the regression estimators employed in Section 5.5 do not require the dependent variable to be normally distributed; they require only that residuals are approximately normal and that sampling distributions are well-behaved. Both conditions are satisfied at this sample size. Parametric inference via OLS with heteroscedasticity-consistent standard errors is therefore appropriate.
-
-Inter-scenario consistency is assessed using the mean pairwise Pearson correlation across the respondent × scenario response matrix: r̄ = 0.2597. This is reported as a descriptive proxy only; the conventional Cronbach's alpha internal consistency coefficient does not apply to the present instrument because the NRS is a single-item measure and the eight scenarios per block are intentionally heterogeneous rather than near-synonymous indicators of a common trait.
-
-Instrument reliability is assessed using Cronbach's alpha computed per block on the eight NRS items across all main-survey respondents who completed that block. Results are presented in Table 5.4b.
-
-**Table 5.4b** *Instrument Reliability – Cronbach's Alpha by Block*
-
-| Block | N respondents | Cronbach's α | Threshold (≥ 0.70) | Assessment |
-|-------|--------------|--------------|---------------------|------------|
-| Block 1 | Available | 0.4568 | Below | Sub-threshold |
-| Block 2 | Not yet available | — | — | Pending full sample |
-| Block 3 | Available | 0.8246 | Above | Acceptable |
-
-*Note.* Cronbach's alpha computed on the eight NRS items per block across all main-survey respondents who completed that block. Threshold of alpha >= 0.70 follows Nunnally (1978). Block 2 alpha cannot be computed from the current sample due to insufficient respondent coverage; it will be assessed post-hoc upon completion of the full survey.
-
-Block 1 falls below the conventional threshold of 0.70 ([Nunnally, 1978](https://doi.org/10.1177/014662167800200315)), which constitutes a limitation of the instrument acknowledged in Section 5.9.4. Block 3 meets the threshold. Block 2 alpha cannot be computed from the current sample due to insufficient respondent coverage across that block's scenarios; it will be assessed post-hoc upon completion of the full survey. The theoretical basis for why sub-threshold alpha values are structurally anticipated given the heterogeneous-scenario design is discussed in Section 5.9.4.
+<!-- PLACEHOLDER:s5_4_normality -->
+[To be populated by 8_statistical_analysis.py]
+<!-- /PLACEHOLDER:s5_4_normality -->
 
 ## 5.5 Hypothesis Testing
 
