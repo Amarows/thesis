@@ -1196,26 +1196,26 @@ Table 5.1 presents the demographic profile of the achieved sample. Respondents r
 | Years of experience | SD | 3.4731 |
 | Years of experience | Range | 1.0000–8.0000 |
 | Institution type | Asset manager | 31 (58.49%) |
-| Institution type | Other | 6 (11.32%) |
-| Institution type | Family office | 5 (9.43%) |
+| Institution type | Family office | 6 (11.32%) |
+| Institution type | Other | 5 (9.43%) |
+| Institution type | Bank/private bank | 4 (7.55%) |
 | Institution type | Hedge fund | 4 (7.55%) |
-| Institution type | Bank/private bank | 3 (5.66%) |
 | Institution type | Independent/RIA | 2 (3.77%) |
-| Institution type | Pension/endowment fund | 2 (3.77%) |
+| Institution type | Pension/endowment fund | 1 (1.89%) |
 | AUM category | $2B–$10B | 22 (41.51%) |
-| AUM category | $500M–$2B | 19 (35.85%) |
-| AUM category | More than $10B | 8 (15.09%) |
+| AUM category | $500M–$2B | 20 (37.74%) |
+| AUM category | More than $10B | 6 (11.32%) |
 | AUM category | Less than $50M | 3 (5.66%) |
-| AUM category | $50M–$500M | 1 (1.89%) |
+| AUM category | $50M–$500M | 2 (3.77%) |
 
 ![Respondent demographics](figures/fig_demographics.png)
 
 
 ### 5.2.2 Descriptive Analysis of Data
 
-Across all 424 observations, the mean NRS is 4.1250 (median = 4.0000, SD = 1.3635, range = 1–7). In the control condition (ShowSC = 0), the mean NRS is 4.1830 (SD = 1.2697, n = 224). In the treatment condition (ShowSC = 1), the mean NRS is 4.0600 (SD = 1.4619, n = 200). The mean NRS difference (ShowSC=1 minus ShowSC=0) is -0.1230.
+Across all 424 observations, the mean NRS is 4.0519 (median = 4.0000, SD = 1.3845, range = 1–7). In the control condition (ShowSC = 0), the mean NRS is 4.0849 (SD = 1.3569, n = 212). In the treatment condition (ShowSC = 1), the mean NRS is 4.0189 (SD = 1.4141, n = 212). The mean NRS difference (ShowSC=1 minus ShowSC=0) is -0.0660.
 
-SC_total is a standardised PCA composite score (first principal component of AC_e, SE_e, AI_e, and ES_raw). By construction, the sample mean is approximately zero. The meaningful descriptive statistics are the range (min = -2.1832, max = 4.7132) and standard deviation (SD = 1.4501), which characterise the spread of shock intensity across the twenty-four scenarios. Manipulation check responses: Yes: 53. For ShowSC = 1 respondents, the mean usefulness rating is 3.1111 (median = 3.0000, SD = 0.8006).
+SC_total is a standardised PCA composite score (first principal component of AC_e, SE_e, AI_e, and ES_raw). By construction, the sample mean is approximately zero. The meaningful descriptive statistics are the range (min = -2.1832, max = 4.7132) and standard deviation (SD = 1.4501), which characterise the spread of shock intensity across the twenty-four scenarios. Manipulation check responses: Yes: 53. For ShowSC = 1 respondents, the mean usefulness rating is 3.1509 (median = 3.0000, SD = 0.7695).
 
 ![NRS distribution](figures/fig_nrs_distribution.png)
 ![NRS by condition](figures/fig_nrs_by_condition.png)
@@ -1291,13 +1291,13 @@ The NRS is a seven-point ordered categorical scale. Because the scale is bounded
 
 | NRS | N (Overall) | N (ShowSC=0 (Control)) | N (ShowSC=1 (Treatment)) | % (Overall) | % (ShowSC=0 (Control)) | % (ShowSC=1 (Treatment)) |
 |---|---|---|---|---|---|---|
-| 1 | 17 | 6 | 11 | 4.01% | 2.68% | 5.50% |
-| 2 | 27 | 15 | 12 | 6.37% | 6.70% | 6.00% |
-| 3 | 88 | 40 | 48 | 20.75% | 17.86% | 24.00% |
-| 4 | 128 | 74 | 54 | 30.19% | 33.04% | 27.00% |
-| 5 | 99 | 51 | 48 | 23.35% | 22.77% | 24.00% |
-| 6 | 48 | 36 | 12 | 11.32% | 16.07% | 6.00% |
-| 7 | 17 | 2 | 15 | 4.01% | 0.89% | 7.50% |
+| 1 | 22 | 9 | 13 | 5.19% | 4.25% | 6.13% |
+| 2 | 27 | 16 | 11 | 6.37% | 7.55% | 5.19% |
+| 3 | 97 | 44 | 53 | 22.88% | 20.75% | 25.00% |
+| 4 | 111 | 59 | 52 | 26.18% | 27.83% | 24.53% |
+| 5 | 108 | 50 | 58 | 25.47% | 23.58% | 27.36% |
+| 6 | 46 | 31 | 15 | 10.85% | 14.62% | 7.08% |
+| 7 | 13 | 3 | 10 | 3.07% | 1.42% | 4.72% |
 
 *Note.* NRS responses on a 7-point scale (1 = Strongly reduce concentration, 7 = Strongly increase concentration). N = 53 respondents, 424 total observations. Percentages may not sum to 100% due to rounding.
 
@@ -1309,9 +1309,9 @@ Inter-rater reliability is assessed using the intraclass correlation coefficient
 
 | Block | N respondents | Mean ICC(2,1) | Threshold (≥ 0.70) | Assessment |
 |-------|--------------|---------------|---------------------|------------|
-| Block 1 | 20 | 0.7553 | Above | Acceptable |
-| Block 2 | 17 | 0.9384 | Above | Acceptable |
-| Block 3 | 16 | 0.8874 | Above | Acceptable |
+| Block 1 | 21 | 0.8425 | Above | Acceptable |
+| Block 2 | 17 | 0.9026 | Above | Acceptable |
+| Block 3 | 15 | 0.9369 | Above | Acceptable |
 
 *Note.* ICC(2,1) computed per block using mean NRS per scenario × version (V1/V2) as the data structure; scenarios are targets, versions are raters. Threshold of ICC ≥ 0.70 follows Koo and Mae (2016). Blocks with no respondents in the current sample are marked as pending.
 
@@ -1319,7 +1319,7 @@ Inter-rater reliability is assessed using the intraclass correlation coefficient
 
 | | Shapiro-Wilk W | p-value | Normality rejected (α = 0.05) |
 |---|---|---|---|
-| Primary H1 residuals | 0.9800 | 0.0000 | Yes |
+| Primary H1 residuals | 0.9849 | 0.0002 | Yes |
 
 *Note.* Shapiro-Wilk test applied to OLS residuals from the primary H1 regression specification (N = 424 observations). Residual normality is the relevant OLS assumption; the marginal distribution of NRS is not required to be normal. HC3 heteroscedasticity-consistent standard errors are applied regardless of this result.
 
@@ -1327,21 +1327,21 @@ Inter-rater reliability is assessed using the intraclass correlation coefficient
 
 ### 5.5.1 Testing of Hypothesis H1
 
-The primary OLS regression examines whether SC_total – the composite Shock Score – is significantly associated with Net Risk Stance (NRS) after controlling for the ShowSC treatment indicator, years of experience, and block fixed effects. The estimated coefficient on SC_total is β₁ = -0.4666 (robust SE = 0.0563, t = -8.2903, p = <0.0001, 95% CI [-0.5769, -0.3563]). Higher shock intensity is associated with lower mean NRS responses, indicating a risk-reducing shift in portfolio managers' stance. At the α = 0.05 significance level, H1 is supported: SC_total is a statistically significant predictor of NRS. Robustness checks using quintile dummies, respondent fixed effects, decomposed components, and an interaction term are reported in Table 5.3.
+The primary OLS regression examines whether SC_total – the composite Shock Score – is significantly associated with Net Risk Stance (NRS) after controlling for the ShowSC treatment indicator, years of experience, and block fixed effects. The estimated coefficient on SC_total is β₁ = -0.4874 (robust SE = 0.0551, t = -8.8452, p = <0.0001, 95% CI [-0.5954, -0.3794]). Higher shock intensity is associated with lower mean NRS responses, indicating a risk-reducing shift in portfolio managers' stance. At the α = 0.05 significance level, H1 is supported: SC_total is a statistically significant predictor of NRS. Robustness checks using quintile dummies, respondent fixed effects, decomposed components, and an interaction term are reported in Table 5.3.
 
 **Table 5.3: H1 Main Regression Results**
 
 | spec | note | beta1 | se | t | p | ci_lo | ci_hi | r2 | n_obs | clustering |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| spec_1_quintiles | SC_total quintile dummies | see quintile coefficients |  |  | nan |  |  | 0.3806 | 424 | HC3 |
-| spec_2_within | Respondent FE (within) | -0.1768 | 0.0517 | -3.4171 | 0.0006 | -0.2782 | -0.0754 | 0.0338 | 424 | HC3 |
-| spec_3_component_ac_e | Component: ac_e | -0.0104 | 0.0178 | -0.5881 | 0.5565 | -0.0453 | 0.0244 | 0.4905 | 424 | HC3 |
-| spec_3_component_se_e | Component: se_e | -1.0214 | 0.1694 | -6.0292 | <0.0001 | -1.3535 | -0.6894 | 0.4905 | 424 | HC3 |
-| spec_3_component_ai_e | Component: ai_e | -0.3767 | 0.0812 | -4.6388 | <0.0001 | -0.5359 | -0.2175 | 0.4905 | 424 | HC3 |
-| spec_3_component_es_raw | Component: es_raw | 0.2775 | 0.034 | 8.1648 | <0.0001 | 0.2109 | 0.3441 | 0.4905 | 424 | HC3 |
-| spec_4_interaction | SC_total × ShowSC interaction | 0.0832 | 0.0855 | 0.973 | 0.3305 | -0.0844 | 0.2508 | 0.3501 | 424 | HC3 |
-| spec_5_direction_b1 | SC_total main effect (positive events) | -0.4001 | 0.0604 | -6.626 | <0.0001 | -0.5185 | -0.2818 | 0.3689 | 424 | HC3 |
-| spec_5_direction_b3 | SC_total × D_neg amplification (negative events) | -0.2663 | 0.3339 | -0.7976 | 0.4251 | -0.9208 | 0.3882 | 0.3689 | 424 | HC3 |
+| spec_1_quintiles | SC_total quintile dummies | see quintile coefficients |  |  | nan |  |  | 0.3715 | 424 | HC3 |
+| spec_2_within | Respondent FE (within) | -0.1846 | 0.0549 | -3.3604 | 0.0008 | -0.2922 | -0.0769 | 0.0356 | 424 | HC3 |
+| spec_3_component_ac_e | Component: ac_e | 0.0235 | 0.0167 | 1.4101 | 0.1585 | -0.0092 | 0.0562 | 0.5372 | 424 | HC3 |
+| spec_3_component_se_e | Component: se_e | -1.2904 | 0.1684 | -7.6624 | <0.0001 | -1.6204 | -0.9603 | 0.5372 | 424 | HC3 |
+| spec_3_component_ai_e | Component: ai_e | -0.5668 | 0.0771 | -7.3553 | <0.0001 | -0.7178 | -0.4158 | 0.5372 | 424 | HC3 |
+| spec_3_component_es_raw | Component: es_raw | 0.3102 | 0.0328 | 9.4635 | <0.0001 | 0.246 | 0.3745 | 0.5372 | 424 | HC3 |
+| spec_4_interaction | SC_total × ShowSC interaction | -0.0067 | 0.083 | -0.0806 | 0.9358 | -0.1694 | 0.1561 | 0.3571 | 424 | HC3 |
+| spec_5_direction_b1 | SC_total main effect (positive events) | -0.4283 | 0.0603 | -7.1072 | <0.0001 | -0.5464 | -0.3102 | 0.3701 | 424 | HC3 |
+| spec_5_direction_b3 | SC_total × D_neg amplification (negative events) | 0.1954 | 0.3684 | 0.5305 | 0.5957 | -0.5266 | 0.9174 | 0.3701 | 424 | HC3 |
 
 **Figure 5.2** *Forest Plot of OLS Regression Coefficients for the Four SC_total Components*
 
@@ -1355,17 +1355,17 @@ The direction-interaction specification (Spec 5) further decomposes the SC_total
 
 ### 5.5.2 Testing of Hypothesis H2
 
-Hypothesis H2 is tested using individual-portfolio regressions (Option B). Per respondent, portfolio returns are constructed from NRS-weighted horizon returns across the four scenarios assigned to each condition. The estimated treatment effect on portfolio return is tau = -0.3775 (robust SE = 0.2505, t = -1.5072, p = 0.1318, 95% CI [-0.8685, 0.1134]; Cohen's d = -0.1549). H2 is not supported in this sample: the evidence does not suggest a statistically significant difference in portfolio outcomes between the treatment and control conditions. Validation on a larger professional sample is recommended. The collective portfolio analysis (Option A, descriptive only; **caution: both portfolios draw from the same respondent pool – inference is non-independent**) yields a return of 1.7846% for the control condition and 1.3696% for the treatment condition, corresponding to a return differential of -0.4150%. On an assumed AUM of $100M, the ShowSC=1 collective portfolio generated a dollar return differential of $-415,000 relative to the ShowSC=0 portfolio over the evaluation window.
+Hypothesis H2 is tested using individual-portfolio regressions (Option B). Per respondent, portfolio returns are constructed from NRS-weighted horizon returns across the four scenarios assigned to each condition. The estimated treatment effect on portfolio return is tau = -0.1584 (robust SE = 0.4826, t = -0.3281, p = 0.7428, 95% CI [-1.1043, 0.7876]; Cohen's d = -0.0591). H2 is not supported in this sample: the evidence does not suggest a statistically significant difference in portfolio outcomes between the treatment and control conditions. Validation on a larger professional sample is recommended. The collective portfolio analysis (Option A, descriptive only; **caution: both portfolios draw from the same respondent pool – inference is non-independent**) yields a return of 1.8986% for the control condition and 1.4642% for the treatment condition, corresponding to a return differential of -0.4344%. On an assumed AUM of $100M, the ShowSC=1 collective portfolio generated a dollar return differential of $-434,400 relative to the ShowSC=0 portfolio over the evaluation window.
 
 **Table 5.4: H2 Portfolio Analysis Results**
 
 | method | outcome | tau | se | t | p | ci_lo | ci_hi | cohens_d | r2 | n | h2_supported |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| option_b_individual | portfolio_return | -0.3775 | 0.2505 | -1.5072 | 0.1318 | -0.8685 | 0.1134 | -0.1549 | 0.7958 | 57 | False |
-| option_b_individual | sharpe_ratio | -0.628 | 0.6228 | -1.0083 | 0.3133 | -1.8488 | 0.5927 | -0.0848 | 0.9376 | 57 | False |
-| option_b_individual | sortino_ratio | -4.1549 | 2.236 | -1.8582 | 0.0631 | -8.5374 | 0.2276 | -0.5179 | 0.9211 | 41 | False |
+| option_b_individual | portfolio_return | -0.1584 | 0.4826 | -0.3281 | 0.7428 | -1.1043 | 0.7876 | -0.0591 | 0.2151 | 106 | False |
+| option_b_individual | sharpe_ratio | 0.879 | 1.6994 | 0.5173 | 0.6050 | -2.4516 | 4.2097 | 0.0712 | 0.5366 | 106 | False |
+| option_b_individual | sortino_ratio | 9.4847 | 36.2226 | 0.2618 | 0.7934 | -61.5102 | 80.4797 | 0.1011 | 0.0027 | 29 | False |
 
-**Note on Sortino ratio:** The Sortino ratio is computed only for respondent-condition pairs that yield at least one negative portfolio return. In the current sample, this applies to 56 of 57 respondent-condition pairs.
+**Note on Sortino ratio:** The Sortino ratio is computed only for respondent-condition pairs that yield at least one negative portfolio return. In the current sample, this applies to 97 of 106 respondent-condition pairs.
 
 **Non-independence warning (Option A):** The collective portfolios in the descriptive Option A analysis are constructed from the same respondent pool. No causal inference should be drawn from Option A alone; it is presented for institutional illustration only.
 
@@ -1376,7 +1376,7 @@ Hypothesis H2 is tested using individual-portfolio regressions (Option B). Per r
 
 ### 5.6.1 Impact of Information Shocks on Risk-Return
 
-The results are evaluated against the behavioural finance literature suggesting that external information shocks exert a systematic influence on portfolio managers' risk-stance decisions. The statistically significant negative association (beta1 = -0.4666) indicates that higher shock intensity shifts managers toward reduced risk exposure (lower NRS), consistent with loss-aversion predictions from prospect theory (Kahneman and Tversky, 1979). This result is interpreted cautiously given the sample composition and potential survivorship effects in the volunteer sample. Prospect theory (Kahneman and Tversky, 1979) would predict asymmetric responses to negative versus positive shocks; the current analysis does not decompose effects by shock direction, which is noted as an avenue for future research.
+The results are evaluated against the behavioural finance literature suggesting that external information shocks exert a systematic influence on portfolio managers' risk-stance decisions. The statistically significant negative association (beta1 = -0.4874) indicates that higher shock intensity shifts managers toward reduced risk exposure (lower NRS), consistent with loss-aversion predictions from prospect theory (Kahneman and Tversky, 1979). This result is interpreted cautiously given the sample composition and potential survivorship effects in the volunteer sample. Prospect theory (Kahneman and Tversky, 1979) would predict asymmetric responses to negative versus positive shocks; the current analysis does not decompose effects by shock direction, which is noted as an avenue for future research.
 
 The results are evaluated against the behavioural finance literature suggesting that external information shocks exert a systematic influence on portfolio managers' risk-stance decisions. The statistically significant negative association (β₁ = −0.2694) indicates that higher shock intensity shifts managers toward reduced risk exposure (lower NRS), consistent with loss-aversion predictions from prospect theory (Kahneman and Tversky, 1979). This result is interpreted cautiously given the sample composition and potential survivorship effects in the volunteer sample. The direction-interaction specification (Spec 5 in Table 5.5) further reveals that the risk-reducing response is concentrated in positive-sentiment events, while negative-sentiment events at high SC_total values are associated with net risk-increasing responses, consistent with the loss-aversion amplification channel identified by Benartzi and Thaler (1995) in the context of myopic loss aversion.
 
@@ -1386,22 +1386,22 @@ The component decomposition (Spec 3) discloses a specific sign heterogeneity in 
 
 As a diagnostic check, the alignment between respondents' NRS direction (buy: NRS > 4; sell: NRS < 4; neutral: NRS = 4) and the sentiment-expected direction (Negative sentiment expected sell; Positive expected buy) is assessed across all 424 observations.
 
-Overall alignment rate: 0.2901 (123 of 424 observations).
+Overall alignment rate: 0.2618 (111 of 424 observations).
 
 **Table 5.5: NRS–Sentiment Alignment by Group**
 
 | group | n | n_aligned | alignment_rate |
 | --- | --- | --- | --- |
-| overall | 424 | 123 | 0.2901 |
-| ShowSC=0 | 224 | 69 | 0.308 |
-| ShowSC=1 | 200 | 54 | 0.27 |
-| sentiment=Mildly Negative | 53 | 13 | 0.2453 |
-| sentiment=Mildly Positive | 84 | 11 | 0.131 |
-| sentiment=Negative | 16 | 1 | 0.0625 |
-| sentiment=Neutral | 123 | 41 | 0.3333 |
-| sentiment=Positive | 76 | 30 | 0.3947 |
-| sentiment=Strongly Negative | 16 | 8 | 0.5 |
-| sentiment=Strongly Positive | 56 | 19 | 0.3393 |
+| overall | 424 | 111 | 0.2618 |
+| ShowSC=0 | 212 | 56 | 0.2642 |
+| ShowSC=1 | 212 | 55 | 0.2594 |
+| sentiment=Mildly Negative | 53 | 12 | 0.2264 |
+| sentiment=Mildly Positive | 83 | 16 | 0.1928 |
+| sentiment=Negative | 15 | 3 | 0.2 |
+| sentiment=Neutral | 123 | 35 | 0.2846 |
+| sentiment=Positive | 78 | 32 | 0.4103 |
+| sentiment=Strongly Negative | 15 | 1 | 0.0667 |
+| sentiment=Strongly Positive | 57 | 12 | 0.2105 |
 
 An alignment rate above 0.50 indicates that respondents' risk-stance direction is more often consistent with the implied sentiment direction than not. Rates substantially below 0.50 would suggest systematic contrarian reactions or misalignment between the shock characterisation and respondent interpretation.
 
@@ -1415,12 +1415,12 @@ An alignment rate above 0.50 indicates that respondents' risk-stance direction i
 
 ### 5.6.2 Incremental Effect of the Shock Score
 
-The incremental effect of the Shock Score dashboard (ShowSC) on simulated portfolio outcomes is evaluated through the Option B individual-portfolio regression. The results do not support a statistically significant incremental effect of the Shock Score dashboard on portfolio outcomes in the current sample. Validation on a larger, fully recruited professional sample is the recommended next step. The Option A collective portfolio analysis (descriptive only; non-independence caveat applies) shows a non-positive return differential of -0.4150% for the treatment condition, corresponding to a dollar impact of $-415,000 on an assumed AUM of $100M. The treatment portfolio did not outperform the control portfolio in the descriptive collective analysis. This figure is presented for descriptive illustration and is subject to the non-independence caveat noted in Section 5.5.2.
+The incremental effect of the Shock Score dashboard (ShowSC) on simulated portfolio outcomes is evaluated through the Option B individual-portfolio regression. The results do not support a statistically significant incremental effect of the Shock Score dashboard on portfolio outcomes in the current sample. Validation on a larger, fully recruited professional sample is the recommended next step. The Option A collective portfolio analysis (descriptive only; non-independence caveat applies) shows a non-positive return differential of -0.4344% for the treatment condition, corresponding to a dollar impact of $-434,400 on an assumed AUM of $100M. The treatment portfolio did not outperform the control portfolio in the descriptive collective analysis. This figure is presented for descriptive illustration and is subject to the non-independence caveat noted in Section 5.5.2.
 
 
 ## 5.7 Interim Conclusions
 
-The interim conclusions for Chapter 5 are as follows. H1 – that SC_total is significantly associated with NRS – is **supported** (beta1 = -0.4666, p = <0.0001; direction: risk-reducing). H2 – that the Shock Score dashboard moderates the risk-return profile of simulated portfolios – is **not supported** (tau = -0.3775, p = 0.1318) in the Option B individual-portfolio regression. Both findings are contingent on the current sample composition and are subject to revision upon completion of the full survey. Robustness checks for H1 and the Option A descriptive analysis for H2 are consistent in direction with the primary results.
+The interim conclusions for Chapter 5 are as follows. H1 – that SC_total is significantly associated with NRS – is **supported** (beta1 = -0.4874, p = <0.0001; direction: risk-reducing). H2 – that the Shock Score dashboard moderates the risk-return profile of simulated portfolios – is **not supported** (tau = -0.1584, p = 0.7428) in the Option B individual-portfolio regression. Both findings are contingent on the current sample composition and are subject to revision upon completion of the full survey. Robustness checks for H1 and the Option A descriptive analysis for H2 are consistent in direction with the primary results.
 
 The interim conclusions for Chapter 5 are as follows. H1 – that SC_total is significantly associated with NRS – is **supported** (β₁ = −0.2694, p < 0.0001; direction: risk-reducing). The composite Shock Score is a statistically significant predictor of portfolio managers' risk stance, with robustness confirmed across within-respondent fixed-effects, component-decomposition, and direction-interaction specifications. The component decomposition additionally reveals sign heterogeneity in the ES_raw coefficient, interpreted as a contrarian-resolution pattern, and the direction-interaction specification documents loss-aversion amplification under negative-sentiment shocks.
 
@@ -1471,7 +1471,7 @@ Section 6.2 summarises the findings from both the literature review and the empi
 ### 6.2.1 Summary of Secondary Research
 ### 6.2.2 Summary of Primary Research
 
-The primary research contributes empirical evidence on two hypotheses. H1 posits that SC_total – a PCA-based composite of article count, sentiment extremity, attention intensity, and event-type severity – is a statistically significant predictor of portfolio managers' Net Risk Stance. The evidence supports this hypothesis (β₁ = -0.4666, p = <0.0001). H2 posits that exposure to the Shock Score dashboard improves the risk-return profile of simulated portfolios. The Option B individual-portfolio regression does not support this hypothesis at the α = 0.05 level. These findings are based on 53 respondents (424 observations).
+The primary research contributes empirical evidence on two hypotheses. H1 posits that SC_total – a PCA-based composite of article count, sentiment extremity, attention intensity, and event-type severity – is a statistically significant predictor of portfolio managers' Net Risk Stance. The evidence supports this hypothesis (β₁ = -0.4874, p = <0.0001). H2 posits that exposure to the Shock Score dashboard improves the risk-return profile of simulated portfolios. The Option B individual-portfolio regression does not support this hypothesis at the α = 0.05 level. These findings are based on 53 respondents (424 observations).
 
 ## 6.3 Overall Conclusions
 

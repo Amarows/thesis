@@ -1,22 +1,22 @@
 scale_point,group,count,pct
-1,Overall,17,4.01
+1,Overall,22,5.19
 2,Overall,27,6.37
-3,Overall,88,20.75
-4,Overall,128,30.19
-5,Overall,99,23.35
-6,Overall,48,11.32
-7,Overall,17,4.01
-1,ShowSC=0 (Control),6,2.68
-2,ShowSC=0 (Control),15,6.7
-3,ShowSC=0 (Control),40,17.86
-4,ShowSC=0 (Control),74,33.04
-5,ShowSC=0 (Control),51,22.77
-6,ShowSC=0 (Control),36,16.07
-7,ShowSC=0 (Control),2,0.89
-1,ShowSC=1 (Treatment),11,5.5
-2,ShowSC=1 (Treatment),12,6.0
-3,ShowSC=1 (Treatment),48,24.0
-4,ShowSC=1 (Treatment),54,27.0
-5,ShowSC=1 (Treatment),48,24.0
-6,ShowSC=1 (Treatment),12,6.0
-7,ShowSC=1 (Treatment),15,7.5
+3,Overall,97,22.88
+4,Overall,111,26.18
+5,Overall,108,25.47
+6,Overall,46,10.85
+7,Overall,13,3.07
+1,ShowSC=0 (Control),9,4.25
+2,ShowSC=0 (Control),16,7.55
+3,ShowSC=0 (Control),44,20.75
+4,ShowSC=0 (Control),59,27.83
+5,ShowSC=0 (Control),50,23.58
+6,ShowSC=0 (Control),31,14.62
+7,ShowSC=0 (Control),3,1.42
+1,ShowSC=1 (Treatment),13,6.13
+2,ShowSC=1 (Treatment),11,5.19
+3,ShowSC=1 (Treatment),53,25.0
+4,ShowSC=1 (Treatment),52,24.53
+5,ShowSC=1 (Treatment),58,27.36
+6,ShowSC=1 (Treatment),15,7.08
+7,ShowSC=1 (Treatment),10,4.72

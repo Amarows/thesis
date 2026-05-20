@@ -1,33 +1,33 @@
 field,value,count,pct
 aum_category,$2B–$10B,22,41.51
-aum_category,$500M–$2B,19,35.85
-aum_category,More than $10B,8,15.09
+aum_category,$500M–$2B,20,37.74
+aum_category,More than $10B,6,11.32
 aum_category,Less than $50M,3,5.66
-aum_category,$50M–$500M,1,1.89
+aum_category,$50M–$500M,2,3.77
 institution_type,Asset manager,31,58.49
-institution_type,Other,6,11.32
-institution_type,Family office,5,9.43
+institution_type,Family office,6,11.32
+institution_type,Other,5,9.43
+institution_type,Bank/private bank,4,7.55
 institution_type,Hedge fund,4,7.55
-institution_type,Bank/private bank,3,5.66
 institution_type,Independent/RIA,2,3.77
-institution_type,Pension/endowment fund,2,3.77
+institution_type,Pension/endowment fund,1,1.89
 investment_mandate,Equity long-only,32,60.38
-investment_mandate,Multi-asset,9,16.98
-investment_mandate,Other,7,13.21
+investment_mandate,Other,10,18.87
+investment_mandate,Multi-asset,6,11.32
 investment_mandate,Equity long-short,5,9.43
-geographic_focus,Global/multi-region,13,24.53
-geographic_focus,Europe,13,24.53
-geographic_focus,United States,12,22.64
-geographic_focus,Asia-Pacific,8,15.09
-geographic_focus,Other,7,13.21
-discretionary_authority,Full discretion,40,75.47
-discretionary_authority,Partial (committee-based),10,18.87
-discretionary_authority,Advisory only,3,5.66
+geographic_focus,Europe,16,30.19
+geographic_focus,Global/multi-region,12,22.64
+geographic_focus,United States,9,16.98
+geographic_focus,Other,9,16.98
+geographic_focus,Asia-Pacific,7,13.21
+discretionary_authority,Full discretion,43,81.13
+discretionary_authority,Partial (committee-based),6,11.32
+discretionary_authority,Advisory only,4,7.55
 certifications,CFA,30,56.6
-certifications,none,14,26.42
+certifications,none,15,28.3
 certifications,"CFA,CAIA",3,5.66
-certifications,"CFA,FRM",2,3.77
+certifications,"FRM, Other",1,1.89
 certifications,"CFA, FRM",1,1.89
 certifications,,1,1.89
 certifications,"CFA, Other",1,1.89
-certifications,"FRM, Other",1,1.89
+certifications,"CFA,FRM",1,1.89
