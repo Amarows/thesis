@@ -1030,12 +1030,15 @@ Note: respondents are randomly assigned to one of the six forms. Within each for
 
 ### 4.4.5 Net Risk Stance Response Measure
 
-For each scenario, the manager selects a single response on the seven-point Net Risk Stance scale:
+For each scenario, the manager selects a single response on the seven-point Net Risk Stance scale (introduced in Section 2.3.1 and reproduced here for reference):
 
-
-
-
-1 = Strongly reduce exposure; 2 = Reduce exposure; 3 = Slightly reduce exposure; 4 = Maintain current exposure; 5 = Slightly increase exposure; 6 = Increase exposure; 7 = Strongly increase exposure.
+1. Strongly reduce exposure
+2. Reduce exposure
+3. Slightly reduce exposure
+4. Maintain current exposure
+5. Slightly increase exposure
+6. Increase exposure
+7. Strongly increase exposure
 
 The NRS is a single-item measure. Single-item scales are appropriate in this context for three reasons. First, the construct being measured -- directional portfolio adjustment intention -- is concrete and unidimensional, unlike abstract psychological constructs that require multi-item scales for content validity. Second, professional portfolio managers routinely express positioning decisions as directional calls (reduce, hold, increase), making the scale ecologically valid for the target population. Third, survey parsimony is critical when administering eight scenarios to time-constrained professionals; a multi-item scale per scenario would substantially increase respondent burden and reduce completion rates.
 
