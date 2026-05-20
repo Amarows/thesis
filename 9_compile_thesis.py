@@ -148,6 +148,11 @@ def main() -> None:
     # Merge
     merged, n_replaced, not_found = merge(thesis_text, results_blocks)
 
+    # Rewrite figure paths: thesis_results.md uses relative "figures/"
+    # which resolves in the results/ context but breaks at the repo root.
+    # Replace all ](figures/ with ](results/figures/ in the compiled output.
+    merged = merged.replace("](figures/", "](results/figures/")
+
     # Write output
     THESIS_FINAL_PATH.write_text(merged, encoding="utf-8")
 
