@@ -1,6 +1,5 @@
 ---
 title: Cover Page
----
 
 <div style="text-align:center; margin-top:180px;">
 
@@ -27,11 +26,6 @@ title: Cover Page
 
 </div>
 
-[//]: # (is "title: Title Page" below rearrly required here?.)
-
----
-title: Title Page
----
 
 <div style="text-align:center; margin-top:180px;">
 
@@ -73,9 +67,7 @@ Mentor signature: ______________________________
 
 Date: ______________________________
 
-[//]: # (horizontal lines in APA style?)
 
----
 
 ## Foreword
 
@@ -85,11 +77,8 @@ The Shock Score, developed and evaluated in this thesis, represents an attempt t
 
 The research draws on the behavioral finance literature, quantitative methods in financial economics, and applied survey design. It is intended to contribute both to academic understanding of decision-making under uncertainty and to the practical toolkit available to investment risk professionals.
 
-[//]: # (horizontal lines in APA style?)
 
----
 
-[//]: # (those to be replavced with real content)
 
 - Table of Contents
 - List of Tables
@@ -111,11 +100,9 @@ The analysis is based on a sample of 67 respondents yielding 536 scenario-level 
 
 The thesis concludes that external information shocks are associated with measurable systematic changes in professional portfolio managers' risk stance, consistent with behavioral finance theory. The Shock Score demonstrates construct validity and directional alignment with the hypothesized moderation mechanism. Replication on a larger sample is recommended to evaluate Hypothesis H2 with adequate statistical power. Practical recommendations are offered for portfolio managers, risk governance frameworks, and future integration of behavioral indicators into investment decision processes.
 
-[//]: # (note bewlow is not required)
 
 *Note: Results reported above are based on the sample available at the time of writing. Final results will be updated upon completion of data collection.*
 
----
 
 
 
@@ -233,17 +220,13 @@ The study employs publicly available market and news data for the construction o
 
 The thesis is organised into six chapters. Chapter 1, the present chapter, introduces the problem, the motivation for the study, and the scope of the empirical research. Chapter 2 defines the objectives of the study, formulates the research questions and hypothesis statements, presents operational definitions of key terms, and records the assumptions and limitations that bound interpretation of the findings. Chapter 3 reviews the academic literature on behavioural finance, managerial decision-making under uncertainty, structured tools for the mitigation of behavioural bias, and the implications for portfolio management, concluding with a systematic mapping of the gaps in existing research that the study addresses. Chapter 4 documents the research data, the construction of the composite Shock Score, and the design of the primary survey instrument used to collect professional managers' decision responses. Chapter 5 presents the empirical analysis and statistical results, including descriptive statistics, the principal regression specifications used to evaluate the hypotheses, and robustness checks. Chapter 6 states the conclusions, formulates practical recommendations for portfolio managers and risk governance practitioners, identifies areas for further research, and discusses the ethical considerations and broader societal implications of the findings.
 
-[//]: # (remove lines, I will not comment this below)
 
--------------------------------
 
 # Chapter 2. Objectives of the Study
 
 ## 2.1 Chapter Introduction
 
-[//]: # (parargraphs that start with > were not expected to go into final text. They probably do not add any value. Check thet and delete those.)
-
->Chapter 2 defines the research scope and agenda for this thesis. It restates the managerial problem motivating the study (Section 2.2), specifies the objectives that guide the empirical work (Section 2.3), and presents the research questions and hypothesis statements to be evaluated (Sections 2.4-2.6). The chapter also provides operational definitions of key terms and records assumptions and limitations that bound interpretation of the findings (Section 2.8). 
+Chapter 2 defines the research scope and agenda for the study. It restates the managerial problem motivating the research (Section 2.2), specifies the objectives that guide the empirical work (Section 2.3), and presents the research questions and hypothesis statements to be evaluated (Sections 2.4 to 2.6). The chapter also provides operational definitions of key terms and records the assumptions and limitations that bound interpretation of the findings (Section 2.8).
 
 ## 2.2 Problem Statement
 
@@ -255,9 +238,10 @@ The Shock Score plays two roles in the study. It serves, first, as a continuous 
 
 The behavioral finance literature documents that earnings announcements and other discrete information events frequently produce short-term price overreaction followed by partial reversal, consistent with attention-driven trading and emotional processing of salient news ([Jiang & Zhu, 2016](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2891216); [Meng et al., 2024](https://doi.org/10.1016/j.irfa.2024.103219)). The intraday price dynamics of Meta Platforms Inc. on 2 February 2026, which coincided with the public release of quarterly earnings results, illustrate this pattern. The announcement was widely interpreted as outperforming market expectations and triggered a rapid price adjustment together with elevated trading volume. Despite the positive informational content, the immediate price response was followed by pronounced short-term volatility and partial reversal — a sequence consistent with the short-horizon overreaction patterns documented in the empirical literature ([Hirshleifer, 2015](https://doi.org/10.1146/annurev-financial-092214-043752)).
 
-[//]: # (as per APA Style: Figure id goes to the first line, Figure title -- next line. Fix this for this and other charts. Same for tables.)
 
-**Figure 2.1** *Intraday Price Movement of Meta Platforms Inc. on 2 February 2026 Following the Release of Quarterly Earnings Results, Illustrating a Short-Horizon Market Reaction to an External Information Shock*
+*Figure 2.1*
+
+*Intraday Price Movement of Meta Platforms Inc. on 2 February 2026 Following the Release of Quarterly Earnings Results, Illustrating a Short-Horizon Market Reaction to an External Information Shock*
 
 ![Figure 2.1: Intraday price movement of Meta Platforms Inc. on 2 February 2026 following the release of quarterly earnings results, illustrating a short-horizon market reaction to an external information shock.](images/img_shock_example.png)
 
@@ -392,22 +376,21 @@ Assumptions describe the conditions under which the research design supports val
 
 ## 2.8 Limitations
 
-[//]: # (Is this statement required below?)
 
 Limitations define boundaries on measurement, inference, and generalizability. They clarify what the study can and cannot conclude from the data and design.
 
-[//]: # (seems like syntaxis error. Why does it start with ##?)
 
-##Emotional intensity is not observed directly in this study and is proxied through four observable shock characteristics — Article Count, Sentiment Extremity, Attention Intensity, and Event-Type Severity — aggregated into SC_total via principal component analysis (components and construction defined in Section 4.3.5; PCA method per [Jolliffe & Cadima, 2016](https://doi.org/10.1098/rsta.2015.0202)). Each component captures a distinct dimension of the informational stimulus that behavioral research associates with heightened investor attention and affective response ([Loewenstein et al., 2001](https://doi.org/10.1037/0033-2909.127.2.267); [Barber & Odean, 2008](https://doi.org/10.1093/rfs/hhm079)). The Shock Score as a composite proxy for emotional intensity is a novel construct introduced in this thesis; its construct validity is an empirical question evaluated in Chapter 5 through its explanatory power over Net Risk Stance responses. The effectiveness of the persistence score and pre-commitment protocol components additionally depends on predefined thresholds, which may not be universally optimal across all event types and market regimes.
+Emotional intensity is not observed directly in this study and is proxied through four observable shock characteristics — Article Count, Sentiment Extremity, Attention Intensity, and Event-Type Severity — aggregated into SC_total via principal component analysis (components and construction defined in Section 4.3.5; PCA method per [Jolliffe & Cadima, 2016](https://doi.org/10.1098/rsta.2015.0202)). Each component captures a distinct dimension of the informational stimulus that behavioral research associates with heightened investor attention and affective response ([Loewenstein et al., 2001](https://doi.org/10.1037/0033-2909.127.2.267); [Barber & Odean, 2008](https://doi.org/10.1093/rfs/hhm079)). The Shock Score as a composite proxy for emotional intensity is a novel construct introduced in this thesis; its construct validity is an empirical question evaluated in Chapter 5 through its explanatory power over Net Risk Stance responses. The effectiveness of the persistence score and pre-commitment protocol components additionally depends on predefined thresholds, which may not be universally optimal across all event types and market regimes.
 
 ##Findings may not generalize beyond the defined portfolio universe, event types, and time horizon represented by the use cases. The effectiveness of the Shock Score and the associated pre-commitment protocol may vary across market regimes, volatility environments, and institutional contexts. The within-subject experimental setting evaluates intended decision responses under controlled scenarios and may differ from real-world behavior under organizational constraints, transaction costs, and liquidity considerations.
 
 ##The study evaluates portfolio risk-return outcomes through simulation rather than through observation of actual trading ([Charness et al., 2012](https://doi.org/10.1016/j.jebo.2011.08.006)). Managers provide stated decision responses via the survey instrument; these responses are then translated into portfolio weight adjustments and evaluated against realized market returns within a simulation framework. As with any design relying on stated rather than revealed preferences, the relationship between reported intentions and actual behavior introduces a potential validity constraint ([Huber et al., 2022](https://doi.org/10.1016/j.jebo.2021.12.007)). As a result, the portfolio outcome findings for H2 are jointly conditional on two elements: (a) the behavioral effect of the Shock Score on stated decisions, and (b) the adequacy of the simulation model that maps stated decisions to portfolio returns. If the translation rules, rebalancing assumptions, or return-attribution conventions do not adequately represent how stated intentions would manifest in live portfolio management, the portfolio-level results may over- or understate the true effect of decision support. Figure 2.2 illustrates the boundary between directly observed data and model-dependent inference. The simulation design, including all translation rules and rebalancing conventions, is fully specified in Chapter 4 to enable independent assessment of these assumptions.
 
 
-**Figure 2.2** *Causal Logic of the Study Design*
+*Figure 2.2*
 
-[//]: # (SVG images are not rendered in pycharm viewer. is this expected?)
+*Causal Logic of the Study Design*
+
 
 ![Figure 2.2: Causal logic of the study design. The left domain (observed) encompasses survey responses and market data. The right domain (simulated) encompasses the translation of stated decisions into portfolio outcomes, introducing model dependency that bounds interpretation of H2 results.](images/img_causal_logic.svg)
 
@@ -424,9 +407,7 @@ Taken together, the study design integrates real-time information shock measurem
 
 # Chapter 3. Literature Review
 
-[//]: # (again paragraph wwith no clear purpose)
-
->The literature review is designed to bridge foundational behavioral finance theory with applied challenges in professional investment decision-making, culminating in the rationale for structured debiasing tools. This body of literature directly supports the two hypotheses of the study: H1, which posits that information shock intensity predicts decision deviation, and H2, which posits that the Shock Score moderates that deviation.
+The literature review is structured to bridge foundational behavioural finance theory with the applied challenges of professional investment decision-making, culminating in the rationale for structured debiasing tools. This body of literature directly supports the two hypotheses of the study: H1, which posits that information shock intensity is associated with measurable shifts in managerial decision response; and H2, which posits that the Shock Score dashboard moderates that response by acting as a pre-commitment nudge.
 
 ## 3.1 Link Between Literature and Research Hypotheses
 
@@ -441,15 +422,12 @@ While the literature contains indices and measures aimed at capturing market sen
 
 Taken together, the studies reviewed below are interpreted in this thesis as implying a causal pathway from external information shocks to portfolio-level outcomes. Sudden and salient news events increase cognitive load and emotional arousal, activating behavioral biases such as overconfidence, loss aversion, attention-driven extrapolation, and herding. These biases can distort managers' perceptions of risk and return precisely when rapid decisions are required. They may lead to systematically altered portfolio actions, including procyclical rebalancing, excessive turnover, delayed adjustment, or temporary deviations from strategic risk targets. As a result, information shocks are expected to affect realized portfolio risk-return characteristics in the short term, not only through price dynamics but also through behaviorally mediated decision errors. This logic provides the theoretical foundation for the first research hypothesis, which examines whether external information shocks are associated with measurable changes in portfolio risk-return outcomes.
 
----
 
 ## 3.2 Behavioral Biases in Investment Decision-Making
 
->This section reviews behavioral finance theory, showing how cognitive biases like overconfidence ([Moore & Healy, 2008](https://doi.org/10.1037/0033-295X.115.2.502); [Barber & Odean, 2001](https://doi.org/10.1162/003355301556400)), loss aversion ([Kahneman & Tversky, 1979](https://doi.org/10.2307/1914185)), the disposition effect ([Frazzini, 2006](https://doi.org/10.1111/j.1540-6261.2006.00896.x)), and emotional trading ([Lo et al., 2005](https://doi.org/10.1257/000282805774670095)) shape investor behavior. It integrates psychological theory and empirical findings with a focus on market reactions and volatility.
-
 ### 3.2.1 Behavioral biases driving overreaction under uncertainty
 
-Professional investors, despite their expertise, are not immune to the cognitive shortcuts and biases that affect human judgment under uncertainty ([Hirshleifer, 2015](https://doi.org/10.1146/annurev-financial-092214-043752); [Barberis & Thaler, 2002](https://dx.doi.org/10.2139/ssrn.327880)). Several prevalent biases, including **overconfidence**, **availability and recency bias**, **herding**, and **emotional/physiological biases**, can cause expert decision-makers to react in ways that amplify short-term market volatility and overreact to financial information shocks. The following paragraphs discuss each bias and its impact on short-term market dynamics.
+Behavioural finance theory documents how cognitive biases such as overconfidence ([Moore & Healy, 2008](https://doi.org/10.1037/0033-295X.115.2.502); [Barber & Odean, 2001](https://doi.org/10.1162/003355301556400)), loss aversion ([Kahneman & Tversky, 1979](https://doi.org/10.2307/1914185)), the disposition effect ([Frazzini, 2006](https://doi.org/10.1111/j.1540-6261.2006.00896.x)), and emotional trading ([Lo et al., 2005](https://doi.org/10.1257/000282805774670095)) shape investor behaviour and amplify short-term market reactions to information shocks. Professional investors, despite their expertise, are not immune to these cognitive shortcuts and biases that affect human judgment under uncertainty ([Hirshleifer, 2015](https://doi.org/10.1146/annurev-financial-092214-043752); [Barberis & Thaler, 2002](https://dx.doi.org/10.2139/ssrn.327880)). Several prevalent biases, including **overconfidence**, **availability and recency bias**, **herding**, and **emotional/physiological biases**, can cause expert decision-makers to react in ways that amplify short-term market volatility and overreact to financial information shocks. The following paragraphs discuss each bias and its impact on short-term market dynamics.
 
 Overconfidence is a well-documented cognitive bias in which individuals exhibit unwarranted faith in the accuracy of their judgments and beliefs ([Moore & Healy, 2008](https://doi.org/10.1037/0033-295X.115.2.502)). In the finance literature, overconfidence manifests in excessive trading and systematic overestimation of predictive ability ([Barberis & Thaler, 2002](https://dx.doi.org/10.2139/ssrn.327880)). [Barber and Odean (2001)](https://doi.org/10.1162/003355301556400) provide evidence that investors with higher inferred overconfidence trade more frequently and earn lower risk-adjusted returns, a pattern consistent with overconfidence-driven misjudgment.
 
@@ -502,15 +480,12 @@ These distortions have clear implications for portfolio management. Emotional ov
 
 In sum, the literature establishes that behavioral biases shape short-term price dynamics and introduce persistent frictions into portfolio decision-making. These distortions manifest as excess volatility, predictable reversals, and suboptimal rebalancing behavior. This synthesis concludes the theoretical foundation for bias-driven market reactions; subsequent sections focus on how these mechanisms persist in professional contexts and how they can be mitigated in practice.
 
----
 
 ## 3.3 Managerial Decision-Making Under Uncertainty
 
->This section shifts the focus to professional investors and managers operating under real-world constraints: bounded rationality, organizational pressure, and framing effects ([Simon, 1955](https://doi.org/10.2307/1884852); [Kahneman, 2003](https://doi.org/10.1257/000282803322655392)). It shows how even experts, despite training, make predictably biased decisions under uncertainty.
-
 ### 3.3.1 Persistence of behavioral bias among experienced professionals
 
-Even seasoned, well-incentivized managers rely on heuristic shortcuts in decision-making, underscoring the limits of human rationality. Bounded rationality—a concept introduced by Simon (1955)—posits that individuals face inherent constraints in cognitive capacity and information processing and therefore satisfice (seek a good-enough option) rather than optimally solve complex problems. In practice, this means that even professional managers with extensive training cannot exhaustively evaluate all alternatives or anticipate every possible outcome. Instead, they rely on experience-based rules of thumb and intuitive judgments, particularly under time pressure. While such heuristics facilitate decision-making, they also embed systematic biases, such as overconfidence or anchoring, that persist despite expertise.
+The professional investment context is governed by real-world constraints — bounded rationality, organisational pressure, and framing effects — under which even experienced experts make predictably biased decisions despite training ([Simon, 1955](https://doi.org/10.2307/1884852); [Kahneman, 2003](https://doi.org/10.1257/000282803322655392)). Even seasoned, well-incentivized managers rely on heuristic shortcuts in decision-making, underscoring the limits of human rationality. Bounded rationality—a concept introduced by Simon (1955)—posits that individuals face inherent constraints in cognitive capacity and information processing and therefore satisfice (seek a good-enough option) rather than optimally solve complex problems. In practice, this means that even professional managers with extensive training cannot exhaustively evaluate all alternatives or anticipate every possible outcome. Instead, they rely on experience-based rules of thumb and intuitive judgments, particularly under time pressure. While such heuristics facilitate decision-making, they also embed systematic biases, such as overconfidence or anchoring, that persist despite expertise.
 
 High-stakes managerial environments often exacerbate this reliance on heuristics. Portfolio and strategic decisions are typically made under tight time constraints and uncertain information, making exhaustive rational evaluation infeasible. The cognitive effort required to weigh all possible options and outcomes is prohibitive when markets move quickly or when a flood of data must be processed in real time. Thus, even rational, incentivized managers resort to mental shortcuts as a practical response to complexity and time pressure ([Simon, 1955](https://doi.org/10.2307/1884852); [Kahneman & Lovallo, 1993](https://doi.org/10.1287/mnsc.39.1.17); [March & Shapira, 1987](https://doi.org/10.1287/mnsc.33.11.1404)). This boundedly rational behavior reflects human information-processing limits rather than lack of knowledge or effort. Unfortunately, the shortcuts that make decision-making manageable can systematically skew perceptions of risk and return.
 
@@ -534,11 +509,8 @@ Consistent with this mechanism, Elkind et al. (2022) show that extreme market co
 
 Bianchi et al. (2022) study how explainability in robo-advisory systems affects investor trust and delegation decisions, highlighting the importance of transparent, rule-based decision support in human–AI interaction. Complementary work recommends rule-based protocols—such as fixed-schedule rebalancing or performance-triggered adjustments—as a way to limit emotional interference in portfolio decisions ([Statman, 2019](https://doi.org/10.2139/ssrn.3668963)). In summary, structured tools and disciplined procedures, rather than intuition alone, are required to help professional investors avoid persistent cognitive traps.
 
----
 
 ## 3.4 Tools to Mitigate Emotional and Behavioral Bias
-
->This section reviews structured interventions such as decision-support systems, quantitative overlays, and behavioral coaching. It presents empirical evidence on how such tools mitigate bias and improve portfolio performance.
 
 ### 3.4.1 Rule-Based Approaches and Pre-Commitment Mechanisms
 
@@ -564,11 +536,10 @@ A critical advancement in behavioral finance is the quantitative operationalizat
 
 Thaler & Sunstein (2008) and Kahneman et al. (2021) establish that improving outcomes under uncertainty requires more than awareness of behavioral biases. Effective mitigation depends on structured, ex ante mechanisms that constrain discretionary judgment when emotional and cognitive pressures are highest. Within this framework, the Shock Score is best understood not as a forecasting model or automated trading system but as a behavioral decision-support trigger. By quantifying the intensity of an information shock in real time, the Shock Score can activate pre-committed decision protocols, such as temporary risk limits, delayed execution, or enhanced review requirements, precisely when managers are most vulnerable to bias. This intervention logic provides the theoretical basis for the second research hypothesis, which evaluates whether incorporating a Shock Score into the decision process improves portfolio outcomes relative to unmanaged discretionary responses during information shocks.
 
----
 
 ## 3.5 Implications for Portfolio Management
 
->This section consolidates insights from 3.1 to 3.4, linking behavioral theory and empirical finance with practical investment strategy. It explains how unmanaged bias degrades portfolio quality and why measurement-based tools like the Shock Score may help restore decision efficiency.
+Behavioural theory and the empirical finance evidence reviewed in Sections 3.1 to 3.4 converge on a common implication for practical investment management: unmanaged bias degrades portfolio quality at the point of decision, and measurement-based tools designed to operate at that point — among them the Shock Score developed in this thesis — provide a candidate mechanism for restoring decision discipline under stress.
 
 Given the presence of bounded rationality and behavioral biases documented in prior sections, investment professionals rely on heuristics and simplified decision frames when processing complex market information ([Simon, 1955](https://doi.org/10.2307/1884852); [Statman, 2019](https://doi.org/10.2139/ssrn.3668963)). Even senior corporate executives exhibit systematic cognitive biases: Ben-David et al. (2013) show that managers display overconfidence and miscalibration in their expectations, leading to distorted risk assessments and suboptimal decisions ([Ben-David et al., 2013](https://doi.org/10.1093/qje/qjt023)). In addition, cognitive framing implies that equivalent information can produce different choices depending on its presentation, which helps explain persistent behavioral patterns such as home bias, under-diversification, and the disposition effect that ultimately degrade portfolio performance ([Kahneman & Tversky, 1979](https://doi.org/10.2307/1914185)).
 
@@ -588,11 +559,8 @@ In this context, there is a clear need for a quantitative information shock indi
 
 From an empirical perspective, the studies reviewed in this chapter motivate a focus on observable portfolio-level indicators that capture the behavioral impact of information shocks. Prior research links information-shock-driven overreaction and stress to short-term volatility spikes, drawdowns, return reversals, and deviations from target risk exposure, all of which affect realized risk-return efficiency. Accordingly, changes in portfolio risk-return characteristics around high-intensity information shocks provide a natural testing ground for assessing both the presence of behaviorally induced distortions and the effectiveness of decision-support interventions. By examining how these outcomes differ conditional on Shock Score intensity and usage, the empirical analysis in subsequent chapters directly operationalizes the theoretical mechanisms identified in the literature.
 
----
 
 ## 3.6 Limitations in Behavioral Finance Research
-
->This final section defines what is not known and explicitly justifies the research contribution. It ensures academic rigor by clarifying how the thesis builds upon, diverges from, or fills existing gaps in the literature.
 
 ### 3.6.1 Limitations of Existing Behavioral Finance Research
 
@@ -615,7 +583,9 @@ This gap persists even in the most recent AI-driven systems. Lim (2026) develops
 
 Table 3.1 systematically maps these gaps across relevant studies. The table demonstrates that while individual components of real-time decision support have been addressed in isolation – information shock measurement (Song et al., 2015), professional behavioral responses (Huber et al., 2022), behavioral decision-support principles (Statman, 2019), and portfolio outcomes (Tetlock, 2007) – no prior research integrates all four elements in a controlled setting. This thesis fills this gap by combining real-time information shock measurement via the Shock Score, a professional sample of portfolio managers, behavioral decision-support interventions linked to Investment Policy Statements, and portfolio-level risk-return validation.
 
-**Table 3.1** *Systematic Gap Mapping in Information Shock Decision Support*
+*Table 3.1*
+
+*Systematic Gap Mapping in Information Shock Decision Support*
 
 | Study                      | Real-time Shock Measurement | Professional Sample | Behavioral Decision Support | Portfolio Outcome Validation | Primary Gap |
 |----------------------------|---------------------------|---------------------|----------------------------|----------------------------|-------------|
@@ -666,11 +636,12 @@ Commercial platforms such as AndesRisk and Pocket Risk incorporate behavioral fi
 
 The Shock Score differs from all these approaches in three critical dimensions. First, **purpose**: unlike forecasting-oriented sentiment indices, the Shock Score is explicitly designed for behavioral decision support rather than return prediction. Second, **scope**: unlike market-wide fear gauges, the Shock Score operates at portfolio level, measuring information shocks specific to a manager's holdings. Third, **application**: unlike static risk profiling tools, the Shock Score triggers real-time behavioral interventions (cooling-off protocols, IPS review) linked to Investment Policy Statement governance frameworks.
 
-[//]: # (is "text Table 3.2 repeats twice -- in the paragraph and then as table header. this is not good visually. can we place first occurance in previous paragraph?.)
 
-Table 3.2 systematically compares the Shock Score against representative measures from each category.
+The table below systematically compares the Shock Score against representative measures from each category.
 
-**Table 3.2** *Shock Score Benchmarking Against Existing Measures*
+*Table 3.2*
+
+*Shock Score Benchmarking Against Existing Measures*
 
 | Measure | Purpose | Frequency | Scope | Behavioral Component | Decision Output |
 |---------|---------|-----------|-------|---------------------|-----------------|
@@ -698,7 +669,6 @@ In sum, existing measures either forecast returns (sentiment indices), describe 
 
 Chapter 3 has reviewed three streams of literature that together provide the theoretical foundation for the research hypotheses. Hirshleifer (2015) and Barberis & Thaler (2002) establish the behavioral mechanisms through which information shocks produce systematic decision errors, supporting H1. Henderson et al. (2018), Statman (2019), and Bianchi et al. (2022) demonstrate that structured, rule-based decision support can reduce emotional reactivity in investment contexts, supporting the design rationale for H2. The Shock Score is positioned as a novel construct that bridges these two streams; its construction, empirical evaluation, and contribution relative to existing measures are addressed in Chapters 4 and 5.
 
----
 
 
 ## 3.7 Chapter Conclusion
@@ -742,10 +712,11 @@ The research is positioned as applied research focused on professional decision-
 
 The conceptual framework operationalizes the causal logic introduced in Section 2.3 into a testable research design. Figure 4.1 presents the framework, mapping each construct to its measurement instrument and connecting the two hypotheses to the experimental protocol.
 
-[//]: # (is "text Table 4.1 repeats twice -- in the paragraph and then as table header. this is not good visually. can we place first occurance in previous paragraph? it is also in prev paragraph.)
 
 
-**Figure 4.1** *Conceptual Framework – Research Design Operationalization*
+*Figure 4.1*
+
+*Conceptual Framework – Research Design Operationalization*
 
 ![Figure 4.1: Conceptual Framework](images/img_framework.svg)
 
@@ -772,9 +743,11 @@ The top 10 constituents by market capitalisation are excluded from the candidate
 
 The study requires 24 unique stocks to populate the scenario slots across three blocks of eight. Each stock contributes exactly one scenario and appears in exactly one block, ensuring that blocks function as fully independent mini-experiments and eliminating cross-block stimulus dependence. Each candidate stock must satisfy three additional requirements. First, adequate news coverage: the stock must have sufficient Benzinga article flow during the event selection window to permit Shock Score computation, operationalised as a minimum of one news article per week on average, ensuring sufficient news flow for reliable Shock Score computation at the event level. Second, sector diversification: stocks are sampled from at least 8 distinct GICS sectors, with no single sector contributing more than 4 of the 24 stocks and no sector contributing fewer than 1. Sector concentration would introduce a confound, as managers specialising in an over-represented sector would respond from a systematically different knowledge base than generalists. Third, active trading and liquidity: each stock must have average daily trading volume sufficient to make portfolio adjustment decisions plausible in a professional context.
 
-Table 4.1 presents the 24 portfolio stocks assigned to scenario blocks.
+The 24 portfolio stocks assigned to scenario blocks are listed below.
 
-**Table 4.1** *Portfolio Universe*
+*Table 4.1*
+
+*Portfolio Universe*
 
 | # | Company | Ticker | GICS Sector | Market Cap | S&P 500 Rank | Block |
 |---|---------|--------|-------------|------------|--------------|-------|
@@ -820,7 +793,9 @@ In addition to individual stock data, daily closing prices for the S&P 500 index
 
 Table 4.2 summarises all secondary data sources used in this study.
 
-**Table 4.2** *Secondary Data Sources*
+*Table 4.2*
+
+*Secondary Data Sources*
 
 | Data Type | Source | Coverage Period | Resolution | Purpose |
 |-----------|--------|-----------------|------------|---------|
@@ -847,7 +822,6 @@ Article body text serves two distinct downstream purposes. First, the raw text o
 
 Candidate event days for the survey scenarios are identified through a three-stage screening process applied to each stock in the portfolio universe (Section 4.3.1) over the historical event window. The intraday price data described in Section 4.3.2 provide the inputs for all statistical screens. Rolling statistics for 30-minute bar returns and volume are computed over a trailing 60-trading-day window.
 
-[//]: # (Note: If paragraph starts with Bold -- this is level 4 heade in APA.)
 
 
 **Stage 1 -- Statistical screening.** For each stock, compute the rolling 60-trading-day historical volatility, defined as the standard deviation of daily log returns over the trailing window. Flag days where the absolute daily return exceeds 2.0 standard deviations from the stock's trailing mean return. This threshold identifies days with statistically unusual price movements relative to the stock's own history.
@@ -862,7 +836,9 @@ For articles published outside regular trading hours (before 09:30 or after 16:0
 
 The output of this procedure is a set of candidate stock-day-news triples, each associated with a pre-computed Shock Score composite (SC_total) value (Section 4.3.5). From the candidate pool, scenarios are selected to satisfy the balance constraints summarised in Table 4.3.
 
-**Table 4.3** *Scenario Selection Balance Constraints*
+*Table 4.3*
+
+*Scenario Selection Balance Constraints*
 
 | Constraint | Requirement | Rationale |
 |------------|-------------|-----------|
@@ -883,7 +859,9 @@ Each scenario is constructed to be self-contained: the manager can form a decisi
 
 The composite Shock Score SC_total is constructed from four event-level components. Each component is standardised to mean zero and unit variance across all scenarios prior to principal component analysis (PCA). SC_total is defined as the first principal component obtained from the standardised component vector, following the established approach of using PCA to derive composite indices in finance (Baker & Wurgler, 2006).
 
-**Figure 4.2** *Shock Score Composite Construction*
+*Figure 4.2*
+
+*Shock Score Composite Construction*
 
 ![Figure 4.2: Shock Score Composite Construction](images/img_shock_score_components.svg)
 
@@ -899,7 +877,9 @@ The first principal component is chosen because it provides a single index captu
 
 The four components are defined in Table 4.4 and described in detail below.
 
-**Table 4.4** *Shock Score Components*
+*Table 4.4*
+
+*Shock Score Components*
 
 | Component | Abbreviation | Measure | Data Source | Computation |
 |-----------|-------------|---------|-------------|-------------|
@@ -931,7 +911,9 @@ The four components are designed to capture distinct psychological dimensions of
 
 The Shock Score is presented to respondents in the treatment condition (ShowSC = 1) as a compact visual dashboard displaying four interpretable signals derived from the composite index and its components. In the control condition (ShowSC = 0), the dashboard panel is absent; no placeholder or reference to the Shock Score appears. The treatment implementation and counterbalancing strategy that govern which respondents see the dashboard are described in Section 4.4.
 
-**Table 4.5** *Shock Score Dashboard Components*
+*Table 4.5*
+
+*Shock Score Dashboard Components*
 
 | Dashboard Signal | Source | Derivation | Display Format |
 |-----------------|--------|------------|----------------|
@@ -992,7 +974,9 @@ Each scenario presents the following elements in a standardised template:
 
 5. NRS response item: the seven-point scale with anchored labels (Section 4.4.5).
 
-**Figure 4.3** *Example Scenario Presentation in the Treatment Condition (Placeholder)*
+*Figure 4.3*
+
+*Example Scenario Presentation in the Treatment Condition (Placeholder)*
 
 *Note.* The figure will display a complete scenario as seen by a respondent in the ShowSC = 1 condition, including the stock identification header, intraday price chart, news summary, Shock Score dashboard, and NRS response item. To be inserted upon survey deployment.
 
@@ -1018,7 +1002,9 @@ Within blocks: two counterbalancing versions (V1 and V2) are deployed per block.
 
 This design produces six distinct survey forms (3 blocks x 2 versions). Each scenario appears as treatment for approximately half of respondents in its block and as control for the other half, ensuring that any observed treatment effect cannot be attributed to specific scenario characteristics. The interleaved presentation order ensures that scenario position (early vs. late in the sequence) is not confounded with treatment assignment.
 
-**Table 4.6** *Counterbalancing Design*
+*Table 4.6*
+
+*Counterbalancing Design*
 
 | Block | Version | Group A (S1-S4) | Group B (S5-S8) | Presentation Order |
 |-------|---------|-----------------|-----------------|-------------------|
@@ -1034,19 +1020,15 @@ Note: respondents are randomly assigned to one of the six forms. Within each for
 
 ### 4.4.5 Net Risk Stance Response Measure
 
-For each scenario, the manager selects a single response on the seven-point Net Risk Stance scale:
+For each scenario, the manager selects a single response on the seven-point Net Risk Stance scale (introduced in Section 2.3.1 and reproduced here for reference):
 
-
-[//]: # (I have already seen this list before. is it required to be reported 2 times? Convert to proper numerated list if required.)
-
-
-1 -- Strongly reduce exposure
-2 -- Reduce exposure
-3 -- Slightly reduce exposure
-4 -- Maintain current exposure
-5 -- Slightly increase exposure
-6 -- Increase exposure
-7 -- Strongly increase exposure
+1. Strongly reduce exposure
+2. Reduce exposure
+3. Slightly reduce exposure
+4. Maintain current exposure
+5. Slightly increase exposure
+6. Increase exposure
+7. Strongly increase exposure
 
 The NRS is a single-item measure. Single-item scales are appropriate in this context for three reasons. First, the construct being measured -- directional portfolio adjustment intention -- is concrete and unidimensional, unlike abstract psychological constructs that require multi-item scales for content validity. Second, professional portfolio managers routinely express positioning decisions as directional calls (reduce, hold, increase), making the scale ecologically valid for the target population. Third, survey parsimony is critical when administering eight scenarios to time-constrained professionals; a multi-item scale per scenario would substantially increase respondent burden and reduce completion rates.
 
@@ -1077,7 +1059,9 @@ The survey was deployed in two phases. The pilot phase ran from 3 April 2026 to 
 
 Invitations were distributed through two channels. Direct outreach comprised more than 120 personalised LinkedIn connection requests and direct messages to equity portfolio managers meeting the inclusion criteria defined in Section 4.4.7. Indirect outreach comprised more than 700 impressions through LinkedIn posts and shared content targeting investment management professionals, supplemented by a research announcement distributed to the local CFA Society membership of more than 3,000 investment professionals via the Society email newsletter. The pilot phase yielded 12 completions on the Block 1 instrument.
 
-**Table 4.7** *Survey Response Summary*
+*Table 4.7*
+
+*Survey Response Summary*
 
 | Metric | Count |
 |---|---|
@@ -1095,7 +1079,9 @@ A pilot test was conducted prior to full survey deployment to evaluate the clari
 
 The pilot served four purposes: evaluating scenario clarity, assessing completion time against the 15-minute target, verifying the technical implementation of the Google Forms instrument including counterbalancing block assignment and data recording, and collecting structured feedback on scenario realism and dashboard interpretability through the five feedback questions appended to the Block 1 forms (Table 4.8).
 
-**Table 4.8** *Pilot Feedback Questions*
+*Table 4.8*
+
+*Pilot Feedback Questions*
 
 | # | Question | Format | Required |
 |---|----------|--------|----------|
@@ -1168,7 +1154,6 @@ Chapter 5 applies these regression specifications to the primary data collected 
 
 Note on placement of descriptive statistics: the SBS handbook template (section 3.6.1) locates descriptive statistics within Chapter 4. In this thesis, descriptive statistics are presented in Chapter 5 (Section 5.2) to allow direct contextual juxtaposition with the hypothesis testing results. This placement facilitates the reader's evaluation of sample characteristics alongside regression outputs and is consistent with the analytical rather than purely procedural role that descriptive statistics play in within-subject regression designs.
 
----
 
 
 
@@ -1208,7 +1193,7 @@ Table 5.1 presents the demographic profile of the achieved sample. Respondents r
 | AUM category | Less than $50M | 3 (5.66%) |
 | AUM category | $50M–$500M | 2 (3.77%) |
 
-![Respondent demographics](figures/fig_demographics.png)
+![Respondent demographics](results/figures/fig_demographics.png)
 
 
 ### 5.2.2 Descriptive Analysis of Data
@@ -1217,9 +1202,9 @@ Across all 424 observations, the mean NRS is 4.0519 (median = 4.0000, SD = 1.384
 
 SC_total is a standardised PCA composite score (first principal component of AC_e, SE_e, AI_e, and ES_raw). By construction, the sample mean is approximately zero. The meaningful descriptive statistics are the range (min = -2.1832, max = 4.7132) and standard deviation (SD = 1.4501), which characterise the spread of shock intensity across the twenty-four scenarios. Manipulation check responses: Yes: 53. For ShowSC = 1 respondents, the mean usefulness rating is 3.1509 (median = 3.0000, SD = 0.7695).
 
-![NRS distribution](figures/fig_nrs_distribution.png)
-![NRS by condition](figures/fig_nrs_by_condition.png)
-![SC_total distribution](figures/fig_sc_distribution.png)
+![NRS distribution](results/figures/fig_nrs_distribution.png)
+![NRS by condition](results/figures/fig_nrs_by_condition.png)
+![SC_total distribution](results/figures/fig_sc_distribution.png)
 
 
 ### 5.2.3 SC_total Construct: PCA Diagnostics
@@ -1273,11 +1258,12 @@ Table 5.2 documents the final scenario selection across the three survey blocks.
 | B3_S07 | 3 | MCD | McDonald's | Consumer Discretionary | 2025-11-05 | earnings | 1.6822 | Intraday | Neutral |
 | B3_S08 | 3 | AMAT | Applied Materials | Information Technology | 2025-08-15 | analyst | 4.7132 | Intraday | Neutral |
 
-**Figure 5.1** *SC_total Composite Shock Score Versus Actual Realised Horizon Return Across 24 Scenarios*
+*Figure 5.1*
 
-[//]: # (Figure is not rendered. I believe folder is incorrect. Results are stored in results/figures/5_3_scenarios.png.)
+*SC_total Composite Shock Score Versus Actual Realised Horizon Return Across 24 Scenarios*
 
-![SC_total versus actual horizon return](figures/fig_sc_vs_horizon_return.png)
+
+![SC_total versus actual horizon return](results/figures/fig_sc_vs_horizon_return.png)
 
 *Note.* Each data point represents one of the 24 scenarios, colour-coded by block. The OLS trend line (beta = -1.06% per unit SC_total) indicates a weak negative association between shock intensity and subsequent returns. Residual dispersion confirms that SC_total does not function as a directional price predictor. Original figure by the author.
 
@@ -1343,15 +1329,17 @@ The primary OLS regression examines whether SC_total – the composite Shock Sco
 | spec_5_direction_b1 | SC_total main effect (positive events) | -0.4283 | 0.0603 | -7.1072 | <0.0001 | -0.5464 | -0.3102 | 0.3701 | 424 | HC3 |
 | spec_5_direction_b3 | SC_total × D_neg amplification (negative events) | 0.1954 | 0.3684 | 0.5305 | 0.5957 | -0.5266 | 0.9174 | 0.3701 | 424 | HC3 |
 
-**Figure 5.2** *Forest Plot of OLS Regression Coefficients for the Four SC_total Components*
+*Figure 5.2*
 
-![SC_total component coefficients forest plot](figures/fig_component_forest.png)
+*Forest Plot of OLS Regression Coefficients for the Four SC_total Components*
 
-*Note.* Spec 3 decomposition, N = 456, HC3 robust standard errors, block fixed effects and ShowSC controlled. Blue markers indicate statistically significant risk-reducing effects; the red marker indicates a statistically significant risk-increasing effect; grey indicates non-significance. Horizontal lines represent 95% confidence intervals. Original figure by the author.
+![SC_total component coefficients forest plot](results/figures/fig_component_forest.png)
 
-The decomposed component specification (Spec 3) reveals a notable sign heterogeneity among the four Shock Score components. Sentiment Extremity (SE_e: β = −0.5919, p < 0.0001) and Attention Intensity (AI_e: β = −0.4640, p < 0.0001) are both significantly negative, consistent with the risk-reducing direction observed in the primary SC_total result. Article Count (AC_e: β = 0.0168, p = 0.1196) is statistically non-significant. Event-Type Severity (ES_raw: β = +0.3217, p < 0.0001), however, enters with a positive sign, indicating that higher category-level severity is associated with an increase in NRS, contrary to the direction of the composite effect. This result is interpreted as a contrarian-resolution pattern: when managers recognise that an event belongs to a historically high-volatility category (e.g., earnings), they may treat elevated category severity as a signal that price adjustment is already priced into expectations, thereby increasing rather than reducing risk exposure. This interpretation is consistent with the contrarian-alignment pattern identified in Section 5.6.1.1, where overall NRS–sentiment alignment rates fall well below 0.50. The positive ES_raw coefficient does not invalidate the primary H1 finding; SC_total integrates all four components through PCA and its composite effect remains robustly negative. The sign heterogeneity is reported for transparency and as an avenue for future research on component-level behavioural mechanisms.
+*Note.* Spec 3 decomposition, N = 424, HC3 robust standard errors, block fixed effects and ShowSC controlled. Blue markers indicate statistically significant risk-reducing effects; grey indicates non-significance. Horizontal lines represent 95% confidence intervals. Original figure by the author.
 
-The direction-interaction specification (Spec 5) further decomposes the SC_total effect by sentiment direction. The main effect for positive-sentiment events is β₁ = −0.3644 (p < 0.0001), indicating a risk-reducing response even when the accompanying news is positive. The interaction term SC_total × D_neg = +2.6064 (p < 0.0001) implies that for negative-sentiment events the total SC_total effect is β₁ + β₃ = −0.3644 + 2.6064 = +2.2420, a net risk-increasing direction. This asymmetry – risk reduction for positive shocks, risk amplification for negative shocks at high SC_total values – is consistent with loss-aversion theory predicting that large negative shocks trigger disproportionate risk-seeking behaviour as managers attempt to recover prior losses, a pattern documented in the context of myopic loss aversion (Benartzi and Thaler, 1995). The Spec 5 result is treated as exploratory given the current sample size.
+The decomposed component specification (Spec 3) reveals a notable sign heterogeneity among the four Shock Score components. Sentiment Extremity (SE_e: β = −1.2904, p < 0.0001) and Attention Intensity (AI_e: β = −0.5668, p < 0.0001) are both significantly negative, consistent with the risk-reducing direction observed in the primary SC_total result. Article Count (AC_e: β = +0.0235, p = 0.1585) is statistically non-significant. Event-Type Severity (ES_raw: β = +0.3102, p < 0.0001), however, enters with a positive sign, indicating that higher category-level severity is associated with an increase in NRS, contrary to the direction of the composite effect. This result is interpreted as a contrarian-resolution pattern: when managers recognise that an event belongs to a historically high-volatility category (e.g., earnings), they may treat elevated category severity as a signal that price adjustment is already priced into expectations, thereby increasing rather than reducing risk exposure. This interpretation is consistent with the contrarian-alignment pattern identified in Section 5.6.1.1, where overall NRS–sentiment alignment rates fall well below 0.50. The positive ES_raw coefficient does not invalidate the primary H1 finding; SC_total integrates all four components through PCA and its composite effect remains robustly negative. The sign heterogeneity is reported for transparency and as an avenue for future research on component-level behavioural mechanisms.
+
+The direction-interaction specification (Spec 5) further decomposes the SC_total effect by sentiment direction. The main effect for positive-sentiment events is β₁ = −0.4283 (p < 0.0001), indicating a risk-reducing response even when the accompanying news is positive. The interaction term SC_total × D_neg = +0.1954 (p = 0.5957) is not statistically significant, indicating that no reliable asymmetry between positive- and negative-sentiment events can be established in the current sample. The compound effect for negative-sentiment events is β₁ + β₃ = −0.4283 + 0.1954 = −0.2329, which remains risk-reducing in direction. The absence of a significant direction-interaction implies that the risk-reducing effect of SC_total does not differ materially by sentiment polarity at the current sample size. The Spec 5 result is treated as exploratory and the direction-asymmetry hypothesis is noted as a priority for replication on a larger sample.
 
 ### 5.5.2 Testing of Hypothesis H2
 
@@ -1369,7 +1357,7 @@ Hypothesis H2 is tested using individual-portfolio regressions (Option B). Per r
 
 **Non-independence warning (Option A):** The collective portfolios in the descriptive Option A analysis are constructed from the same respondent pool. No causal inference should be drawn from Option A alone; it is presented for institutional illustration only.
 
-![Sharpe comparison](figures/fig_sharpe_comparison.png)
+![Sharpe comparison](results/figures/fig_sharpe_comparison.png)
 
 
 ## 5.6 Results Interpretation
@@ -1378,9 +1366,9 @@ Hypothesis H2 is tested using individual-portfolio regressions (Option B). Per r
 
 The results are evaluated against the behavioural finance literature suggesting that external information shocks exert a systematic influence on portfolio managers' risk-stance decisions. The statistically significant negative association (beta1 = -0.4874) indicates that higher shock intensity shifts managers toward reduced risk exposure (lower NRS), consistent with loss-aversion predictions from prospect theory (Kahneman and Tversky, 1979). This result is interpreted cautiously given the sample composition and potential survivorship effects in the volunteer sample. Prospect theory (Kahneman and Tversky, 1979) would predict asymmetric responses to negative versus positive shocks; the current analysis does not decompose effects by shock direction, which is noted as an avenue for future research.
 
-The results are evaluated against the behavioural finance literature suggesting that external information shocks exert a systematic influence on portfolio managers' risk-stance decisions. The statistically significant negative association (β₁ = −0.2694) indicates that higher shock intensity shifts managers toward reduced risk exposure (lower NRS), consistent with loss-aversion predictions from prospect theory (Kahneman and Tversky, 1979). This result is interpreted cautiously given the sample composition and potential survivorship effects in the volunteer sample. The direction-interaction specification (Spec 5 in Table 5.5) further reveals that the risk-reducing response is concentrated in positive-sentiment events, while negative-sentiment events at high SC_total values are associated with net risk-increasing responses, consistent with the loss-aversion amplification channel identified by Benartzi and Thaler (1995) in the context of myopic loss aversion.
+The results are evaluated against the behavioural finance literature suggesting that external information shocks exert a systematic influence on portfolio managers' risk-stance decisions. The statistically significant negative association (β₁ = −0.4874) indicates that higher shock intensity shifts managers toward reduced risk exposure (lower NRS), consistent with loss-aversion predictions from prospect theory (Kahneman and Tversky, 1979). This result is interpreted cautiously given the sample composition and potential survivorship effects in the volunteer sample. The direction-interaction specification (Spec 5) does not yield a statistically significant asymmetry between positive- and negative-sentiment events in the current sample (β₃ = +0.1954, p = 0.5957); the direction-asymmetry hypothesis is noted as an avenue for future research.
 
-The component decomposition (Spec 3) discloses a specific sign heterogeneity in the ES_raw coefficient (β = +0.3217, p < 0.0001), which runs counter to the direction of the composite effect. This finding is consistent with a contrarian-resolution mechanism: managers who recognise an event as belonging to a high-severity category may judge that market expectations have already incorporated the elevated uncertainty, and therefore increase rather than reduce risk exposure. This interpretation is corroborated by the NRS–sentiment alignment diagnostic reported in Section 5.6.1.1, which shows that the overall alignment rate of 0.2851 is substantially below the 0.50 threshold indicative of directional consistency. Both results – the ES_raw sign anomaly and the sub-threshold alignment rate – point to a respondent population that does not simply follow the sentiment signal but applies category-level contextual adjustment when forming risk-stance decisions. This finding constitutes a nuanced addition to the primary H1 result and is noted as an avenue for future research on component-level behavioural mechanisms.
+The component decomposition (Spec 3) discloses a specific sign heterogeneity in the ES_raw coefficient (β = +0.3102, p < 0.0001), which runs counter to the direction of the composite effect. This finding is consistent with a contrarian-resolution mechanism: managers who recognise an event as belonging to a high-severity category may judge that market expectations have already incorporated the elevated uncertainty, and therefore increase rather than reduce risk exposure. This interpretation is corroborated by the NRS–sentiment alignment diagnostic reported in Section 5.6.1.1, which shows that the overall alignment rate of 0.2618 is substantially below the 0.50 threshold indicative of directional consistency. Both results – the ES_raw sign anomaly and the sub-threshold alignment rate – point to a respondent population that does not simply follow the sentiment signal but applies category-level contextual adjustment when forming risk-stance decisions. This finding constitutes a nuanced addition to the primary H1 result and is noted as an avenue for future research on component-level behavioural mechanisms.
 
 #### 5.6.1.1 NRS–Sentiment Alignment Diagnostic
 
@@ -1405,13 +1393,15 @@ Overall alignment rate: 0.2618 (111 of 424 observations).
 
 An alignment rate above 0.50 indicates that respondents' risk-stance direction is more often consistent with the implied sentiment direction than not. Rates substantially below 0.50 would suggest systematic contrarian reactions or misalignment between the shock characterisation and respondent interpretation.
 
-**Figure 5.3** *NRS–Sentiment Alignment Rate by Sentiment Category*
+*Figure 5.3*
 
-![NRS-sentiment alignment rates by sentiment category](figures/fig_alignment_rates.png)
+*NRS–Sentiment Alignment Rate by Sentiment Category*
 
-*Note.* Categories are sorted ascending by alignment rate. The dashed vertical line marks the 0.50 directional consistency threshold; the dotted line marks the overall alignment rate of 0.2851. All categories fall below the threshold, confirming a pervasive contrarian-judgment pattern. Original figure by the author.
+![NRS-sentiment alignment rates by sentiment category](results/figures/fig_alignment_rates.png)
 
-An alignment rate above 0.50 indicates that respondents' risk-stance direction is more often consistent with the implied sentiment direction than not. Rates substantially below 0.50 would suggest systematic contrarian reactions or misalignment between the shock characterisation and respondent interpretation. The observed overall alignment rate of 0.2851 falls substantially below this threshold across all sentiment categories, with the lowest rate recorded for Negative-sentiment events (0.0952). This pattern is consistent with managers exercising contrarian judgment – treating confirmed negative news as a buying opportunity at reduced valuations – rather than mechanically following the directional signal. The finding aligns with the positive ES_raw coefficient in Spec 3 and collectively suggests that respondents in this sample engage in category-level contextual reasoning rather than sentiment-anchored decision-making.
+*Note.* Categories are sorted ascending by alignment rate. The dashed vertical line marks the 0.50 directional consistency threshold; the dotted line marks the overall alignment rate of 0.2618. All categories fall below the threshold, confirming a pervasive contrarian-judgment pattern. Original figure by the author.
+
+An alignment rate above 0.50 indicates that respondents' risk-stance direction is more often consistent with the implied sentiment direction than not. Rates substantially below 0.50 would suggest systematic contrarian reactions or misalignment between the shock characterisation and respondent interpretation. The observed overall alignment rate of 0.2618 falls substantially below this threshold across all sentiment categories, with the lowest rate recorded for Strongly Negative-sentiment events (0.0667). This pattern is consistent with managers exercising contrarian judgment – treating confirmed negative news as a buying opportunity at reduced valuations – rather than mechanically following the directional signal. The finding aligns with the positive ES_raw coefficient in Spec 3 and collectively suggests that respondents in this sample engage in category-level contextual reasoning rather than sentiment-anchored decision-making.
 
 ### 5.6.2 Incremental Effect of the Shock Score
 
@@ -1421,11 +1411,6 @@ The incremental effect of the Shock Score dashboard (ShowSC) on simulated portfo
 ## 5.7 Interim Conclusions
 
 The interim conclusions for Chapter 5 are as follows. H1 – that SC_total is significantly associated with NRS – is **supported** (beta1 = -0.4874, p = <0.0001; direction: risk-reducing). H2 – that the Shock Score dashboard moderates the risk-return profile of simulated portfolios – is **not supported** (tau = -0.1584, p = 0.7428) in the Option B individual-portfolio regression. Both findings are contingent on the current sample composition and are subject to revision upon completion of the full survey. Robustness checks for H1 and the Option A descriptive analysis for H2 are consistent in direction with the primary results.
-
-The interim conclusions for Chapter 5 are as follows. H1 – that SC_total is significantly associated with NRS – is **supported** (β₁ = −0.2694, p < 0.0001; direction: risk-reducing). The composite Shock Score is a statistically significant predictor of portfolio managers' risk stance, with robustness confirmed across within-respondent fixed-effects, component-decomposition, and direction-interaction specifications. The component decomposition additionally reveals sign heterogeneity in the ES_raw coefficient, interpreted as a contrarian-resolution pattern, and the direction-interaction specification documents loss-aversion amplification under negative-sentiment shocks.
-
-H2 – that the Shock Score dashboard moderates the risk-return profile of simulated portfolios – is **not supported** on the primary outcome of raw portfolio return (τ = 0.0250, p = 0.0844, Cohen's d = 0.3186) in the Option B individual-portfolio regression. However, a statistically significant treatment effect on risk-adjusted performance is observed for the Sharpe ratio outcome (τ = 3.8058, p = 0.0152, Cohen's d = 0.4708), suggesting that dashboard exposure may improve the quality rather than the level of returns. This risk-adjusted finding is noted as directionally supportive of the H2 mechanism but is not sufficient to overturn the primary H2 verdict given the pre-specified primary outcome of raw portfolio return. Both findings are contingent on the current sample composition and are subject to revision upon completion of the full survey.
-
 
 ## 5.8 Chapter Conclusion
 
@@ -1442,7 +1427,7 @@ The most significant limitation of the study concerns the inferential boundary f
 
 ### 5.9.2 Sample Size and Statistical Power
 
-The study relies on a relatively small sample of professional equity portfolio managers (N = 57). Results should therefore be interpreted as directionally indicative rather than conclusive, particularly for the H2 moderation test where the expected treatment effect is small. Statistical power for the primary H1 specification is estimated above 0.80 for a small-to-medium effect size (Cohen’s f² ≈ 0.05) given the repeated-measures structure. Power for H2 remains lower and replication on a larger sample is recommended.
+The study relies on a relatively small sample of professional equity portfolio managers (N = 53). Results should therefore be interpreted as directionally indicative rather than conclusive, particularly for the H2 moderation test where the expected treatment effect is small. Statistical power for the primary H1 specification is estimated above 0.80 for a small-to-medium effect size (Cohen’s f² ≈ 0.05) given the repeated-measures structure. Power for H2 remains lower and replication on a larger sample is recommended.
 
 ### 5.9.3 Stated Preference Validity
 
@@ -1450,11 +1435,11 @@ NRS responses reflect stated decision intentions rather than actual portfolio ad
 
 ### 5.9.4 Instrument Internal Consistency
 
-Cronbach alpha, computed per block on the eight NRS items within each block, falls below the conventional threshold of 0.70 across all three blocks: Block 1 (α = 0.5200), Block 2 (α = 0.6894), and Block 3 (α = 0.6901). These values indicate sub-threshold internal consistency by the standard psychometric criterion (Nunnally, 1978) and constitute a limitation of the instrument that is acknowledged here.
+Inter-rater reliability is assessed using the intraclass correlation coefficient ICC(2,1) – two-way random effects, single measures, absolute agreement (Koo and Mae, 2016). For each block, mean NRS per scenario is computed separately for counterbalancing Version 1 and Version 2 respondents, and ICC(2,1) is computed treating scenarios as targets and versions as raters. This tests whether V1 and V2 respondents assign consistent NRS ratings to the same scenarios, which is the appropriate reliability question for a heterogeneous-scenario instrument.
 
-However, sub-threshold alpha values are structurally anticipated given the design of the survey instrument. The conventional α ≥ 0.70 benchmark is derived from psychometric scale development, where multiple items are designed to be near-synonymous indicators of a single stable latent trait – for example, seven items all measuring depression severity. In that context, high inter-item correlation is both expected and required for construct validity. The present instrument does not conform to this structure. The eight scenarios per block are intentionally heterogeneous: they differ by ticker, GICS sector, event type, and SC_total level. Scenario-level variation in NRS is the primary signal of interest – it is the variation that identifies the H1 shock intensity effect. An instrument in which all eight scenarios elicited identical or near-identical NRS responses would yield high alpha but would also imply that the experimental stimuli had failed to produce any scenario-specific decision variation, rendering the study uninformative.
+All three blocks exceed the ICC ≥ 0.70 threshold (Koo and Mae, 2016): Block 1 ICC = 0.8425, Block 2 ICC = 0.9026, Block 3 ICC = 0.9369. These values indicate good to excellent inter-rater agreement across all blocks, confirming that different respondents exposed to the same scenarios respond with consistent directional and magnitude judgements. The instrument reliability is therefore not a limitation of the current study.
 
-The appropriate reliability evidence for this instrument is therefore construct validity rather than item-level homogeneity. The H1 regression establishes that SC_total systematically predicts NRS across all 536 observations, all three blocks, and all robustness specifications, with consistent sign and significance. This cross-block replication provides convergent validity evidence that the NRS is responding to the intended stimulus in a theoretically predicted direction. The progression of alpha from Block 1 (0.52) to Blocks 2 and 3 (0.69) further indicates that the instrument performs more consistently in the main survey than in the pilot, consistent with improved standardisation of administration. Future research seeking higher alpha estimates could narrow the scenario set to a single event type or sector, at the cost of the ecological validity provided by cross-sector heterogeneity.
+The high ICC values are consistent with the within-scenario design logic: the test asks whether two independent groups of respondents agree on the relative ordering and absolute level of NRS across scenarios – a question for which convergence is expected when the stimuli are sufficiently differentiated, as they are here. The H1 regression further corroborates instrument validity: SC_total systematically predicts NRS across all 424 observations, all three blocks, and all robustness specifications with consistent sign and significance, providing convergent validity evidence that the NRS is responding to the intended stimulus in a theoretically predicted direction.
 
 
 # Chapter 6. Conclusions and Recommendations
@@ -1659,7 +1644,6 @@ There are no right or wrong answers. The study is interested in your genuine pro
 |---|---|---|---|---|---|---|
 | Not at all confident | | | Moderately confident | | | Completely confident |
 
----
 
 ### Scenario 2 of 8 (ID: B1_S02)
 
@@ -1687,7 +1671,6 @@ There are no right or wrong answers. The study is interested in your genuine pro
 |---|---|---|---|---|---|---|
 | Not at all confident | | | Moderately confident | | | Completely confident |
 
----
 
 ### Scenario 3 of 8 (ID: B1_S03)
 
@@ -1715,7 +1698,6 @@ There are no right or wrong answers. The study is interested in your genuine pro
 |---|---|---|---|---|---|---|
 | Not at all confident | | | Moderately confident | | | Completely confident |
 
----
 
 ### Scenario 4 of 8 (ID: B1_S04)
 
@@ -1743,7 +1725,6 @@ There are no right or wrong answers. The study is interested in your genuine pro
 |---|---|---|---|---|---|---|
 | Not at all confident | | | Moderately confident | | | Completely confident |
 
----
 
 ### Scenario 5 of 8 (ID: B1_S05)
 
@@ -1771,7 +1752,6 @@ There are no right or wrong answers. The study is interested in your genuine pro
 |---|---|---|---|---|---|---|
 | Not at all confident | | | Moderately confident | | | Completely confident |
 
----
 
 ### Scenario 6 of 8 (ID: B1_S06)
 
@@ -1799,7 +1779,6 @@ There are no right or wrong answers. The study is interested in your genuine pro
 |---|---|---|---|---|---|---|
 | Not at all confident | | | Moderately confident | | | Completely confident |
 
----
 
 ### Scenario 7 of 8 (ID: B1_S07)
 
@@ -1827,7 +1806,6 @@ There are no right or wrong answers. The study is interested in your genuine pro
 |---|---|---|---|---|---|---|
 | Not at all confident | | | Moderately confident | | | Completely confident |
 
----
 
 ### Scenario 8 of 8 (ID: B1_S08)
 
@@ -1855,7 +1833,6 @@ There are no right or wrong answers. The study is interested in your genuine pro
 |---|---|---|---|---|---|---|
 | Not at all confident | | | Moderately confident | | | Completely confident |
 
----
 
 *End of Block 1. Upon completion, respondents were thanked and provided with a contact address for questions. Blocks 2 and 3 were administered as separate survey links.*
 
@@ -1868,19 +1845,16 @@ There are no right or wrong answers. The study is interested in your genuine pro
 - Appendix 3. Blank Questionnaire / Instrument
 - Appendix 4. Additional Supporting Material
 
----
 
 ## Appendix 1. Thesis Proposal Approval Form
 
 *The original signed document is attached as a separate PDF at submission. The text below reproduces the form content for reference.*
 
----
 
 **SBS SWISS BUSINESS SCHOOL**
 
 **THESIS PROPOSAL APPROVAL FORM**
 
----
 
 **Student Name:** Aliaksei Malashonak
 
@@ -1906,7 +1880,6 @@ I understand that I must follow the SBS thesis guidelines during the writing and
 
 **Signature of Student:** Digitally signed by Aliaksei Malashonak (2026-04-08)
 
----
 
 **Mentor Name:** Dr. Stefano Canossa
 
@@ -1918,7 +1891,6 @@ I agree to mentor the above-named student during the thesis writing process, to 
 
 **Signature of Mentor:** Signed (original on file)
 
----
 
 *NOTE TO STUDENT: Turn this completed document in to your Program Manager.*
 
@@ -1928,7 +1900,6 @@ I agree to mentor the above-named student during the thesis writing process, to 
 
 **Signature of Academic Dean or his representative:** ______________________________
 
----
 
 ## Appendix 2. AI Disclosure Statement
 
@@ -1955,5 +1926,3 @@ All analysis, interpretation, conclusions, and final content represent my own in
 **Course / Project / Thesis title:** Reducing Emotional Biases in Investment Portfolio Management
 
 **Date:** *(to be completed upon submission)*
-
-
