@@ -105,17 +105,17 @@ The NRS is a seven-point ordered categorical scale. Because the scale is bounded
 
 Central limit theorem applicability: the sample comprises 53 respondents, exceeding the N = 30 threshold. Parametric inference is therefore warranted.
 
-Inter-scenario consistency (mean pairwise Pearson correlation across respondent × scenario response matrix): r̄ = 0.2708. This is reported as a descriptive consistency proxy only; the NRS is a single-item measure and the eight scenarios per block are intentionally heterogeneous.
+Inter-rater reliability is assessed using the intraclass correlation coefficient ICC(2,1) — two-way random effects, single measures, absolute agreement (Koo & Mae, 2016). For each block, mean NRS per scenario is computed separately for counterbalancing Version 1 and Version 2 respondents. ICC(2,1) is then computed treating scenarios as targets and versions as raters. This tests whether V1 and V2 respondents agree on the relative ordering and absolute level of NRS across scenarios within a block, which is the appropriate reliability question for a heterogeneous-scenario instrument.
 
-**Table 5.4b** *Instrument Reliability – Cronbach's Alpha by Block*
+**Table 5.4b** *Instrument Reliability – Mean ICC(2,1) by Block*
 
-| Block | N respondents | Cronbach's α | Threshold (≥ 0.70) | Assessment |
-|-------|--------------|--------------|---------------------|------------|
-| Block 1 | 21 | 0.5346 | Below | Sub-threshold |
-| Block 2 | 18 | 0.8265 | Above | Acceptable |
-| Block 3 | 14 | 0.6496 | Below | Sub-threshold |
+| Block | N respondents | Mean ICC(2,1) | Threshold (≥ 0.70) | Assessment |
+|-------|--------------|---------------|---------------------|------------|
+| Block 1 | 21 | 0.9122 | Above | Acceptable |
+| Block 2 | 18 | 0.9377 | Above | Acceptable |
+| Block 3 | 14 | 0.8791 | Above | Acceptable |
 
-*Note.* Cronbach's alpha computed on the eight NRS items per block across all main-survey respondents who completed that block. Threshold of alpha ≥ 0.70 follows Nunnally (1978). Blocks with no respondents in the current sample are marked as pending and will be assessed post-hoc upon completion of the full survey.
+*Note.* ICC(2,1) computed per block using mean NRS per scenario × version (V1/V2) as the data structure; scenarios are targets, versions are raters. Threshold of ICC ≥ 0.70 follows Koo and Mae (2016). Blocks with no respondents in the current sample are marked as pending.
 
 **Table 5.4c** *OLS Residual Normality – Primary H1 Regression*
 

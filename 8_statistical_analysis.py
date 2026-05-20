@@ -29,6 +29,12 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 
+try:
+    import pingouin as pg
+    _PINGOUIN_AVAILABLE = True
+except ImportError:
+    _PINGOUIN_AVAILABLE = False
+
 from config import (
     PANEL_PATH, SHOCK_SCORE_PATH, METADATA_PATH, PRICE_REACTION_PATH,
     COUNTERBALANCING_PATH, DATA_DIR, RESULTS_DIR, FIGURES_DIR, TABLES_DIR,
@@ -582,21 +588,6 @@ def _fig_sc_distribution(scen_df: pd.DataFrame) -> None:
 # Section 4 – Normality and reliability
 # ---------------------------------------------------------------------------
 
-def _cronbach_alpha(wide: pd.DataFrame) -> float:
-    """Compute Cronbach alpha from a respondent × item DataFrame (items as columns).
-    Returns np.nan if fewer than 2 items or fewer than 2 respondents."""
-    wide = wide.apply(pd.to_numeric, errors="coerce").dropna()
-    k = wide.shape[1]
-    n = wide.shape[0]
-    if k < 2 or n < 2:
-        return np.nan
-    item_vars = wide.var(axis=0, ddof=1)
-    total_var = wide.sum(axis=1).var(ddof=1)
-    if total_var == 0:
-        return np.nan
-    return round(float((k / (k - 1)) * (1 - item_vars.sum() / total_var)), 4)
-
-
 def compute_normality(df: pd.DataFrame) -> dict:
     nrs_all = pd.to_numeric(df["nrs"], errors="coerce").dropna()
     sc0 = pd.to_numeric(df.loc[df["show_sc"] == 0, "nrs"], errors="coerce").dropna()
@@ -626,42 +617,85 @@ def compute_normality(df: pd.DataFrame) -> dict:
     n_resp = df["respondent_id"].nunique() if "respondent_id" in df.columns else len(nrs_all)
     clt_applies = n_resp >= 30
 
-    # Inter-scenario consistency (mean pairwise Pearson — descriptive proxy only)
-    consistency = np.nan
-    if "respondent_id" in df.columns and "scenario_id" in df.columns:
-        try:
-            pivot = df.pivot_table(
-                index="respondent_id", columns="scenario_id", values="nrs", aggfunc="mean"
-            )
-            corr_matrix = pivot.corr()
-            np.fill_diagonal(corr_matrix.values, np.nan)
-            consistency = round(float(np.nanmean(corr_matrix.values)), 4)
-        except Exception:
-            pass
+    # ── Inter-rater reliability: ICC(2,1) per block ──
+    # For each block, compute mean NRS per scenario × version (V1/V2).
+    # ICC(2,1) treats scenarios as targets and versions as raters.
+    # This answers: do V1 and V2 respondents agree on the relative ordering
+    # and absolute level of NRS responses across scenarios within a block?
+    icc_per_block    = {}
+    icc_per_scenario = {}
+    n_per_block      = {}
 
-    # Per-block Cronbach alpha with n_per_block
-    cronbach = {}
-    n_per_block = {}
-    if "respondent_id" in df.columns and "scenario_id" in df.columns and "block_id" in df.columns:
+    version_col = None
+    for candidate in ["version", "survey_version", "form_version", "block_version"]:
+        if candidate in df.columns:
+            version_col = candidate
+            break
+
+    if (version_col is not None
+            and "scenario_id" in df.columns
+            and "block_id"    in df.columns
+            and _PINGOUIN_AVAILABLE):
+
         for blk in sorted(df["block_id"].dropna().unique()):
             blk_df = df[df["block_id"] == blk].copy()
-            n_per_block[int(blk)] = blk_df["respondent_id"].nunique()
+            if "respondent_id" in blk_df.columns:
+                n_per_block[int(blk)] = blk_df["respondent_id"].nunique()
+
+            # Mean NRS per scenario × version — long format for pingouin
+            blk_df["nrs"] = pd.to_numeric(blk_df["nrs"], errors="coerce")
+            summary = (
+                blk_df.groupby(["scenario_id", version_col])["nrs"]
+                .mean()
+                .reset_index()
+                .rename(columns={"nrs": "mean_nrs"})
+                .dropna()
+            )
+
+            # Need ≥ 2 scenarios and exactly 2 versions each represented
+            n_scenarios = summary["scenario_id"].nunique()
+            n_versions  = summary[version_col].nunique()
+            if n_scenarios < 2 or n_versions < 2:
+                icc_per_block[int(blk)] = np.nan
+                continue
+
             try:
-                wide_blk = blk_df.pivot_table(
-                    index="respondent_id", columns="scenario_id", values="nrs", aggfunc="mean"
+                icc_result = pg.intraclass_corr(
+                    data=summary,
+                    targets="scenario_id",
+                    raters=version_col,
+                    ratings="mean_nrs",
+                    nan_policy="omit",
                 )
-                cronbach[int(blk)] = _cronbach_alpha(wide_blk)
+                icc2 = icc_result[icc_result["Type"] == "ICC(A,1)"]["ICC"].values
+                icc_per_block[int(blk)] = (
+                    round(float(icc2[0]), 4)
+                    if len(icc2) > 0 and not np.isnan(icc2[0])
+                    else np.nan
+                )
             except Exception:
-                cronbach[int(blk)] = np.nan
+                icc_per_block[int(blk)] = np.nan
+
+    elif ("respondent_id" in df.columns
+          and "scenario_id" in df.columns
+          and "block_id"    in df.columns):
+        # version column not found — populate n_per_block, leave ICC as nan
+        for blk in sorted(df["block_id"].dropna().unique()):
+            n_per_block[int(blk)] = df[df["block_id"] == blk]["respondent_id"].nunique()
+            icc_per_block[int(blk)] = np.nan
 
     return {
         "freq_df":            freq_df,
-        "norm_df":            norm_df,
         "clt_applies":        clt_applies,
         "n_respondents":      n_resp,
-        "mean_pairwise_corr": consistency,
-        "cronbach_per_block": cronbach,
+        "icc_per_block":      icc_per_block,
+        "icc_per_scenario":   icc_per_scenario,
         "n_per_block":        n_per_block,
+        "residual_normality": {},   # populated by run_h1_regression()
+        # Retained for backward compatibility
+        "norm_df":            norm_df,
+        "mean_pairwise_corr": np.nan,
+        "cronbach_per_block": {},
     }
 
 
@@ -1645,13 +1679,13 @@ def write_results_md(
     norm["residual_normality"] = h1.get("residual_normality", {})
 
     # ---- s5_4_normality ----
-    freq_df     = norm.get("freq_df", pd.DataFrame())
-    clt         = norm.get("clt_applies", False)
-    cons        = norm.get("mean_pairwise_corr", np.nan)
-    n_resp_norm = norm.get("n_respondents", 0)
-    cronbach    = norm.get("cronbach_per_block", {})
-    n_per_block = norm.get("n_per_block", {})
-    resid_norm  = norm.get("residual_normality", {})
+    freq_df          = norm.get("freq_df", pd.DataFrame())
+    clt              = norm.get("clt_applies", False)
+    n_resp_norm      = norm.get("n_respondents", 0)
+    icc_per_block    = norm.get("icc_per_block", {})
+    icc_per_scenario = norm.get("icc_per_scenario", {})
+    n_per_block      = norm.get("n_per_block", {})
+    resid_norm       = norm.get("residual_normality", {})
 
     s54_lines = []
 
@@ -1700,43 +1734,53 @@ def write_results_md(
         f"{'exceeding' if clt else 'below'} the N = 30 threshold. "
         f"{'Parametric inference is therefore warranted.' if clt else 'Given the small sample size, parametric inference should be interpreted with caution.'}",
         "",
-        f"Inter-scenario consistency (mean pairwise Pearson correlation across respondent "
-        f"× scenario response matrix): r̄ = {_round4(cons)}. This is reported as a "
-        f"descriptive consistency proxy only; the NRS is a single-item measure and the "
-        f"eight scenarios per block are intentionally heterogeneous.",
-        "",
     ]
 
-    # --- Table 5.4b: Cronbach's Alpha by Block ---
+    # --- Table 5.4b: ICC(2,1) Inter-rater Reliability by Block ---
     s54_lines += [
-        "**Table 5.4b** *Instrument Reliability – Cronbach's Alpha by Block*",
+        "Inter-rater reliability is assessed using the intraclass correlation "
+        "coefficient ICC(2,1) — two-way random effects, single measures, absolute "
+        "agreement (Koo & Mae, 2016). For each block, mean NRS per scenario is "
+        "computed separately for counterbalancing Version 1 and Version 2 respondents. "
+        "ICC(2,1) is then computed treating scenarios as targets and versions as raters. "
+        "This tests whether V1 and V2 respondents agree on the relative ordering and "
+        "absolute level of NRS across scenarios within a block, which is the appropriate "
+        "reliability question for a heterogeneous-scenario instrument.",
         "",
-        "| Block | N respondents | Cronbach's α | Threshold (≥ 0.70) | Assessment |",
-        "|-------|--------------|--------------|---------------------|------------|",
+        "**Table 5.4b** *Instrument Reliability – Mean ICC(2,1) by Block*",
+        "",
+        "| Block | N respondents | Mean ICC(2,1) | Threshold (≥ 0.70) | Assessment |",
+        "|-------|--------------|---------------|---------------------|------------|",
     ]
-    all_blocks = sorted(set(list(cronbach.keys()) + [1, 2, 3]))
-    threshold = 0.70
+    threshold_icc = 0.70
+    all_blocks = sorted(set(list(icc_per_block.keys()) + [1, 2, 3]))
     for blk in all_blocks:
-        n_blk     = n_per_block.get(blk, 0)
-        alpha_val = cronbach.get(blk, np.nan)
-        n_str     = str(n_blk) if n_blk > 0 else "Not yet available"
-        if isinstance(alpha_val, float) and np.isnan(alpha_val):
-            s54_lines.append(
-                f"| Block {blk} | {n_str} | — | — | Pending full sample |"
-            )
+        n_blk   = n_per_block.get(blk, 0)
+        icc_val = icc_per_block.get(blk, np.nan)
+        n_str   = str(n_blk) if n_blk > 0 else "Not yet available"
+        if isinstance(icc_val, float) and np.isnan(icc_val):
+            if n_blk == 0:
+                s54_lines.append(
+                    f"| Block {blk} | {n_str} | — | — | Pending full sample |"
+                )
+            else:
+                s54_lines.append(
+                    f"| Block {blk} | {n_str} | — | — | "
+                    f"Could not compute (check version column) |"
+                )
         else:
-            meets = alpha_val >= threshold
+            meets = icc_val >= threshold_icc
             s54_lines.append(
-                f"| Block {blk} | {n_str} | {alpha_val:.4f} | "
+                f"| Block {blk} | {n_str} | {icc_val:.4f} | "
                 f"{'Above' if meets else 'Below'} | "
                 f"{'Acceptable' if meets else 'Sub-threshold'} |"
             )
     s54_lines += [
         "",
-        "*Note.* Cronbach's alpha computed on the eight NRS items per block across all "
-        "main-survey respondents who completed that block. Threshold of alpha ≥ 0.70 "
-        "follows Nunnally (1978). Blocks with no respondents in the current sample are "
-        "marked as pending and will be assessed post-hoc upon completion of the full survey.",
+        "*Note.* ICC(2,1) computed per block using mean NRS per scenario × version "
+        "(V1/V2) as the data structure; scenarios are targets, versions are raters. "
+        "Threshold of ICC ≥ 0.70 follows Koo and Mae (2016). "
+        "Blocks with no respondents in the current sample are marked as pending.",
         "",
     ]
 
