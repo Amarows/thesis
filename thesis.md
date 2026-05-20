@@ -27,6 +27,8 @@ title: Cover Page
 
 </div>
 
+[//]: # (is "title: Title Page" below rearrly required here?.)
+
 ---
 title: Title Page
 ---
@@ -71,6 +73,8 @@ Mentor signature: ______________________________
 
 Date: ______________________________
 
+[//]: # (horizontal lines in APA style?)
+
 ---
 
 ## Foreword
@@ -81,7 +85,11 @@ The Shock Score, developed and evaluated in this thesis, represents an attempt t
 
 The research draws on the behavioral finance literature, quantitative methods in financial economics, and applied survey design. It is intended to contribute both to academic understanding of decision-making under uncertainty and to the practical toolkit available to investment risk professionals.
 
+[//]: # (horizontal lines in APA style?)
+
 ---
+
+[//]: # (those to be replavced with real content)
 
 - Table of Contents
 - List of Tables
@@ -102,6 +110,8 @@ The empirical study employs a within-subject quasi-experimental scenario survey 
 The analysis is based on a sample of 67 respondents yielding 536 scenario-level observations. Results support Hypothesis H1: the Shock Score composite is a statistically significant negative predictor of Net Risk Stance (β₁ = -0.2836, p < 0.0001), indicating that higher shock intensity is systematically associated with a risk-reducing decision shift among professional managers. Hypothesis H2 is not supported in the current sample: the estimated treatment effect of the Shock Score dashboard on portfolio outcomes is positive in direction but does not reach statistical significance (τ = 0.0076, p = 0.3770), a result attributed primarily to limited statistical power rather than to an absence of effect.
 
 The thesis concludes that external information shocks are associated with measurable systematic changes in professional portfolio managers' risk stance, consistent with behavioral finance theory. The Shock Score demonstrates construct validity and directional alignment with the hypothesized moderation mechanism. Replication on a larger sample is recommended to evaluate Hypothesis H2 with adequate statistical power. Practical recommendations are offered for portfolio managers, risk governance frameworks, and future integration of behavioral indicators into investment decision processes.
+
+[//]: # (note bewlow is not required)
 
 *Note: Results reported above are based on the sample available at the time of writing. Final results will be updated upon completion of data collection.*
 
@@ -223,11 +233,15 @@ The study employs publicly available market and news data for the construction o
 
 The thesis is organised into six chapters. Chapter 1, the present chapter, introduces the problem, the motivation for the study, and the scope of the empirical research. Chapter 2 defines the objectives of the study, formulates the research questions and hypothesis statements, presents operational definitions of key terms, and records the assumptions and limitations that bound interpretation of the findings. Chapter 3 reviews the academic literature on behavioural finance, managerial decision-making under uncertainty, structured tools for the mitigation of behavioural bias, and the implications for portfolio management, concluding with a systematic mapping of the gaps in existing research that the study addresses. Chapter 4 documents the research data, the construction of the composite Shock Score, and the design of the primary survey instrument used to collect professional managers' decision responses. Chapter 5 presents the empirical analysis and statistical results, including descriptive statistics, the principal regression specifications used to evaluate the hypotheses, and robustness checks. Chapter 6 states the conclusions, formulates practical recommendations for portfolio managers and risk governance practitioners, identifies areas for further research, and discusses the ethical considerations and broader societal implications of the findings.
 
+[//]: # (remove lines, I will not comment this below)
+
 -------------------------------
 
 # Chapter 2. Objectives of the Study
 
 ## 2.1 Chapter Introduction
+
+[//]: # (parargraphs that start with > were not expected to go into final text. They probably do not add any value. Check thet and delete those.)
 
 >Chapter 2 defines the research scope and agenda for this thesis. It restates the managerial problem motivating the study (Section 2.2), specifies the objectives that guide the empirical work (Section 2.3), and presents the research questions and hypothesis statements to be evaluated (Sections 2.4-2.6). The chapter also provides operational definitions of key terms and records assumptions and limitations that bound interpretation of the findings (Section 2.8). 
 
@@ -240,6 +254,8 @@ The research problem addressed in this thesis is twofold. First, the study exami
 The Shock Score plays two roles in the study. It serves, first, as a continuous measure of information shock intensity for analysing the relationship between information shocks and decisions. It serves, second, as an experimental treatment condition in which the Shock Score dashboard is displayed to managers during scenario evaluation in order to structure their interpretation of information and dampen the influence of emotional and cognitive biases. The study is framed as quantitative research on professional decision-making rather than as a claim about market inefficiency or return predictability.
 
 The behavioral finance literature documents that earnings announcements and other discrete information events frequently produce short-term price overreaction followed by partial reversal, consistent with attention-driven trading and emotional processing of salient news ([Jiang & Zhu, 2016](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2891216); [Meng et al., 2024](https://doi.org/10.1016/j.irfa.2024.103219)). The intraday price dynamics of Meta Platforms Inc. on 2 February 2026, which coincided with the public release of quarterly earnings results, illustrate this pattern. The announcement was widely interpreted as outperforming market expectations and triggered a rapid price adjustment together with elevated trading volume. Despite the positive informational content, the immediate price response was followed by pronounced short-term volatility and partial reversal — a sequence consistent with the short-horizon overreaction patterns documented in the empirical literature ([Hirshleifer, 2015](https://doi.org/10.1146/annurev-financial-092214-043752)).
+
+[//]: # (as per APA Style: Figure id goes to the first line, Figure title -- next line. Fix this for this and other charts. Same for tables.)
 
 **Figure 2.1** *Intraday Price Movement of Meta Platforms Inc. on 2 February 2026 Following the Release of Quarterly Earnings Results, Illustrating a Short-Horizon Market Reaction to an External Information Shock*
 
@@ -376,7 +392,11 @@ Assumptions describe the conditions under which the research design supports val
 
 ## 2.8 Limitations
 
+[//]: # (Is this statement required below?)
+
 Limitations define boundaries on measurement, inference, and generalizability. They clarify what the study can and cannot conclude from the data and design.
+
+[//]: # (seems like syntaxis error. Why does it start with ##?)
 
 ##Emotional intensity is not observed directly in this study and is proxied through four observable shock characteristics — Article Count, Sentiment Extremity, Attention Intensity, and Event-Type Severity — aggregated into SC_total via principal component analysis (components and construction defined in Section 4.3.5; PCA method per [Jolliffe & Cadima, 2016](https://doi.org/10.1098/rsta.2015.0202)). Each component captures a distinct dimension of the informational stimulus that behavioral research associates with heightened investor attention and affective response ([Loewenstein et al., 2001](https://doi.org/10.1037/0033-2909.127.2.267); [Barber & Odean, 2008](https://doi.org/10.1093/rfs/hhm079)). The Shock Score as a composite proxy for emotional intensity is a novel construct introduced in this thesis; its construct validity is an empirical question evaluated in Chapter 5 through its explanatory power over Net Risk Stance responses. The effectiveness of the persistence score and pre-commitment protocol components additionally depends on predefined thresholds, which may not be universally optimal across all event types and market regimes.
 
@@ -386,6 +406,8 @@ Limitations define boundaries on measurement, inference, and generalizability. T
 
 
 **Figure 2.2** *Causal Logic of the Study Design*
+
+[//]: # (SVG images are not rendered in pycharm viewer. is this expected?)
 
 ![Figure 2.2: Causal logic of the study design. The left domain (observed) encompasses survey responses and market data. The right domain (simulated) encompasses the translation of stated decisions into portfolio outcomes, introducing model dependency that bounds interpretation of H2 results.](images/img_causal_logic.svg)
 
@@ -401,6 +423,8 @@ Taken together, the study design integrates real-time information shock measurem
 
 
 # Chapter 3. Literature Review
+
+[//]: # (again paragraph wwith no clear purpose)
 
 >The literature review is designed to bridge foundational behavioral finance theory with applied challenges in professional investment decision-making, culminating in the rationale for structured debiasing tools. This body of literature directly supports the two hypotheses of the study: H1, which posits that information shock intensity predicts decision deviation, and H2, which posits that the Shock Score moderates that deviation.
 
@@ -614,6 +638,8 @@ This approach aligns with calls in the literature to integrate behavioral insigh
 
 In practical terms, the Shock Score addresses the shortcomings identified above. Unlike the ex-post descriptive measures dominant in the existing literature, the Shock Score (defined in Chapter 4) is a forward-looking, ex-ante decision-support indicator, making behavioral risk explicit in the same way that traditional risk measures quantify volatility or Value-at-Risk. By doing so, it fills a lacuna in the literature by tying descriptive knowledge of biases to a predictive decision-support tool. In summary, the Shock Score is both novel and relevant: it provides the missing link between theory and practice, operationalizing behavioral finance for real-time portfolio management.
 
+
+
 **Benchmarking Against Existing Measures**
 
 While sentiment and information shock measurement is not new to finance, existing approaches differ fundamentally from the Shock Score in purpose, scope, and application. This subsection benchmarks the Shock Score against three categories of competing measures to establish its novelty.
@@ -639,6 +665,8 @@ Commercial platforms such as AndesRisk and Pocket Risk incorporate behavioral fi
 **The Shock Score's Distinct Contribution**
 
 The Shock Score differs from all these approaches in three critical dimensions. First, **purpose**: unlike forecasting-oriented sentiment indices, the Shock Score is explicitly designed for behavioral decision support rather than return prediction. Second, **scope**: unlike market-wide fear gauges, the Shock Score operates at portfolio level, measuring information shocks specific to a manager's holdings. Third, **application**: unlike static risk profiling tools, the Shock Score triggers real-time behavioral interventions (cooling-off protocols, IPS review) linked to Investment Policy Statement governance frameworks.
+
+[//]: # (is "text Table 3.2 repeats twice -- in the paragraph and then as table header. this is not good visually. can we place first occurance in previous paragraph?.)
 
 Table 3.2 systematically compares the Shock Score against representative measures from each category.
 
@@ -713,6 +741,9 @@ The research is positioned as applied research focused on professional decision-
 ### 4.2.2 Conceptual Framework
 
 The conceptual framework operationalizes the causal logic introduced in Section 2.3 into a testable research design. Figure 4.1 presents the framework, mapping each construct to its measurement instrument and connecting the two hypotheses to the experimental protocol.
+
+[//]: # (is "text Table 4.1 repeats twice -- in the paragraph and then as table header. this is not good visually. can we place first occurance in previous paragraph? it is also in prev paragraph.)
+
 
 **Figure 4.1** *Conceptual Framework – Research Design Operationalization*
 
@@ -815,6 +846,9 @@ Article body text serves two distinct downstream purposes. First, the raw text o
 ### 4.3.4 Event Screening and Scenario Selection
 
 Candidate event days for the survey scenarios are identified through a three-stage screening process applied to each stock in the portfolio universe (Section 4.3.1) over the historical event window. The intraday price data described in Section 4.3.2 provide the inputs for all statistical screens. Rolling statistics for 30-minute bar returns and volume are computed over a trailing 60-trading-day window.
+
+[//]: # (Note: If paragraph starts with Bold -- this is level 4 heade in APA.)
+
 
 **Stage 1 -- Statistical screening.** For each stock, compute the rolling 60-trading-day historical volatility, defined as the standard deviation of daily log returns over the trailing window. Flag days where the absolute daily return exceeds 2.0 standard deviations from the stock's trailing mean return. This threshold identifies days with statistically unusual price movements relative to the stock's own history.
 
@@ -1002,6 +1036,10 @@ Note: respondents are randomly assigned to one of the six forms. Within each for
 
 For each scenario, the manager selects a single response on the seven-point Net Risk Stance scale:
 
+
+[//]: # (I have already seen this list before. is it required to be reported 2 times? Convert to proper numerated list if required.)
+
+
 1 -- Strongly reduce exposure
 2 -- Reduce exposure
 3 -- Slightly reduce exposure
@@ -1175,6 +1213,8 @@ The eigenvalue of 2.1027 exceeds 1.0, satisfying the Kaiser criterion. The first
 <!-- /PLACEHOLDER:s5_3_scenarios -->
 
 **Figure 5.1** *SC_total Composite Shock Score Versus Actual Realised Horizon Return Across 24 Scenarios*
+
+[//]: # (Figure is not rendered. I believe folder is incorrect. Results are stored in results/figures/5_3_scenarios.png.)
 
 ![SC_total versus actual horizon return](figures/fig_sc_vs_horizon_return.png)
 

@@ -1,8 +1,11 @@
 group,n,n_aligned,alignment_rate
-overall,424,116,0.2736
-ShowSC=0,212,56,0.2642
-ShowSC=1,212,60,0.283
-sentiment=Mildly Negative,53,15,0.283
-sentiment=Neutral,106,29,0.2736
-sentiment=Positive,159,38,0.239
-sentiment=Strongly Positive,106,34,0.3208
+overall,424,123,0.2901
+ShowSC=0,224,69,0.308
+ShowSC=1,200,54,0.27
+sentiment=Mildly Negative,53,13,0.2453
+sentiment=Mildly Positive,84,11,0.131
+sentiment=Negative,16,1,0.0625
+sentiment=Neutral,123,41,0.3333
+sentiment=Positive,76,30,0.3947
+sentiment=Strongly Negative,16,8,0.5
+sentiment=Strongly Positive,56,19,0.3393

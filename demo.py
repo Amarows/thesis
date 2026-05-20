@@ -48,6 +48,9 @@ print("\n>>> STARTING STAGE 7: AUGMENT SURVEY DATA")
 s7_augment = importlib.import_module("test_script")
 s7_augment.main()
 
+
+
+
 print("\n>>> STARTING STAGE 8: STATISTICAL ANALYSIS")
 s8_stats = importlib.import_module("8_statistical_analysis")
 s8_stats.main()
