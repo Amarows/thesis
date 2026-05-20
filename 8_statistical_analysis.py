@@ -986,12 +986,19 @@ def run_h2_analysis(df: pd.DataFrame, horizon_returns: pd.DataFrame,
 
     # Merge horizon returns into df
     hr_merge = horizon_returns.reset_index()[["scenario_id", "horizon_return_pct",
-                                               "data_sufficient"]].copy()
+                                               "horizon_days", "data_sufficient"]].copy()
     df_h2 = df.merge(hr_merge, on="scenario_id", how="left")
     df_h2 = df_h2[df_h2["data_sufficient"] == True].copy()
     df_h2["nrs"] = pd.to_numeric(df_h2["nrs"], errors="coerce")
-    df_h2["delta_w"] = (df_h2["nrs"] - NRS_NEUTRAL) * WEIGHT_STEP
-    df_h2["weighted_return"] = df_h2["delta_w"] * df_h2["horizon_return_pct"]
+    BASELINE_W = 0.5
+    df_h2["delta_w"]       = (df_h2["nrs"] - NRS_NEUTRAL) * WEIGHT_STEP
+    df_h2["stock_weight"]  = BASELINE_W + df_h2["delta_w"]
+    df_h2["cash_weight"]   = 1.0 - df_h2["stock_weight"]
+    df_h2["rf_period_pct"] = RF_ANNUAL / 252 * df_h2["horizon_days"] * 100
+    df_h2["weighted_return"] = (
+        df_h2["stock_weight"] * df_h2["horizon_return_pct"]
+        + df_h2["cash_weight"] * df_h2["rf_period_pct"]
+    )
 
     # ---- Option B: individual portfolios ----
     records_b = []
@@ -1082,13 +1089,20 @@ def run_h2_analysis(df: pd.DataFrame, horizon_returns: pd.DataFrame,
             if len(cgrp) == 0:
                 continue
             mean_nrs = float(cgrp["nrs"].mean())
-            delta_w  = (mean_nrs - NRS_NEUTRAL) * WEIGHT_STEP
-            hr = horizon_returns.loc[sid, "horizon_return_pct"] if sid in horizon_returns.index else np.nan
+            delta_w      = (mean_nrs - NRS_NEUTRAL) * WEIGHT_STEP
+            stock_w      = 0.5 + delta_w
+            cash_w       = 1.0 - stock_w
+            hr           = horizon_returns.loc[sid, "horizon_return_pct"] if sid in horizon_returns.index else np.nan
+            h_days       = horizon_returns.loc[sid, "horizon_days"] if sid in horizon_returns.index else np.nan
+            rf_pct       = RF_ANNUAL / 252 * h_days * 100 if not np.isnan(h_days) else np.nan
+            port_ret     = (stock_w * hr + cash_w * rf_pct) if not (np.isnan(hr) or np.isnan(rf_pct)) else np.nan
             opt_a_rows.append({
                 "scenario_id": sid, "show_sc": cond,
                 "mean_nrs": round(mean_nrs, 4), "delta_w": round(delta_w, 4),
+                "stock_weight": round(stock_w, 4),
                 "horizon_return_pct": hr,
-                "weighted_return": round(delta_w * hr, 4) if not np.isnan(hr) else np.nan,
+                "rf_period_pct": round(rf_pct, 4) if not np.isnan(rf_pct) else np.nan,
+                "weighted_return": round(port_ret, 4) if not np.isnan(port_ret) else np.nan,
             })
 
     opt_a_df = pd.DataFrame(opt_a_rows)
