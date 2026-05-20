@@ -599,37 +599,34 @@ def _cronbach_alpha(wide: pd.DataFrame) -> float:
 
 def compute_normality(df: pd.DataFrame) -> dict:
     nrs_all = pd.to_numeric(df["nrs"], errors="coerce").dropna()
-    sc0     = pd.to_numeric(df.loc[df["show_sc"] == 0, "nrs"], errors="coerce").dropna()
-    sc1     = pd.to_numeric(df.loc[df["show_sc"] == 1, "nrs"], errors="coerce").dropna()
+    sc0 = pd.to_numeric(df.loc[df["show_sc"] == 0, "nrs"], errors="coerce").dropna()
+    sc1 = pd.to_numeric(df.loc[df["show_sc"] == 1, "nrs"], errors="coerce").dropna()
 
-    def _sw(series: pd.Series) -> tuple[float, float]:
-        if len(series) < 3:
-            return np.nan, np.nan
-        try:
-            w, p = stats.shapiro(series)
-            return round(float(w), 4), round(float(p), 4)
-        except Exception:
-            return np.nan, np.nan
-
-    rows = []
-    for label, s in [("overall", nrs_all), ("ShowSC=0", sc0), ("ShowSC=1", sc1)]:
-        w, p = _sw(s)
-        rows.append({
-            "group": label, "n": len(s),
-            "skewness": round(float(stats.skew(s)), 4) if len(s) >= 3 else np.nan,
-            "excess_kurtosis": round(float(stats.kurtosis(s)), 4) if len(s) >= 3 else np.nan,
-            "shapiro_w": w, "shapiro_p": p,
-            "normal_rejected": (p < 0.05) if not np.isnan(p) else None,
+    def _freq_table(series: pd.Series, label: str) -> pd.DataFrame:
+        counts = series.value_counts().reindex(range(1, 8), fill_value=0).sort_index()
+        pct    = (counts / counts.sum() * 100).round(2)
+        return pd.DataFrame({
+            "scale_point": counts.index,
+            "group":       label,
+            "count":       counts.values,
+            "pct":         pct.values,
         })
 
-    norm_df = pd.DataFrame(rows)
+    freq_overall = _freq_table(nrs_all, "Overall")
+    freq_sc0     = _freq_table(sc0,     "ShowSC=0 (Control)")
+    freq_sc1     = _freq_table(sc1,     "ShowSC=1 (Treatment)")
+    freq_df      = pd.concat([freq_overall, freq_sc0, freq_sc1], ignore_index=True)
+    freq_df.to_csv(TABLES_DIR / "tbl_nrs_frequency.csv", index=False)
+
+    # Retain empty norm_df for backward compatibility
+    norm_df = pd.DataFrame()
     norm_df.to_csv(TABLES_DIR / "tbl_normality.csv", index=False)
 
     # Unique respondent count for CLT flag
     n_resp = df["respondent_id"].nunique() if "respondent_id" in df.columns else len(nrs_all)
     clt_applies = n_resp >= 30
 
-    # Inter-scenario consistency (mean pairwise Pearson, not Cronbach's alpha)
+    # Inter-scenario consistency (mean pairwise Pearson — descriptive proxy only)
     consistency = np.nan
     if "respondent_id" in df.columns and "scenario_id" in df.columns:
         try:
@@ -642,11 +639,13 @@ def compute_normality(df: pd.DataFrame) -> dict:
         except Exception:
             pass
 
-    # Per-block Cronbach alpha (Issue #124)
+    # Per-block Cronbach alpha with n_per_block
     cronbach = {}
+    n_per_block = {}
     if "respondent_id" in df.columns and "scenario_id" in df.columns and "block_id" in df.columns:
         for blk in sorted(df["block_id"].dropna().unique()):
             blk_df = df[df["block_id"] == blk].copy()
+            n_per_block[int(blk)] = blk_df["respondent_id"].nunique()
             try:
                 wide_blk = blk_df.pivot_table(
                     index="respondent_id", columns="scenario_id", values="nrs", aggfunc="mean"
@@ -655,14 +654,15 @@ def compute_normality(df: pd.DataFrame) -> dict:
             except Exception:
                 cronbach[int(blk)] = np.nan
 
-    result = {
-        "norm_df": norm_df,
-        "clt_applies": clt_applies,
-        "n_respondents": n_resp,
+    return {
+        "freq_df":            freq_df,
+        "norm_df":            norm_df,
+        "clt_applies":        clt_applies,
+        "n_respondents":      n_resp,
         "mean_pairwise_corr": consistency,
         "cronbach_per_block": cronbach,
+        "n_per_block":        n_per_block,
     }
-    return result
 
 
 # ---------------------------------------------------------------------------
@@ -839,6 +839,24 @@ def run_h1_regression(df: pd.DataFrame) -> dict:
     primary["n_respondents"] = df["respondent_id"].nunique() if "respondent_id" in df.columns else np.nan
     primary["n_scenarios"]   = df["scenario_id"].nunique() if "scenario_id" in df.columns else np.nan
     h1["primary"] = primary
+
+    # Residual normality test (Shapiro-Wilk on primary OLS residuals)
+    resid_norm = {}
+    primary_model = primary.get("model")
+    if primary_model is not None:
+        residuals = primary_model.resid
+        if len(residuals) >= 3:
+            try:
+                w_stat, p_val = stats.shapiro(residuals)
+                resid_norm = {
+                    "w":        round(float(w_stat), 4),
+                    "p":        round(float(p_val), 4),
+                    "n":        int(len(residuals)),
+                    "rejected": bool(p_val < 0.05),
+                }
+            except Exception:
+                resid_norm = {}
+    h1["residual_normality"] = resid_norm
 
     # --- Robustness ---
     rob_rows = []
@@ -1519,6 +1537,15 @@ def write_results_md(
             f"<!-- RESULTS:END:{section_id} -->"
         )
 
+    # ---- tbl_4_7_counts ----
+    n_resp_panel = df["respondent_id"].nunique() if "respondent_id" in df.columns else 0
+    n_obs_panel  = len(df.dropna(subset=["nrs"]))
+    tbl_47_lines = [
+        f"| Total valid responses included in analysis | {n_resp_panel} |",
+        f"| Total scenario-level observations | {n_obs_panel} |",
+    ]
+    tbl_47 = block("tbl_4_7_counts", "\n".join(tbl_47_lines))
+
     # ---- s5_2_1_respondents ----
     freq_df = desc.get("freq_demographics", pd.DataFrame())
     inst_rows = freq_df[freq_df["field"] == "institution_type"] if not freq_df.empty else pd.DataFrame()
@@ -1614,55 +1641,130 @@ def write_results_md(
     ]
     s523 = block("s5_3_scenarios", "\n".join(s523_lines))
 
+    # Inject residual normality from H1 into norm dict for use in s5_4_normality block
+    norm["residual_normality"] = h1.get("residual_normality", {})
+
     # ---- s5_4_normality ----
-    norm_df = norm.get("norm_df", pd.DataFrame())
-    clt     = norm.get("clt_applies", False)
-    cons    = norm.get("mean_pairwise_corr", np.nan)
+    freq_df     = norm.get("freq_df", pd.DataFrame())
+    clt         = norm.get("clt_applies", False)
+    cons        = norm.get("mean_pairwise_corr", np.nan)
     n_resp_norm = norm.get("n_respondents", 0)
+    cronbach    = norm.get("cronbach_per_block", {})
+    n_per_block = norm.get("n_per_block", {})
+    resid_norm  = norm.get("residual_normality", {})
+
     s54_lines = []
-    if not norm_df.empty:
-        for _, row in norm_df.iterrows():
-            rejected = row.get("normal_rejected")
-            s54_lines.append(
-                f"For the {row['group']} group (n = {int(row['n'])}): "
-                f"skewness = {_round4(row['skewness'])}, excess kurtosis = {_round4(row['excess_kurtosis'])}, "
-                f"Shapiro-Wilk W = {_round4(row['shapiro_w'])}, p = {_round4(row['shapiro_p'])} "
-                f"({'normality rejected' if rejected else 'normality not rejected'} at α = 0.05)."
-            )
+
+    # --- Table 5.4a: NRS Frequency Distribution ---
+    s54_lines += [
+        "The NRS is a seven-point ordered categorical scale. Because the scale is bounded "
+        "and ordinal, normality testing on raw responses is not appropriate; the standard "
+        "assumption required for OLS inference concerns residual normality (reported in "
+        "Table 5.4c below), not the marginal distribution of the dependent variable. "
+        "Table 5.4a presents the frequency distribution of NRS responses across scale "
+        "points, overall and by experimental condition.",
+        "",
+        "**Table 5.4a** *NRS Response Frequency Distribution*",
+        "",
+    ]
+
+    if not freq_df.empty:
+        groups = ["Overall", "ShowSC=0 (Control)", "ShowSC=1 (Treatment)"]
+        header = "| NRS | " + " | ".join([f"N ({g})" for g in groups]) + \
+                 " | " + " | ".join([f"% ({g})" for g in groups]) + " |"
+        sep    = "|" + "---|" * (1 + len(groups) * 2)
+        rows   = [header, sep]
+        for sp in range(1, 8):
+            row_data = [str(sp)]
+            for g in groups:
+                mask = (freq_df["scale_point"] == sp) & (freq_df["group"] == g)
+                n_val = int(freq_df.loc[mask, "count"].values[0]) if mask.any() else 0
+                row_data.append(str(n_val))
+            for g in groups:
+                mask = (freq_df["scale_point"] == sp) & (freq_df["group"] == g)
+                p_val = float(freq_df.loc[mask, "pct"].values[0]) if mask.any() else 0.0
+                row_data.append(f"{p_val:.2f}%")
+            rows.append("| " + " | ".join(row_data) + " |")
+        s54_lines += rows
+        total_overall = int(freq_df[freq_df["group"] == "Overall"]["count"].sum())
+        s54_lines.append("")
+        s54_lines.append(
+            f"*Note.* NRS responses on a 7-point scale (1 = Strongly reduce concentration, "
+            f"7 = Strongly increase concentration). N = {n_resp_norm} respondents, "
+            f"{total_overall} total observations. Percentages may not sum to 100% due to rounding."
+        )
+
     s54_lines += [
         "",
         f"Central limit theorem applicability: the sample comprises {n_resp_norm} respondents, "
         f"{'exceeding' if clt else 'below'} the N = 30 threshold. "
-        f"{'Parametric inference is therefore warranted even if the NRS distribution departs from normality.' if clt else 'Given the small sample size, parametric inference should be interpreted with caution.'}",
+        f"{'Parametric inference is therefore warranted.' if clt else 'Given the small sample size, parametric inference should be interpreted with caution.'}",
         "",
-        f"Inter-scenario consistency (mean pairwise Pearson correlation across respondent × scenario "
-        f"response matrix): r̄ = {_round4(cons)}. Note: this is not Cronbach's alpha. The NRS is a "
-        f"single-item measure; traditional internal consistency coefficients do not apply. "
-        f"The mean pairwise correlation is reported as a descriptive consistency proxy only.",
+        f"Inter-scenario consistency (mean pairwise Pearson correlation across respondent "
+        f"× scenario response matrix): r̄ = {_round4(cons)}. This is reported as a "
+        f"descriptive consistency proxy only; the NRS is a single-item measure and the "
+        f"eight scenarios per block are intentionally heterogeneous.",
+        "",
     ]
 
-    # Cronbach alpha per block
-    cronbach = norm.get("cronbach_per_block", {})
-    if cronbach:
-        s54_lines.append("")
-        s54_lines.append(
-            "**Instrument reliability – Cronbach alpha by block (main survey sample).**"
-        )
-        threshold = 0.70
-        for blk in sorted(cronbach.keys()):
-            alpha_val = cronbach[blk]
-            if np.isnan(alpha_val):
-                s54_lines.append(f"Block {blk}: alpha could not be computed (insufficient data).")
-            else:
-                s54_lines.append(
-                    f"Block {blk}: Cronbach alpha = {alpha_val:.4f} "
-                    f"({'acceptable' if alpha_val >= threshold else 'below the conventional 0.70 threshold – see Section 5.9'})."
-                )
-        s54_lines.append(
-            "Alpha is computed on the eight NRS items per block across all main-survey respondents "
-            "who completed that block. A value of alpha >= 0.70 is the conventional threshold for "
-            "acceptable internal consistency (Nunnally, 1978)."
-        )
+    # --- Table 5.4b: Cronbach's Alpha by Block ---
+    s54_lines += [
+        "**Table 5.4b** *Instrument Reliability – Cronbach's Alpha by Block*",
+        "",
+        "| Block | N respondents | Cronbach's α | Threshold (≥ 0.70) | Assessment |",
+        "|-------|--------------|--------------|---------------------|------------|",
+    ]
+    all_blocks = sorted(set(list(cronbach.keys()) + [1, 2, 3]))
+    threshold = 0.70
+    for blk in all_blocks:
+        n_blk     = n_per_block.get(blk, 0)
+        alpha_val = cronbach.get(blk, np.nan)
+        n_str     = str(n_blk) if n_blk > 0 else "Not yet available"
+        if isinstance(alpha_val, float) and np.isnan(alpha_val):
+            s54_lines.append(
+                f"| Block {blk} | {n_str} | — | — | Pending full sample |"
+            )
+        else:
+            meets = alpha_val >= threshold
+            s54_lines.append(
+                f"| Block {blk} | {n_str} | {alpha_val:.4f} | "
+                f"{'Above' if meets else 'Below'} | "
+                f"{'Acceptable' if meets else 'Sub-threshold'} |"
+            )
+    s54_lines += [
+        "",
+        "*Note.* Cronbach's alpha computed on the eight NRS items per block across all "
+        "main-survey respondents who completed that block. Threshold of alpha ≥ 0.70 "
+        "follows Nunnally (1978). Blocks with no respondents in the current sample are "
+        "marked as pending and will be assessed post-hoc upon completion of the full survey.",
+        "",
+    ]
+
+    # --- Table 5.4c: Residual Normality ---
+    if resid_norm:
+        s54_lines += [
+            "**Table 5.4c** *OLS Residual Normality – Primary H1 Regression*",
+            "",
+            "| | Shapiro-Wilk W | p-value | Normality rejected (α = 0.05) |",
+            "|---|---|---|---|",
+            f"| Primary H1 residuals | {_round4(resid_norm.get('w', np.nan))} | "
+            f"{_round4(resid_norm.get('p', np.nan))} | "
+            f"{'Yes' if resid_norm.get('rejected') else 'No'} |",
+            "",
+            f"*Note.* Shapiro-Wilk test applied to OLS residuals from the primary H1 "
+            f"regression specification (N = {resid_norm.get('n', '—')} observations). "
+            f"Residual normality is the relevant OLS assumption; the marginal distribution "
+            f"of NRS is not required to be normal. HC3 heteroscedasticity-consistent "
+            f"standard errors are applied regardless of this result.",
+            "",
+        ]
+    else:
+        s54_lines += [
+            "**Table 5.4c** *OLS Residual Normality – Primary H1 Regression*",
+            "",
+            "*(To be populated once H1 regression is computed.)*",
+            "",
+        ]
 
     s54 = block("s5_4_normality", "\n".join(s54_lines))
 
@@ -1945,7 +2047,7 @@ def write_results_md(
                         "Alignment diagnostic could not be computed (missing sentiment_direction or nrs column).")
 
     # Assemble file
-    sections = [s521, s522, s523, s54, s551, s552, s561, s5_diag, s562, s57, s58, s62, s63, s64]
+    sections = [tbl_47, s521, s522, s523, s54, s551, s552, s561, s5_diag, s562, s57, s58, s62, s63, s64]
     lines.extend(sections)
 
     RESULTS_MD_PATH.write_text("\n\n".join(lines), encoding="utf-8")
