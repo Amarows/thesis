@@ -42,8 +42,10 @@ s6_process = importlib.import_module("6_process_survey_data")
 # By default, use live API. If no internet/credentials, use --dry-run
 s6_process.run(dry_run=False)
 
+
+import importlib
 print("\n>>> STARTING STAGE 7: AUGMENT SURVEY DATA")
-s7_augment = importlib.import_module("7_augment_data")
+s7_augment = importlib.import_module("test_script")
 s7_augment.main()
 
 print("\n>>> STARTING STAGE 8: STATISTICAL ANALYSIS")

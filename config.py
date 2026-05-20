@@ -29,7 +29,7 @@ HORIZON_DAYS = {                  # Trading days per persistence bucket
 
 # ── Statistical analysis ──────────────────────────────────────────────────────
 ALPHA = 0.05                      # Significance threshold (two-tailed)
-SEED  = 57                        # Random seed for reproducibility
+SEED  = 106                       # Random seed for reproducibility
 
 # ── Augmentation ─────────────────────────────────────────────────────────────
 AUGMENT_NOISE_FLOOR_SD     = 0.8  # Minimum SD for NRS noise generation
