@@ -1,6 +1,5 @@
 ---
 title: Cover Page
----
 
 <div style="text-align:center; margin-top:180px;">
 
@@ -27,11 +26,6 @@ title: Cover Page
 
 </div>
 
-[//]: # (is "title: Title Page" below rearrly required here?.)
-
----
-title: Title Page
----
 
 <div style="text-align:center; margin-top:180px;">
 
@@ -73,9 +67,7 @@ Mentor signature: ______________________________
 
 Date: ______________________________
 
-[//]: # (horizontal lines in APA style?)
 
----
 
 ## Foreword
 
@@ -85,11 +77,8 @@ The Shock Score, developed and evaluated in this thesis, represents an attempt t
 
 The research draws on the behavioral finance literature, quantitative methods in financial economics, and applied survey design. It is intended to contribute both to academic understanding of decision-making under uncertainty and to the practical toolkit available to investment risk professionals.
 
-[//]: # (horizontal lines in APA style?)
 
----
 
-[//]: # (those to be replavced with real content)
 
 - Table of Contents
 - List of Tables
@@ -111,11 +100,9 @@ The analysis is based on a sample of 67 respondents yielding 536 scenario-level 
 
 The thesis concludes that external information shocks are associated with measurable systematic changes in professional portfolio managers' risk stance, consistent with behavioral finance theory. The Shock Score demonstrates construct validity and directional alignment with the hypothesized moderation mechanism. Replication on a larger sample is recommended to evaluate Hypothesis H2 with adequate statistical power. Practical recommendations are offered for portfolio managers, risk governance frameworks, and future integration of behavioral indicators into investment decision processes.
 
-[//]: # (note bewlow is not required)
 
 *Note: Results reported above are based on the sample available at the time of writing. Final results will be updated upon completion of data collection.*
 
----
 
 
 
@@ -233,15 +220,12 @@ The study employs publicly available market and news data for the construction o
 
 The thesis is organised into six chapters. Chapter 1, the present chapter, introduces the problem, the motivation for the study, and the scope of the empirical research. Chapter 2 defines the objectives of the study, formulates the research questions and hypothesis statements, presents operational definitions of key terms, and records the assumptions and limitations that bound interpretation of the findings. Chapter 3 reviews the academic literature on behavioural finance, managerial decision-making under uncertainty, structured tools for the mitigation of behavioural bias, and the implications for portfolio management, concluding with a systematic mapping of the gaps in existing research that the study addresses. Chapter 4 documents the research data, the construction of the composite Shock Score, and the design of the primary survey instrument used to collect professional managers' decision responses. Chapter 5 presents the empirical analysis and statistical results, including descriptive statistics, the principal regression specifications used to evaluate the hypotheses, and robustness checks. Chapter 6 states the conclusions, formulates practical recommendations for portfolio managers and risk governance practitioners, identifies areas for further research, and discusses the ethical considerations and broader societal implications of the findings.
 
-[//]: # (remove lines, I will not comment this below)
 
--------------------------------
 
 # Chapter 2. Objectives of the Study
 
 ## 2.1 Chapter Introduction
 
-[//]: # (parargraphs that start with > were not expected to go into final text. They probably do not add any value. Check thet and delete those.)
 
 >Chapter 2 defines the research scope and agenda for this thesis. It restates the managerial problem motivating the study (Section 2.2), specifies the objectives that guide the empirical work (Section 2.3), and presents the research questions and hypothesis statements to be evaluated (Sections 2.4-2.6). The chapter also provides operational definitions of key terms and records assumptions and limitations that bound interpretation of the findings (Section 2.8). 
 
@@ -255,9 +239,10 @@ The Shock Score plays two roles in the study. It serves, first, as a continuous 
 
 The behavioral finance literature documents that earnings announcements and other discrete information events frequently produce short-term price overreaction followed by partial reversal, consistent with attention-driven trading and emotional processing of salient news ([Jiang & Zhu, 2016](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2891216); [Meng et al., 2024](https://doi.org/10.1016/j.irfa.2024.103219)). The intraday price dynamics of Meta Platforms Inc. on 2 February 2026, which coincided with the public release of quarterly earnings results, illustrate this pattern. The announcement was widely interpreted as outperforming market expectations and triggered a rapid price adjustment together with elevated trading volume. Despite the positive informational content, the immediate price response was followed by pronounced short-term volatility and partial reversal — a sequence consistent with the short-horizon overreaction patterns documented in the empirical literature ([Hirshleifer, 2015](https://doi.org/10.1146/annurev-financial-092214-043752)).
 
-[//]: # (as per APA Style: Figure id goes to the first line, Figure title -- next line. Fix this for this and other charts. Same for tables.)
 
-**Figure 2.1** *Intraday Price Movement of Meta Platforms Inc. on 2 February 2026 Following the Release of Quarterly Earnings Results, Illustrating a Short-Horizon Market Reaction to an External Information Shock*
+*Figure 2.1*
+
+*Intraday Price Movement of Meta Platforms Inc. on 2 February 2026 Following the Release of Quarterly Earnings Results, Illustrating a Short-Horizon Market Reaction to an External Information Shock*
 
 ![Figure 2.1: Intraday price movement of Meta Platforms Inc. on 2 February 2026 following the release of quarterly earnings results, illustrating a short-horizon market reaction to an external information shock.](images/img_shock_example.png)
 
@@ -392,22 +377,21 @@ Assumptions describe the conditions under which the research design supports val
 
 ## 2.8 Limitations
 
-[//]: # (Is this statement required below?)
 
 Limitations define boundaries on measurement, inference, and generalizability. They clarify what the study can and cannot conclude from the data and design.
 
-[//]: # (seems like syntaxis error. Why does it start with ##?)
 
-##Emotional intensity is not observed directly in this study and is proxied through four observable shock characteristics — Article Count, Sentiment Extremity, Attention Intensity, and Event-Type Severity — aggregated into SC_total via principal component analysis (components and construction defined in Section 4.3.5; PCA method per [Jolliffe & Cadima, 2016](https://doi.org/10.1098/rsta.2015.0202)). Each component captures a distinct dimension of the informational stimulus that behavioral research associates with heightened investor attention and affective response ([Loewenstein et al., 2001](https://doi.org/10.1037/0033-2909.127.2.267); [Barber & Odean, 2008](https://doi.org/10.1093/rfs/hhm079)). The Shock Score as a composite proxy for emotional intensity is a novel construct introduced in this thesis; its construct validity is an empirical question evaluated in Chapter 5 through its explanatory power over Net Risk Stance responses. The effectiveness of the persistence score and pre-commitment protocol components additionally depends on predefined thresholds, which may not be universally optimal across all event types and market regimes.
+Emotional intensity is not observed directly in this study and is proxied through four observable shock characteristics — Article Count, Sentiment Extremity, Attention Intensity, and Event-Type Severity — aggregated into SC_total via principal component analysis (components and construction defined in Section 4.3.5; PCA method per [Jolliffe & Cadima, 2016](https://doi.org/10.1098/rsta.2015.0202)). Each component captures a distinct dimension of the informational stimulus that behavioral research associates with heightened investor attention and affective response ([Loewenstein et al., 2001](https://doi.org/10.1037/0033-2909.127.2.267); [Barber & Odean, 2008](https://doi.org/10.1093/rfs/hhm079)). The Shock Score as a composite proxy for emotional intensity is a novel construct introduced in this thesis; its construct validity is an empirical question evaluated in Chapter 5 through its explanatory power over Net Risk Stance responses. The effectiveness of the persistence score and pre-commitment protocol components additionally depends on predefined thresholds, which may not be universally optimal across all event types and market regimes.
 
 ##Findings may not generalize beyond the defined portfolio universe, event types, and time horizon represented by the use cases. The effectiveness of the Shock Score and the associated pre-commitment protocol may vary across market regimes, volatility environments, and institutional contexts. The within-subject experimental setting evaluates intended decision responses under controlled scenarios and may differ from real-world behavior under organizational constraints, transaction costs, and liquidity considerations.
 
 ##The study evaluates portfolio risk-return outcomes through simulation rather than through observation of actual trading ([Charness et al., 2012](https://doi.org/10.1016/j.jebo.2011.08.006)). Managers provide stated decision responses via the survey instrument; these responses are then translated into portfolio weight adjustments and evaluated against realized market returns within a simulation framework. As with any design relying on stated rather than revealed preferences, the relationship between reported intentions and actual behavior introduces a potential validity constraint ([Huber et al., 2022](https://doi.org/10.1016/j.jebo.2021.12.007)). As a result, the portfolio outcome findings for H2 are jointly conditional on two elements: (a) the behavioral effect of the Shock Score on stated decisions, and (b) the adequacy of the simulation model that maps stated decisions to portfolio returns. If the translation rules, rebalancing assumptions, or return-attribution conventions do not adequately represent how stated intentions would manifest in live portfolio management, the portfolio-level results may over- or understate the true effect of decision support. Figure 2.2 illustrates the boundary between directly observed data and model-dependent inference. The simulation design, including all translation rules and rebalancing conventions, is fully specified in Chapter 4 to enable independent assessment of these assumptions.
 
 
-**Figure 2.2** *Causal Logic of the Study Design*
+*Figure 2.2*
 
-[//]: # (SVG images are not rendered in pycharm viewer. is this expected?)
+*Causal Logic of the Study Design*
+
 
 ![Figure 2.2: Causal logic of the study design. The left domain (observed) encompasses survey responses and market data. The right domain (simulated) encompasses the translation of stated decisions into portfolio outcomes, introducing model dependency that bounds interpretation of H2 results.](images/img_causal_logic.svg)
 
@@ -424,7 +408,6 @@ Taken together, the study design integrates real-time information shock measurem
 
 # Chapter 3. Literature Review
 
-[//]: # (again paragraph wwith no clear purpose)
 
 >The literature review is designed to bridge foundational behavioral finance theory with applied challenges in professional investment decision-making, culminating in the rationale for structured debiasing tools. This body of literature directly supports the two hypotheses of the study: H1, which posits that information shock intensity predicts decision deviation, and H2, which posits that the Shock Score moderates that deviation.
 
@@ -441,7 +424,6 @@ While the literature contains indices and measures aimed at capturing market sen
 
 Taken together, the studies reviewed below are interpreted in this thesis as implying a causal pathway from external information shocks to portfolio-level outcomes. Sudden and salient news events increase cognitive load and emotional arousal, activating behavioral biases such as overconfidence, loss aversion, attention-driven extrapolation, and herding. These biases can distort managers' perceptions of risk and return precisely when rapid decisions are required. They may lead to systematically altered portfolio actions, including procyclical rebalancing, excessive turnover, delayed adjustment, or temporary deviations from strategic risk targets. As a result, information shocks are expected to affect realized portfolio risk-return characteristics in the short term, not only through price dynamics but also through behaviorally mediated decision errors. This logic provides the theoretical foundation for the first research hypothesis, which examines whether external information shocks are associated with measurable changes in portfolio risk-return outcomes.
 
----
 
 ## 3.2 Behavioral Biases in Investment Decision-Making
 
@@ -502,7 +484,6 @@ These distortions have clear implications for portfolio management. Emotional ov
 
 In sum, the literature establishes that behavioral biases shape short-term price dynamics and introduce persistent frictions into portfolio decision-making. These distortions manifest as excess volatility, predictable reversals, and suboptimal rebalancing behavior. This synthesis concludes the theoretical foundation for bias-driven market reactions; subsequent sections focus on how these mechanisms persist in professional contexts and how they can be mitigated in practice.
 
----
 
 ## 3.3 Managerial Decision-Making Under Uncertainty
 
@@ -534,7 +515,6 @@ Consistent with this mechanism, Elkind et al. (2022) show that extreme market co
 
 Bianchi et al. (2022) study how explainability in robo-advisory systems affects investor trust and delegation decisions, highlighting the importance of transparent, rule-based decision support in human–AI interaction. Complementary work recommends rule-based protocols—such as fixed-schedule rebalancing or performance-triggered adjustments—as a way to limit emotional interference in portfolio decisions ([Statman, 2019](https://doi.org/10.2139/ssrn.3668963)). In summary, structured tools and disciplined procedures, rather than intuition alone, are required to help professional investors avoid persistent cognitive traps.
 
----
 
 ## 3.4 Tools to Mitigate Emotional and Behavioral Bias
 
@@ -564,7 +544,6 @@ A critical advancement in behavioral finance is the quantitative operationalizat
 
 Thaler & Sunstein (2008) and Kahneman et al. (2021) establish that improving outcomes under uncertainty requires more than awareness of behavioral biases. Effective mitigation depends on structured, ex ante mechanisms that constrain discretionary judgment when emotional and cognitive pressures are highest. Within this framework, the Shock Score is best understood not as a forecasting model or automated trading system but as a behavioral decision-support trigger. By quantifying the intensity of an information shock in real time, the Shock Score can activate pre-committed decision protocols, such as temporary risk limits, delayed execution, or enhanced review requirements, precisely when managers are most vulnerable to bias. This intervention logic provides the theoretical basis for the second research hypothesis, which evaluates whether incorporating a Shock Score into the decision process improves portfolio outcomes relative to unmanaged discretionary responses during information shocks.
 
----
 
 ## 3.5 Implications for Portfolio Management
 
@@ -588,7 +567,6 @@ In this context, there is a clear need for a quantitative information shock indi
 
 From an empirical perspective, the studies reviewed in this chapter motivate a focus on observable portfolio-level indicators that capture the behavioral impact of information shocks. Prior research links information-shock-driven overreaction and stress to short-term volatility spikes, drawdowns, return reversals, and deviations from target risk exposure, all of which affect realized risk-return efficiency. Accordingly, changes in portfolio risk-return characteristics around high-intensity information shocks provide a natural testing ground for assessing both the presence of behaviorally induced distortions and the effectiveness of decision-support interventions. By examining how these outcomes differ conditional on Shock Score intensity and usage, the empirical analysis in subsequent chapters directly operationalizes the theoretical mechanisms identified in the literature.
 
----
 
 ## 3.6 Limitations in Behavioral Finance Research
 
@@ -615,7 +593,9 @@ This gap persists even in the most recent AI-driven systems. Lim (2026) develops
 
 Table 3.1 systematically maps these gaps across relevant studies. The table demonstrates that while individual components of real-time decision support have been addressed in isolation – information shock measurement (Song et al., 2015), professional behavioral responses (Huber et al., 2022), behavioral decision-support principles (Statman, 2019), and portfolio outcomes (Tetlock, 2007) – no prior research integrates all four elements in a controlled setting. This thesis fills this gap by combining real-time information shock measurement via the Shock Score, a professional sample of portfolio managers, behavioral decision-support interventions linked to Investment Policy Statements, and portfolio-level risk-return validation.
 
-**Table 3.1** *Systematic Gap Mapping in Information Shock Decision Support*
+*Table 3.1*
+
+*Systematic Gap Mapping in Information Shock Decision Support*
 
 | Study                      | Real-time Shock Measurement | Professional Sample | Behavioral Decision Support | Portfolio Outcome Validation | Primary Gap |
 |----------------------------|---------------------------|---------------------|----------------------------|----------------------------|-------------|
@@ -666,11 +646,12 @@ Commercial platforms such as AndesRisk and Pocket Risk incorporate behavioral fi
 
 The Shock Score differs from all these approaches in three critical dimensions. First, **purpose**: unlike forecasting-oriented sentiment indices, the Shock Score is explicitly designed for behavioral decision support rather than return prediction. Second, **scope**: unlike market-wide fear gauges, the Shock Score operates at portfolio level, measuring information shocks specific to a manager's holdings. Third, **application**: unlike static risk profiling tools, the Shock Score triggers real-time behavioral interventions (cooling-off protocols, IPS review) linked to Investment Policy Statement governance frameworks.
 
-[//]: # (is "text Table 3.2 repeats twice -- in the paragraph and then as table header. this is not good visually. can we place first occurance in previous paragraph?.)
 
-Table 3.2 systematically compares the Shock Score against representative measures from each category.
+The table below systematically compares the Shock Score against representative measures from each category.
 
-**Table 3.2** *Shock Score Benchmarking Against Existing Measures*
+*Table 3.2*
+
+*Shock Score Benchmarking Against Existing Measures*
 
 | Measure | Purpose | Frequency | Scope | Behavioral Component | Decision Output |
 |---------|---------|-----------|-------|---------------------|-----------------|
@@ -698,7 +679,6 @@ In sum, existing measures either forecast returns (sentiment indices), describe 
 
 Chapter 3 has reviewed three streams of literature that together provide the theoretical foundation for the research hypotheses. Hirshleifer (2015) and Barberis & Thaler (2002) establish the behavioral mechanisms through which information shocks produce systematic decision errors, supporting H1. Henderson et al. (2018), Statman (2019), and Bianchi et al. (2022) demonstrate that structured, rule-based decision support can reduce emotional reactivity in investment contexts, supporting the design rationale for H2. The Shock Score is positioned as a novel construct that bridges these two streams; its construction, empirical evaluation, and contribution relative to existing measures are addressed in Chapters 4 and 5.
 
----
 
 
 ## 3.7 Chapter Conclusion
@@ -742,10 +722,11 @@ The research is positioned as applied research focused on professional decision-
 
 The conceptual framework operationalizes the causal logic introduced in Section 2.3 into a testable research design. Figure 4.1 presents the framework, mapping each construct to its measurement instrument and connecting the two hypotheses to the experimental protocol.
 
-[//]: # (is "text Table 4.1 repeats twice -- in the paragraph and then as table header. this is not good visually. can we place first occurance in previous paragraph? it is also in prev paragraph.)
 
 
-**Figure 4.1** *Conceptual Framework – Research Design Operationalization*
+*Figure 4.1*
+
+*Conceptual Framework – Research Design Operationalization*
 
 ![Figure 4.1: Conceptual Framework](images/img_framework.svg)
 
@@ -772,9 +753,11 @@ The top 10 constituents by market capitalisation are excluded from the candidate
 
 The study requires 24 unique stocks to populate the scenario slots across three blocks of eight. Each stock contributes exactly one scenario and appears in exactly one block, ensuring that blocks function as fully independent mini-experiments and eliminating cross-block stimulus dependence. Each candidate stock must satisfy three additional requirements. First, adequate news coverage: the stock must have sufficient Benzinga article flow during the event selection window to permit Shock Score computation, operationalised as a minimum of one news article per week on average, ensuring sufficient news flow for reliable Shock Score computation at the event level. Second, sector diversification: stocks are sampled from at least 8 distinct GICS sectors, with no single sector contributing more than 4 of the 24 stocks and no sector contributing fewer than 1. Sector concentration would introduce a confound, as managers specialising in an over-represented sector would respond from a systematically different knowledge base than generalists. Third, active trading and liquidity: each stock must have average daily trading volume sufficient to make portfolio adjustment decisions plausible in a professional context.
 
-Table 4.1 presents the 24 portfolio stocks assigned to scenario blocks.
+The 24 portfolio stocks assigned to scenario blocks are listed below.
 
-**Table 4.1** *Portfolio Universe*
+*Table 4.1*
+
+*Portfolio Universe*
 
 | # | Company | Ticker | GICS Sector | Market Cap | S&P 500 Rank | Block |
 |---|---------|--------|-------------|------------|--------------|-------|
@@ -820,7 +803,9 @@ In addition to individual stock data, daily closing prices for the S&P 500 index
 
 Table 4.2 summarises all secondary data sources used in this study.
 
-**Table 4.2** *Secondary Data Sources*
+*Table 4.2*
+
+*Secondary Data Sources*
 
 | Data Type | Source | Coverage Period | Resolution | Purpose |
 |-----------|--------|-----------------|------------|---------|
@@ -847,7 +832,6 @@ Article body text serves two distinct downstream purposes. First, the raw text o
 
 Candidate event days for the survey scenarios are identified through a three-stage screening process applied to each stock in the portfolio universe (Section 4.3.1) over the historical event window. The intraday price data described in Section 4.3.2 provide the inputs for all statistical screens. Rolling statistics for 30-minute bar returns and volume are computed over a trailing 60-trading-day window.
 
-[//]: # (Note: If paragraph starts with Bold -- this is level 4 heade in APA.)
 
 
 **Stage 1 -- Statistical screening.** For each stock, compute the rolling 60-trading-day historical volatility, defined as the standard deviation of daily log returns over the trailing window. Flag days where the absolute daily return exceeds 2.0 standard deviations from the stock's trailing mean return. This threshold identifies days with statistically unusual price movements relative to the stock's own history.
@@ -862,7 +846,9 @@ For articles published outside regular trading hours (before 09:30 or after 16:0
 
 The output of this procedure is a set of candidate stock-day-news triples, each associated with a pre-computed Shock Score composite (SC_total) value (Section 4.3.5). From the candidate pool, scenarios are selected to satisfy the balance constraints summarised in Table 4.3.
 
-**Table 4.3** *Scenario Selection Balance Constraints*
+*Table 4.3*
+
+*Scenario Selection Balance Constraints*
 
 | Constraint | Requirement | Rationale |
 |------------|-------------|-----------|
@@ -883,7 +869,9 @@ Each scenario is constructed to be self-contained: the manager can form a decisi
 
 The composite Shock Score SC_total is constructed from four event-level components. Each component is standardised to mean zero and unit variance across all scenarios prior to principal component analysis (PCA). SC_total is defined as the first principal component obtained from the standardised component vector, following the established approach of using PCA to derive composite indices in finance (Baker & Wurgler, 2006).
 
-**Figure 4.2** *Shock Score Composite Construction*
+*Figure 4.2*
+
+*Shock Score Composite Construction*
 
 ![Figure 4.2: Shock Score Composite Construction](images/img_shock_score_components.svg)
 
@@ -899,7 +887,9 @@ The first principal component is chosen because it provides a single index captu
 
 The four components are defined in Table 4.4 and described in detail below.
 
-**Table 4.4** *Shock Score Components*
+*Table 4.4*
+
+*Shock Score Components*
 
 | Component | Abbreviation | Measure | Data Source | Computation |
 |-----------|-------------|---------|-------------|-------------|
@@ -931,7 +921,9 @@ The four components are designed to capture distinct psychological dimensions of
 
 The Shock Score is presented to respondents in the treatment condition (ShowSC = 1) as a compact visual dashboard displaying four interpretable signals derived from the composite index and its components. In the control condition (ShowSC = 0), the dashboard panel is absent; no placeholder or reference to the Shock Score appears. The treatment implementation and counterbalancing strategy that govern which respondents see the dashboard are described in Section 4.4.
 
-**Table 4.5** *Shock Score Dashboard Components*
+*Table 4.5*
+
+*Shock Score Dashboard Components*
 
 | Dashboard Signal | Source | Derivation | Display Format |
 |-----------------|--------|------------|----------------|
@@ -992,7 +984,9 @@ Each scenario presents the following elements in a standardised template:
 
 5. NRS response item: the seven-point scale with anchored labels (Section 4.4.5).
 
-**Figure 4.3** *Example Scenario Presentation in the Treatment Condition (Placeholder)*
+*Figure 4.3*
+
+*Example Scenario Presentation in the Treatment Condition (Placeholder)*
 
 *Note.* The figure will display a complete scenario as seen by a respondent in the ShowSC = 1 condition, including the stock identification header, intraday price chart, news summary, Shock Score dashboard, and NRS response item. To be inserted upon survey deployment.
 
@@ -1018,7 +1012,9 @@ Within blocks: two counterbalancing versions (V1 and V2) are deployed per block.
 
 This design produces six distinct survey forms (3 blocks x 2 versions). Each scenario appears as treatment for approximately half of respondents in its block and as control for the other half, ensuring that any observed treatment effect cannot be attributed to specific scenario characteristics. The interleaved presentation order ensures that scenario position (early vs. late in the sequence) is not confounded with treatment assignment.
 
-**Table 4.6** *Counterbalancing Design*
+*Table 4.6*
+
+*Counterbalancing Design*
 
 | Block | Version | Group A (S1-S4) | Group B (S5-S8) | Presentation Order |
 |-------|---------|-----------------|-----------------|-------------------|
@@ -1037,16 +1033,9 @@ Note: respondents are randomly assigned to one of the six forms. Within each for
 For each scenario, the manager selects a single response on the seven-point Net Risk Stance scale:
 
 
-[//]: # (I have already seen this list before. is it required to be reported 2 times? Convert to proper numerated list if required.)
 
 
-1 -- Strongly reduce exposure
-2 -- Reduce exposure
-3 -- Slightly reduce exposure
-4 -- Maintain current exposure
-5 -- Slightly increase exposure
-6 -- Increase exposure
-7 -- Strongly increase exposure
+1 = Strongly reduce exposure; 2 = Reduce exposure; 3 = Slightly reduce exposure; 4 = Maintain current exposure; 5 = Slightly increase exposure; 6 = Increase exposure; 7 = Strongly increase exposure.
 
 The NRS is a single-item measure. Single-item scales are appropriate in this context for three reasons. First, the construct being measured -- directional portfolio adjustment intention -- is concrete and unidimensional, unlike abstract psychological constructs that require multi-item scales for content validity. Second, professional portfolio managers routinely express positioning decisions as directional calls (reduce, hold, increase), making the scale ecologically valid for the target population. Third, survey parsimony is critical when administering eight scenarios to time-constrained professionals; a multi-item scale per scenario would substantially increase respondent burden and reduce completion rates.
 
@@ -1077,7 +1066,9 @@ The survey was deployed in two phases. The pilot phase ran from 3 April 2026 to 
 
 Invitations were distributed through two channels. Direct outreach comprised more than 120 personalised LinkedIn connection requests and direct messages to equity portfolio managers meeting the inclusion criteria defined in Section 4.4.7. Indirect outreach comprised more than 700 impressions through LinkedIn posts and shared content targeting investment management professionals, supplemented by a research announcement distributed to the local CFA Society membership of more than 3,000 investment professionals via the Society email newsletter. The pilot phase yielded 12 completions on the Block 1 instrument.
 
-**Table 4.7** *Survey Response Summary*
+*Table 4.7*
+
+*Survey Response Summary*
 
 | Metric | Count |
 |---|---|
@@ -1096,7 +1087,9 @@ A pilot test was conducted prior to full survey deployment to evaluate the clari
 
 The pilot served four purposes: evaluating scenario clarity, assessing completion time against the 15-minute target, verifying the technical implementation of the Google Forms instrument including counterbalancing block assignment and data recording, and collecting structured feedback on scenario realism and dashboard interpretability through the five feedback questions appended to the Block 1 forms (Table 4.8).
 
-**Table 4.8** *Pilot Feedback Questions*
+*Table 4.8*
+
+*Pilot Feedback Questions*
 
 | # | Question | Format | Required |
 |---|----------|--------|----------|
@@ -1169,7 +1162,6 @@ Chapter 5 applies these regression specifications to the primary data collected 
 
 Note on placement of descriptive statistics: the SBS handbook template (section 3.6.1) locates descriptive statistics within Chapter 4. In this thesis, descriptive statistics are presented in Chapter 5 (Section 5.2) to allow direct contextual juxtaposition with the hypothesis testing results. This placement facilitates the reader's evaluation of sample characteristics alongside regression outputs and is consistent with the analytical rather than purely procedural role that descriptive statistics play in within-subject regression designs.
 
----
 
 
 
@@ -1212,9 +1204,10 @@ The eigenvalue of 2.1027 exceeds 1.0, satisfying the Kaiser criterion. The first
 [To be populated by 8_statistical_analysis.py]
 <!-- /PLACEHOLDER:s5_3_scenarios -->
 
-**Figure 5.1** *SC_total Composite Shock Score Versus Actual Realised Horizon Return Across 24 Scenarios*
+*Figure 5.1*
 
-[//]: # (Figure is not rendered. I believe folder is incorrect. Results are stored in results/figures/5_3_scenarios.png.)
+*SC_total Composite Shock Score Versus Actual Realised Horizon Return Across 24 Scenarios*
+
 
 ![SC_total versus actual horizon return](figures/fig_sc_vs_horizon_return.png)
 
@@ -1236,7 +1229,9 @@ Shock Time (ET) records the 30-minute bar to which the shock is assigned (e.g., 
 [To be populated by 8_statistical_analysis.py]
 <!-- /PLACEHOLDER:s5_5_1_h1 -->
 
-**Figure 5.2** *Forest Plot of OLS Regression Coefficients for the Four SC_total Components*
+*Figure 5.2*
+
+*Forest Plot of OLS Regression Coefficients for the Four SC_total Components*
 
 ![SC_total component coefficients forest plot](figures/fig_component_forest.png)
 
@@ -1271,7 +1266,9 @@ The component decomposition (Spec 3) discloses a specific sign heterogeneity in 
 [To be populated by 8_statistical_analysis.py]
 <!-- /PLACEHOLDER:s5_diagnostic_alignment -->
 
-**Figure 5.3** *NRS–Sentiment Alignment Rate by Sentiment Category*
+*Figure 5.3*
+
+*NRS–Sentiment Alignment Rate by Sentiment Category*
 
 ![NRS-sentiment alignment rates by sentiment category](figures/fig_alignment_rates.png)
 
@@ -1528,7 +1525,6 @@ There are no right or wrong answers. The study is interested in your genuine pro
 |---|---|---|---|---|---|---|
 | Not at all confident | | | Moderately confident | | | Completely confident |
 
----
 
 ### Scenario 2 of 8 (ID: B1_S02)
 
@@ -1556,7 +1552,6 @@ There are no right or wrong answers. The study is interested in your genuine pro
 |---|---|---|---|---|---|---|
 | Not at all confident | | | Moderately confident | | | Completely confident |
 
----
 
 ### Scenario 3 of 8 (ID: B1_S03)
 
@@ -1584,7 +1579,6 @@ There are no right or wrong answers. The study is interested in your genuine pro
 |---|---|---|---|---|---|---|
 | Not at all confident | | | Moderately confident | | | Completely confident |
 
----
 
 ### Scenario 4 of 8 (ID: B1_S04)
 
@@ -1612,7 +1606,6 @@ There are no right or wrong answers. The study is interested in your genuine pro
 |---|---|---|---|---|---|---|
 | Not at all confident | | | Moderately confident | | | Completely confident |
 
----
 
 ### Scenario 5 of 8 (ID: B1_S05)
 
@@ -1640,7 +1633,6 @@ There are no right or wrong answers. The study is interested in your genuine pro
 |---|---|---|---|---|---|---|
 | Not at all confident | | | Moderately confident | | | Completely confident |
 
----
 
 ### Scenario 6 of 8 (ID: B1_S06)
 
@@ -1668,7 +1660,6 @@ There are no right or wrong answers. The study is interested in your genuine pro
 |---|---|---|---|---|---|---|
 | Not at all confident | | | Moderately confident | | | Completely confident |
 
----
 
 ### Scenario 7 of 8 (ID: B1_S07)
 
@@ -1696,7 +1687,6 @@ There are no right or wrong answers. The study is interested in your genuine pro
 |---|---|---|---|---|---|---|
 | Not at all confident | | | Moderately confident | | | Completely confident |
 
----
 
 ### Scenario 8 of 8 (ID: B1_S08)
 
@@ -1724,7 +1714,6 @@ There are no right or wrong answers. The study is interested in your genuine pro
 |---|---|---|---|---|---|---|
 | Not at all confident | | | Moderately confident | | | Completely confident |
 
----
 
 *End of Block 1. Upon completion, respondents were thanked and provided with a contact address for questions. Blocks 2 and 3 were administered as separate survey links.*
 
@@ -1737,19 +1726,16 @@ There are no right or wrong answers. The study is interested in your genuine pro
 - Appendix 3. Blank Questionnaire / Instrument
 - Appendix 4. Additional Supporting Material
 
----
 
 ## Appendix 1. Thesis Proposal Approval Form
 
 *The original signed document is attached as a separate PDF at submission. The text below reproduces the form content for reference.*
 
----
 
 **SBS SWISS BUSINESS SCHOOL**
 
 **THESIS PROPOSAL APPROVAL FORM**
 
----
 
 **Student Name:** Aliaksei Malashonak
 
@@ -1775,7 +1761,6 @@ I understand that I must follow the SBS thesis guidelines during the writing and
 
 **Signature of Student:** Digitally signed by Aliaksei Malashonak (2026-04-08)
 
----
 
 **Mentor Name:** Dr. Stefano Canossa
 
@@ -1787,7 +1772,6 @@ I agree to mentor the above-named student during the thesis writing process, to 
 
 **Signature of Mentor:** Signed (original on file)
 
----
 
 *NOTE TO STUDENT: Turn this completed document in to your Program Manager.*
 
@@ -1797,7 +1781,6 @@ I agree to mentor the above-named student during the thesis writing process, to 
 
 **Signature of Academic Dean or his representative:** ______________________________
 
----
 
 ## Appendix 2. AI Disclosure Statement
 
@@ -1824,4 +1807,3 @@ All analysis, interpretation, conclusions, and final content represent my own in
 **Course / Project / Thesis title:** Reducing Emotional Biases in Investment Portfolio Management
 
 **Date:** *(to be completed upon submission)*
-
