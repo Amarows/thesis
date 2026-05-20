@@ -17,8 +17,8 @@ NRS_NEUTRAL      = 4              # Neutral point on 7-point scale
 NRS_SCALE_POINTS = 7
 
 # ── Portfolio simulation ──────────────────────────────────────────────────────
-WEIGHT_STEP = 0.02                # Weight adjustment per NRS unit from neutral
-RF_ANNUAL   = 0.05                # Risk-free rate annualised (3-month T-bill proxy)
+WEIGHT_STEP = 1 / 6          # Maps NRS 1→0% stock weight, NRS 4→50% (neutral), NRS 7→100%
+RF_ANNUAL   = 0.0135         # 3-month T-bill proxy, updated May 2026
 AUM         = 100_000_000         # Dollar impact AUM assumption ($100M)
 
 HORIZON_DAYS = {                  # Trading days per persistence bucket
