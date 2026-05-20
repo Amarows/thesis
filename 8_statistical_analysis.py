@@ -719,7 +719,11 @@ def run_h1_regression(df: pd.DataFrame) -> dict:
     h1 = {}
 
     # Prepare data – drop rows missing core vars
-    reg_cols = ["nrs", "sc_total", "show_sc", "exp_cat", "block_id", "sentiment_direction"]
+    reg_cols = [
+        "nrs", "sc_total", "show_sc", "exp_cat", "block_id", "sentiment_direction",
+        "investment_mandate", "discretionary_authority",
+        "event_type", "market_regime", "scenario_position",
+    ]
     reg = df[[c for c in reg_cols if c in df.columns]].copy()
     reg["nrs"]      = pd.to_numeric(reg["nrs"],      errors="coerce")
     reg["sc_total"] = pd.to_numeric(reg["sc_total"], errors="coerce")
@@ -731,9 +735,72 @@ def run_h1_regression(df: pd.DataFrame) -> dict:
     exp_dummies = pd.get_dummies(reg["exp_cat"], prefix="exp", drop_first=False)
     exp_dummies = exp_dummies.drop(columns=["exp_5-10yr"], errors="ignore").astype(float)
 
+    # Normalise missing values in categorical controls to "Unknown" sentinel
+    for _col in ["investment_mandate", "discretionary_authority", "event_type", "market_regime"]:
+        if _col in reg.columns:
+            reg[_col] = reg[_col].astype(str).replace(
+                {"nan": "Unknown", "<NA>": "Unknown", "None": "Unknown", "": "Unknown"}
+            )
+
+    # Investment mandate dummies (Equity long-only reference, explicitly dropped)
+    if "investment_mandate" in reg.columns:
+        mandate_dummies = pd.get_dummies(reg["investment_mandate"], prefix="mand", drop_first=False)
+        mandate_dummies = mandate_dummies.drop(
+            columns=[c for c in mandate_dummies.columns if "long-only" in c or "long_only" in c],
+            errors="ignore"
+        ).astype(float)
+    else:
+        mandate_dummies = pd.DataFrame(index=reg.index)
+
+    # Discretionary authority dummies (Full discretion reference, explicitly dropped)
+    if "discretionary_authority" in reg.columns:
+        discr_dummies = pd.get_dummies(reg["discretionary_authority"], prefix="discr", drop_first=False)
+        discr_dummies = discr_dummies.drop(
+            columns=[c for c in discr_dummies.columns if "Full" in c or "full" in c],
+            errors="ignore"
+        ).astype(float)
+    else:
+        discr_dummies = pd.DataFrame(index=reg.index)
+
+    # Event type dummies (earnings reference, explicitly dropped)
+    if "event_type" in reg.columns:
+        evtype_dummies = pd.get_dummies(reg["event_type"], prefix="evt", drop_first=False)
+        evtype_dummies = evtype_dummies.drop(
+            columns=[c for c in evtype_dummies.columns if "earnings" in c],
+            errors="ignore"
+        ).astype(float)
+    else:
+        evtype_dummies = pd.DataFrame(index=reg.index)
+
+    # Market regime dummies (neutral reference, explicitly dropped)
+    if "market_regime" in reg.columns:
+        regime_dummies = pd.get_dummies(reg["market_regime"], prefix="regime", drop_first=False)
+        regime_dummies = regime_dummies.drop(
+            columns=[c for c in regime_dummies.columns if "neutral" in c],
+            errors="ignore"
+        ).astype(float)
+    else:
+        regime_dummies = pd.DataFrame(index=reg.index)
+
+    # Scenario position (linear order effect, 1–8)
+    if "scenario_position" in reg.columns:
+        scenario_pos = reg[["scenario_position"]].apply(pd.to_numeric, errors="coerce").fillna(4.5).astype(float)
+    else:
+        scenario_pos = pd.DataFrame({"scenario_position": 4.5}, index=reg.index)
+
     # Block fixed effects
     block_dummies = pd.get_dummies(reg["block_id"], prefix="block", drop_first=True).astype(float)
-    X = pd.concat([reg[["sc_total", "show_sc"]].astype(float), exp_dummies, block_dummies], axis=1)
+    X = pd.concat([
+        reg[["sc_total", "show_sc"]].astype(float),
+        exp_dummies,
+        mandate_dummies,
+        discr_dummies,
+        evtype_dummies,
+        regime_dummies,
+        scenario_pos,
+        block_dummies,
+    ], axis=1)
+    X = X.loc[:, X.nunique() > 1]
     X = sm.add_constant(X)
     y = reg["nrs"].astype(float)
 
@@ -781,9 +848,13 @@ def run_h1_regression(df: pd.DataFrame) -> dict:
         reg_r1 = reg.copy()
         reg_r1["sc_quintile"] = pd.qcut(reg_r1["sc_total"], q=5, labels=False, duplicates="drop")
         q_dummies = pd.get_dummies(reg_r1["sc_quintile"], prefix="q", drop_first=True)
-        X_r1 = pd.concat(
-            [reg_r1[["show_sc"]].astype(float), q_dummies, exp_dummies, block_dummies], axis=1
-        ).astype(float)
+        X_r1 = pd.concat([
+            reg_r1[["show_sc"]].astype(float),
+            q_dummies, exp_dummies,
+            mandate_dummies, discr_dummies, evtype_dummies, regime_dummies, scenario_pos,
+            block_dummies,
+        ], axis=1).astype(float)
+        X_r1 = X_r1.loc[:, X_r1.nunique() > 1]
         X_r1 = sm.add_constant(X_r1)
         m_r1 = sm.OLS(y, X_r1).fit(cov_type="HC3")
         rob_rows.append({
@@ -829,8 +900,55 @@ def run_h1_regression(df: pd.DataFrame) -> dict:
             for col in reg_r3.columns:
                 reg_r3[col] = pd.to_numeric(reg_r3[col], errors="coerce")
             reg_r3 = reg_r3.dropna()
+            # Pull new controls from original df (reg_r3.index is a subset of df.index)
+            for _col in ["investment_mandate", "discretionary_authority",
+                         "event_type", "market_regime", "scenario_position"]:
+                if _col in df.columns:
+                    reg_r3[_col] = df.loc[reg_r3.index, _col]
+            for _col in ["investment_mandate", "discretionary_authority", "event_type", "market_regime"]:
+                if _col in reg_r3.columns:
+                    reg_r3[_col] = reg_r3[_col].astype(str).replace(
+                        {"nan": "Unknown", "<NA>": "Unknown", "None": "Unknown", "": "Unknown"}
+                    )
             bd3 = pd.get_dummies(reg_r3["block_id"], prefix="block", drop_first=True)
-            X_r3 = sm.add_constant(pd.concat([reg_r3[["show_sc"] + comp_cols], bd3], axis=1).astype(float))
+            if "investment_mandate" in reg_r3.columns:
+                mand3 = pd.get_dummies(reg_r3["investment_mandate"], prefix="mand", drop_first=False)
+                mand3 = mand3.drop(
+                    columns=[c for c in mand3.columns if "long-only" in c or "long_only" in c],
+                    errors="ignore").astype(float)
+            else:
+                mand3 = pd.DataFrame(index=reg_r3.index)
+            if "discretionary_authority" in reg_r3.columns:
+                discr3 = pd.get_dummies(reg_r3["discretionary_authority"], prefix="discr", drop_first=False)
+                discr3 = discr3.drop(
+                    columns=[c for c in discr3.columns if "Full" in c or "full" in c],
+                    errors="ignore").astype(float)
+            else:
+                discr3 = pd.DataFrame(index=reg_r3.index)
+            if "event_type" in reg_r3.columns:
+                evt3 = pd.get_dummies(reg_r3["event_type"], prefix="evt", drop_first=False)
+                evt3 = evt3.drop(
+                    columns=[c for c in evt3.columns if "earnings" in c],
+                    errors="ignore").astype(float)
+            else:
+                evt3 = pd.DataFrame(index=reg_r3.index)
+            if "market_regime" in reg_r3.columns:
+                reg3 = pd.get_dummies(reg_r3["market_regime"], prefix="regime", drop_first=False)
+                reg3 = reg3.drop(
+                    columns=[c for c in reg3.columns if "neutral" in c],
+                    errors="ignore").astype(float)
+            else:
+                reg3 = pd.DataFrame(index=reg_r3.index)
+            if "scenario_position" in reg_r3.columns:
+                spos3 = reg_r3[["scenario_position"]].apply(
+                    pd.to_numeric, errors="coerce").fillna(4.5).astype(float)
+            else:
+                spos3 = pd.DataFrame({"scenario_position": 4.5}, index=reg_r3.index)
+            X_r3 = pd.concat([
+                reg_r3[["show_sc"] + comp_cols], bd3, mand3, discr3, evt3, reg3, spos3,
+            ], axis=1).astype(float)
+            X_r3 = X_r3.loc[:, X_r3.nunique() > 1]
+            X_r3 = sm.add_constant(X_r3)
             m_r3 = sm.OLS(reg_r3["nrs"].astype(float), X_r3).fit(cov_type="HC3")
             for cc in comp_cols:
                 b = m_r3.params.get(cc, np.nan)
@@ -851,10 +969,13 @@ def run_h1_regression(df: pd.DataFrame) -> dict:
     try:
         reg_r4 = reg.copy()
         reg_r4["sc_x_showsc"] = reg_r4["sc_total"] * reg_r4["show_sc"]
-        X_r4 = pd.concat(
-            [reg_r4[["sc_total", "show_sc", "sc_x_showsc"]].astype(float),
-             exp_dummies, block_dummies], axis=1
-        ).astype(float)
+        X_r4 = pd.concat([
+            reg_r4[["sc_total", "show_sc", "sc_x_showsc"]].astype(float),
+            exp_dummies, mandate_dummies, discr_dummies,
+            evtype_dummies, regime_dummies, scenario_pos,
+            block_dummies,
+        ], axis=1).astype(float)
+        X_r4 = X_r4.loc[:, X_r4.nunique() > 1]
         X_r4 = sm.add_constant(X_r4)
         m_r4 = sm.OLS(y, X_r4).fit(cov_type="HC3")
         b = m_r4.params.get("sc_x_showsc", np.nan)
@@ -884,10 +1005,13 @@ def run_h1_regression(df: pd.DataFrame) -> dict:
             lambda x: 1 if str(x) in neg_labels else 0
         ).astype(float)
         reg_r5["sc_x_dneg"] = reg_r5["sc_total"] * reg_r5["d_neg"]
-        X_r5 = pd.concat(
-            [reg_r5[["sc_total", "d_neg", "sc_x_dneg", "show_sc"]].astype(float),
-             exp_dummies, block_dummies], axis=1
-        ).astype(float)
+        X_r5 = pd.concat([
+            reg_r5[["sc_total", "d_neg", "sc_x_dneg", "show_sc"]].astype(float),
+            exp_dummies, mandate_dummies, discr_dummies,
+            evtype_dummies, regime_dummies, scenario_pos,
+            block_dummies,
+        ], axis=1).astype(float)
+        X_r5 = X_r5.loc[:, X_r5.nunique() > 1]
         X_r5 = sm.add_constant(X_r5)
         m_r5 = sm.OLS(y, X_r5).fit(cov_type="HC3")
 
