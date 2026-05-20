@@ -241,9 +241,7 @@ The thesis is organised into six chapters. Chapter 1, the present chapter, intro
 
 ## 2.1 Chapter Introduction
 
-[//]: # (parargraphs that start with > were not expected to go into final text. They probably do not add any value. Check thet and delete those.)
-
->Chapter 2 defines the research scope and agenda for this thesis. It restates the managerial problem motivating the study (Section 2.2), specifies the objectives that guide the empirical work (Section 2.3), and presents the research questions and hypothesis statements to be evaluated (Sections 2.4-2.6). The chapter also provides operational definitions of key terms and records assumptions and limitations that bound interpretation of the findings (Section 2.8). 
+Chapter 2 defines the research scope and agenda for the study. It restates the managerial problem motivating the research (Section 2.2), specifies the objectives that guide the empirical work (Section 2.3), and presents the research questions and hypothesis statements to be evaluated (Sections 2.4 to 2.6). The chapter also provides operational definitions of key terms and records the assumptions and limitations that bound interpretation of the findings (Section 2.8).
 
 ## 2.2 Problem Statement
 
@@ -424,9 +422,7 @@ Taken together, the study design integrates real-time information shock measurem
 
 # Chapter 3. Literature Review
 
-[//]: # (again paragraph wwith no clear purpose)
-
->The literature review is designed to bridge foundational behavioral finance theory with applied challenges in professional investment decision-making, culminating in the rationale for structured debiasing tools. This body of literature directly supports the two hypotheses of the study: H1, which posits that information shock intensity predicts decision deviation, and H2, which posits that the Shock Score moderates that deviation.
+The literature review is structured to bridge foundational behavioural finance theory with the applied challenges of professional investment decision-making, culminating in the rationale for structured debiasing tools. This body of literature directly supports the two hypotheses of the study: H1, which posits that information shock intensity is associated with measurable shifts in managerial decision response; and H2, which posits that the Shock Score dashboard moderates that response by acting as a pre-commitment nudge.
 
 ## 3.1 Link Between Literature and Research Hypotheses
 
@@ -445,11 +441,9 @@ Taken together, the studies reviewed below are interpreted in this thesis as imp
 
 ## 3.2 Behavioral Biases in Investment Decision-Making
 
->This section reviews behavioral finance theory, showing how cognitive biases like overconfidence ([Moore & Healy, 2008](https://doi.org/10.1037/0033-295X.115.2.502); [Barber & Odean, 2001](https://doi.org/10.1162/003355301556400)), loss aversion ([Kahneman & Tversky, 1979](https://doi.org/10.2307/1914185)), the disposition effect ([Frazzini, 2006](https://doi.org/10.1111/j.1540-6261.2006.00896.x)), and emotional trading ([Lo et al., 2005](https://doi.org/10.1257/000282805774670095)) shape investor behavior. It integrates psychological theory and empirical findings with a focus on market reactions and volatility.
-
 ### 3.2.1 Behavioral biases driving overreaction under uncertainty
 
-Professional investors, despite their expertise, are not immune to the cognitive shortcuts and biases that affect human judgment under uncertainty ([Hirshleifer, 2015](https://doi.org/10.1146/annurev-financial-092214-043752); [Barberis & Thaler, 2002](https://dx.doi.org/10.2139/ssrn.327880)). Several prevalent biases, including **overconfidence**, **availability and recency bias**, **herding**, and **emotional/physiological biases**, can cause expert decision-makers to react in ways that amplify short-term market volatility and overreact to financial information shocks. The following paragraphs discuss each bias and its impact on short-term market dynamics.
+Behavioural finance theory documents how cognitive biases such as overconfidence ([Moore & Healy, 2008](https://doi.org/10.1037/0033-295X.115.2.502); [Barber & Odean, 2001](https://doi.org/10.1162/003355301556400)), loss aversion ([Kahneman & Tversky, 1979](https://doi.org/10.2307/1914185)), the disposition effect ([Frazzini, 2006](https://doi.org/10.1111/j.1540-6261.2006.00896.x)), and emotional trading ([Lo et al., 2005](https://doi.org/10.1257/000282805774670095)) shape investor behaviour and amplify short-term market reactions to information shocks. Professional investors, despite their expertise, are not immune to these cognitive shortcuts and biases that affect human judgment under uncertainty ([Hirshleifer, 2015](https://doi.org/10.1146/annurev-financial-092214-043752); [Barberis & Thaler, 2002](https://dx.doi.org/10.2139/ssrn.327880)). Several prevalent biases, including **overconfidence**, **availability and recency bias**, **herding**, and **emotional/physiological biases**, can cause expert decision-makers to react in ways that amplify short-term market volatility and overreact to financial information shocks. The following paragraphs discuss each bias and its impact on short-term market dynamics.
 
 Overconfidence is a well-documented cognitive bias in which individuals exhibit unwarranted faith in the accuracy of their judgments and beliefs ([Moore & Healy, 2008](https://doi.org/10.1037/0033-295X.115.2.502)). In the finance literature, overconfidence manifests in excessive trading and systematic overestimation of predictive ability ([Barberis & Thaler, 2002](https://dx.doi.org/10.2139/ssrn.327880)). [Barber and Odean (2001)](https://doi.org/10.1162/003355301556400) provide evidence that investors with higher inferred overconfidence trade more frequently and earn lower risk-adjusted returns, a pattern consistent with overconfidence-driven misjudgment.
 
@@ -506,11 +500,9 @@ In sum, the literature establishes that behavioral biases shape short-term price
 
 ## 3.3 Managerial Decision-Making Under Uncertainty
 
->This section shifts the focus to professional investors and managers operating under real-world constraints: bounded rationality, organizational pressure, and framing effects ([Simon, 1955](https://doi.org/10.2307/1884852); [Kahneman, 2003](https://doi.org/10.1257/000282803322655392)). It shows how even experts, despite training, make predictably biased decisions under uncertainty.
-
 ### 3.3.1 Persistence of behavioral bias among experienced professionals
 
-Even seasoned, well-incentivized managers rely on heuristic shortcuts in decision-making, underscoring the limits of human rationality. Bounded rationality—a concept introduced by Simon (1955)—posits that individuals face inherent constraints in cognitive capacity and information processing and therefore satisfice (seek a good-enough option) rather than optimally solve complex problems. In practice, this means that even professional managers with extensive training cannot exhaustively evaluate all alternatives or anticipate every possible outcome. Instead, they rely on experience-based rules of thumb and intuitive judgments, particularly under time pressure. While such heuristics facilitate decision-making, they also embed systematic biases, such as overconfidence or anchoring, that persist despite expertise.
+The professional investment context is governed by real-world constraints — bounded rationality, organisational pressure, and framing effects — under which even experienced experts make predictably biased decisions despite training ([Simon, 1955](https://doi.org/10.2307/1884852); [Kahneman, 2003](https://doi.org/10.1257/000282803322655392)). Even seasoned, well-incentivized managers rely on heuristic shortcuts in decision-making, underscoring the limits of human rationality. Bounded rationality—a concept introduced by Simon (1955)—posits that individuals face inherent constraints in cognitive capacity and information processing and therefore satisfice (seek a good-enough option) rather than optimally solve complex problems. In practice, this means that even professional managers with extensive training cannot exhaustively evaluate all alternatives or anticipate every possible outcome. Instead, they rely on experience-based rules of thumb and intuitive judgments, particularly under time pressure. While such heuristics facilitate decision-making, they also embed systematic biases, such as overconfidence or anchoring, that persist despite expertise.
 
 High-stakes managerial environments often exacerbate this reliance on heuristics. Portfolio and strategic decisions are typically made under tight time constraints and uncertain information, making exhaustive rational evaluation infeasible. The cognitive effort required to weigh all possible options and outcomes is prohibitive when markets move quickly or when a flood of data must be processed in real time. Thus, even rational, incentivized managers resort to mental shortcuts as a practical response to complexity and time pressure ([Simon, 1955](https://doi.org/10.2307/1884852); [Kahneman & Lovallo, 1993](https://doi.org/10.1287/mnsc.39.1.17); [March & Shapira, 1987](https://doi.org/10.1287/mnsc.33.11.1404)). This boundedly rational behavior reflects human information-processing limits rather than lack of knowledge or effort. Unfortunately, the shortcuts that make decision-making manageable can systematically skew perceptions of risk and return.
 
@@ -537,8 +529,6 @@ Bianchi et al. (2022) study how explainability in robo-advisory systems affects 
 ---
 
 ## 3.4 Tools to Mitigate Emotional and Behavioral Bias
-
->This section reviews structured interventions such as decision-support systems, quantitative overlays, and behavioral coaching. It presents empirical evidence on how such tools mitigate bias and improve portfolio performance.
 
 ### 3.4.1 Rule-Based Approaches and Pre-Commitment Mechanisms
 
@@ -568,7 +558,7 @@ Thaler & Sunstein (2008) and Kahneman et al. (2021) establish that improving out
 
 ## 3.5 Implications for Portfolio Management
 
->This section consolidates insights from 3.1 to 3.4, linking behavioral theory and empirical finance with practical investment strategy. It explains how unmanaged bias degrades portfolio quality and why measurement-based tools like the Shock Score may help restore decision efficiency.
+Behavioural theory and the empirical finance evidence reviewed in Sections 3.1 to 3.4 converge on a common implication for practical investment management: unmanaged bias degrades portfolio quality at the point of decision, and measurement-based tools designed to operate at that point — among them the Shock Score developed in this thesis — provide a candidate mechanism for restoring decision discipline under stress.
 
 Given the presence of bounded rationality and behavioral biases documented in prior sections, investment professionals rely on heuristics and simplified decision frames when processing complex market information ([Simon, 1955](https://doi.org/10.2307/1884852); [Statman, 2019](https://doi.org/10.2139/ssrn.3668963)). Even senior corporate executives exhibit systematic cognitive biases: Ben-David et al. (2013) show that managers display overconfidence and miscalibration in their expectations, leading to distorted risk assessments and suboptimal decisions ([Ben-David et al., 2013](https://doi.org/10.1093/qje/qjt023)). In addition, cognitive framing implies that equivalent information can produce different choices depending on its presentation, which helps explain persistent behavioral patterns such as home bias, under-diversification, and the disposition effect that ultimately degrade portfolio performance ([Kahneman & Tversky, 1979](https://doi.org/10.2307/1914185)).
 
@@ -591,8 +581,6 @@ From an empirical perspective, the studies reviewed in this chapter motivate a f
 ---
 
 ## 3.6 Limitations in Behavioral Finance Research
-
->This final section defines what is not known and explicitly justifies the research contribution. It ensures academic rigor by clarifying how the thesis builds upon, diverges from, or fills existing gaps in the literature.
 
 ### 3.6.1 Limitations of Existing Behavioral Finance Research
 
