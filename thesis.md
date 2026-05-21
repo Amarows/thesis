@@ -1410,9 +1410,6 @@ Taken together, these contributions are original to this thesis. By integrating 
 [To be populated by 8_statistical_analysis.py]
 <!-- /PLACEHOLDER:s6_4_recommendations -->
 
-### 6.4.1 Recommendations for Portfolio Managers
-### 6.4.2 Recommendations for Risk Governance
-
 ## 6.5 Areas for Future Research
 
 The present study raises several questions that warrant further investigation and identifies methodological extensions that would strengthen the evidence base.
