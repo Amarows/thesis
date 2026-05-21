@@ -1327,6 +1327,7 @@ def run_h2_analysis(df: pd.DataFrame, horizon_returns: pd.DataFrame,
 
     if not skip_figures:
         _fig_sharpe_comparison(opt_b_df, h2)
+        _fig_h2_nrs_by_sc(df)
 
     return h2
 
@@ -1368,6 +1369,54 @@ def _fig_sharpe_comparison(opt_b_df: pd.DataFrame, h2: dict) -> None:
 
     fig.tight_layout()
     fig.savefig(FIGURES_DIR / "fig_sharpe_comparison.png", dpi=150, bbox_inches="tight")
+    plt.close(fig)
+
+
+def _fig_h2_nrs_by_sc(df: pd.DataFrame) -> None:
+    """Line plot: mean NRS by SC_total quintile, split by ShowSC condition."""
+    needed = {"sc_total", "nrs", "show_sc"}
+    if df.empty or not needed.issubset(df.columns):
+        return
+    plot_df = df[list(needed)].dropna()
+    if len(plot_df) < 10:
+        return
+
+    plot_df = plot_df.copy()
+    plot_df["sc_quintile"] = pd.qcut(plot_df["sc_total"], q=5, labels=False, duplicates="drop")
+
+    q_centers = plot_df.groupby("sc_quintile")["sc_total"].mean()
+
+    fig, ax = plt.subplots(figsize=(8, 5))
+
+    rng = np.random.default_rng(42)
+
+    styles = {
+        0: {"color": "#abd9e9", "linestyle": "--", "label": "Control (ShowSC = 0)"},
+        1: {"color": "#2c7bb6", "linestyle": "-",  "label": "Treatment (ShowSC = 1)"},
+    }
+    for cond, sty in styles.items():
+        cond_df = plot_df[plot_df["show_sc"] == cond]
+        grp = cond_df.groupby("sc_quintile")["nrs"]
+        means = grp.mean()
+        sems  = grp.sem()
+        x_vals = [q_centers[q] for q in means.index]
+
+
+
+        ax.plot(x_vals, means.values, color=sty["color"], linestyle=sty["linestyle"],
+                marker="o", linewidth=2, markersize=6, label=sty["label"], zorder=3)
+        ax.fill_between(x_vals, means.values - sems.values,
+                        means.values + sems.values, alpha=0.15, color=sty["color"], zorder=2)
+
+    ax.axhline(4, color="grey", linestyle=":", linewidth=0.8)
+    ax.set_xlabel("SC_total (quintile mean)")
+    ax.set_ylabel("Mean NRS")
+    ax.set_ylim(3, 5)
+    ax.set_yticks([3.0, 3.5, 4.0, 4.5, 5.0])
+    ax.legend()
+    _apa_style(ax)
+    fig.tight_layout()
+    fig.savefig(FIGURES_DIR / "fig_h2_nrs_by_sc.png", dpi=150, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -1422,17 +1471,14 @@ def generate_conclusions(h1: dict, h2: dict, desc: dict, norm: dict) -> dict:
     conc["h1_direction"]  = ("negative" if (not np.isnan(beta1) and beta1 < 0)
                               else ("positive" if not np.isnan(beta1) else "unknown"))
     conc["h1_narrative"] = (
-        f"The primary OLS regression examines whether SC_total – the composite "
-        f"Shock Score – is significantly associated with Net Risk Stance (NRS) after "
-        f"controlling for the ShowSC treatment indicator, years of experience, and block "
-        f"fixed effects. The estimated coefficient on SC_total is "
+        f"{'At the α = 0.05 level of significance, support for the alternative hypothesis H1ₐ was found.' if h1_supported else 'At the α = 0.05 level of significance, the evidence fails to reject the null hypothesis H1₀.'} "
+        f"The OLS regression of SC_total on Net Risk Stance (NRS) – controlling for the ShowSC treatment indicator, years of experience, and block fixed effects – yields "
         f"β₁ = {_round4(beta1)} (robust SE = {_round4(primary.get('se', np.nan))}, "
         f"t = {_round4(h1_t)}, p = {h1_p_val}, "
         f"95% CI [{_round4(h1_ci_lo)}, {_round4(h1_ci_hi)}]). "
         f"{_h1_direction_sentence} "
-        f"{'At the α = 0.05 significance level, H1 is supported: SC_total is a statistically significant predictor of NRS.' if h1_supported else 'At the α = 0.05 significance level, H1 is not supported: the evidence does not suggest a statistically significant association between SC_total and NRS in this sample.'} "
         f"Robustness checks using quintile dummies, respondent fixed effects, "
-        f"decomposed components, and an interaction term are reported in Table 5.3."
+        f"decomposed components, and an interaction term are reported in Table 5.4."
     )
 
     # H2
@@ -1463,22 +1509,20 @@ def generate_conclusions(h1: dict, h2: dict, desc: dict, norm: dict) -> dict:
     if h2_supported and not np.isnan(tau):
         if tau > 0:
             _h2_support_sentence = (
-                "H2 is supported: the Shock Score dashboard is associated with a statistically "
-                "significant improvement in risk-adjusted portfolio outcomes, supporting the case "
-                "for structured decision support during information shocks."
+                "The Shock Score dashboard is associated with a statistically significant improvement "
+                "in risk-adjusted portfolio outcomes, supporting the case for structured decision support "
+                "during information shocks."
             )
         else:
             _h2_support_sentence = (
-                "H2 is statistically significant (p < 0.05) but the sign of the treatment effect "
-                "is negative (tau < 0), indicating that dashboard exposure is associated with worse "
-                "portfolio outcomes in the current sample. This unexpected result warrants further "
-                "investigation before any deployment recommendation is made."
+                "The sign of the treatment effect is negative (τ < 0), indicating that dashboard "
+                "exposure is associated with worse portfolio outcomes in the current sample. "
+                "This unexpected result warrants further investigation before any deployment recommendation is made."
             )
     else:
         _h2_support_sentence = (
-            "H2 is not supported in this sample: the evidence does not suggest a statistically "
-            "significant difference in portfolio outcomes between the treatment and control conditions. "
-            "Validation on a larger professional sample is recommended."
+            "No statistically significant difference in portfolio outcomes between the treatment "
+            "and control conditions was found. Validation on a larger professional sample is recommended."
         )
 
     _dollar_part = (
@@ -1488,10 +1532,11 @@ def generate_conclusions(h1: dict, h2: dict, desc: dict, norm: dict) -> dict:
     ) if not np.isnan(dollar_imp) else ""
 
     conc["h2_narrative"] = (
+        f"{'At the α = 0.05 level of significance, support for the alternative hypothesis H2ₐ was found.' if h2_supported else 'At the α = 0.05 level of significance, the evidence fails to reject the null hypothesis H2₀.'} "
         f"Hypothesis H2 is tested using individual-portfolio regressions (Option B). "
         f"Per respondent, portfolio returns are constructed from NRS-weighted horizon "
         f"returns across the four scenarios assigned to each condition. The estimated "
-        f"treatment effect on portfolio return is tau = {_round4(tau)} "
+        f"treatment effect on portfolio return is τ = {_round4(tau)} "
         f"(robust SE = {_round4(h2_primary.get('se', np.nan))}, "
         f"t = {_round4(h2_primary.get('t', np.nan))}, p = {h2_p_val}, "
         f"95% CI [{_round4(h2_primary.get('ci_lo', np.nan))}, "
@@ -1812,18 +1857,43 @@ def write_results_md(
 
     s54 = block("s5_4_normality", "\n".join(s54_lines))
 
-    # ---- s5_5_1_h1 ----
+    # ---- s5_5_1_h1_main ----
     primary = h1.get("primary", {})
     rob_df  = h1.get("robustness", pd.DataFrame())
-    s551_lines = [conc.get("h1_narrative", ""), "", "**Table 5.3: H1 Main Regression Results**", ""]
+
+    main_tbl_df = pd.DataFrame([{
+        "Covariate": "SC_total",
+        "β₁":   primary.get("beta1", np.nan),
+        "SE":   primary.get("se",    np.nan),
+        "t":    primary.get("t",     np.nan),
+        "p":    primary.get("p",     ""),
+        "CI_lo": primary.get("ci_lo", np.nan),
+        "CI_hi": primary.get("ci_hi", np.nan),
+        "R²":   primary.get("r2",    np.nan),
+        "N_obs":  primary.get("n_obs",          ""),
+        "N_resp": primary.get("n_respondents",   ""),
+        "SE_type": primary.get("clustering", "HC3"),
+    }])
+    s551_main_lines = [
+        conc.get("h1_narrative", ""),
+        "",
+        "**Table 5.3: H1 Primary Regression Result**",
+        "",
+        _md_table(main_tbl_df),
+        "",
+    ]
+    s551_main = block("s5_5_1_h1_main", "\n".join(s551_main_lines))
+
+    # ---- s5_5_1_h1_robustness ----
+    s551_rob_lines = ["**Table 5.4: H1 Robustness Specification Results**", ""]
     if not rob_df.empty:
-        s551_lines += [_md_table(rob_df), ""]
-    s551 = block("s5_5_1_h1", "\n".join(s551_lines))
+        s551_rob_lines += [_md_table(rob_df), ""]
+    s551_rob = block("s5_5_1_h1_robustness", "\n".join(s551_rob_lines))
 
     # ---- s5_5_2_h2 ----
     n_sortino_elig = h2.get("n_sortino_eligible", 0)
     n_b_pairs_     = h2.get("n_option_b_pairs", 0)
-    s552_lines = [conc.get("h2_narrative", ""), "", "**Table 5.4: H2 Portfolio Analysis Results**", ""]
+    s552_lines = [conc.get("h2_narrative", ""), "", "**Table 5.5: H2 Portfolio Analysis Results**", ""]
     opt_b_reg = h2.get("opt_b_reg", pd.DataFrame())
     if not opt_b_reg.empty:
         s552_lines += [_md_table(opt_b_reg), ""]
@@ -1841,6 +1911,36 @@ def write_results_md(
         "![Sharpe comparison](figures/fig_sharpe_comparison.png)",
     ]
     s552 = block("s5_5_2_h2", "\n".join(s552_lines))
+
+    # ---- fig_h2_nrs_sc_split ----
+    _h2_opt_b = h2.get("opt_b_reg", pd.DataFrame())
+    _h2_tau   = "N/A"
+    _h2_p_fig = "N/A"
+    if not _h2_opt_b.empty and "method" in _h2_opt_b.columns and "outcome" in _h2_opt_b.columns:
+        _pr = _h2_opt_b[
+            (_h2_opt_b["method"] == "option_b_individual") &
+            (_h2_opt_b["outcome"] == "portfolio_return")
+        ]
+        if len(_pr) > 0:
+            _h2_tau   = _round4(_pr.iloc[0].get("tau",  np.nan))
+            _h2_p_fig = str(_pr.iloc[0].get("p", "N/A"))
+    _h2_verdict_fig = conc.get("h2_verdict", "Not supported").lower()
+    s_fig_h2_split = block("fig_h2_nrs_sc_split", "\n".join([
+        "*Figure 5.4*",
+        "",
+        "*Mean NRS by SC_total Quintile and Experimental Condition*",
+        "",
+        "![Mean NRS by SC_total quintile and ShowSC condition](figures/fig_h2_nrs_by_sc.png)",
+        "",
+        f"*Note.* Each point represents the mean Net Risk Stance (NRS) within a SC_total quintile, "
+        f"separately for the control (ShowSC = 0, dashed) and treatment (ShowSC = 1, solid) conditions. "
+        f"Shaded bands show ±1 standard error. Error bars that substantially overlap across conditions "
+        f"indicate that the Shock Score dashboard does not systematically alter risk-stance responses. "
+        f"The near-parallel trajectories are consistent with the H2 result being {_h2_verdict_fig} "
+        f"(τ = {_h2_tau}, p = {_h2_p_fig}). "
+        f"The dotted horizontal line marks the NRS neutral point (4 = maintain exposure). "
+        f"Original figure by the author.",
+    ]))
 
     # ---- s5_6_1_impact ----
     if np.isnan(_beta1):
@@ -1928,38 +2028,38 @@ def write_results_md(
     # ---- s5_7_interim ----
     if _h1_supp:
         _h1_interim = (
-            f"**{conc['h1_verdict'].lower()}** "
-            f"(beta1 = {_round4(_beta1)}, p = {primary.get('p', 'N/A')}; "
+            f"**support for the alternative hypothesis H1ₐ was found** "
+            f"(β₁ = {_round4(_beta1)}, p = {primary.get('p', 'N/A')}; "
             f"direction: {'risk-reducing' if _h1_dir == 'negative' else 'risk-taking'})"
         )
     else:
         _h1_interim = (
-            f"**{conc['h1_verdict'].lower()}** "
-            f"(beta1 = {_round4(_beta1)}, p = {primary.get('p', 'N/A')})"
+            f"**the null hypothesis H1₀ was not rejected** "
+            f"(β₁ = {_round4(_beta1)}, p = {primary.get('p', 'N/A')})"
         )
 
     if _h2_supp and not np.isnan(_tau):
         if _tau > 0:
             _h2_interim = (
-                f"**{conc['h2_verdict'].lower()}** "
-                f"(tau = {_round4(_tau)}, p = {_h2_p_str}; direction: performance-improving)"
+                f"**support for the alternative hypothesis H2ₐ was found** "
+                f"(τ = {_round4(_tau)}, p = {_h2_p_str}; direction: performance-improving)"
             )
         else:
             _h2_interim = (
-                f"**{conc['h2_verdict'].lower()}** but with a negative treatment effect "
-                f"(tau = {_round4(_tau)}, p = {_h2_p_str}; see caution in Section 5.6.2)"
+                f"**support for the alternative hypothesis H2ₐ was found but with a negative treatment effect** "
+                f"(τ = {_round4(_tau)}, p = {_h2_p_str}; see caution in Section 5.6.2)"
             )
     else:
         _h2_interim = (
-            f"**{conc['h2_verdict'].lower()}** "
-            f"(tau = {_round4(_tau)}, p = {_h2_p_str})"
+            f"**the null hypothesis H2₀ was not rejected** "
+            f"(τ = {_round4(_tau)}, p = {_h2_p_str})"
         )
 
     s57 = block("s5_7_interim", (
         f"The interim conclusions for Chapter 5 are as follows. "
-        f"H1 – that SC_total is significantly associated with NRS – is {_h1_interim}. "
-        f"H2 – that the Shock Score dashboard moderates the risk-return profile of simulated portfolios – "
-        f"is {_h2_interim} in the Option B individual-portfolio regression. "
+        f"H1 – that SC_total is significantly associated with NRS: {_h1_interim}. "
+        f"H2 – that the Shock Score dashboard moderates the risk-return profile of simulated portfolios: "
+        f"{_h2_interim} in the Option B individual-portfolio regression. "
         f"Both findings are contingent on the current sample composition and are subject to revision "
         f"upon completion of the full survey. Robustness checks for H1 and the Option A descriptive "
         f"analysis for H2 are consistent in direction with the primary results."
@@ -1973,8 +2073,10 @@ def write_results_md(
         f"Descriptive statistics characterise the achieved sample and the SC_total distribution "
         f"across the twenty-four scenarios. Normality assessments confirm "
         f"{'that parametric inference is appropriate given the sample size.' if norm.get('clt_applies') else 'that the sample size warrants caution in parametric inference.'} "
-        f"H1 is {conc['h1_verdict'].lower()} and H2 is {conc['h2_verdict'].lower()} at the α = 0.05 "
-        f"significance level. Chapter 6 synthesises these findings within the broader research context "
+        f"{'Support for the alternative hypothesis H1ₐ was found' if conc['h1_supported'] else 'The null hypothesis H1₀ was not rejected'}; "
+        f"{'support for the alternative hypothesis H2ₐ was found' if conc['h2_supported'] else 'the null hypothesis H2₀ was not rejected'} "
+        f"– both evaluated at the α = 0.05 significance level. "
+        f"Chapter 6 synthesises these findings within the broader research context "
         f"and develops recommendations for practice."
     ))
 
@@ -2076,7 +2178,7 @@ def write_results_md(
             f"({int(aln_df.loc[aln_df['group'] == 'overall', 'n_aligned'].iloc[0]) if 'overall' in aln_df['group'].values else 'N/A'} "
             f"of {int(aln_df.loc[aln_df['group'] == 'overall', 'n'].iloc[0]) if 'overall' in aln_df['group'].values else 'N/A'} observations).",
             "",
-            "**Table 5.5: NRS–Sentiment Alignment by Group**",
+            "**Table 5.6: NRS–Sentiment Alignment by Group**",
             "",
             _md_table(aln_df),
             "",
@@ -2091,7 +2193,7 @@ def write_results_md(
                         "Alignment diagnostic could not be computed (missing sentiment_direction or nrs column).")
 
     # Assemble file
-    sections = [tbl_47, s521, s522, s523, s54, s551, s552, s561, s5_diag, s562, s57, s58, s62, s63, s64]
+    sections = [tbl_47, s521, s522, s523, s54, s551_main, s551_rob, s552, s_fig_h2_split, s561, s5_diag, s562, s57, s58, s62, s63, s64]
     lines.extend(sections)
 
     RESULTS_MD_PATH.write_text("\n\n".join(lines), encoding="utf-8")

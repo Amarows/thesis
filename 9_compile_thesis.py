@@ -19,7 +19,7 @@ import sys
 
 from config import (
     THESIS_PATH, THESIS_RESULTS_PATH as RESULTS_MD_PATH,
-    THESIS_FINAL_PATH, REFERENCE_DOCX, DOCX_OUTPUT, TABLES_DIR,
+    THESIS_FINAL_PATH, REFERENCES_PATH, REFERENCE_DOCX, DOCX_OUTPUT, TABLES_DIR,
     append_run_log, _sha256_file,
 )
 
@@ -86,6 +86,41 @@ def load_pca_block() -> str | None:
     return "\n".join(lines)
 
 
+def load_references() -> str:
+    """Parse references.md table and return an APA-formatted, alphabetically sorted reference list."""
+    if not REFERENCES_PATH.exists():
+        return ""
+
+    entries: list[tuple[str, str]] = []
+
+    for line in REFERENCES_PATH.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line.startswith("|") or line.startswith("|--") or line.startswith("| Author"):
+            continue
+        parts = [p.strip() for p in line.strip("|").split("|")]
+        if len(parts) < 3:
+            continue
+        author_year, url, title = parts[0], parts[1], parts[2]
+        if not author_year or not title:
+            continue
+
+        m = re.match(r"^(.*),\s*(\d{4})\s*$", author_year)
+        if not m:
+            continue
+        authors, year = m.group(1).strip(), m.group(2)
+
+        url = url.strip()
+        url_part = f" {url}" if url and url != "[internal document]" else ""
+        title_clean = title.strip().rstrip(".")
+        entry = f"{authors} ({year}). *{title_clean}*." + url_part
+
+        sort_key = re.split(r"[,\s&]", authors)[0].lower()
+        entries.append((sort_key, entry))
+
+    entries.sort(key=lambda x: x[0])
+    return "\n\n".join(e[1] for e in entries)
+
+
 def merge(thesis_text: str, results_blocks: dict[str, str]) -> tuple[str, int, list[str]]:
     """
     Replace each PLACEHOLDER block in thesis_text with the matching results content.
@@ -145,6 +180,14 @@ def main() -> None:
     else:
         print("  WARNING: pca_diagnostics.json not found — s5_pca_diagnostics placeholder will not be replaced.")
 
+    # Inject references block (sourced from references.md)
+    references_content = load_references()
+    if references_content:
+        results_blocks["references"] = references_content
+        print(f"  references (from references.md, {references_content.count(chr(10) + chr(10)) + 1} entries)")
+    else:
+        print("  WARNING: references.md not found or empty — references placeholder will not be replaced.")
+
     # Merge
     merged, n_replaced, not_found = merge(thesis_text, results_blocks)
 
@@ -198,6 +241,7 @@ def main() -> None:
         inputs=[
             {"file": str(THESIS_PATH),       "sha256": _sha256_file(THESIS_PATH)},
             {"file": str(RESULTS_MD_PATH),   "sha256": _sha256_file(RESULTS_MD_PATH)},
+            {"file": str(REFERENCES_PATH),   "sha256": _sha256_file(REFERENCES_PATH)},
         ],
         outputs=[
             {"file": str(THESIS_FINAL_PATH), "rows": None,
