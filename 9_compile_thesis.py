@@ -13,9 +13,8 @@ from __future__ import annotations
 import argparse
 import json
 import re
-import shutil
-import subprocess
 import sys
+from pathlib import Path
 
 from config import (
     THESIS_PATH, THESIS_RESULTS_PATH as RESULTS_MD_PATH,
@@ -218,22 +217,22 @@ def main() -> None:
     if args.no_pandoc:
         print("Pandoc conversion skipped (--no-pandoc).")
     else:
-        pandoc = shutil.which("pandoc")
-        if pandoc is None:
-            print("Note: pandoc not found on PATH – DOCX conversion skipped.")
-        else:
-            cmd = [pandoc, str(THESIS_FINAL_PATH), "-o", str(DOCX_OUTPUT)]
-            if REFERENCE_DOCX.exists():
-                cmd += [f"--reference-doc={REFERENCE_DOCX}"]
-            else:
-                print(f"Note: reference DOCX not found at {REFERENCE_DOCX} – using pandoc defaults.")
-            print(f"\nRunning: {' '.join(cmd)}")
-            result = subprocess.run(cmd, capture_output=True, text=True)
-            if result.returncode == 0:
-                print(f"DOCX written to {DOCX_OUTPUT}")
-                pandoc_used = True
-            else:
-                print(f"pandoc error:\n{result.stderr}", file=sys.stderr)
+        try:
+            import pypandoc
+            _root = Path(__file__).parent
+            _ref  = _root / REFERENCE_DOCX
+            _src  = _root / THESIS_FINAL_PATH
+            _out  = _root / DOCX_OUTPUT
+            extra_args = [f"--reference-doc={_ref}"] if _ref.exists() else []
+            if not _ref.exists():
+                print(f"Note: reference DOCX not found at {_ref} – using pandoc defaults.")
+            pypandoc.convert_file(str(_src), "docx", outputfile=str(_out), extra_args=extra_args)
+            print(f"DOCX written to {DOCX_OUTPUT}")
+            pandoc_used = True
+        except ImportError:
+            print("Note: pypandoc not installed – DOCX conversion skipped.")
+        except Exception as e:
+            print(f"pandoc error: {e}", file=sys.stderr)
 
     append_run_log(
         script="9_compile_thesis.py",

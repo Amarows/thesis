@@ -60,7 +60,7 @@ COUNTERBALANCING_PATH = SURVEY_DIR / "counterbalancing" / "counterbalancing_matr
 THESIS_PATH           = Path("thesis.md")
 THESIS_FINAL_PATH     = Path("thesis_final.md")
 REFERENCES_PATH       = Path("references.md")
-REFERENCE_DOCX        = Path("documents/thesis.docx")
+REFERENCE_DOCX        = Path("documents/apl_template_v2.docx")
 DOCX_OUTPUT           = Path("documents/thesis_final.docx")
 
 

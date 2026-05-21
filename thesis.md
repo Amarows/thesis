@@ -1,55 +1,15 @@
-<div style="text-align:center; margin-top:180px;">
-
-**Reducing Emotional Biases in Investment Portfolio Management**
-
-**A Thesis**  
-**Presented to the Faculty of**  
-**SBS Swiss Business School**
-
-**In Partial Fulfillment**
-
-**of the Requirements for the Degree**
-
-**Executive Master of Business Administration**
-
-**by**
-
-**Aliaksei Malashonak**  
-**Student ID: 19795 | Matriculation: 24891798**
-
-**September 2026**
-
-**Mentor: Dr. Stefano Canossa**
-
-</div>
-
-
-<div style="text-align:center; margin-top:180px;">
-
-**Reducing Emotional Biases in Investment Portfolio Management**
-
-**A Thesis**  
-**Presented to the Faculty of**  
-**SBS Swiss Business School**
-
-**In Partial Fulfillment**
-
-**of the Requirements for the Degree**
-
-**Executive Master of Business Administration**
-
-**by**
-
-**Aliaksei Malashonak**  
-**Student ID: 19795 | Matriculation: 24891798**
-
-**September 2026**
-
-**Mentor: Dr. Stefano Canossa**
-
-</div>
-
-# Reducing Emotional Biases in Investment Portfolio Management
+---
+title: "Reducing Emotional Biases in Investment Portfolio Management"
+subtitle: 
+  - "A Thesis"
+  - "Presented to the Faculty of"
+  - "SBS Swiss Business School in Partial Fulfillment of the Requirements for the Degree Executive Master of Business Administration"
+author:
+  - "Aliaksei Malashonak"
+  - "Student ID: 19795 | Matriculation: 24891798"
+  - "Mentor: Dr. Stefano Canossa"
+date: "September 2026"
+---
 
 ## Authentication of Work
 
@@ -260,11 +220,11 @@ The Shock Score plays two roles in the study. It serves, first, as a continuous 
 The behavioral finance literature documents that earnings announcements and other discrete information events frequently produce short-term price overreaction followed by partial reversal, consistent with attention-driven trading and emotional processing of salient news ([Jiang & Zhu, 2016](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2891216); [Meng et al., 2024](https://doi.org/10.1016/j.irfa.2024.103219)). The intraday price dynamics of Meta Platforms Inc. on 2 February 2026, which coincided with the public release of quarterly earnings results, illustrate this pattern. The announcement triggered a rapid upward price adjustment together with elevated trading volume, consistent with a positive earnings surprise. Despite the positive informational content, the immediate price response was followed by pronounced short-term volatility and partial reversal — a sequence consistent with the short-horizon overreaction patterns documented in the empirical literature ([Hirshleifer, 2015](https://doi.org/10.1146/annurev-financial-092214-043752)).
 
 
-*Figure 2.1*
+**Figure 2.1**
 
 *Intraday Price Movement of Meta Platforms Inc. on 2 February 2026 Following the Release of Quarterly Earnings Results, Illustrating a Short-Horizon Market Reaction to an External Information Shock*
 
-![Figure 2.1: Intraday price movement of Meta Platforms Inc. on 2 February 2026 following the release of quarterly earnings results, illustrating a short-horizon market reaction to an external information shock.](images/img_shock_example.png)
+![](images/img_shock_example.png)
 
 *Note.* Intraday price and volume data for Meta Platforms Inc. (ticker: META), retrieved via the Interactive Brokers API.
 
@@ -405,11 +365,11 @@ Findings may not generalize beyond the defined portfolio universe, event types, 
 
 The study evaluates portfolio risk-return outcomes through simulation rather than through observation of actual trading ([Charness et al., 2012](https://doi.org/10.1016/j.jebo.2011.08.009)). Managers provide stated decision responses via the survey instrument; these responses are then translated into portfolio weight adjustments and evaluated against realized market returns within a simulation framework. As with any design relying on stated rather than revealed preferences, the relationship between reported intentions and actual behavior introduces a potential validity constraint ([Huber et al., 2022](https://doi.org/10.1016/j.jebo.2021.12.007)). As a result, the portfolio outcome findings for H2 are jointly conditional on two elements: (a) the behavioral effect of the Shock Score on stated decisions, and (b) the adequacy of the simulation model that maps stated decisions to portfolio returns. If the translation rules, rebalancing assumptions, or return-attribution conventions do not adequately represent how stated intentions would manifest in live portfolio management, the portfolio-level results may over- or understate the true effect of decision support. Figure 2.2 illustrates the boundary between directly observed data and model-dependent inference. The simulation design, including all translation rules and rebalancing conventions, is fully specified in Chapter 4 to enable independent assessment of these assumptions.
 
-*Figure 2.2*
+**Figure 2.2**
 
 *Causal Logic of the Study Design*
 
-![img_casual_logic.svg](images/img_casual_logic.svg)
+![](images/img_casual_logic.svg)
 
 
 *Note.* The left domain (observed) encompasses survey responses and market data. The right domain (simulated) encompasses the translation of stated decisions into portfolio outcomes, introducing model dependency that bounds interpretation of H2 results. Original figure by the author.
@@ -605,7 +565,7 @@ This gap persists even in the most recent AI-driven systems. Lim (2026) develops
 
 Table 3.1 systematically maps these gaps across relevant studies. The table demonstrates that while individual components of real-time decision support have been addressed in isolation – information shock measurement (Song et al., 2015), professional behavioral responses (Huber et al., 2022), behavioral decision-support principles (Statman, 2019), and portfolio outcomes (Tetlock, 2007) – no prior research integrates all four elements in a controlled setting. This thesis fills this gap by combining real-time information shock measurement via the Shock Score, a professional sample of portfolio managers, behavioral decision-support interventions linked to Investment Policy Statements, and portfolio-level risk-return validation.
 
-*Table 3.1*
+**Table 3.1**
 
 *Systematic Gap Mapping in Information Shock Decision Support*
 
@@ -657,7 +617,7 @@ The Shock Score differs from all these approaches in three critical dimensions. 
 
 The table below systematically compares the Shock Score against representative measures from each category.
 
-*Table 3.2*
+**Table 3.2**
 
 *Shock Score Benchmarking Against Existing Measures*
 
@@ -732,11 +692,11 @@ The conceptual framework operationalizes the causal logic introduced in Section 
 
 
 
-*Figure 4.1*
+**Figure 4.1**
 
 *Conceptual Framework – Research Design Operationalization*
 
-![Figure 4.1: Conceptual Framework](images/img_framework.svg)
+![](images/img_framework.svg)
 
 *Note.* Original figure by the author. The framework maps the study constructs to their measurement instruments and links the two hypotheses to the experimental protocol.
 
@@ -763,7 +723,7 @@ The study requires 24 unique stocks to populate the scenario slots across three 
 
 The 24 portfolio stocks assigned to scenario blocks are listed below.
 
-*Table 4.1*
+**Table 4.1**
 
 *Portfolio Universe*
 
@@ -811,7 +771,7 @@ In addition to individual stock data, daily closing prices for the S&P 500 index
 
 Table 4.2 summarises all secondary data sources used in this study.
 
-*Table 4.2*
+**Table 4.2**
 
 *Secondary Data Sources*
 
@@ -854,7 +814,7 @@ For articles published outside regular trading hours (before 09:30 or after 16:0
 
 The output of this procedure is a set of candidate stock-day-news triples, each associated with a pre-computed Shock Score composite (SC_total) value (Section 4.3.5). From the candidate pool, scenarios are selected to satisfy the balance constraints summarised in Table 4.3.
 
-*Table 4.3*
+**Table 4.3**
 
 *Scenario Selection Balance Constraints*
 
@@ -877,11 +837,11 @@ Each scenario is constructed to be self-contained: the manager can form a decisi
 
 The composite Shock Score SC_total is constructed from four event-level components. Each component is standardized to mean zero and unit variance across all scenarios prior to principal component analysis (PCA). SC_total is defined as the first principal component obtained from the standardized component vector, following the established approach of using PCA to derive composite indices in finance ([Baker & Wurgler, 2006](https://doi.org/10.1111/j.1540-6261.2006.00885.x)).
 
-*Figure 4.2*
+**Figure 4.2**
 
 *Shock Score Composite Construction*
 
-![Figure 4.2: Shock Score Composite Construction](images/img_shock_score_components.svg)
+![](images/img_shock_score_components.svg)
 
 *Note.* Four event-level components (Article Count, Sentiment Extremity, Attention Intensity, and Event-Type Severity) are standardized and reduced via principal component analysis to produce the SC_total composite index. Original figure by the author.
 
@@ -895,7 +855,7 @@ The first principal component is chosen because it provides a single index captu
 
 The four components are defined in Table 4.4 and described in detail below.
 
-*Table 4.4*
+**Table 4.4**
 
 *Shock Score Components*
 
@@ -929,7 +889,7 @@ The four components are designed to capture distinct psychological dimensions of
 
 The Shock Score is presented to respondents in the treatment condition (ShowSC = 1) as a compact visual dashboard displaying four interpretable signals derived from the composite index and its components. In the control condition (ShowSC = 0), the dashboard panel is absent; no placeholder or reference to the Shock Score appears. The treatment implementation and counterbalancing strategy that govern which respondents see the dashboard are described in Section 4.4.
 
-*Table 4.5*
+**Table 4.5**
 
 *Shock Score Dashboard Components*
 
@@ -992,11 +952,11 @@ Each scenario presents the following elements in a standardized template:
 
 5. NRS response item: the seven-point scale with anchored labels (Section 4.4.5).
 
-*Figure 4.3*
+**Figure 4.3**
 
 *Example Scenario Presentation in the Treatment Condition*
 
-![scenario_presentation_format.png](images/scenario_presentation_format.png)
+![](images/scenario_presentation_format.png)
 
 *Note.* The figure displays a complete scenario as seen by a respondent in the ShowSC = 1 condition, including the stock identification header, intraday price chart, news summary, Shock Score dashboard, and NRS response item.
 
@@ -1024,7 +984,7 @@ Within blocks: two counterbalancing versions (V1 and V2) are deployed per block.
 
 This design produces six distinct survey forms (3 blocks x 2 versions). Each scenario appears as treatment for approximately half of respondents in its block and as control for the other half, ensuring that any observed treatment effect cannot be attributed to specific scenario characteristics. The interleaved presentation order ensures that scenario position (early vs. late in the sequence) is not confounded with treatment assignment.
 
-*Table 4.6*
+**Table 4.6**
 
 *Counterbalancing Design*
 
@@ -1081,7 +1041,7 @@ The survey was deployed in two phases. The pilot phase ran from 3 April 2026 to 
 
 Invitations were distributed through two channels. Direct outreach comprised more than 120 personalised LinkedIn connection requests and direct messages to equity portfolio managers meeting the inclusion criteria defined in Section 4.4.7. Indirect outreach comprised more than 700 impressions through LinkedIn posts and shared content targeting investment management professionals, supplemented by a research announcement distributed to the local CFA Society membership of more than 3,000 investment professionals via the Society email newsletter. The pilot phase yielded 12 completions on the Block 1 instrument.
 
-*Table 4.7*
+**Table 4.7**
 
 *Survey Response Summary*
 
@@ -1102,7 +1062,7 @@ A pilot test was conducted prior to full survey deployment to evaluate the clari
 
 The pilot served four purposes: evaluating scenario clarity, assessing completion time against the 15-minute target, verifying the technical implementation of the Google Forms instrument including counterbalancing block assignment and data recording, and collecting structured feedback on scenario realism and dashboard interpretability through the five feedback questions appended to the Block 1 forms (Table 4.8).
 
-*Table 4.8*
+**Table 4.8**
 
 *Pilot Feedback Questions*
 
@@ -1219,12 +1179,12 @@ The eigenvalue of 2.1027 exceeds 1.0, satisfying the Kaiser criterion ([Jolliffe
 [To be populated by 8_statistical_analysis.py]
 <!-- /PLACEHOLDER:s5_3_scenarios -->
 
-*Figure 5.1*
+**Figure 5.1**
 
 *SC_total Composite Shock Score Versus Actual Realized Horizon Return Across 24 Scenarios*
 
 
-![SC_total versus actual horizon return](figures/fig_sc_vs_horizon_return.png)
+![](figures/fig_sc_vs_horizon_return.png)
 
 *Note.* Each data point represents one of the 24 scenarios, color-coded by block. The OLS trend line (beta = -1.06% per unit SC_total) indicates a weak negative association between shock intensity and subsequent returns. Residual dispersion confirms that SC_total does not function as a directional price predictor. Original figure by the author.
 
@@ -1268,11 +1228,11 @@ The decomposed component specification (Spec 3) reveals a notable sign heterogen
 
 The direction-interaction specification (Spec 5) further decomposes the SC_total effect by sentiment direction. The main effect for positive-sentiment events is β₁ = −0.4283 (p < 0.0001), indicating a risk-reducing response even when the accompanying news is positive. The interaction term SC_total × D_neg = +0.1954 (p = 0.5957) is not statistically significant, indicating that no reliable asymmetry between positive- and negative-sentiment events can be established in the current sample. The compound effect for negative-sentiment events is β₁ + β₃ = −0.4283 + 0.1954 = −0.2329, which remains risk-reducing in direction. The absence of a significant direction-interaction implies that the risk-reducing effect of SC_total does not differ materially by sentiment polarity at the current sample size. The Spec 5 result is treated as exploratory and the direction-asymmetry hypothesis is noted as a priority for replication on a larger sample.
 
-*Figure 5.2*
+**Figure 5.2**
 
 *Forest Plot of OLS Regression Coefficients for the Four SC_total Components*
 
-![SC_total component coefficients forest plot](figures/fig_component_forest.png)
+![](figures/fig_component_forest.png)
 
 *Note.* Spec 3 decomposition, N = 424, HC3 robust standard errors, block fixed effects and ShowSC controlled. Blue markers indicate statistically significant risk-reducing effects; grey indicates non-significance. Horizontal lines represent 95% confidence intervals. Original figure by the author.
 
@@ -1328,11 +1288,11 @@ The component decomposition (Spec 3) discloses a specific sign heterogeneity in 
 [To be populated by 8_statistical_analysis.py]
 <!-- /PLACEHOLDER:s5_diagnostic_alignment -->
 
-*Figure 5.3*
+**Figure 5.3**
 
 *NRS–Sentiment Alignment Rate by Sentiment Category*
 
-![NRS-sentiment alignment rates by sentiment category](figures/fig_alignment_rates.png)
+![](figures/fig_alignment_rates.png)
 
 *Note.* Categories are sorted ascending by alignment rate. The dashed vertical line marks the 0.50 directional consistency threshold; the dotted line marks the overall alignment rate of 0.2618. All categories fall below the threshold, confirming a pervasive contrarian-judgment pattern. Original figure by the author.
 
