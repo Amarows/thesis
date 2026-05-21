@@ -1388,24 +1388,34 @@ def _fig_h2_nrs_by_sc(df: pd.DataFrame) -> None:
 
     fig, ax = plt.subplots(figsize=(8, 5))
 
+    rng = np.random.default_rng(42)
+
     styles = {
         0: {"color": "#abd9e9", "linestyle": "--", "label": "Control (ShowSC = 0)"},
         1: {"color": "#2c7bb6", "linestyle": "-",  "label": "Treatment (ShowSC = 1)"},
     }
     for cond, sty in styles.items():
-        grp = plot_df[plot_df["show_sc"] == cond].groupby("sc_quintile")["nrs"]
+        cond_df = plot_df[plot_df["show_sc"] == cond]
+        grp = cond_df.groupby("sc_quintile")["nrs"]
         means = grp.mean()
         sems  = grp.sem()
         x_vals = [q_centers[q] for q in means.index]
+
+        # individual observation dots (jittered horizontally)
+        jitter = rng.uniform(-0.04, 0.04, size=len(cond_df))
+        ax.scatter(cond_df["sc_total"] + jitter, cond_df["nrs"],
+                   color=sty["color"], alpha=0.25, s=12, linewidths=0, zorder=1)
+
         ax.plot(x_vals, means.values, color=sty["color"], linestyle=sty["linestyle"],
-                marker="o", linewidth=2, markersize=6, label=sty["label"])
+                marker="o", linewidth=2, markersize=6, label=sty["label"], zorder=3)
         ax.fill_between(x_vals, means.values - sems.values,
-                        means.values + sems.values, alpha=0.15, color=sty["color"])
+                        means.values + sems.values, alpha=0.15, color=sty["color"], zorder=2)
 
     ax.axhline(4, color="grey", linestyle=":", linewidth=0.8)
     ax.set_xlabel("SC_total (quintile mean)")
     ax.set_ylabel("Mean NRS")
-    ax.set_ylim(1, 7)
+    ax.set_ylim(3, 4)
+    ax.set_yticks([3.0, 3.5, 4.0])
     ax.legend()
     _apa_style(ax)
     fig.tight_layout()
