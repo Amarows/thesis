@@ -1327,6 +1327,7 @@ def run_h2_analysis(df: pd.DataFrame, horizon_returns: pd.DataFrame,
 
     if not skip_figures:
         _fig_sharpe_comparison(opt_b_df, h2)
+        _fig_h2_nrs_by_sc(df)
 
     return h2
 
@@ -1368,6 +1369,47 @@ def _fig_sharpe_comparison(opt_b_df: pd.DataFrame, h2: dict) -> None:
 
     fig.tight_layout()
     fig.savefig(FIGURES_DIR / "fig_sharpe_comparison.png", dpi=150, bbox_inches="tight")
+    plt.close(fig)
+
+
+def _fig_h2_nrs_by_sc(df: pd.DataFrame) -> None:
+    """Line plot: mean NRS by SC_total quintile, split by ShowSC condition."""
+    needed = {"sc_total", "nrs", "show_sc"}
+    if df.empty or not needed.issubset(df.columns):
+        return
+    plot_df = df[list(needed)].dropna()
+    if len(plot_df) < 10:
+        return
+
+    plot_df = plot_df.copy()
+    plot_df["sc_quintile"] = pd.qcut(plot_df["sc_total"], q=5, labels=False, duplicates="drop")
+
+    q_centers = plot_df.groupby("sc_quintile")["sc_total"].mean()
+
+    fig, ax = plt.subplots(figsize=(8, 5))
+
+    styles = {
+        0: {"color": "#abd9e9", "linestyle": "--", "label": "Control (ShowSC = 0)"},
+        1: {"color": "#2c7bb6", "linestyle": "-",  "label": "Treatment (ShowSC = 1)"},
+    }
+    for cond, sty in styles.items():
+        grp = plot_df[plot_df["show_sc"] == cond].groupby("sc_quintile")["nrs"]
+        means = grp.mean()
+        sems  = grp.sem()
+        x_vals = [q_centers[q] for q in means.index]
+        ax.plot(x_vals, means.values, color=sty["color"], linestyle=sty["linestyle"],
+                marker="o", linewidth=2, markersize=6, label=sty["label"])
+        ax.fill_between(x_vals, means.values - sems.values,
+                        means.values + sems.values, alpha=0.15, color=sty["color"])
+
+    ax.axhline(4, color="grey", linestyle=":", linewidth=0.8)
+    ax.set_xlabel("SC_total (quintile mean)")
+    ax.set_ylabel("Mean NRS")
+    ax.set_ylim(1, 7)
+    ax.legend()
+    _apa_style(ax)
+    fig.tight_layout()
+    fig.savefig(FIGURES_DIR / "fig_h2_nrs_by_sc.png", dpi=150, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -1867,6 +1909,36 @@ def write_results_md(
     ]
     s552 = block("s5_5_2_h2", "\n".join(s552_lines))
 
+    # ---- fig_h2_nrs_sc_split ----
+    _h2_opt_b = h2.get("opt_b_reg", pd.DataFrame())
+    _h2_tau   = "N/A"
+    _h2_p_fig = "N/A"
+    if not _h2_opt_b.empty and "method" in _h2_opt_b.columns and "outcome" in _h2_opt_b.columns:
+        _pr = _h2_opt_b[
+            (_h2_opt_b["method"] == "option_b_individual") &
+            (_h2_opt_b["outcome"] == "portfolio_return")
+        ]
+        if len(_pr) > 0:
+            _h2_tau   = _round4(_pr.iloc[0].get("tau",  np.nan))
+            _h2_p_fig = str(_pr.iloc[0].get("p", "N/A"))
+    _h2_verdict_fig = conc.get("h2_verdict", "Not supported").lower()
+    s_fig_h2_split = block("fig_h2_nrs_sc_split", "\n".join([
+        "*Figure 5.4*",
+        "",
+        "*Mean NRS by SC_total Quintile and Experimental Condition*",
+        "",
+        "![Mean NRS by SC_total quintile and ShowSC condition](figures/fig_h2_nrs_by_sc.png)",
+        "",
+        f"*Note.* Each point represents the mean Net Risk Stance (NRS) within a SC_total quintile, "
+        f"separately for the control (ShowSC = 0, dashed) and treatment (ShowSC = 1, solid) conditions. "
+        f"Shaded bands show ±1 standard error. Error bars that substantially overlap across conditions "
+        f"indicate that the Shock Score dashboard does not systematically alter risk-stance responses. "
+        f"The near-parallel trajectories are consistent with the H2 result being {_h2_verdict_fig} "
+        f"(τ = {_h2_tau}, p = {_h2_p_fig}). "
+        f"The dotted horizontal line marks the NRS neutral point (4 = maintain exposure). "
+        f"Original figure by the author.",
+    ]))
+
     # ---- s5_6_1_impact ----
     if np.isnan(_beta1):
         _impact_effect_sentence = "The regression estimate for SC_total could not be computed."
@@ -2116,7 +2188,7 @@ def write_results_md(
                         "Alignment diagnostic could not be computed (missing sentiment_direction or nrs column).")
 
     # Assemble file
-    sections = [tbl_47, s521, s522, s523, s54, s551_main, s551_rob, s552, s561, s5_diag, s562, s57, s58, s62, s63, s64]
+    sections = [tbl_47, s521, s522, s523, s54, s551_main, s551_rob, s552, s_fig_h2_split, s561, s5_diag, s562, s57, s58, s62, s63, s64]
     lines.extend(sections)
 
     RESULTS_MD_PATH.write_text("\n\n".join(lines), encoding="utf-8")

@@ -295,9 +295,9 @@ The second objective is to evaluate whether providing the Shock Score moderates 
 
 This study is guided by two research questions that correspond directly to the objectives and hypotheses. The first research question focuses on whether external information shocks are associated with systematic variation in managerial decision response. The second research question evaluates whether the Shock Score, as a decision-support intervention, is associated with changes in investment decision outcomes when managers face such information shocks. RQ1 addresses Objective 1 by evaluating both the immediate decision response to information shocks and its downstream portfolio outcome. RQ2 addresses Objective 2 by evaluating the moderating role of the Shock Score on that response.
 
-##Do external financial information shocks lead to statistically significant differences in managers’ immediate Net Risk Stance responses and, in downstream evaluation, portfolio risk – return outcomes?
+- Do external financial information shocks lead to statistically significant differences in managers’ immediate Net Risk Stance responses and, in downstream evaluation, portfolio risk – return outcomes?
 
-##Does providing the Shock Score to portfolio managers affect investment decision outcomes, measured through portfolio risk–return metrics, relative to a condition in which the Shock Score is not provided?
+- Does providing the Shock Score to portfolio managers affect investment decision outcomes, measured through portfolio risk–return metrics, relative to a condition in which the Shock Score is not provided?
 
 ## 2.5 Hypothesis Statement(s)
 
@@ -323,12 +323,11 @@ H2 evaluates whether providing the Shock Score dashboard to managers during info
 
 This section defines key terms used throughout the thesis. Definitions are operational and intended to support consistent measurement and interpretation in later chapters.
 
-##Emotional bias refers to systematic deviations in judgment and choice that arise from affective responses under uncertainty ([Kahneman & Tversky, 1979](https://doi.org/10.2307/1914185); [Hirshleifer, 2015](https://doi.org/10.1146/annurev-financial-092214-043752)), leading decision-makers to overweight salient or emotionally charged information relative to a deliberative, rule-consistent decision process.
+- Emotional bias refers to systematic deviations in judgment and choice that arise from affective responses under uncertainty ([Kahneman & Tversky, 1979](https://doi.org/10.2307/1914185); [Hirshleifer, 2015](https://doi.org/10.1146/annurev-financial-092214-043752)), leading decision-makers to overweight salient or emotionally charged information relative to a deliberative, rule-consistent decision process.
 
-##An external financial information shock is a discrete public information event relevant to a portfolio holding that arrives over a short horizon and has the potential to trigger heightened attention, uncertainty, and rapid market reaction ([Jiang & Zhu, 2016](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2891216)).
+- An external financial information shock is a discrete public information event relevant to a portfolio holding that arrives over a short horizon and has the potential to trigger heightened attention, uncertainty, and rapid market reaction ([Jiang & Zhu, 2016](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2891216)).
 
-
-##The Shock Score is a quantitative decision-support indicator designed to summarize the emotional and informational intensity of an external financial information shock in a manager-interpretable format. In this thesis, the Shock Score has two representations: an analytical composite index used for statistical testing and an operational dashboard used for decision support. The construction methodology, component definitions, PCA-based composite index computation, and Shock Score dashboard design are documented in Section 4.3.
+- The Shock Score is a quantitative decision-support indicator designed to summarize the emotional and informational intensity of an external financial information shock in a manager-interpretable format. In this thesis, the Shock Score has two representations: an analytical composite index used for statistical testing and an operational dashboard used for decision support. The construction methodology, component definitions, PCA-based composite index computation, and Shock Score dashboard design are documented in Section 4.3.
 
 Treatment indicator for decision support:
 The study distinguishes between the existence of $SC_{total}$ for an event and whether it is shown to the manager. For each manager $i$ and event $e$:
@@ -340,7 +339,7 @@ $ShowSC_{i,e} = 0$ if the Shock Score dashboard is withheld
 When the Shock Score is not displayed, $SC_{total}$ remains defined at the event level; it is simply not observed by the respondent.
 
 
-##Risk – return ratio refers to a risk-adjusted measure of portfolio performance that evaluates return relative to risk exposure. In this thesis, Sharpe ratio and Sortino ratio are specified as primary risk – return metrics for evaluating portfolio outcomes under alternative decision conditions.
+Risk–return ratio refers to a risk-adjusted measure of portfolio performance that evaluates return relative to risk exposure. In this thesis, Sharpe ratio and Sortino ratio are specified as primary risk – return metrics for evaluating portfolio outcomes under alternative decision conditions.
 
 Sharpe ratio ([Sharpe, 1966](https://doi.org/10.1086/294846)):
 Let $r_t$ denote portfolio return over period $t$ and $r_f$ denote the risk-free rate over the same period. Let $\mu$ denote the mean of excess returns $(r_t - r_f)$ and $\sigma$ denote the standard deviation of excess returns. Then:
@@ -368,9 +367,10 @@ Exact conventions for $r_f$, $\text{MAR}$, sampling frequency, and annualization
 
 Assumptions describe the conditions under which the research design supports valid interpretation. These assumptions are not treated as established facts but as prerequisites for empirical evaluation and inference.
 
-##The study assumes that the timing of external information shocks can be identified and aligned consistently with the decision window represented in the survey scenarios and portfolio outcome evaluation. The study further assumes that the event-level shock characteristics used to construct SC_total and persistence are computed consistently across events and do not rely on ex post outcome information that would compromise interpretation.
+The study assumes that:
+- the timing of external information shocks can be identified and aligned consistently with the decision window represented in the survey scenarios and portfolio outcome evaluation. The study further assumes that the event-level shock characteristics used to construct SC_total and persistence are computed consistently across events and do not rely on ex post outcome information that would compromise interpretation.
 
-##The study assumes that respondents interpret the decision task consistently and that the Net Risk Stance scale captures intended exposure adjustment in a comparable way across respondents and scenarios. Random assignment of scenarios to conditions is assumed to mitigate systematic learning and order effects ([Charness et al., 2012](https://doi.org/10.1016/j.jebo.2011.08.006)). The design further assumes that respondents' decisions reflect their intended stance under the scenario constraints and are not materially distorted by survey fatigue or strategic responding ([Krosnick, 1999](https://doi.org/10.1146/annurev.psych.50.1.537)).
+- respondents interpret the decision task consistently and that the Net Risk Stance scale captures intended exposure adjustment in a comparable way across respondents and scenarios. Random assignment of scenarios to conditions is assumed to mitigate systematic learning and order effects ([Charness et al., 2012](https://doi.org/10.1016/j.jebo.2011.08.006)). The design further assumes that respondents' decisions reflect their intended stance under the scenario constraints and are not materially distorted by survey fatigue or strategic responding ([Krosnick, 1999](https://doi.org/10.1146/annurev.psych.50.1.537)).
 
 ## 2.8 Limitations
 
@@ -1242,6 +1242,9 @@ The direction-interaction specification (Spec 5) further decomposes the SC_total
 [To be populated by 8_statistical_analysis.py]
 <!-- /PLACEHOLDER:s5_5_2_h2 -->
 
+<!-- PLACEHOLDER:fig_h2_nrs_sc_split -->
+[To be populated by 8_statistical_analysis.py]
+<!-- /PLACEHOLDER:fig_h2_nrs_sc_split -->
 
 ## 5.6 Results Interpretation
 
