@@ -1446,6 +1446,10 @@ The empirical evidence accumulated in this study suggests that behavioural decis
 
 # References
 
+<!-- PLACEHOLDER:references -->
+[To be populated by 9_compile_thesis.py]
+<!-- /PLACEHOLDER:references -->
+
 # Appendix 1. Thesis Proposal Approval Form
 
 ![theis_approval_form.png](documents/theis_approval_form.png)

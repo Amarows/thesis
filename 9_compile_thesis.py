@@ -180,6 +180,14 @@ def main() -> None:
     else:
         print("  WARNING: pca_diagnostics.json not found — s5_pca_diagnostics placeholder will not be replaced.")
 
+    # Inject references block (sourced from references.md)
+    references_content = load_references()
+    if references_content:
+        results_blocks["references"] = references_content
+        print(f"  references (from references.md, {references_content.count(chr(10) + chr(10)) + 1} entries)")
+    else:
+        print("  WARNING: references.md not found or empty — references placeholder will not be replaced.")
+
     # Merge
     merged, n_replaced, not_found = merge(thesis_text, results_blocks)
 
@@ -187,18 +195,6 @@ def main() -> None:
     # which resolves in the results/ context but breaks at the repo root.
     # Replace all ](figures/ with ](results/figures/ in the compiled output.
     merged = merged.replace("](figures/", "](results/figures/")
-
-    # Inject references content after the # References heading
-    references_content = load_references()
-    if references_content:
-        merged = merged.replace(
-            "\n# References\n",
-            "\n# References\n\n" + references_content + "\n\n",
-            1,
-        )
-        print(f"References: {references_content.count(chr(10) + chr(10)) + 1} entries injected.")
-    else:
-        print("WARNING: references.md not found or empty — # References section left blank.")
 
     # Write output
     THESIS_FINAL_PATH.write_text(merged, encoding="utf-8")
