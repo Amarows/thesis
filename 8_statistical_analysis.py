@@ -1401,10 +1401,7 @@ def _fig_h2_nrs_by_sc(df: pd.DataFrame) -> None:
         sems  = grp.sem()
         x_vals = [q_centers[q] for q in means.index]
 
-        # individual observation dots (jittered horizontally)
-        jitter = rng.uniform(-0.04, 0.04, size=len(cond_df))
-        ax.scatter(cond_df["sc_total"] + jitter, cond_df["nrs"],
-                   color=sty["color"], alpha=0.25, s=12, linewidths=0, zorder=1)
+
 
         ax.plot(x_vals, means.values, color=sty["color"], linestyle=sty["linestyle"],
                 marker="o", linewidth=2, markersize=6, label=sty["label"], zorder=3)
@@ -1414,8 +1411,8 @@ def _fig_h2_nrs_by_sc(df: pd.DataFrame) -> None:
     ax.axhline(4, color="grey", linestyle=":", linewidth=0.8)
     ax.set_xlabel("SC_total (quintile mean)")
     ax.set_ylabel("Mean NRS")
-    ax.set_ylim(3, 4)
-    ax.set_yticks([3.0, 3.5, 4.0])
+    ax.set_ylim(3, 5)
+    ax.set_yticks([3.0, 3.5, 4.0, 4.5, 5.0])
     ax.legend()
     _apa_style(ax)
     fig.tight_layout()
