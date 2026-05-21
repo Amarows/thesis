@@ -606,11 +606,7 @@ This approach aligns with calls in the literature to integrate behavioral insigh
 
 In practical terms, the Shock Score addresses the shortcomings identified above. Unlike the ex-post descriptive measures dominant in the existing literature, the Shock Score (defined in Chapter 4) is a forward-looking, ex-ante decision-support indicator, making behavioral risk explicit in the same way that traditional risk measures quantify volatility or Value-at-Risk. By doing so, it fills a lacuna in the literature by tying descriptive knowledge of biases to a predictive decision-support tool. In summary, the Shock Score is both novel and relevant: it provides the missing link between theory and practice, operationalizing behavioral finance for real-time portfolio management.
 
-
-
-**Benchmarking Against Existing Measures**
-
-While sentiment and information shock measurement is not new to finance, existing approaches differ fundamentally from the Shock Score in purpose, scope, and application. This subsection benchmarks the Shock Score against three categories of competing measures to establish its novelty.
+While sentiment and information shock measurement is not new to finance, existing approaches differ fundamentally from the Shock Score in purpose, scope, and application.
 
 #### Category 1: Composite Sentiment Indices for Return Forecasting
 
@@ -1191,7 +1187,7 @@ The validity of SC_total as a composite measure depends on whether the four comp
 [To be populated by 8_statistical_analysis.py]
 <!-- /PLACEHOLDER:s5_pca_diagnostics -->
 
-The eigenvalue of 2.1027 exceeds 1.0, satisfying the Kaiser criterion. The first principal component explains 50.38% of the total variance across the four inputs. All four components load positively on PC1, confirming that the composite represents a common factor of shock intensity rather than a contrast between components.
+The eigenvalue of 2.1027 exceeds 1.0, satisfying the Kaiser criterion ([Jolliffe & Cadima, 2016](https://doi.org/10.1098/rsta.2015.0202)). The first principal component explains 50.38% of the total variance across the four inputs. All four components load positively on PC1, confirming that the composite represents a common factor of shock intensity rather than a contrast between components.
 
 ## 5.3 Scenario Selection Outcomes
 
