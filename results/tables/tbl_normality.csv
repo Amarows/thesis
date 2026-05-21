@@ -1,1 +1,2 @@
-
+test,scope,statistic,p,n,normality_rejected
+Shapiro-Wilk,primary H1 OLS residuals,0.9849,0.0002,424,True

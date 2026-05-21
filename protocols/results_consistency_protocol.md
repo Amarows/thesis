@@ -125,7 +125,7 @@ Source: `results/tables/tbl_h2_portfolio.csv`.
 | portfolio_return | cohens_d | `cohens_d` | Exact (4 dp) |
 | sharpe_ratio | tau | `tau` | Exact (4 dp) |
 | sharpe_ratio | p | `p` | Exact string |
-| sharpe_ratio | h2_supported | `h2_supported` | Must be `True` |
+| sharpe_ratio | h2_supported | `h2_supported` | Must match CSV value (reflects pipeline threshold logic, not a fixed expected outcome) |
 
 ### B4. PCA loadings in thesis text
 
@@ -143,7 +143,7 @@ Verify N respondents, N observations, mean NRS, SD NRS, Shapiro-Wilk W and p, Cr
 
 Source: `results/tables/tbl_nrs_sentiment_alignment.csv`.
 
-Every alignment rate in the thesis table must match the CSV. The overall rate (0.2851 in current results) must appear in Section 5.6.1.1 and its interpretation must describe it as below-threshold (contrarian pattern), not as indicating directional consistency.
+Every alignment rate in the thesis table must match the CSV. The overall rate must appear in Section 5.6.1.1 and its interpretation must describe it as below-threshold (contrarian pattern), not as indicating directional consistency.
 
 ---
 

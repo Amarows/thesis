@@ -609,9 +609,6 @@ def compute_normality(df: pd.DataFrame) -> dict:
     freq_df      = pd.concat([freq_overall, freq_sc0, freq_sc1], ignore_index=True)
     freq_df.to_csv(TABLES_DIR / "tbl_nrs_frequency.csv", index=False)
 
-    # Retain empty norm_df for backward compatibility
-    norm_df = pd.DataFrame()
-    norm_df.to_csv(TABLES_DIR / "tbl_normality.csv", index=False)
 
     # Unique respondent count for CLT flag
     n_resp = df["respondent_id"].nunique() if "respondent_id" in df.columns else len(nrs_all)
@@ -692,8 +689,7 @@ def compute_normality(df: pd.DataFrame) -> dict:
         "icc_per_scenario":   icc_per_scenario,
         "n_per_block":        n_per_block,
         "residual_normality": {},   # populated by run_h1_regression()
-        # Retained for backward compatibility
-        "norm_df":            norm_df,
+        "norm_df":            pd.DataFrame(),
         "mean_pairwise_corr": np.nan,
         "cronbach_per_block": {},
     }
@@ -891,6 +887,19 @@ def run_h1_regression(df: pd.DataFrame) -> dict:
             except Exception:
                 resid_norm = {}
     h1["residual_normality"] = resid_norm
+    if resid_norm:
+        pd.DataFrame([{
+            "test":               "Shapiro-Wilk",
+            "scope":              "primary H1 OLS residuals",
+            "statistic":          resid_norm["w"],
+            "p":                  resid_norm["p"],
+            "n":                  resid_norm["n"],
+            "normality_rejected": resid_norm["rejected"],
+        }]).to_csv(TABLES_DIR / "tbl_normality.csv", index=False)
+    else:
+        pd.DataFrame(columns=["test", "scope", "statistic", "p", "n", "normality_rejected"]).to_csv(
+            TABLES_DIR / "tbl_normality.csv", index=False
+        )
 
     # --- Robustness ---
     rob_rows = []
@@ -1599,6 +1608,16 @@ def write_results_md(
     _ret_diff  = h2.get("return_differential", np.nan)
     _dollar    = h2.get("dollar_impact", np.nan)
     _dollar_v  = _dollar if not np.isnan(_dollar) else 0
+    _opt_b_reg = h2.get("opt_b_reg", pd.DataFrame())
+    _sharpe_row = (
+        _opt_b_reg[_opt_b_reg["outcome"] == "sharpe_ratio"].iloc[0].to_dict()
+        if not _opt_b_reg.empty and "outcome" in _opt_b_reg.columns
+           and (_opt_b_reg["outcome"] == "sharpe_ratio").any()
+        else {}
+    )
+    _sharpe_tau = _sharpe_row.get("tau", np.nan)
+    _sharpe_p_val = _sharpe_row.get("p", np.nan)
+    _sharpe_p_str = _round4(_sharpe_p_val) if not isinstance(_sharpe_p_val, str) else _sharpe_p_val
 
     lines = [
         "# Thesis Results – Auto-generated",
@@ -2055,11 +2074,22 @@ def write_results_md(
             f"(τ = {_round4(_tau)}, p = {_h2_p_str})"
         )
 
+    if not np.isnan(_sharpe_tau):
+        _sharpe_dir = "positive" if _sharpe_tau > 0 else "negative"
+        _sharpe_sig = "reaching" if isinstance(_sharpe_p_val, (int, float)) and not np.isnan(_sharpe_p_val) and _sharpe_p_val < 0.05 else "not reaching"
+        _sharpe_sentence = (
+            f" On the secondary Sharpe ratio outcome, the treatment effect is directionally "
+            f"{_sharpe_dir} (τ = {_round4(_sharpe_tau)}, p = {_sharpe_p_str}), "
+            f"{_sharpe_sig} statistical significance in the current sample."
+        )
+    else:
+        _sharpe_sentence = ""
+
     s57 = block("s5_7_interim", (
         f"The interim conclusions for Chapter 5 are as follows. "
         f"H1 – that SC_total is significantly associated with NRS: {_h1_interim}. "
         f"H2 – that the Shock Score dashboard moderates the risk-return profile of simulated portfolios: "
-        f"{_h2_interim} in the Option B individual-portfolio regression. "
+        f"{_h2_interim} in the Option B individual-portfolio regression.{_sharpe_sentence} "
         f"Both findings are contingent on the current sample composition and are subject to revision "
         f"upon completion of the full survey. Robustness checks for H1 and the Option A descriptive "
         f"analysis for H2 are consistent in direction with the primary results."
