@@ -1432,7 +1432,7 @@ def generate_conclusions(h1: dict, h2: dict, desc: dict, norm: dict) -> dict:
         f"{_h1_direction_sentence} "
         f"{'At the α = 0.05 significance level, H1 is supported: SC_total is a statistically significant predictor of NRS.' if h1_supported else 'At the α = 0.05 significance level, H1 is not supported: the evidence does not suggest a statistically significant association between SC_total and NRS in this sample.'} "
         f"Robustness checks using quintile dummies, respondent fixed effects, "
-        f"decomposed components, and an interaction term are reported in Table 5.3."
+        f"decomposed components, and an interaction term are reported in Table 5.4."
     )
 
     # H2
@@ -1812,18 +1812,43 @@ def write_results_md(
 
     s54 = block("s5_4_normality", "\n".join(s54_lines))
 
-    # ---- s5_5_1_h1 ----
+    # ---- s5_5_1_h1_main ----
     primary = h1.get("primary", {})
     rob_df  = h1.get("robustness", pd.DataFrame())
-    s551_lines = [conc.get("h1_narrative", ""), "", "**Table 5.3: H1 Main Regression Results**", ""]
+
+    main_tbl_df = pd.DataFrame([{
+        "Covariate": "SC_total",
+        "β₁":   primary.get("beta1", np.nan),
+        "SE":   primary.get("se",    np.nan),
+        "t":    primary.get("t",     np.nan),
+        "p":    primary.get("p",     ""),
+        "CI_lo": primary.get("ci_lo", np.nan),
+        "CI_hi": primary.get("ci_hi", np.nan),
+        "R²":   primary.get("r2",    np.nan),
+        "N_obs":  primary.get("n_obs",          ""),
+        "N_resp": primary.get("n_respondents",   ""),
+        "SE_type": primary.get("clustering", "HC3"),
+    }])
+    s551_main_lines = [
+        conc.get("h1_narrative", ""),
+        "",
+        "**Table 5.3: H1 Primary Regression Result**",
+        "",
+        _md_table(main_tbl_df),
+        "",
+    ]
+    s551_main = block("s5_5_1_h1_main", "\n".join(s551_main_lines))
+
+    # ---- s5_5_1_h1_robustness ----
+    s551_rob_lines = ["**Table 5.4: H1 Robustness Specification Results**", ""]
     if not rob_df.empty:
-        s551_lines += [_md_table(rob_df), ""]
-    s551 = block("s5_5_1_h1", "\n".join(s551_lines))
+        s551_rob_lines += [_md_table(rob_df), ""]
+    s551_rob = block("s5_5_1_h1_robustness", "\n".join(s551_rob_lines))
 
     # ---- s5_5_2_h2 ----
     n_sortino_elig = h2.get("n_sortino_eligible", 0)
     n_b_pairs_     = h2.get("n_option_b_pairs", 0)
-    s552_lines = [conc.get("h2_narrative", ""), "", "**Table 5.4: H2 Portfolio Analysis Results**", ""]
+    s552_lines = [conc.get("h2_narrative", ""), "", "**Table 5.5: H2 Portfolio Analysis Results**", ""]
     opt_b_reg = h2.get("opt_b_reg", pd.DataFrame())
     if not opt_b_reg.empty:
         s552_lines += [_md_table(opt_b_reg), ""]
@@ -2076,7 +2101,7 @@ def write_results_md(
             f"({int(aln_df.loc[aln_df['group'] == 'overall', 'n_aligned'].iloc[0]) if 'overall' in aln_df['group'].values else 'N/A'} "
             f"of {int(aln_df.loc[aln_df['group'] == 'overall', 'n'].iloc[0]) if 'overall' in aln_df['group'].values else 'N/A'} observations).",
             "",
-            "**Table 5.5: NRS–Sentiment Alignment by Group**",
+            "**Table 5.6: NRS–Sentiment Alignment by Group**",
             "",
             _md_table(aln_df),
             "",
@@ -2091,7 +2116,7 @@ def write_results_md(
                         "Alignment diagnostic could not be computed (missing sentiment_direction or nrs column).")
 
     # Assemble file
-    sections = [tbl_47, s521, s522, s523, s54, s551, s552, s561, s5_diag, s562, s57, s58, s62, s63, s64]
+    sections = [tbl_47, s521, s522, s523, s54, s551_main, s551_rob, s552, s561, s5_diag, s562, s57, s58, s62, s63, s64]
     lines.extend(sections)
 
     RESULTS_MD_PATH.write_text("\n\n".join(lines), encoding="utf-8")
