@@ -75,14 +75,43 @@ The Shock Score, developed and evaluated in this thesis, represents an attempt t
 
 The research draws on the behavioral finance literature, quantitative methods in financial economics, and applied survey design. It is intended to contribute both to academic understanding of decision-making under uncertainty and to the practical toolkit available to investment risk professionals.
 
-
-
+---
 
 - Table of Contents
 - List of Tables
 - List of Figures
-- List of Abbreviations and Acronyms
-- Executive Summary
+
+---
+
+## List of Abbreviations and Acronyms
+
+| Abbreviation | Definition |
+|---|---|
+| AC_e | Article Count – number of distinct news articles attributed to the shock bar for event *e*; Shock Score component |
+| AI_e | Attention Intensity – abnormal trading volume on the event day relative to the trailing mean; Shock Score component |
+| API | Application Programming Interface |
+| AUM | Assets Under Management |
+| D_neg | Binary indicator equal to 1 for negative-sentiment shock events |
+| DistilBERT | Distilled Bidirectional Encoder Representations from Transformers – compact transformer model used for behavioral classification |
+| ES_e | Event-Type Severity – shock-bar price impact relative to baseline intraday volatility; Shock Score component |
+| ES_raw | Unstandardized Event-Type Severity value used in the decomposed component specification |
+| FEARS | Financial and Economic Attitudes Revealed by Search – Google-search-based investor sentiment index (Da et al., 2015) |
+| FinBERT | Finance-domain pre-trained BERT model used for article-level sentiment scoring (Yang et al., 2020) |
+| GICS | Global Industry Classification Standard |
+| HC3 | Heteroskedasticity-Consistent standard error estimator, finite-sample variant 3 |
+| IBKR | Interactive Brokers |
+| ICC | Intraclass Correlation Coefficient |
+| LLM | Large Language Model |
+| MAR | Minimum Acceptable Return |
+| NRS | Net Risk Stance – seven-point scale capturing the direction and intensity of a manager's intended portfolio exposure adjustment |
+| P_e | Persistence score for event *e* – operationalizes the expected decision-relevance horizon of the information shock |
+| PC1 | First Principal Component |
+| PCA | Principal Component Analysis |
+| RF | Risk-free rate |
+| SC_total | Shock Score composite – PCA-based first principal component of the four standardized Shock Score components |
+| SE_e | Sentiment Extremity – maximum absolute FinBERT sentiment score across event-day articles; Shock Score component |
+| ShowSC | Treatment indicator: ShowSC = 1 if the Shock Score dashboard is displayed; ShowSC = 0 if withheld |
+| T_e | Intensity trigger variable mapping the Shock Score to a pre-commitment protocol tier |
 
 ## Executive Summary
 
@@ -97,11 +126,6 @@ The empirical study employs a within-subject quasi-experimental scenario survey 
 The analysis is based on a sample of 53 respondents yielding 424 scenario-level observations. Results support Hypothesis H1: the Shock Score composite is a statistically significant negative predictor of Net Risk Stance (β₁ = −0.4874, p < 0.0001), indicating that higher shock intensity is systematically associated with a risk-reducing decision shift among professional managers. Hypothesis H2 is not supported in the current sample: the estimated treatment effect of the Shock Score dashboard on portfolio outcomes does not reach statistical significance (τ = −0.1584, p = 0.7428), a result attributed primarily to limited statistical power rather than to an absence of effect.
 
 The thesis concludes that external information shocks are associated with measurable systematic changes in professional portfolio managers' risk stance, consistent with behavioral finance theory. The Shock Score demonstrates construct validity and directional alignment with the hypothesized moderation mechanism. Replication on a larger sample is recommended to evaluate Hypothesis H2 with adequate statistical power. Practical recommendations are offered for portfolio managers, risk governance frameworks, and future integration of behavioral indicators into investment decision processes.
-
-
-
-
-
 
 # Chapter 1. Introduction
 
