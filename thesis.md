@@ -1371,7 +1371,13 @@ Section 6.2 summarises the findings from both the literature review and the empi
 <!-- /PLACEHOLDER:s6_1_intro -->
 
 ## 6.2 Summary of Findings
+
 ### 6.2.1 Summary of Secondary Research
+
+The literature review (Chapter 3) establishes three thematic streams. First, behavioral biases — overconfidence, loss aversion, the disposition effect, attention-driven extrapolation, and herding — systematically distort investment decisions under high informational and emotional load ([Barberis & Thaler, 2002](https://dx.doi.org/10.2139/ssrn.327880); [Tversky & Kahneman, 1974](https://doi.org/10.1126/science.185.4157.1124); [Hirshleifer, 2015](https://doi.org/10.1146/annurev-financial-092214-043752)). Second, these biases persist among experienced professionals, who respond procyclically to volatility shocks and exhibit situational risk preferences that depart from stated investment policy ([Huber et al., 2021](https://www2.uibk.ac.at/downloads/c9821000/wpaper/2020-11.pdf); [Ben-David et al., 2013](https://doi.org/10.1093/qje/qjt023); [March & Shapira, 1987](https://doi.org/10.1287/mnsc.33.11.1404)).
+
+Third, decision-support tools have been developed to mitigate behavioral bias at the point of decision: rule-based pre-commitment protocols, AI-driven advisory systems, and behavioral metrics derived from news and market data ([Statman, 2019](https://doi.org/10.2139/ssrn.3668963); [Henderson et al., 2018](https://doi.org/10.1016/j.jet.2018.10.002); [Bianchi et al., 2022](https://dx.doi.org/10.2139/ssrn.3825110); [Lim, 2026](https://doi.org/10.1080/15427560.2025.2609644); [Tetlock, 2007](https://doi.org/10.1111/j.1540-6261.2007.01232.x); [Da et al., 2011](https://doi.org/10.1111/j.1540-6261.2011.01679.x)). The literature converges on a clear gap: no published instrument combines a real-time ex-ante composite measure of information shock intensity with an explicit decision-support intervention designed for individual portfolio managers at the point of decision. The secondary data infrastructure underpinning the Shock Score draws on this literature — 30-minute intraday price bars (Interactive Brokers), headline news (Benzinga), and FinBERT-derived sentiment scores — operationalized into the four observable components of the composite measure.
+
 ### 6.2.2 Summary of Primary Research
 
 <!-- PLACEHOLDER:s6_2_summary -->
