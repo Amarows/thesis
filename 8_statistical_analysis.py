@@ -1479,7 +1479,7 @@ def generate_conclusions(h1: dict, h2: dict, desc: dict, norm: dict) -> dict:
         f"t = {_round4(h1_t)}, p = {h1_p_val}, "
         f"95% CI [{_round4(h1_ci_lo)}, {_round4(h1_ci_hi)}]). "
         f"{_h1_direction_sentence} "
-        f"{'At the α = 0.05 significance level, H1 is supported: SC_total is a statistically significant predictor of NRS.' if h1_supported else 'At the α = 0.05 significance level, H1 is not supported: the evidence does not suggest a statistically significant association between SC_total and NRS in this sample.'} "
+        f"{'At the α = 0.05 significance level, support for the alternative hypothesis H1ₐ was found: SC_total is a statistically significant predictor of NRS.' if h1_supported else 'At the α = 0.05 significance level, the evidence fails to reject the null hypothesis H1₀: no statistically significant association between SC_total and NRS was established in this sample.'} "
         f"Robustness checks using quintile dummies, respondent fixed effects, "
         f"decomposed components, and an interaction term are reported in Table 5.4."
     )
@@ -1512,7 +1512,7 @@ def generate_conclusions(h1: dict, h2: dict, desc: dict, norm: dict) -> dict:
     if h2_supported and not np.isnan(tau):
         if tau > 0:
             _h2_support_sentence = (
-                "H2 is supported: the Shock Score dashboard is associated with a statistically "
+                "Support for the alternative hypothesis H2ₐ was found: the Shock Score dashboard is associated with a statistically "
                 "significant improvement in risk-adjusted portfolio outcomes, supporting the case "
                 "for structured decision support during information shocks."
             )
@@ -1525,8 +1525,8 @@ def generate_conclusions(h1: dict, h2: dict, desc: dict, norm: dict) -> dict:
             )
     else:
         _h2_support_sentence = (
-            "H2 is not supported in this sample: the evidence does not suggest a statistically "
-            "significant difference in portfolio outcomes between the treatment and control conditions. "
+            "The evidence fails to reject the null hypothesis H2₀ in this sample: no statistically "
+            "significant difference in portfolio outcomes between the treatment and control conditions was found. "
             "Validation on a larger professional sample is recommended."
         )
 
@@ -2032,38 +2032,38 @@ def write_results_md(
     # ---- s5_7_interim ----
     if _h1_supp:
         _h1_interim = (
-            f"**{conc['h1_verdict'].lower()}** "
-            f"(beta1 = {_round4(_beta1)}, p = {primary.get('p', 'N/A')}; "
+            f"**support for the alternative hypothesis H1ₐ was found** "
+            f"(β₁ = {_round4(_beta1)}, p = {primary.get('p', 'N/A')}; "
             f"direction: {'risk-reducing' if _h1_dir == 'negative' else 'risk-taking'})"
         )
     else:
         _h1_interim = (
-            f"**{conc['h1_verdict'].lower()}** "
-            f"(beta1 = {_round4(_beta1)}, p = {primary.get('p', 'N/A')})"
+            f"**the null hypothesis H1₀ was not rejected** "
+            f"(β₁ = {_round4(_beta1)}, p = {primary.get('p', 'N/A')})"
         )
 
     if _h2_supp and not np.isnan(_tau):
         if _tau > 0:
             _h2_interim = (
-                f"**{conc['h2_verdict'].lower()}** "
-                f"(tau = {_round4(_tau)}, p = {_h2_p_str}; direction: performance-improving)"
+                f"**support for the alternative hypothesis H2ₐ was found** "
+                f"(τ = {_round4(_tau)}, p = {_h2_p_str}; direction: performance-improving)"
             )
         else:
             _h2_interim = (
-                f"**{conc['h2_verdict'].lower()}** but with a negative treatment effect "
-                f"(tau = {_round4(_tau)}, p = {_h2_p_str}; see caution in Section 5.6.2)"
+                f"**support for the alternative hypothesis H2ₐ was found but with a negative treatment effect** "
+                f"(τ = {_round4(_tau)}, p = {_h2_p_str}; see caution in Section 5.6.2)"
             )
     else:
         _h2_interim = (
-            f"**{conc['h2_verdict'].lower()}** "
-            f"(tau = {_round4(_tau)}, p = {_h2_p_str})"
+            f"**the null hypothesis H2₀ was not rejected** "
+            f"(τ = {_round4(_tau)}, p = {_h2_p_str})"
         )
 
     s57 = block("s5_7_interim", (
         f"The interim conclusions for Chapter 5 are as follows. "
-        f"H1 – that SC_total is significantly associated with NRS – is {_h1_interim}. "
-        f"H2 – that the Shock Score dashboard moderates the risk-return profile of simulated portfolios – "
-        f"is {_h2_interim} in the Option B individual-portfolio regression. "
+        f"H1 – that SC_total is significantly associated with NRS: {_h1_interim}. "
+        f"H2 – that the Shock Score dashboard moderates the risk-return profile of simulated portfolios: "
+        f"{_h2_interim} in the Option B individual-portfolio regression. "
         f"Both findings are contingent on the current sample composition and are subject to revision "
         f"upon completion of the full survey. Robustness checks for H1 and the Option A descriptive "
         f"analysis for H2 are consistent in direction with the primary results."
@@ -2077,8 +2077,10 @@ def write_results_md(
         f"Descriptive statistics characterise the achieved sample and the SC_total distribution "
         f"across the twenty-four scenarios. Normality assessments confirm "
         f"{'that parametric inference is appropriate given the sample size.' if norm.get('clt_applies') else 'that the sample size warrants caution in parametric inference.'} "
-        f"H1 is {conc['h1_verdict'].lower()} and H2 is {conc['h2_verdict'].lower()} at the α = 0.05 "
-        f"significance level. Chapter 6 synthesises these findings within the broader research context "
+        f"{'Support for the alternative hypothesis H1ₐ was found' if conc['h1_supported'] else 'The null hypothesis H1₀ was not rejected'}; "
+        f"{'support for the alternative hypothesis H2ₐ was found' if conc['h2_supported'] else 'the null hypothesis H2₀ was not rejected'} "
+        f"– both evaluated at the α = 0.05 significance level. "
+        f"Chapter 6 synthesises these findings within the broader research context "
         f"and develops recommendations for practice."
     ))
 
