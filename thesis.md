@@ -1,58 +1,56 @@
----
-title: Cover Page
-
 <div style="text-align:center; margin-top:180px;">
 
-**REDUCING EMOTIONAL BIASES IN INVESTMENT PORTFOLIO MANAGEMENT**
+**Reducing Emotional Biases in Investment Portfolio Management**
 
-**A THESIS**
-**PRESENTED TO THE FACULTY OF**
-**SBS SWISS BUSINESS SCHOOL**
+**A Thesis**  
+**Presented to the Faculty of**  
+**SBS Swiss Business School**
 
-**IN PARTIAL FULFILLMENT**
+**In Partial Fulfillment**
 
-**OF THE REQUIREMENTS FOR THE DEGREE**
+**of the Requirements for the Degree**
 
-**EXECUTIVE MASTER OF BUSINESS ADMINISTRATION**
+**Executive Master of Business Administration**
 
-**BY**
+**by**
 
-**ALIAKSEI MALASHONAK**
-**STUDENT ID: 19795 | MATRICULATION: 24891798**
+**Aliaksei Malashonak**  
+**Student ID: 19795 | Matriculation: 24891798**
 
-**SEPTEMBER 2026**
+**September 2026**
 
-**MENTOR: DR. STEFANO CANOSSA**
+**Mentor: Dr. Stefano Canossa**
 
 </div>
 
 
 <div style="text-align:center; margin-top:180px;">
 
-**REDUCING EMOTIONAL BIASES IN INVESTMENT PORTFOLIO MANAGEMENT**
+**Reducing Emotional Biases in Investment Portfolio Management**
 
-**A THESIS**
-**PRESENTED TO THE FACULTY OF**
-**SBS SWISS BUSINESS SCHOOL**
+**A Thesis**  
+**Presented to the Faculty of**  
+**SBS Swiss Business School**
 
-**IN PARTIAL FULFILLMENT**
+**In Partial Fulfillment**
 
-**OF THE REQUIREMENTS FOR THE DEGREE**
+**of the Requirements for the Degree**
 
-**EXECUTIVE MASTER OF BUSINESS ADMINISTRATION**
+**Executive Master of Business Administration**
 
-**BY**
+**by**
 
-**ALIAKSEI MALASHONAK**
-**STUDENT ID: 19795 | MATRICULATION: 24891798**
+**Aliaksei Malashonak**  
+**Student ID: 19795 | Matriculation: 24891798**
 
-**SEPTEMBER 2026**
+**September 2026**
 
-**MENTOR: DR. STEFANO CANOSSA**
+**Mentor: Dr. Stefano Canossa**
 
 </div>
 
 # Reducing Emotional Biases in Investment Portfolio Management
+
 ## Authentication of Work
 
 I, Aliaksei Malashonak (Student ID: 19795, Matriculation Number: 24891798), hereby declare that this thesis, submitted in partial fulfillment of the requirements for the degree of Executive Master of Business Administration at SBS Swiss Business School, Kloten-Zurich, Switzerland, is my own work. All sources consulted have been acknowledged in the references. This thesis has not been submitted for any other degree or qualification at any other institution.
@@ -1444,338 +1442,15 @@ The broader contribution of the thesis lies in the integration of four elements 
 
 The empirical evidence accumulated in this study suggests that behavioural decision support is a viable area of development for institutional investment processes, and that operational instruments grounded in observable inputs can be constructed without proprietary data dependencies. The work concludes here with the recognition that the agenda it has opened is broader than the design tested in these chapters, and that further research – on live behavioural validation, on cross-market replication, and on the long-run consequences of structured behavioural prompts for professional decision-making – is required to determine the conditions under which instruments of this kind deliver their intended benefits in practice.
 
+# Glossary
 
-# Appendix 4. Survey Questionnaire (Block 1 – Representative Example)
+# References
 
-This appendix presents the survey instrument as administered to respondents. The full survey comprised three blocks of eight scenarios each (24 scenarios in total), deployed as six separate Google Forms (three blocks times two counterbalancing versions). Block 1 is reproduced here as a representative example; Blocks 2 and 3 follow an identical structure with different scenarios.
+# Appendix 1. Thesis Proposal Approval Form
 
-Each block was administered in two versions. In Version 1, respondents in Group A received the Shock Score dashboard alongside the scenario information (ShowSC = 1); respondents in Group B received scenario information only (ShowSC = 0). Version 2 reversed the assignment. The Shock Score dashboard design is documented in Chapter 4, Section 4.3.6. Dashboard images are not reproduced here; the textual scenario content below is identical across both versions.
+![theis_approval_form.png](documents/theis_approval_form.png)
 
-## Respondent Instructions
-
-Thank you for participating in this study. You will be presented with a series of brief investment scenarios. Each scenario describes a real external information event affecting a publicly listed equity. For each scenario, please indicate your intended portfolio decision on a seven-point scale.
-
-There are no right or wrong answers. The study is interested in your genuine professional judgment. All responses are anonymised and used solely for academic research purposes.
-
-**Eligibility requirement:** Participation is limited to equity portfolio managers with a minimum of two years of professional portfolio management experience and an active role in equity or equity-dominant investment decision-making.
-
-## Section 1. Respondent Background
-
-*The following questions are asked once at the start of each block.*
-
-**Q1.** How many years of experience do you have as an equity portfolio manager?
-
-- Less than 5 years
-- 5 – 10 years
-- 11 – 20 years
-- More than 20 years
-
-**Q2.** Which of the following best describes the primary focus of your portfolio?
-
-- Large-cap equities
-- Mid-cap equities
-- Small-cap equities
-- Multi-cap / broad market
-- Sector-specific
-- Other
-
-**Q3.** In which region are you primarily based?
-
-- North America
-- Europe
-- Asia-Pacific
-- Middle East / Africa
-- Latin America
-- Other
-
-## Section 2. Investment Scenarios – Block 1
-
-*Eight scenarios are presented sequentially. The format is repeated for each scenario. Respondents may not navigate back to previous scenarios.*
-
-### Scenario 1 of 8 (ID: B1_S01)
-
-**Company:** Air Products and Chemicals (APD) – Materials
-
-**Event date:** 2025-04-09 | **Event time:** 13:30 ET | **Event type:** Analyst
-
-**News headline:** Wells Fargo Maintains Overweight on Air Products & Chemicals, Lowers Price Target to $320
-
-**News summary:** Wells Fargo analyst Michael Sison maintained an Overweight rating on Air Products & Chemicals (NYSE: APD) while cutting the price target from $365 to $320. The price target reduction represents a 12.3% decrease from the previous target.
-
-**Market context:** Price before event: USD 261.17 | Price 2 hours post-event: USD 270.07 | Reaction: +3.41%
-
-*Note: In Version 1 (ShowSC = 1), the Shock Score dashboard was displayed here, showing the composite score, sentiment direction, severity level, persistence horizon, and protocol recommendation. In Version 2 (ShowSC = 0), this panel was not shown.*
-
-**Q4. Decision:** Based on the information above, what is your intended portfolio action for this holding?
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
-|---|---|---|---|---|---|---|
-| Strongly reduce | Reduce | Slightly reduce | Hold / no change | Slightly increase | Increase | Strongly increase |
-
-**Q5. Confidence:** How confident are you in your decision above?
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
-|---|---|---|---|---|---|---|
-| Not at all confident | | | Moderately confident | | | Completely confident |
-
-
-### Scenario 2 of 8 (ID: B1_S02)
-
-**Company:** ConocoPhillips (COP) – Energy
-
-**Event date:** 2025-09-08 | **Event time:** 09:30 ET | **Event type:** Analyst
-
-**News headline:** What Analysts Are Saying About ConocoPhillips Stock
-
-**News summary:** Raymond James analyst John Freeman maintained an Outperform rating on ConocoPhillips (NYSE: COP) while lowering the price target from $117 to $115. Separately, NextDecade Corporation announced it has executed a 20-year LNG sale and purchase agreement with ConocoPhillips for 1.0 MTPA of LNG offtake from Rio Grande LNG Train 5, with pricing indexed to Henry Hub and subject to a positive final investment decision expected in Q4 2025.
-
-**Market context:** Price before event: USD 92.91 | Price 2 hours post-event: USD 90.86 | Reaction: -2.21%
-
-*Note: In Version 1 (ShowSC = 1), the Shock Score dashboard was displayed here, showing the composite score, sentiment direction, severity level, persistence horizon, and protocol recommendation. In Version 2 (ShowSC = 0), this panel was not shown.*
-
-**Q4. Decision:** Based on the information above, what is your intended portfolio action for this holding?
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
-|---|---|---|---|---|---|---|
-| Strongly reduce | Reduce | Slightly reduce | Hold / no change | Slightly increase | Increase | Strongly increase |
-
-**Q5. Confidence:** How confident are you in your decision above?
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
-|---|---|---|---|---|---|---|
-| Not at all confident | | | Moderately confident | | | Completely confident |
-
-
-### Scenario 3 of 8 (ID: B1_S03)
-
-**Company:** Linde (LIN) – Materials
-
-**Event date:** 2026-02-04 | **Event time:** 10:00 ET | **Event type:** Earnings
-
-**News headline:** Exploring Linde's Earnings Expectations
-
-**News summary:** Linde (NASDAQ: LIN) is set to report quarterly earnings on February 5, 2026, with analysts expecting an earnings per share of $4.17. Investors are hoping the industrial gas giant will beat estimates and provide positive forward guidance. Stock performance will likely hinge on management's outlook rather than just historical results.
-
-**Market context:** Price before event: USD 469.05 | Price 2 hours post-event: USD 475.97 | Reaction: +1.48%
-
-*Note: In Version 1 (ShowSC = 1), the Shock Score dashboard was displayed here, showing the composite score, sentiment direction, severity level, persistence horizon, and protocol recommendation. In Version 2 (ShowSC = 0), this panel was not shown.*
-
-**Q4. Decision:** Based on the information above, what is your intended portfolio action for this holding?
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
-|---|---|---|---|---|---|---|
-| Strongly reduce | Reduce | Slightly reduce | Hold / no change | Slightly increase | Increase | Strongly increase |
-
-**Q5. Confidence:** How confident are you in your decision above?
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
-|---|---|---|---|---|---|---|
-| Not at all confident | | | Moderately confident | | | Completely confident |
-
-
-### Scenario 4 of 8 (ID: B1_S04)
-
-**Company:** UnitedHealth Group (UNH) – Health Care
-
-**Event date:** 2025-12-02 | **Event time:** 10:00 ET | **Event type:** Management
-
-**News headline:** Recent Filing Shows That Sen. Sheldon Whitehouse Bought Over $3K Worth of Guardant Health Stock
-
-**News summary:** UnitedHealth Group has delivered strong long-term performance, generating an average annual return of 15.61% over the past 15 years and outperforming the market by 3.54% annually. A $100 investment in UNH stock 15 years ago would be worth $882.62 today, with shares currently trading at $324.31 and the company maintaining a market cap of $293.77 billion.
-
-**Market context:** Price before event: USD 328.49 | Price 2 hours post-event: USD 324.81 | Reaction: -1.12%
-
-*Note: In Version 1 (ShowSC = 1), the Shock Score dashboard was displayed here, showing the composite score, sentiment direction, severity level, persistence horizon, and protocol recommendation. In Version 2 (ShowSC = 0), this panel was not shown.*
-
-**Q4. Decision:** Based on the information above, what is your intended portfolio action for this holding?
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
-|---|---|---|---|---|---|---|
-| Strongly reduce | Reduce | Slightly reduce | Hold / no change | Slightly increase | Increase | Strongly increase |
-
-**Q5. Confidence:** How confident are you in your decision above?
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
-|---|---|---|---|---|---|---|
-| Not at all confident | | | Moderately confident | | | Completely confident |
-
-
-### Scenario 5 of 8 (ID: B1_S05)
-
-**Company:** Home Depot (HD) – Consumer Discretionary
-
-**Event date:** 2025-08-19 | **Event time:** 11:00 ET | **Event type:** Earnings
-
-**News headline:** US Stocks Mixed; Home Depot Shares Gain After Q2 Results
-
-**News summary:** Home Depot reported Q2 adjusted earnings of $4.68 per share, missing the consensus estimate of $4.71 by 0.66%, while revenue of $45.277 billion also fell short of the $45.356 billion estimate by 0.18%. Despite the misses, the home improvement retailer posted year-over-year growth with earnings up 0.21% and sales increasing 4.87% from the same period last year.
-
-**Market context:** Price before event: USD 411.00 | Price 2 hours post-event: USD 408.58 | Reaction: -0.59%
-
-*Note: In Version 1 (ShowSC = 1), the Shock Score dashboard was displayed here, showing the composite score, sentiment direction, severity level, persistence horizon, and protocol recommendation. In Version 2 (ShowSC = 0), this panel was not shown.*
-
-**Q4. Decision:** Based on the information above, what is your intended portfolio action for this holding?
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
-|---|---|---|---|---|---|---|
-| Strongly reduce | Reduce | Slightly reduce | Hold / no change | Slightly increase | Increase | Strongly increase |
-
-**Q5. Confidence:** How confident are you in your decision above?
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
-|---|---|---|---|---|---|---|
-| Not at all confident | | | Moderately confident | | | Completely confident |
-
-
-### Scenario 6 of 8 (ID: B1_S06)
-
-**Company:** GE Aerospace (GE) – Industrials
-
-**Event date:** 2025-07-08 | **Event time:** 10:00 ET | **Event type:** Management
-
-**News headline:** Honeywell Eyes Strategic Changes Ahead Of 2026 Split
-
-**News summary:** GE Aerospace has surged 46% year-to-date to trade near $244, approaching its 52-week high of $260.55, driven by robust aerospace demand, expanding margins, and tariff-driven pricing strategies. The stock is currently trading above its 50-day moving average of $235, with investors showing optimism about the company's operational efficiency gains and solid order volumes. GE Aerospace recently announced a multi-year service, repair, and overhaul agreement with China on July 7.
-
-**Market context:** Price before event: USD 249.15 | Price 2 hours post-event: USD 246.77 | Reaction: -0.96%
-
-*Note: In Version 1 (ShowSC = 1), the Shock Score dashboard was displayed here, showing the composite score, sentiment direction, severity level, persistence horizon, and protocol recommendation. In Version 2 (ShowSC = 0), this panel was not shown.*
-
-**Q4. Decision:** Based on the information above, what is your intended portfolio action for this holding?
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
-|---|---|---|---|---|---|---|
-| Strongly reduce | Reduce | Slightly reduce | Hold / no change | Slightly increase | Increase | Strongly increase |
-
-**Q5. Confidence:** How confident are you in your decision above?
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
-|---|---|---|---|---|---|---|
-| Not at all confident | | | Moderately confident | | | Completely confident |
-
-
-### Scenario 7 of 8 (ID: B1_S07)
-
-**Company:** AT&T (T) – Communication Services
-
-**Event date:** 2026-01-30 | **Event time:** 09:30 ET | **Event type:** Earnings
-
-**News headline:** Verizon Posts Best Subscriber Growth Since 2019
-
-**News summary:** Verizon Communications Inc. (NYSE: VZ) stock gained Friday after reporting fourth-quarter revenue of $36.40 billion, up 2.0% year-over-year and beating analyst estimates of $36.06 billion. The telecom giant posted adjusted EPS of $1.09, topping consensus estimates of $1.05, while delivering its strongest postpaid phone subscriber growth since 2019 with 616,000 net additions versus 504,000 in the prior year quarter.
-
-**Market context:** Price before event: USD 25.11 | Price 2 hours post-event: USD 25.87 | Reaction: +3.03%
-
-*Note: In Version 1 (ShowSC = 1), the Shock Score dashboard was displayed here, showing the composite score, sentiment direction, severity level, persistence horizon, and protocol recommendation. In Version 2 (ShowSC = 0), this panel was not shown.*
-
-**Q4. Decision:** Based on the information above, what is your intended portfolio action for this holding?
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
-|---|---|---|---|---|---|---|
-| Strongly reduce | Reduce | Slightly reduce | Hold / no change | Slightly increase | Increase | Strongly increase |
-
-**Q5. Confidence:** How confident are you in your decision above?
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
-|---|---|---|---|---|---|---|
-| Not at all confident | | | Moderately confident | | | Completely confident |
-
-
-### Scenario 8 of 8 (ID: B1_S08)
-
-**Company:** Qualcomm Inc. (QCOM) – Information Technology
-
-**Event date:** 2025-10-13 | **Event time:** 09:30 ET | **Event type:** Management
-
-**News headline:** Shares of semiconductor companies are trading higher amid overall market strength. President Trump's recent social media post may have eased economic concerns and boosted trader confidence in growth stocks.
-
-**News summary:** Semiconductor stocks including Qualcomm are trading higher amid broad market strength. President Trump's recent social media post appears to have eased economic concerns and boosted trader confidence in growth stocks.
-
-**Market context:** Price before event: USD 153.52 | Price 2 hours post-event: USD 160.98 | Reaction: +4.86%
-
-*Note: In Version 1 (ShowSC = 1), the Shock Score dashboard was displayed here, showing the composite score, sentiment direction, severity level, persistence horizon, and protocol recommendation. In Version 2 (ShowSC = 0), this panel was not shown.*
-
-**Q4. Decision:** Based on the information above, what is your intended portfolio action for this holding?
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
-|---|---|---|---|---|---|---|
-| Strongly reduce | Reduce | Slightly reduce | Hold / no change | Slightly increase | Increase | Strongly increase |
-
-**Q5. Confidence:** How confident are you in your decision above?
-
-| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
-|---|---|---|---|---|---|---|
-| Not at all confident | | | Moderately confident | | | Completely confident |
-
-
-*End of Block 1. Upon completion, respondents were thanked and provided with a contact address for questions. Blocks 2 and 3 were administered as separate survey links.*
-
-# Back Matter
-
-- Glossary
-- References
-- Appendix 1. Thesis Approval Form
-- Appendix 2. AI Disclosure Statement
-- Appendix 3. Blank Questionnaire / Instrument
-- Appendix 4. Additional Supporting Material
-
-
-## Appendix 1. Thesis Proposal Approval Form
-
-*The original signed document is attached as a separate PDF at submission. The text below reproduces the form content for reference.*
-
-
-**SBS SWISS BUSINESS SCHOOL**
-
-**THESIS PROPOSAL APPROVAL FORM**
-
-
-**Student Name:** Aliaksei Malashonak
-
-**Proposed Thesis Title:** Reducing Emotional Biases in Investment Portfolio Management
-
-**Proposed Hypothesis Statements:**
-
-**H1 – Influence of Information Shocks on Decisions**
-
-- H1o: The intensity of external financial information shocks has no statistically significant effect on managers' Net Risk Stance responses.
-- H1a: The intensity of external financial information shocks has a statistically significant effect on managers' Net Risk Stance responses.
-
-**H2 – Value Added of the Shock Score (the main one)**
-
-- H2o: Introducing the Shock Score for investment decision-making has no statistically significant effect on the risk–return ratio of the portfolio.
-- H2a: Introducing the Shock Score for investment decision-making has a statistically significant effect on the risk–return ratio of the portfolio.
-
-*Note: The Shock Score is a numerical indicator that measures how emotionally and informationally intense a piece of financial news is. It is used in two ways: first, to test whether stronger information shocks lead to different portfolio decisions (H1); second, to test whether showing the score to managers improves their investment outcomes (H2). Net Risk Stance is the scale used to record managers' decisions – a seven-point scale from "Strongly reduce exposure" to "Strongly increase exposure."*
-
-I understand that I must follow the SBS thesis guidelines during the writing and presentation of this project. Further, should I change either the thesis topic, hypothesis statement or mentor, I must obtain the permission of the Dean.
-
-**Date:** 15 January 2026
-
-**Signature of Student:** Digitally signed by Aliaksei Malashonak (2026-04-08)
-
-
-**Mentor Name:** Dr. Stefano Canossa
-
-I agree to mentor the above-named student during the thesis writing process, to include:
-
-- Review of thesis outline.
-- Interim reviews as required.
-- Review of the final draft of the complete project, including adherence to SBS format, plagiarism and footnoting guidance as specified in the current thesis guidance.
-
-**Signature of Mentor:** Signed (original on file)
-
-
-*NOTE TO STUDENT: Turn this completed document in to your Program Manager.*
-
-**Approved:** ______________________________
-
-**Date:** ______________________________
-
-**Signature of Academic Dean or his representative:** ______________________________
-
-
-## Appendix 2. AI Disclosure Statement
+# Appendix 2. AI Disclosure Statement
 
 **AI Disclosure Statement**
 
@@ -1800,3 +1475,206 @@ All analysis, interpretation, conclusions, and final content represent my own in
 **Course / Project / Thesis title:** Reducing Emotional Biases in Investment Portfolio Management
 
 **Date:** *(to be completed upon submission)*
+
+# Appendix 3. Thesis Turn-In Checklist
+
+
+Student name: Aliaksei Malashonak
+
+Mentor: Dr. Stefano Canossa
+
+Student initial that the item has been checked:
+
+| Section | Check Item | Initial |
+|---|---|---|
+| Title page | SBS format used | |
+| Contents | Six-chapter format (not five/not seven) | |
+| Main-body Length | 20,000 words | |
+| Text format | Text align-left (not centered) | |
+|  | 11 pt. Calibri / double spaced | |
+|  | Only chapters start on new page (not sub-chapters) | |
+|  | Paragraphs indented (not flush left with space between paragraphs) | |
+|  | Sub-chapters numbered (not merely sub-chapter titles) | |
+|  | APA header style used | |
+|  | APA figure and table number and title formatting used above the figure | |
+|  | APA figure and table reference format used below the figure | |
+|  | Either “from” or “based on” plus entire reference line | |
+| Text content | Reference to SBS Swiss Business School (not Swiss Business School) | |
+|  | Reference to Dr. Wolfs (not Wolf) | |
+| Hypotheses | Hypotheses written as Hₒ (H1ₒ/H2ₒ) and Hₐ (H1ₐ/H2ₐ) | |
+|  | Hypothesis testing results reported per thesis handbook | |
+|  | “Fail to reject the null hypothesis” used | |
+|  | “Support for the alternative hypothesis was found” used | |
+|  | “Prove” not used | |
+|  | “Accept/reject” wording not used | |
+| Reference list | Not numbered as a chapter | |
+|  | Identified as References/reference list (not Bibliography) | |
+|  | Alphabetical order (not sorted by type of reference) | |
+|  | APA format with hanging indent | |
+| Appendices | Thesis approval form attached | |
+|  | AI disclosure statement attached | |
+|  | Turn-in checklist attached | |
+|  | Questionnaire attached | |
+
+# Appendix 4. Survey Questionnaire (Block 2 – Representative Example)
+
+This appendix presents the survey instrument as administered to respondents. The full survey comprised three blocks of eight scenarios each (24 scenarios in total), deployed as six separate Google Forms (three blocks times two counterbalancing versions). Block 1 is reproduced here as a representative example; Blocks 2 and 3 follow an identical structure with different scenarios.
+
+Each block was administered in two versions. In Version 1, respondents in Group A received the Shock Score dashboard alongside the scenario information (ShowSC = 1); respondents in Group B received scenario information only (ShowSC = 0). Version 2 reversed the assignment. The Shock Score dashboard design is documented in Chapter 4. 
+
+---
+
+**Page 1. Respondent Background**
+
+**Years of portfolio management experience**
+
+- Less than 2
+- 2 – 5
+- 6 – 10
+- 11 – 20
+- More than 20
+
+---
+
+**Approximate assets under management (USD)**
+
+- Less than $50M
+- $50M – $500M
+- $500M – $2B
+- $2B – $10B
+- More than $10B
+
+---
+
+**Institution type**
+
+- Asset manager
+- Hedge fund
+- Pension/endowment fund
+- Bank/private bank
+- Family office
+- Independent/RIA
+- Other
+
+---
+
+**Primary investment mandate**
+
+- Equity long-only
+- Equity long-short
+- Multi-asset
+- Other
+
+---
+
+**Geographic market focus**
+
+- United States
+- Europe
+- Asia-Pacific
+- Global/multi-region
+- Other
+
+---
+
+**Level of discretionary authority**
+
+- Full discretion
+- Partial (committee-based)
+- Advisory only
+
+---
+
+**Professional certifications (select all that apply)**
+
+- CFA
+- FRM
+- CAIA
+- CPA
+- None
+- Other
+
+---
+
+**Page 2. Respondent Instructions**
+
+For the purposes of this survey, assume you manage a long-only equal-weighted equity portfolio with 24 stocks. "Reduce exposure" means reducing or selling the position; "increase exposure" means adding to it. 
+
+This block presents eight scenarios, each showing a real market event affecting one stock in the portfolio. Assume only the stock shown is subject to the shock; the remaining 35 holdings move in line with the broad market index that day.
+
+Each scenario contains:
+
+- Price chart: a two-day intraday chart of 30-minute bars, ending two bars (approximately one hour) after the news event.
+- News event: a headline and brief summary of the shock.
+- Decision question: the adjustment you would make to this holding, assuming you decide one hour after the news release. Respond on a 7-point scale from 1 (Strongly reduce) through 4 (Hold – no change) to 7 (Strongly increase), with intermediate points labelled Moderately and Slightly.
+- 
+Some scenarios also include a Shock Score dashboard. When present, treat it as supplementary decision support; you may use or disregard its signals at your discretion. It displays four signals:
+
+- Sentiment direction: positive or negative news tone.
+Shock severity: magnitude of the price and news signal relative to historical norms.
+- Persistence horizon: expected resolution intraday, over days, or over weeks.
+- Protocol recommendation: a suggested process tier – Standard Process, Enhanced Review, or Cooling-Off and Second Review. Higher tiers indicate the system recommends slower, more deliberate review.
+
+---
+
+**Page 3. Investment Scenario 1**
+
+*Eight scenarios are presented sequentially. The format is repeated for each scenario. Respondents may not navigate back to previous scenarios.*
+
+---
+
+**Scenario 1 of 8 (ID: B2_S01)**
+
+**Company:** Merck & Co. (MRK)  ·   Shock: -0.39%  ·  Health Care  ·  2025-10-30
+
+![chart_B2_S01.png](survey/charts/chart_B2_S01.png)
+
+**News headline:** Meta Tumbles 10%, Google Marks Historic Rally: What's Moving Markets Thursday?
+
+**News summary:** Merck & Co. reported Q3 2025 adjusted EPS of $2.58, beating the $2.35 estimate, while sales of $17.276 billion topped the $16.963 billion consensus. The pharmaceutical giant raised its full-year 2025 adjusted EPS guidance to $8.93-$8.98 from $8.87-$8.97 and narrowed sales guidance to $64.5-$65.0 billion from the prior $64.3-$65.3 billion range. Merck shares initially traded lower on the narrowed sales guidance but recovered, with executives indicating readiness for deals exceeding $15 billion.
+Covered by 10 financial news sources.
+
+**Market context:** Price before event: USD 87.0 | Price 2 hours post-event: USD 86 | Reaction: -0.39%
+
+![dashboard_B2_S01.png](survey/dashboards/dashboard_B2_S01.png)
+
+*Note: In Version 1 (ShowSC = 1), the Shock Score dashboard was displayed here, showing the composite score, sentiment direction, severity level, persistence horizon, and protocol recommendation. In Version 2 (ShowSC = 0), this panel was not shown.*
+
+**Q4. Decision:** Based on the information above, what is your intended portfolio action for this holding?
+
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|
+| Strongly reduce | Reduce | Slightly reduce | Hold / no change | Slightly increase | Increase | Strongly increase |
+
+
+---
+
+**Scenario 2 of 8 (ID: B2_S02)**
+
+**Company:** Johnson & Johnson (JNJ)  ·   Shock: +1.08%  ·  Health Care  ·  2025-12-15
+
+![chart_B2_S02.png](survey/charts/chart_B2_S02.png)
+
+**News headline:** Johnson & Johnson Wins FDA Nod For First Precision Combo For Mutated Prostate Cancer
+
+**News summary:** Johnson & Johnson won FDA approval for AKEEGA (niraparib and abiraterone acetate) plus prednisone to treat BRCA2-mutated metastatic castration-sensitive prostate cancer, marking the first precision medicine combination treatment for this indication. The approval was based on Phase 3 AMPLITUDE study results showing the treatment cut radiographic progression or death by 54% in patients with BRCA2 mutations, who typically have more aggressive forms of prostate cancer.
+Reported by multiple sources.
+
+**Market context:** Price before event: USD 211.5 | Price 2 hours post-event: USD 214.5 | Reaction: +1.08
+
+*Note: In Version 1 (ShowSC = 1), the Shock Score dashboard was displayed here, showing the composite score, sentiment direction, severity level, persistence horizon, and protocol recommendation. In Version 2 (ShowSC = 0), this panel was not shown.*
+
+**Q4. Decision:** Based on the information above, what is your intended portfolio action for this holding?
+
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|
+| Strongly reduce | Reduce | Slightly reduce | Hold / no change | Slightly increase | Increase | Strongly increase |
+
+
+---
+
+*Scenarios 3–8 follow the identical structure presented above.*
+
+---
+
+*End of Block 1. Upon completion, respondents were thanked and provided with a contact address for questions. Blocks 2 and 3 were administered as separate survey links.*
