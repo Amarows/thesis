@@ -242,7 +242,7 @@ The behavioral finance literature documents that earnings announcements and othe
 
 ![Figure 2.1: Intraday price movement of Meta Platforms Inc. on 2 February 2026 following the release of quarterly earnings results, illustrating a short-horizon market reaction to an external information shock.](images/img_shock_example.png)
 
-*Note.* From Interactive Brokers (2026). Intraday price and volume data for Meta Platforms Inc. (ticker: META), retrieved via the Interactive Brokers API.
+*Note.* Intraday price and volume data for Meta Platforms Inc. (ticker: META), retrieved via the Interactive Brokers API.
 
 ### 2.2.1 Emotional Bias as a Source of Suboptimal Portfolio Decisions
 
@@ -651,7 +651,7 @@ The table below systematically compares the Shock Score against representative m
 | Pocket Risk | Suitability assessment | Static | Individual risk tolerance | Loss aversion measurement | Model portfolio matching |
 | **This Thesis: Shock Score** | **Behavioral decision support** | **Real-time** | **Portfolio-specific** | **Pre-commitment protocols** | **IPS-linked cooling-off triggers** |
 
-*Note.* Based on Baker and Wurgler (2006), Da et al. (2015), RavenPack (2023), Statman (2019), and the present study design. Classification reflects primary intended use as reported in the cited publications.
+*Note.* Based on Baker and Wurgler (2006), Da et al. (2015), RavenPack (2011), Statman (2019), and the present study design. Classification reflects primary intended use as reported in the cited publications.
 
 **Technical Distinction: PCA Application**
 
@@ -1136,7 +1136,7 @@ Where $\alpha_i$ is a manager-specific intercept. This specification is an alter
 
 ### 4.5.2 Inference and Clustering
 
-Because observations are clustered by manager and by event, inference accounts for dependence using clustered standard errors, with two-way clustering by manager and event as the preferred approach (Cameron, Gelbach, & Miller, 2011; Petersen, 2009). Two-way clustering simultaneously addresses both cross-sectional correlation (multiple managers responding to the same event) and serial correlation (the same manager responding to multiple events), producing standard errors that are robust to both forms of within-cluster dependence. In the implemented specifications, HC3 heteroskedasticity-robust standard errors are applied throughout; the HC3 correction provides a finite-sample improvement over HC1/HC2 and is the recommended default for small-to-medium samples (MacKinnon and White, 1985). Block assignment (block_2, block_3 dummies relative to block_1) is included as a fixed effect in all primary and robustness specifications to absorb between-block heterogeneity in scenario difficulty and respondent composition.
+Because observations are clustered by manager and by event, inference accounts for dependence using clustered standard errors, with two-way clustering by manager and event as the preferred approach (Cameron, Gelbach, & Miller, 2011; Petersen, 2009). Two-way clustering simultaneously addresses both cross-sectional correlation (multiple managers responding to the same event) and serial correlation (the same manager responding to multiple events), producing standard errors that are robust to both forms of within-cluster dependence. In the implemented specifications, HC3 heteroskedasticity-robust standard errors are applied throughout; the HC3 correction provides a finite-sample improvement over HC1/HC2 and is the recommended default for small-to-medium samples ([MacKinnon & White, 1985](https://doi.org/10.1016/0304-4076(85)90158-7)). Block assignment (block_2, block_3 dummies relative to block_1) is included as a fixed effect in all primary and robustness specifications to absorb between-block heterogeneity in scenario difficulty and respondent composition.
 
 
 ## 4.6 Chapter Conclusion
@@ -1224,7 +1224,7 @@ H1ₐ: The intensity of external financial information shocks has a statisticall
 
 **Step 2. Select a level of significance.**
 
-The analysis is conducted at the five percent level of significance (α = 0.05), consistent with SBS research standards (Mason et al., 1986).
+The analysis is conducted at the five percent level of significance (α = 0.05), consistent with SBS research standards (Swiss Business School, 2026).
 
 **Step 3. Identify the test statistic.**
 
@@ -1352,9 +1352,9 @@ NRS responses reflect stated decision intentions rather than actual portfolio ad
 
 ### 5.9.4 Instrument Internal Consistency
 
-Inter-rater reliability is assessed using the intraclass correlation coefficient ICC(2,1) – two-way random effects, single measures, absolute agreement (Koo and Mae, 2016). For each block, mean NRS per scenario is computed separately for counterbalancing Version 1 and Version 2 respondents, and ICC(2,1) is computed treating scenarios as targets and versions as raters. This tests whether V1 and V2 respondents assign consistent NRS ratings to the same scenarios, which is the appropriate reliability question for a heterogeneous-scenario instrument.
+Inter-rater reliability is assessed using the intraclass correlation coefficient ICC(2,1) – two-way random effects, single measures, absolute agreement ([Koo & Li, 2016](https://doi.org/10.1016/j.jcm.2016.02.012)). For each block, mean NRS per scenario is computed separately for counterbalancing Version 1 and Version 2 respondents, and ICC(2,1) is computed treating scenarios as targets and versions as raters. This tests whether V1 and V2 respondents assign consistent NRS ratings to the same scenarios, which is the appropriate reliability question for a heterogeneous-scenario instrument.
 
-All three blocks exceed the ICC ≥ 0.70 threshold (Koo and Mae, 2016): Block 1 ICC = 0.8425, Block 2 ICC = 0.9026, Block 3 ICC = 0.9369. These values indicate good to excellent inter-rater agreement across all blocks, confirming that different respondents exposed to the same scenarios respond with consistent directional and magnitude judgements. The instrument reliability is therefore not a limitation of the current study.
+All three blocks exceed the ICC ≥ 0.70 threshold ([Koo & Li, 2016](https://doi.org/10.1016/j.jcm.2016.02.012)): Block 1 ICC = 0.8425, Block 2 ICC = 0.9026, Block 3 ICC = 0.9369. These values indicate good to excellent inter-rater agreement across all blocks, confirming that different respondents exposed to the same scenarios respond with consistent directional and magnitude judgements. The instrument reliability is therefore not a limitation of the current study.
 
 The high ICC values are consistent with the within-scenario design logic: the test asks whether two independent groups of respondents agree on the relative ordering and absolute level of NRS across scenarios – a question for which convergence is expected when the stimuli are sufficiently differentiated, as they are here. The H1 regression further corroborates instrument validity: SC_total systematically predicts NRS across all 424 observations, all three blocks, and all robustness specifications with consistent sign and significance, providing convergent validity evidence that the NRS is responding to the intended stimulus in a theoretically predicted direction.
 
