@@ -1217,6 +1217,26 @@ Shock Time (ET) records the 30-minute bar to which the shock is assigned (e.g., 
 
 ### 5.5.1 Testing of Hypothesis H1
 
+**Step 1. State the null and alternative hypotheses.**
+
+H1₀: The intensity of external financial information shocks has no statistically significant effect on managers' Net Risk Stance responses.
+
+H1ₐ: The intensity of external financial information shocks has a statistically significant effect on managers' Net Risk Stance responses.
+
+**Step 2. Select a level of significance.**
+
+The analysis is conducted at the five percent level of significance (α = 0.05), consistent with SBS research standards (Mason et al., 1986).
+
+**Step 3. Identify the test statistic.**
+
+The primary test statistic is the t-ratio on the SC_total coefficient (β₁) in the OLS regression specified in Section 4.5.1. The regression is estimated with HC3 heteroscedasticity-robust standard errors and block fixed effects. Under the null hypothesis, β₁ = 0 and the t-ratio follows an approximately normal distribution given the sample size of N = 424 observations.
+
+**Step 4. Formulate a decision rule.**
+
+Fail to reject H1₀ if the two-tailed p-value associated with β₁ is greater than or equal to 0.05. Support for the alternative hypothesis H1ₐ is indicated if p < 0.05.
+
+**Step 5. Arrive at a decision.**
+
 <!-- PLACEHOLDER:s5_5_1_h1_main -->
 [To be populated by 8_statistical_analysis.py]
 <!-- /PLACEHOLDER:s5_5_1_h1_main -->
@@ -1238,6 +1258,26 @@ The direction-interaction specification (Spec 5) further decomposes the SC_total
 <!-- /PLACEHOLDER:s5_5_1_h1_robustness -->
 
 ### 5.5.2 Testing of Hypothesis H2
+
+**Step 1. State the null and alternative hypotheses.**
+
+H2₀: Introducing the Shock Score for investment decision-making has no statistically significant effect on the risk–return ratio of the portfolio.
+
+H2ₐ: Introducing the Shock Score for investment decision-making has a statistically significant effect on the risk–return ratio of the portfolio.
+
+**Step 2. Select a level of significance.**
+
+The analysis is conducted at the five percent level of significance (α = 0.05).
+
+**Step 3. Identify the test statistic.**
+
+The primary test statistic is the t-ratio on the treatment coefficient τ in the individual-portfolio regression (Option B, Section 4.5.1). For each of the N = 53 respondents, one portfolio return is computed under ShowSC = 0 and one under ShowSC = 1; τ captures the mean within-respondent difference attributed to Shock Score access. HC3 robust standard errors are applied.
+
+**Step 4. Formulate a decision rule.**
+
+Fail to reject H2₀ if the two-tailed p-value associated with τ is greater than or equal to 0.05. Support for the alternative hypothesis H2ₐ is indicated if p < 0.05.
+
+**Step 5. Arrive at a decision.**
 
 <!-- PLACEHOLDER:s5_5_2_h2 -->
 [To be populated by 8_statistical_analysis.py]

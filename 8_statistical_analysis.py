@@ -1471,15 +1471,12 @@ def generate_conclusions(h1: dict, h2: dict, desc: dict, norm: dict) -> dict:
     conc["h1_direction"]  = ("negative" if (not np.isnan(beta1) and beta1 < 0)
                               else ("positive" if not np.isnan(beta1) else "unknown"))
     conc["h1_narrative"] = (
-        f"The primary OLS regression examines whether SC_total – the composite "
-        f"Shock Score – is significantly associated with Net Risk Stance (NRS) after "
-        f"controlling for the ShowSC treatment indicator, years of experience, and block "
-        f"fixed effects. The estimated coefficient on SC_total is "
+        f"{'At the α = 0.05 level of significance, support for the alternative hypothesis H1ₐ was found.' if h1_supported else 'At the α = 0.05 level of significance, the evidence fails to reject the null hypothesis H1₀.'} "
+        f"The OLS regression of SC_total on Net Risk Stance (NRS) – controlling for the ShowSC treatment indicator, years of experience, and block fixed effects – yields "
         f"β₁ = {_round4(beta1)} (robust SE = {_round4(primary.get('se', np.nan))}, "
         f"t = {_round4(h1_t)}, p = {h1_p_val}, "
         f"95% CI [{_round4(h1_ci_lo)}, {_round4(h1_ci_hi)}]). "
         f"{_h1_direction_sentence} "
-        f"{'At the α = 0.05 significance level, support for the alternative hypothesis H1ₐ was found: SC_total is a statistically significant predictor of NRS.' if h1_supported else 'At the α = 0.05 significance level, the evidence fails to reject the null hypothesis H1₀: no statistically significant association between SC_total and NRS was established in this sample.'} "
         f"Robustness checks using quintile dummies, respondent fixed effects, "
         f"decomposed components, and an interaction term are reported in Table 5.4."
     )
@@ -1512,22 +1509,20 @@ def generate_conclusions(h1: dict, h2: dict, desc: dict, norm: dict) -> dict:
     if h2_supported and not np.isnan(tau):
         if tau > 0:
             _h2_support_sentence = (
-                "Support for the alternative hypothesis H2ₐ was found: the Shock Score dashboard is associated with a statistically "
-                "significant improvement in risk-adjusted portfolio outcomes, supporting the case "
-                "for structured decision support during information shocks."
+                "The Shock Score dashboard is associated with a statistically significant improvement "
+                "in risk-adjusted portfolio outcomes, supporting the case for structured decision support "
+                "during information shocks."
             )
         else:
             _h2_support_sentence = (
-                "H2 is statistically significant (p < 0.05) but the sign of the treatment effect "
-                "is negative (tau < 0), indicating that dashboard exposure is associated with worse "
-                "portfolio outcomes in the current sample. This unexpected result warrants further "
-                "investigation before any deployment recommendation is made."
+                "The sign of the treatment effect is negative (τ < 0), indicating that dashboard "
+                "exposure is associated with worse portfolio outcomes in the current sample. "
+                "This unexpected result warrants further investigation before any deployment recommendation is made."
             )
     else:
         _h2_support_sentence = (
-            "The evidence fails to reject the null hypothesis H2₀ in this sample: no statistically "
-            "significant difference in portfolio outcomes between the treatment and control conditions was found. "
-            "Validation on a larger professional sample is recommended."
+            "No statistically significant difference in portfolio outcomes between the treatment "
+            "and control conditions was found. Validation on a larger professional sample is recommended."
         )
 
     _dollar_part = (
@@ -1537,10 +1532,11 @@ def generate_conclusions(h1: dict, h2: dict, desc: dict, norm: dict) -> dict:
     ) if not np.isnan(dollar_imp) else ""
 
     conc["h2_narrative"] = (
+        f"{'At the α = 0.05 level of significance, support for the alternative hypothesis H2ₐ was found.' if h2_supported else 'At the α = 0.05 level of significance, the evidence fails to reject the null hypothesis H2₀.'} "
         f"Hypothesis H2 is tested using individual-portfolio regressions (Option B). "
         f"Per respondent, portfolio returns are constructed from NRS-weighted horizon "
         f"returns across the four scenarios assigned to each condition. The estimated "
-        f"treatment effect on portfolio return is tau = {_round4(tau)} "
+        f"treatment effect on portfolio return is τ = {_round4(tau)} "
         f"(robust SE = {_round4(h2_primary.get('se', np.nan))}, "
         f"t = {_round4(h2_primary.get('t', np.nan))}, p = {h2_p_val}, "
         f"95% CI [{_round4(h2_primary.get('ci_lo', np.nan))}, "
