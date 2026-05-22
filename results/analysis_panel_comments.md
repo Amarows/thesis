@@ -9,13 +9,13 @@
 
 | Tab | Raw rows |
 |-----|----------|
-| Block1_V1 | 2 |
-| Block1_V2 | 3 |
-| Block2_V1 | 0 |
-| Block2_V2 | 0 |
-| Block3_V1 | 1 |
-| Block3_V2 | 0 |
-| **Total** | **6** |
+| Block1_V1 | 9 |
+| Block1_V2 | 12 |
+| Block2_V1 | 8 |
+| Block2_V2 | 9 |
+| Block3_V1 | 8 |
+| Block3_V2 | 7 |
+| **Total** | **53** |
 
 ## 3. Exclusion Log
 
@@ -25,25 +25,25 @@ No respondents excluded.
 
 ## 4. Final Panel Summary
 
-- **N respondents:** 6
-- **N observations:** 48
-- **NRS distribution:** mean=4.1667, sd=1.0980, min=1, max=7
-- **ShowSC = 0:** 24 observations
-- **ShowSC = 1:** 24 observations
-- **Scenarios covered:** 16 / 24
+- **N respondents:** 53
+- **N observations:** 424
+- **NRS distribution:** mean=4.0519, sd=1.3845, min=1, max=7
+- **ShowSC = 0:** 212 observations
+- **ShowSC = 1:** 212 observations
+- **Scenarios covered:** 24 / 24
 
 ## 5. Pilot Block Summary
 
-Block 1 respondents: **5**
+Block 1 respondents: **4**
 
-- **Completion time responses:** 5 (values: Less than 15 minutes)
-- **Clarity:** 4: 3; 2: 1; 3: 1
-- **Realism:** 3: 2; 4: 1; 2: 1; 5: 1
-- **Dashboard ease:** 4: 2; 2: 1; 3: 1; 5: 1
+- **Completion time responses:** 4 (values: Less than 15 minutes)
+- **Clarity:** 4.0: 3; 2.0: 1
+- **Realism:** 3.0: 1; 4.0: 1; 2.0: 1; 5.0: 1
+- **Dashboard ease:** 4.0: 2; 2.0: 1; 5.0: 1
 
 ## 6. Warnings
 
-- WARNING: Scenarios with 0 responses (8): B2_S01, B2_S02, B2_S03, B2_S04, B2_S05, B2_S06, B2_S07, B2_S08.
+No warnings.
 
 ## 7. Preliminary Data Notice
 
