@@ -11,7 +11,7 @@ author:
 date: "September 2026"
 ---
 
-## Authentication of Work
+# Authentication of Work
 
 I, Aliaksei Malashonak (Student ID: 19795, Matriculation Number: 24891798), hereby declare that this thesis, submitted in partial fulfillment of the requirements for the degree of Executive Master of Business Administration at SBS Swiss Business School, Kloten-Zurich, Switzerland, is my own work. All sources consulted have been acknowledged in the references. This thesis has not been submitted for any other degree or qualification at any other institution.
 
@@ -27,7 +27,7 @@ Date: ______________________________
 
 
 
-## Foreword
+# Foreword
 
 This thesis examines whether a structured, quantitative decision-support indicator can moderate behavioral bias in professional equity portfolio management. The research question emerged from direct professional experience in financial risk management, where the gap between the theoretical predictions of behavioral finance and the practical tools available to investment practitioners is persistently apparent. Despite a substantial body of evidence documenting systematic decision errors under conditions of information overload and emotional salience, the field has produced few operational instruments designed to identify and mitigate such errors at the point of decision.
 
@@ -35,15 +35,14 @@ The Shock Score, developed and evaluated in this thesis, represents an attempt t
 
 The research draws on the behavioral finance literature, quantitative methods in financial economics, and applied survey design. It is intended to contribute both to academic understanding of decision-making under uncertainty and to the practical toolkit available to investment risk professionals.
 
----
+
+# To be added via TOC
 
 - Table of Contents
 - List of Tables
 - List of Figures
 
----
-
-## List of Abbreviations and Acronyms
+# List of Abbreviations and Acronyms
 
 | Abbreviation | Definition |
 |---|---|
@@ -73,7 +72,7 @@ The research draws on the behavioral finance literature, quantitative methods in
 | ShowSC | Treatment indicator: ShowSC = 1 if the Shock Score dashboard is displayed; ShowSC = 0 if withheld |
 | T_e | Intensity trigger variable mapping the Shock Score to a pre-commitment protocol tier |
 
-## Executive Summary
+# Executive Summary
 
 This thesis investigates whether a structured decision-support indicator – the Shock Score – can reduce emotional biases in equity portfolio manager decision-making. The study evaluates whether – the Shock Score – moderates behavioral bias in professional investment decisions.
 
@@ -797,22 +796,15 @@ Article body text serves two distinct downstream purposes. First, the raw text o
 
 
 ### 4.3.4 Event Screening and Scenario Selection
+Candidate event days are identified through a three-stage screening process applied to each stock in the portfolio universe over the historical event window, using the 30-minute intraday price data described in Section 4.3.2. Rolling statistics are computed over a trailing 60-trading-day window.
 
-Candidate event days for the survey scenarios are identified through a three-stage screening process applied to each stock in the portfolio universe (Section 4.3.1) over the historical event window. The intraday price data described in Section 4.3.2 provide the inputs for all statistical screens. Rolling statistics for 30-minute bar returns and volume are computed over a trailing 60-trading-day window.
+Stage 1 – Statistical screening. For each stock, compute the rolling 60-trading-day historical volatility as the standard deviation of daily log returns. Flag days where the absolute daily return exceeds 2.0 standard deviations from the stock's trailing mean return. Additionally, compute the relative abnormal return – defined as the stock's daily return minus the S&P 500 return on the same day – to distinguish firm-specific shocks from market-wide movements. Candidate days must also exhibit a relative abnormal return exceeding 1.5 standard deviations of the stock's historical relative return distribution. If the resulting candidate pool falls outside the target range of 50 to 80 events, thresholds are adjusted symmetrically and the adjustment documented.
 
+Stage 1B – Within-day causal plausibility screen. For each Stage 1 candidate, the shock bar return (absolute return of the bar assigned to the news article) must exceed 1.5 times the median absolute 30-minute bar return across all non-shock bars on the same day. Candidates that fail this screen are excluded, as the absence of a discernible price acceleration at the shock timestamp weakens ecological validity. The multiplier may be relaxed to 1.25x if the surviving pool is insufficient, with the adjustment documented.
 
-
-**Stage 1 -- Statistical screening.** For each stock, compute the rolling 60-trading-day historical volatility, defined as the standard deviation of daily log returns over the trailing window. Flag days where the absolute daily return exceeds 2.0 standard deviations from the stock's trailing mean return. This threshold identifies days with statistically unusual price movements relative to the stock's own history.
-
-Additionally, compute the relative abnormal return for each candidate day -- defined as the stock's daily return minus the S&P 500 return on the same day (Section 4.3.2). This step distinguishes firm-specific information shocks from market-wide movements. A day on which the entire market declines 3% represents a systematic shock, not a firm-specific information event. Candidate days must exhibit a relative abnormal return exceeding 1.5 standard deviations of the stock's historical relative return distribution. The thresholds (2.0 SD for absolute return, 1.5 SD for relative abnormal return) are calibrated to produce a candidate pool of approximately 50 to 80 events, from which the final scenarios are selected according to the balance constraints specified below. If the initial thresholds produce a pool that is too small or too large, they are adjusted symmetrically (e.g., to 1.5/1.0 or 2.5/2.0) and the adjustment is documented.
-
-**Stage 1B -- Within-day causal plausibility screen.** Candidate event days that pass Stage 1 are subjected to an additional within-day filter to ensure that the observed price move is temporally attributable to the identified shock bar rather than to a pre-existing intraday trend. For each candidate day, compute the absolute return for each 30-minute bar over the trading session. The shock bar return is the absolute return of the bar to which the news article is assigned. The reference return is the median absolute 30-minute bar return for all non-shock bars on the same day. The candidate passes this screen if the shock bar return exceeds 1.5 times the reference return. Candidate days that fail this screen are excluded; the rationale is that a scenario in which no discernible price acceleration occurs at the shock timestamp presents an ambiguous visual narrative that weakens ecological validity and risks introducing noise into the NRS response. The 1.5x multiplier is calibrated to retain approximately 60 to 70 percent of Stage 1 candidates; if the resulting pool is insufficient it may be relaxed to 1.25x with the adjustment documented.
-
-**Stage 2 -- News attribution.** For each candidate event day surviving Stage 1 and Stage 1B, the pipeline verifies that the downloaded Benzinga news corpus (Section 4.3.3) contains at least one identifiable, firm-specific article for that stock. The attribution is performed computationally: each article's publication timestamp is matched against the shock bar or the immediately preceding 30-minute bar. Candidates with no matching Benzinga article in this two-bar window are discarded. The matched article must be attributable to a specific corporate or market event -- such as an earnings surprise, regulatory action, management change, legal proceeding, or product announcement -- rather than to generic market commentary, sector rotation analysis, or analyst opinion pieces without new information content.
-
-For articles published outside regular trading hours (before 09:30 or after 16:00 ET), the shock is assigned to the first bar of the next trading session if the article appears after the prior close, or to the last bar of the prior session if it appears before the current open. When multiple articles for the same stock fall within the same 30-minute bar, they are treated as a single shock event; Article Count (AC_e) records the number of distinct articles within that bar.
-
-The output of this procedure is a set of candidate stock-day-news triples, each associated with a pre-computed Shock Score composite (SC_total) value (Section 4.3.5). From the candidate pool, scenarios are selected to satisfy the balance constraints summarised in Table 4.3.
+Stage 2 – News attribution. For each surviving candidate, the pipeline verifies that the Benzinga news corpus contains at least one firm-specific article whose publication timestamp falls within the shock bar or the immediately preceding 30-minute bar. Candidates with no matching article are discarded. Qualifying articles must be attributable to a specific corporate event – such as an earnings surprise, regulatory action, management change, legal proceeding, or product announcement – rather than to generic market commentary or analyst opinion without new information content.
+For articles published outside regular trading hours, the shock is assigned to the first bar of the next trading session (post-close articles) or to the last bar of the prior session (pre-open articles). Multiple articles within the same bar are treated as a single shock event; Article Count (AC_e) records the number of distinct articles within that bar.
+The output is a set of candidate stock-day-news triples, each with a pre-computed SC_total value (Section 4.3.5), from which final scenarios are selected according to the balance constraints summarised in Table 4.3.
 
 **Table 4.3**
 
@@ -1278,10 +1270,6 @@ Fail to reject H2₀ if the two-tailed p-value associated with τ is greater tha
 [To be populated by 8_statistical_analysis.py]
 <!-- /PLACEHOLDER:s5_6_1_impact -->
 
-The results are evaluated against the behavioral finance literature suggesting that external information shocks exert a systematic influence on portfolio managers' risk-stance decisions. The statistically significant negative association (β₁ = −0.4874) indicates that higher shock intensity shifts managers toward reduced risk exposure (lower NRS), consistent with loss-aversion predictions from prospect theory ([Kahneman & Tversky, 1979](https://doi.org/10.2307/1914185)). Because SC_total is a novel composite constructed in this thesis, the statistically significant coefficient β₁ also constitutes empirical evidence of construct validity — the index systematically predicts NRS in the theoretically expected direction across all robustness specifications. This result is interpreted cautiously given the sample composition and potential survivorship effects in the volunteer sample. The direction-interaction specification (Spec 5) does not yield a statistically significant asymmetry between positive- and negative-sentiment events in the current sample (β₃ = +0.1954, p = 0.5957); the direction-asymmetry hypothesis is noted as an avenue for future research.
-
-The component decomposition (Spec 3) discloses a specific sign heterogeneity in the ES_raw coefficient (β = +0.3102, p < 0.0001), which runs counter to the direction of the composite effect. This finding is consistent with a contrarian-resolution mechanism: managers who recognize an event as belonging to a high-severity category may judge that market expectations have already incorporated the elevated uncertainty, and therefore increase rather than reduce risk exposure. This interpretation is corroborated by the NRS–sentiment alignment diagnostic reported in Section 5.6.1.1, which shows that the overall alignment rate of 0.2618 is substantially below the 0.50 threshold indicative of directional consistency. Both results – the ES_raw sign anomaly and the sub-threshold alignment rate – point to a respondent population that does not simply follow the sentiment signal but applies category-level contextual adjustment when forming risk-stance decisions. This finding constitutes a nuanced addition to the primary H1 result and is noted as an avenue for future research on component-level behavioral mechanisms.
-
 #### 5.6.1.1 NRS–Sentiment Alignment Diagnostic
 
 <!-- PLACEHOLDER:s5_diagnostic_alignment -->
@@ -1464,7 +1452,6 @@ The broader contribution of the thesis lies in the integration of four elements 
 
 The empirical evidence accumulated in this study suggests that behavioral decision support is a viable area of development for institutional investment processes, and that operational instruments grounded in observable inputs can be constructed without proprietary data dependencies. The work concludes here with the recognition that the agenda it has opened is broader than the design tested in these chapters, and that further research – on live behavioral validation, on cross-market replication, and on the long-run consequences of structured behavioral prompts for professional decision-making – is required to determine the conditions under which instruments of this kind deliver their intended benefits in practice.
 
-# Glossary
 
 # References
 

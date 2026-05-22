@@ -78,7 +78,7 @@ def load_pca_block() -> str | None:
         f"| Scenarios used | {n} |",
         "",
         f"The eigenvalue of {ev:.4f} {'exceeds' if ev > 1.0 else 'does not exceed'} 1.0"
-        f"{', satisfying the Kaiser criterion.' if ev > 1.0 else ', falling short of the Kaiser criterion.'} "
+        f"{', satisfying the Kaiser criterion ([Jolliffe & Cadima, 2016](https://doi.org/10.1098/rsta.2015.0202)).' if ev > 1.0 else ', falling short of the Kaiser criterion.'} "
         f"The first principal component explains {vpct:.2f}% of the total variance across the four inputs. "
         f"{sign_note}",
     ]

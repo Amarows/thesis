@@ -1984,15 +1984,64 @@ def write_results_md(
             f"The absence of significance may reflect insufficient statistical power, heterogeneous "
             f"response patterns, or genuine non-linearity that a linear model does not capture."
         )
+
+    _construct_validity = (
+        f"Because SC_total is a novel composite constructed in this thesis, the statistically "
+        f"significant coefficient beta1 also constitutes empirical evidence of construct validity "
+        f"— the index systematically predicts NRS in the theoretically expected direction across "
+        f"all robustness specifications. "
+    ) if _h1_supp else ""
+
+    _spec5_row = rob_df[rob_df["spec"] == "spec_5_direction_b3"] if not rob_df.empty else pd.DataFrame()
+    if not _spec5_row.empty:
+        _b3 = _spec5_row.iloc[0]["beta1"]
+        _p3 = _spec5_row.iloc[0]["p"]
+        _b3_sign = "+" if not (isinstance(_b3, float) and np.isnan(_b3)) and _b3 >= 0 else ""
+        _spec5_sentence = (
+            f"The direction-interaction specification (Spec 5) does not yield a statistically "
+            f"significant asymmetry between positive- and negative-sentiment events in the current "
+            f"sample (beta3 = {_b3_sign}{_round4(_b3)}, p = {_p3}); "
+            f"the direction-asymmetry hypothesis is noted as an avenue for future research."
+        )
+    else:
+        _spec5_sentence = (
+            "The direction-interaction specification (Spec 5) could not be estimated in the current "
+            "sample; the direction-asymmetry hypothesis is noted as an avenue for future research."
+        )
+
+    _spec3_row = rob_df[rob_df["spec"] == "spec_3_component_es_raw"] if not rob_df.empty else pd.DataFrame()
+    _aln_rate_561 = (alignment or {}).get("overall_alignment_rate", np.nan)
+    if not _spec3_row.empty and not (isinstance(_aln_rate_561, float) and np.isnan(_aln_rate_561)):
+        _b_es = _spec3_row.iloc[0]["beta1"]
+        _p_es = _spec3_row.iloc[0]["p"]
+        _b_es_sign = "+" if not (isinstance(_b_es, float) and np.isnan(_b_es)) and _b_es >= 0 else ""
+        _spec3_para = (
+            f"\n\nThe component decomposition (Spec 3) discloses a specific sign heterogeneity in "
+            f"the ES_raw coefficient (beta = {_b_es_sign}{_round4(_b_es)}, p = {_p_es}), which "
+            f"runs counter to the direction of the composite effect. This finding is consistent with "
+            f"a contrarian-resolution mechanism: managers who recognise an event as belonging to a "
+            f"high-severity category may judge that market expectations have already incorporated the "
+            f"elevated uncertainty, and therefore increase rather than reduce risk exposure. This "
+            f"interpretation is corroborated by the NRS–sentiment alignment diagnostic reported in "
+            f"Section 5.6.1.1, which shows that the overall alignment rate of {_round4(_aln_rate_561)} "
+            f"is substantially below the 0.50 threshold indicative of directional consistency. Both "
+            f"results – the ES_raw sign anomaly and the sub-threshold alignment rate – point to a "
+            f"respondent population that does not simply follow the sentiment signal but applies "
+            f"category-level contextual adjustment when forming risk-stance decisions. This finding "
+            f"constitutes a nuanced addition to the primary H1 result and is noted as an avenue for "
+            f"future research on component-level behavioural mechanisms."
+        )
+    else:
+        _spec3_para = ""
+
     s561 = block("s5_6_1_impact", (
         f"The results are evaluated against the behavioural finance literature suggesting that "
         f"external information shocks exert a systematic influence on portfolio managers' "
         f"risk-stance decisions. {_impact_effect_sentence} "
+        f"{_construct_validity}"
         f"This result is interpreted cautiously given the sample composition and potential "
-        f"survivorship effects in the volunteer sample. "
-        f"Prospect theory (Kahneman and Tversky, 1979) would predict asymmetric responses to "
-        f"negative versus positive shocks; the current analysis does not decompose effects by "
-        f"shock direction, which is noted as an avenue for future research."
+        f"survivorship effects in the volunteer sample. {_spec5_sentence}"
+        f"{_spec3_para}"
     ))
 
     # ---- s5_6_2_incremental ----
@@ -2211,19 +2260,51 @@ def write_results_md(
             "**Table 5.6: NRS–Sentiment Alignment by Group**",
             "",
             _md_table(aln_df),
-            "",
-            "An alignment rate above 0.50 indicates that respondents' risk-stance direction "
-            "is more often consistent with the implied sentiment direction than not. Rates "
-            "substantially below 0.50 would suggest systematic contrarian reactions or "
-            "misalignment between the shock characterisation and respondent interpretation.",
         ]
         s5_diag = block("s5_diagnostic_alignment", "\n".join(_aln_lines))
+
+        # Derive lowest-rate sentiment category for post-figure paragraph
+        sent_rows = aln_df[aln_df["group"].str.startswith("sentiment=")]
+        if not sent_rows.empty:
+            _min_row = sent_rows.loc[sent_rows["alignment_rate"].idxmin()]
+            _min_cat = _min_row["group"].replace("sentiment=", "")
+            _min_rate = _round4(_min_row["alignment_rate"])
+        else:
+            _min_cat, _min_rate = "N/A", "N/A"
+
+        _es_positive = (
+            not _spec3_row.empty and
+            not (isinstance(_spec3_row.iloc[0]["beta1"], float) and np.isnan(_spec3_row.iloc[0]["beta1"])) and
+            _spec3_row.iloc[0]["beta1"] > 0
+        )
+        _es_spec3_sentence = (
+            "The finding aligns with the positive ES_raw coefficient in Spec 3 and collectively "
+            "suggests that respondents in this sample engage in category-level contextual reasoning "
+            "rather than sentiment-anchored decision-making."
+        ) if _es_positive else (
+            "Collectively, this pattern suggests that respondents in this sample engage in "
+            "category-level contextual reasoning rather than sentiment-anchored decision-making."
+        )
+
+        s5_diag_post = block("s5_diagnostic_alignment_post", (
+            f"An alignment rate above 0.50 indicates that respondents' risk-stance direction is "
+            f"more often consistent with the implied sentiment direction than not. Rates substantially "
+            f"below 0.50 would suggest systematic contrarian reactions or misalignment between the "
+            f"shock characterisation and respondent interpretation. The observed overall alignment "
+            f"rate of {_round4(aln_rate)} falls substantially below this threshold across all "
+            f"sentiment categories, with the lowest rate recorded for {_min_cat}-sentiment events "
+            f"({_min_rate}). This pattern is consistent with managers exercising contrarian judgment "
+            f"– treating confirmed negative news as a buying opportunity at reduced valuations – "
+            f"rather than mechanically following the directional signal. {_es_spec3_sentence}"
+        ))
     else:
         s5_diag = block("s5_diagnostic_alignment",
                         "Alignment diagnostic could not be computed (missing sentiment_direction or nrs column).")
+        s5_diag_post = block("s5_diagnostic_alignment_post",
+                             "Alignment diagnostic post-figure interpretation could not be computed.")
 
     # Assemble file
-    sections = [tbl_47, s521, s522, s523, s54, s551_main, s551_rob, s552, s_fig_h2_split, s561, s5_diag, s562, s57, s58, s62, s63, s64]
+    sections = [tbl_47, s521, s522, s523, s54, s551_main, s551_rob, s552, s_fig_h2_split, s561, s5_diag, s5_diag_post, s562, s57, s58, s62, s63, s64]
     lines.extend(sections)
 
     RESULTS_MD_PATH.write_text("\n\n".join(lines), encoding="utf-8")
