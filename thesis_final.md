@@ -35,51 +35,76 @@ The Shock Score, developed and evaluated in this thesis, represents an attempt t
 
 The research draws on the behavioral finance literature, quantitative methods in financial economics, and applied survey design. It is intended to contribute both to academic understanding of decision-making under uncertainty and to the practical toolkit available to investment risk professionals.
 
-
-# To be added via TOC
-
-- Table of Contents
-- List of Tables
-- List of Figures
-
 # List of Tables
 
 Table 3.1     Systematic Gap Mapping in Information Shock Decision Support
+
 Table 3.2     Shock Score Benchmarking Against Existing Measures
+
 Table 4.1     Portfolio Universe
+
 Table 4.2     Secondary Data Sources
+
 Table 4.3     Scenario Selection Balance Constraints
+
 Table 4.4     Shock Score Components
+
 Table 4.5     Shock Score Dashboard Components
+
 Table 4.6     Counterbalancing Design
+
 Table 4.7     Survey Response Summary
+
 Table 4.8     Pilot Feedback Questions
+
 Table 5.1     Respondent Demographics
+
 Table 5.2     SC_total PCA Diagnostics — First Principal Component
+
 Table 5.3     Final Scenario Selection Across Survey Blocks
+
 Table 5.4     NRS Response Frequency Distribution
+
 Table 5.5     Instrument Reliability – Mean ICC(2,1) by Block
+
 Table 5.6     OLS Residual Normality – Primary H1 Regression
+
 Table 5.7     H1 Primary Regression Result
+
 Table 5.8     H1 Robustness Specification Results
+
 Table 5.9     H2 Portfolio Analysis Results
+
 Table 5.10    NRS–Sentiment Alignment by Group
 
 # List of Figures
 
 Figure 2.1    Intraday Price Movement of Meta Platforms Inc. on 2 February 2026 Following the Release of Quarterly Earnings Results, Illustrating a Short-Horizon Market Reaction to an External Information Shock
+
 Figure 2.2    Causal Logic of the Study Design
+
 Figure 4.1    Conceptual Framework – Research Design Operationalization
+
 Figure 4.2    Shock Score Composite Construction
+
 Figure 4.3    Example Scenario Presentation in the Treatment Condition
+
 Figure 5.1    Sample Composition by Institution Type and AUM Category
+
 Figure 5.2    Distribution of Net Risk Stance Responses
+
 Figure 5.3    Net Risk Stance Distribution by Experimental Condition
+
 Figure 5.4    Distribution of the SC_total Composite Shock Score
+
 Figure 5.5    SC_total Composite Shock Score Versus Actual Realized Horizon Return Across 24 Scenarios
+
 Figure 5.6    Forest Plot of OLS Regression Coefficients for the Four SC_total Components
+
 Figure 5.7    Sharpe Ratio Comparison Across Experimental Conditions
+
 Figure 5.8    Mean NRS by SC_total Quintile and Experimental Condition
+
 Figure 5.9    NRS–Sentiment Alignment Rate by Sentiment Category
 
 # List of Abbreviations and Acronyms

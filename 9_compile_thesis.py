@@ -152,11 +152,15 @@ LABEL_PATTERN = re.compile(
 
 
 def _format_list(items: list[tuple[str, str]]) -> str:
-    """Render label/title pairs as a fixed-width, aligned plain-text list."""
+    """Render label/title pairs as a fixed-width, aligned list.
+
+    Entries are separated by a blank line so each becomes its own paragraph;
+    otherwise pandoc soft-wraps the consecutive lines into one block in DOCX.
+    """
     if not items:
         return "_No items found._"
     max_label_len = max(len(label) for label, _ in items)
-    return "\n".join(
+    return "\n\n".join(
         f"{label:<{max_label_len}}    {title}" for label, title in items
     )
 
