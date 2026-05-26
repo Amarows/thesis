@@ -42,6 +42,46 @@ The research draws on the behavioral finance literature, quantitative methods in
 - List of Tables
 - List of Figures
 
+# List of Tables
+
+Table 3.1     Systematic Gap Mapping in Information Shock Decision Support
+Table 3.2     Shock Score Benchmarking Against Existing Measures
+Table 4.1     Portfolio Universe
+Table 4.2     Secondary Data Sources
+Table 4.3     Scenario Selection Balance Constraints
+Table 4.4     Shock Score Components
+Table 4.5     Shock Score Dashboard Components
+Table 4.6     Counterbalancing Design
+Table 4.7     Survey Response Summary
+Table 4.8     Pilot Feedback Questions
+Table 5.1     Respondent Demographics
+Table 5.2     SC_total PCA Diagnostics — First Principal Component
+Table 5.3     Final Scenario Selection Across Survey Blocks
+Table 5.4     NRS Response Frequency Distribution
+Table 5.5     Instrument Reliability – Mean ICC(2,1) by Block
+Table 5.6     OLS Residual Normality – Primary H1 Regression
+Table 5.7     H1 Primary Regression Result
+Table 5.8     H1 Robustness Specification Results
+Table 5.9     H2 Portfolio Analysis Results
+Table 5.10    NRS–Sentiment Alignment by Group
+
+# List of Figures
+
+Figure 2.1    Intraday Price Movement of Meta Platforms Inc. on 2 February 2026 Following the Release of Quarterly Earnings Results, Illustrating a Short-Horizon Market Reaction to an External Information Shock
+Figure 2.2    Causal Logic of the Study Design
+Figure 4.1    Conceptual Framework – Research Design Operationalization
+Figure 4.2    Shock Score Composite Construction
+Figure 4.3    Example Scenario Presentation in the Treatment Condition
+Figure 5.1    Sample Composition by Institution Type and AUM Category
+Figure 5.2    Distribution of Net Risk Stance Responses
+Figure 5.3    Net Risk Stance Distribution by Experimental Condition
+Figure 5.4    Distribution of the SC_total Composite Shock Score
+Figure 5.5    SC_total Composite Shock Score Versus Actual Realized Horizon Return Across 24 Scenarios
+Figure 5.6    Forest Plot of OLS Regression Coefficients for the Four SC_total Components
+Figure 5.7    Sharpe Ratio Comparison Across Experimental Conditions
+Figure 5.8    Mean NRS by SC_total Quintile and Experimental Condition
+Figure 5.9    NRS–Sentiment Alignment Rate by Sentiment Category
+
 # List of Abbreviations and Acronyms
 
 | Abbreviation | Definition |
@@ -348,6 +388,7 @@ Exact conventions for $r_f$, $\text{MAR}$, sampling frequency, and annualization
 Assumptions describe the conditions under which the research design supports valid interpretation. These assumptions are not treated as established facts but as prerequisites for empirical evaluation and inference.
 
 The study assumes that:
+
 - the timing of external information shocks can be identified and aligned consistently with the decision window represented in the survey scenarios and portfolio outcome evaluation. The study further assumes that the event-level shock characteristics used to construct SC_total and persistence are computed consistently across events and do not rely on ex post outcome information that would compromise interpretation.
 
 - respondents interpret the decision task consistently and that the Net Risk Stance scale captures intended exposure adjustment in a comparable way across respondents and scenarios. Scenario order is counterbalanced consistent with within-subject design conventions established by [Charness et al., 2012](https://doi.org/10.1016/j.jebo.2011.08.009) to mitigate systematic learning and order effects. The design further assumes that respondents' decisions reflect their intended stance under the scenario constraints and are not materially distorted by survey fatigue or strategic responding ([Krosnick, 1999](https://doi.org/10.1146/annurev.psych.50.1.537)).
@@ -1808,7 +1849,7 @@ Yang, Y., UY, M. C. S., & Huang, A. (2020). *FinBERT: A pretrained language mode
 
 # Appendix 1. Thesis Proposal Approval Form
 
-![theis_approval_form.png](documents/theis_approval_form.png)
+![](documents/theis_approval_form.png)
 
 # Appendix 2. AI Disclosure Statement
 
@@ -1987,7 +2028,7 @@ Shock severity: magnitude of the price and news signal relative to historical no
 
 **Company:** Merck & Co. (MRK)  ·   Shock: -0.39%  ·  Health Care  ·  2025-10-30
 
-![chart_B2_S01.png](survey/charts/chart_B2_S01.png)
+![](survey/charts/chart_B2_S01.png)
 
 **News headline:** Meta Tumbles 10%, Google Marks Historic Rally: What's Moving Markets Thursday?
 
@@ -1996,7 +2037,7 @@ Covered by 10 financial news sources.
 
 **Market context:** Price before event: USD 87.0 | Price 2 hours post-event: USD 86 | Reaction: -0.39%
 
-![dashboard_B2_S01.png](survey/dashboards/dashboard_B2_S01.png)
+![](survey/dashboards/dashboard_B2_S01.png)
 
 *Note: In Version 1 (ShowSC = 1), the Shock Score dashboard was displayed here, showing the composite score, sentiment direction, severity level, persistence horizon, and protocol recommendation. In Version 2 (ShowSC = 0), this panel was not shown.*
 
@@ -2013,7 +2054,7 @@ Covered by 10 financial news sources.
 
 **Company:** Johnson & Johnson (JNJ)  ·   Shock: +1.08%  ·  Health Care  ·  2025-12-15
 
-![chart_B2_S02.png](survey/charts/chart_B2_S02.png)
+![](survey/charts/chart_B2_S02.png)
 
 **News headline:** Johnson & Johnson Wins FDA Nod For First Precision Combo For Mutated Prostate Cancer
 
