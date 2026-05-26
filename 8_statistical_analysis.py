@@ -15,6 +15,7 @@ import argparse
 import glob
 import json
 import os
+import re
 import sys
 import warnings
 
@@ -25,6 +26,7 @@ from sklearn.preprocessing import StandardScaler as _StandardScaler
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.patches import Patch
 import numpy as np
 import pandas as pd
 from scipy import stats
@@ -370,7 +372,7 @@ def compute_descriptives(df: pd.DataFrame, skip_figures: bool = False) -> dict:
 
     # --- Respondent level ---
     resp_cols = [
-        "respondent_id", "years_experience",
+        "respondent_id", "years_experience", "years_experience_label",
         "aum_category", "institution_type", "investment_mandate",
         "geographic_focus", "discretionary_authority", "certifications",
     ]
@@ -386,6 +388,34 @@ def compute_descriptives(df: pd.DataFrame, skip_figures: bool = False) -> dict:
     desc["exp_sd"]        = round(exp.std(), 4)
     desc["exp_min"]       = round(exp.min(), 4)
     desc["exp_max"]       = round(exp.max(), 4)
+
+    # Experience is an ordinal categorical band. The numeric years_experience
+    # column is unreliable (most rows are NaN), so the label column is
+    # authoritative and is reported as an ordered frequency distribution.
+    _EXP_ORDER = ["less than 2", "2-5", "6-10", "11-20", "more than 20"]
+    _EXP_DISPLAY = {
+        "less than 2": "Less than 2", "2-5": "2–5", "6-10": "6–10",
+        "11-20": "11–20", "more than 20": "More than 20",
+    }
+
+    def _norm_exp_label(s: object) -> str:
+        return re.sub(r"[-‐‑‒–—―−﹣－]", "-", str(s)).strip().lower()
+
+    exp_freq_rows = []
+    if "years_experience_label" in rdf.columns:
+        vc_exp = rdf["years_experience_label"].value_counts(dropna=False)
+        ordered = sorted(
+            vc_exp.items(),
+            key=lambda kv: _EXP_ORDER.index(_norm_exp_label(kv[0]))
+            if _norm_exp_label(kv[0]) in _EXP_ORDER else 99,
+        )
+        for lbl, cnt in ordered:
+            disp = "Unknown" if pd.isna(lbl) else _EXP_DISPLAY.get(_norm_exp_label(lbl), str(lbl))
+            exp_freq_rows.append({
+                "label": disp, "count": int(cnt),
+                "pct": round(cnt / n_total_resp * 100, 2),
+            })
+    desc["exp_freq"] = exp_freq_rows
 
     # Frequency tables for categorical fields
     cat_fields = [
@@ -512,12 +542,18 @@ def _fig_demographics(rdf: pd.DataFrame, desc: dict) -> None:
     fig, axes = plt.subplots(1, 2, figsize=(12, 5))
     ax1, ax2 = axes
 
-    # Experience histogram
-    exp = pd.to_numeric(rdf["years_experience"], errors="coerce").dropna()
-    ax1.hist(exp, bins=max(5, int(len(exp) ** 0.5)), color="#2c7bb6", edgecolor="white")
+    # Experience by band (categorical; the numeric column is unreliable)
+    exp_freq = desc.get("exp_freq", [])
+    if exp_freq:
+        labels = [r["label"] for r in exp_freq]
+        counts = [r["count"] for r in exp_freq]
+        ax1.bar(labels, counts, color="#2c7bb6", edgecolor="white")
+        ax1.set_ylabel("Count")
+        ax1.set_title("(a) Distribution of respondent experience")
+        ax1.tick_params(axis="x", labelrotation=20)
+        for _lbl in ax1.get_xticklabels():
+            _lbl.set_ha("right")
     ax1.set_xlabel("Years of experience")
-    ax1.set_ylabel("Count")
-    ax1.set_title("(a) Distribution of respondent experience")
     _apa_style(ax1)
 
     # Institution type bar chart
@@ -562,18 +598,28 @@ def _fig_nrs_by_condition(sc0: pd.Series, sc1: pd.Series) -> None:
 
 
 def _fig_sc_distribution(scen_df: pd.DataFrame) -> None:
-    sc = pd.to_numeric(scen_df["sc_total"], errors="coerce").dropna()
-    fig, ax = plt.subplots(figsize=(8, 5))
-    ax.hist(sc, bins=10, color="#abd9e9", edgecolor="#2c7bb6", density=True)
+    work = scen_df.copy()
+    work["sc_total"] = pd.to_numeric(work["sc_total"], errors="coerce")
+    work = work.dropna(subset=["sc_total"])
+    sc = work["sc_total"]
+
+    fig, ax = plt.subplots(figsize=(9, 6))
+    counts, edges, _ = ax.hist(sc, bins=10, color="#abd9e9", edgecolor="#2c7bb6", density=True)
     # Normal overlay
     x = np.linspace(sc.min() - 1, sc.max() + 1, 200)
     ax.plot(x, stats.norm.pdf(x, sc.mean(), sc.std()), color="#d7191c", linewidth=2, label="Normal")
-    # Label points
-    if "ticker" in scen_df.columns:
-        for _, row in scen_df.dropna(subset=["sc_total"]).iterrows():
-            ax.annotate(row["ticker"], (float(row["sc_total"]), 0),
-                        textcoords="offset points", xytext=(0, 5),
-                        fontsize=6, ha="center", rotation=45)
+
+    # List each bin's scenarios as a vertical column inside the bar, instead of
+    # labelling every point at y=0 (which overlapped badly around the mode).
+    if "ticker" in work.columns:
+        bin_idx = np.clip(np.digitize(sc.to_numpy(), edges[1:-1]), 0, len(edges) - 2)
+        work = work.assign(_bin=bin_idx)
+        for b, grp in work.groupby("_bin"):
+            center = (edges[b] + edges[b + 1]) / 2
+            tickers = grp.sort_values("sc_total")["ticker"].astype(str).tolist()
+            ax.text(center, 0.005, "\n".join(tickers), fontsize=6.5, ha="center",
+                    va="bottom", color="black", linespacing=1.3)
+
     ax.set_xlabel("SC_total")
     ax.set_ylabel("Density")
     ax.set_title("SC_total distribution across scenarios")
@@ -1430,6 +1476,155 @@ def _fig_h2_nrs_by_sc(df: pd.DataFrame) -> None:
 
 
 # ---------------------------------------------------------------------------
+# Group B figures — rebuilt from data (forest, scatter, alignment bars).
+# Reproduce the previously-static results/figures PNGs at run time.
+# ---------------------------------------------------------------------------
+
+def _fig_component_forest(rob_df: pd.DataFrame) -> None:
+    """Forest plot of the four Spec 3 SC_total component coefficients with 95% CIs."""
+    if rob_df.empty or "spec" not in rob_df.columns:
+        return
+
+    # (y-axis label, robustness spec row) ordered bottom (y=0) to top.
+    components = [
+        ("AC_e\n(Article Count)",       "spec_3_component_ac_e"),
+        ("SE_e\n(Sentiment Extremity)", "spec_3_component_se_e"),
+        ("AI_e\n(Attention Intensity)", "spec_3_component_ai_e"),
+        ("ES_raw\n(Event Severity)",    "spec_3_component_es_raw"),
+    ]
+    C_DOWN, C_UP, C_NS = "#2c7bb6", "#d7191c", "#999999"
+
+    fig, ax = plt.subplots(figsize=(11, 6))
+    yticks, ylabels = [], []
+    for y, (ylabel, spec) in enumerate(components):
+        row = rob_df[rob_df["spec"] == spec]
+        if row.empty:
+            continue
+        r = row.iloc[0]
+        beta = float(r["beta1"]); lo = float(r["ci_lo"]); hi = float(r["ci_hi"])
+        p = _parse_p(r["p"])
+        sig = (not np.isnan(p)) and p < 0.05
+        color = C_NS if not sig else (C_DOWN if beta < 0 else C_UP)
+
+        ax.errorbar(beta, y, xerr=[[beta - lo], [hi - beta]], fmt="o", color=color,
+                    markersize=13, elinewidth=2.5, capsize=0, zorder=3)
+        label = f"β = {beta:+.4f} [{lo:.4f}, {hi:.4f}] {'**' if sig else 'ns'}"
+        # Default: label to the right of the CI. The bottom row (AC_e) is labelled
+        # to the left so it clears the lower-right legend (issue 1).
+        if spec == "spec_3_component_ac_e":
+            ax.annotate(label, (lo, y), xytext=(-10, 0), textcoords="offset points",
+                        ha="right", va="center", color=color, fontsize=10)
+        else:
+            ax.annotate(label, (hi, y), xytext=(10, 0), textcoords="offset points",
+                        ha="left", va="center", color=color, fontsize=10)
+        yticks.append(y); ylabels.append(ylabel)
+
+    if not yticks:
+        plt.close(fig)
+        return
+
+    ax.axvline(0, color="black", linestyle="--", linewidth=1, zorder=1)
+    ax.set_yticks(yticks); ax.set_yticklabels(ylabels)
+    ax.set_ylim(-0.6, len(components) - 0.4)
+    ax.set_xlabel("OLS Coefficient (β) with 95% Confidence Interval")
+
+    handles = [
+        Patch(facecolor=C_DOWN, label="Significant, risk-reducing (p < 0.05)"),
+        Patch(facecolor=C_UP,   label="Significant, risk-increasing (p < 0.05)"),
+        Patch(facecolor=C_NS,   label="Not significant"),
+    ]
+    ax.legend(handles=handles, loc="lower right", frameon=False)
+    _apa_style(ax)
+
+    # Pad the x-range so value labels are not clipped (more room on the right).
+    x0, x1 = ax.get_xlim()
+    span = x1 - x0
+    ax.set_xlim(x0 - 0.15 * span, x1 + 0.32 * span)
+
+    fig.tight_layout()
+    fig.savefig(FIGURES_DIR / "fig_component_forest.png", dpi=150, bbox_inches="tight")
+    plt.close(fig)
+
+
+def _fig_sc_vs_horizon_return(scenarios: pd.DataFrame, horizon_returns: pd.DataFrame) -> None:
+    """Scatter of realized horizon return vs SC_total (one point per scenario, by block)."""
+    if scenarios.empty or horizon_returns.empty:
+        return
+    sdf = scenarios[["scenario_id", "ticker", "block_id", "sc_total"]].copy()
+    hr = horizon_returns.reset_index()[["scenario_id", "horizon_return_pct"]]
+    m = sdf.merge(hr, on="scenario_id", how="inner")
+    m["sc_total"]           = pd.to_numeric(m["sc_total"], errors="coerce")
+    m["horizon_return_pct"] = pd.to_numeric(m["horizon_return_pct"], errors="coerce")
+    m = m.dropna(subset=["sc_total", "horizon_return_pct"])
+    if len(m) < 3:
+        return
+
+    block_colors = {1: "#2c7bb6", 2: "#1b9e77", 3: "#b8860b"}
+    fig, ax = plt.subplots(figsize=(12, 7.5))
+
+    ax.axhline(0, color="grey", linewidth=0.8, zorder=1)
+    ax.axvline(0, color="grey", linewidth=0.8, zorder=1)
+
+    x = m["sc_total"].to_numpy(); y = m["horizon_return_pct"].to_numpy()
+    slope, intercept = np.polyfit(x, y, 1)
+    xs = np.linspace(x.min(), x.max(), 100)
+    ax.plot(xs, slope * xs + intercept, color="#d7191c", linestyle="--", linewidth=1.8,
+            label=f"Linear trend (β = {slope:.2f}%/unit SC_total)", zorder=2)
+
+    for b in sorted(m["block_id"].dropna().unique()):
+        sub = m[m["block_id"] == b]
+        color = block_colors.get(int(b), "#666666")
+        ax.scatter(sub["sc_total"], sub["horizon_return_pct"], s=130, color=color,
+                   edgecolor="white", linewidth=1.0, label=f"Block {int(b)}", zorder=3)
+        for _, row in sub.iterrows():
+            ax.annotate(str(row["ticker"]),
+                        (float(row["sc_total"]), float(row["horizon_return_pct"])),
+                        xytext=(5, 5), textcoords="offset points", fontsize=8, color=color)
+
+    ax.set_xlabel("SC_total (composite Shock Score)")
+    ax.set_ylabel("Actual horizon return (%)")
+    ax.legend(loc="upper right")
+    _apa_style(ax)
+    fig.tight_layout()
+    fig.savefig(FIGURES_DIR / "fig_sc_vs_horizon_return.png", dpi=150, bbox_inches="tight")
+    plt.close(fig)
+
+
+def _fig_alignment_rates(alignment_df: pd.DataFrame, overall_rate: float) -> None:
+    """Horizontal bar chart of NRS–sentiment alignment rate by sentiment category."""
+    if alignment_df.empty or "group" not in alignment_df.columns:
+        return
+    sent = alignment_df[alignment_df["group"].str.startswith("sentiment=")].copy()
+    if sent.empty:
+        return
+    sent["category"] = sent["group"].str.replace("sentiment=", "", regex=False)
+    sent = sent.sort_values("alignment_rate", ascending=True)
+
+    fig, ax = plt.subplots(figsize=(11, 6))
+    y = np.arange(len(sent))
+    rates = sent["alignment_rate"].to_numpy()
+    ax.barh(y, rates, color="#c0392b", zorder=3)
+    for yi, rate in zip(y, rates):
+        ax.annotate(f"{rate:.4f}", (rate, yi), xytext=(6, 0), textcoords="offset points",
+                    va="center", ha="left", fontsize=10)
+    ax.set_yticks(y); ax.set_yticklabels(sent["category"].tolist())
+
+    ax.axvline(0.50, color="black", linestyle="--", linewidth=2,
+               label="Directional consistency threshold (0.50)", zorder=2)
+    if not (overall_rate is None or (isinstance(overall_rate, float) and np.isnan(overall_rate))):
+        ax.axvline(overall_rate, color="grey", linestyle=":", linewidth=1.5,
+                   label=f"Overall alignment rate ({overall_rate:.4f})", zorder=2)
+
+    ax.set_xlim(0, 0.62)
+    ax.set_xlabel("Alignment Rate (proportion of observations)")
+    ax.legend(loc="lower right")
+    _apa_style(ax)
+    fig.tight_layout()
+    fig.savefig(FIGURES_DIR / "fig_alignment_rates.png", dpi=150, bbox_inches="tight")
+    plt.close(fig)
+
+
+# ---------------------------------------------------------------------------
 # Section 7 – Conclusions engine
 # ---------------------------------------------------------------------------
 
@@ -1597,28 +1792,6 @@ def write_results_md(
     h1_v        = conc["h1_verdict"]
     h2_v        = conc["h2_verdict"]
 
-    # Shared derived values used across multiple blocks
-    _beta1     = h1.get("primary", {}).get("beta1", np.nan)
-    _h1_supp   = conc["h1_supported"]
-    _h1_dir    = conc.get("h1_direction", "unknown")
-    _tau       = conc.get("tau", np.nan)
-    _h2_p_val  = conc.get("h2_p", np.nan)
-    _h2_p_str  = _round4(_h2_p_val) if not isinstance(_h2_p_val, str) else _h2_p_val
-    _h2_supp   = conc["h2_supported"]
-    _ret_diff  = h2.get("return_differential", np.nan)
-    _dollar    = h2.get("dollar_impact", np.nan)
-    _dollar_v  = _dollar if not np.isnan(_dollar) else 0
-    _opt_b_reg = h2.get("opt_b_reg", pd.DataFrame())
-    _sharpe_row = (
-        _opt_b_reg[_opt_b_reg["outcome"] == "sharpe_ratio"].iloc[0].to_dict()
-        if not _opt_b_reg.empty and "outcome" in _opt_b_reg.columns
-           and (_opt_b_reg["outcome"] == "sharpe_ratio").any()
-        else {}
-    )
-    _sharpe_tau = _sharpe_row.get("tau", np.nan)
-    _sharpe_p_val = _sharpe_row.get("p", np.nan)
-    _sharpe_p_str = _round4(_sharpe_p_val) if not isinstance(_sharpe_p_val, str) else _sharpe_p_val
-
     lines = [
         "# Thesis Results – Auto-generated",
         f"**Panel:** {n_total} respondents ({n_obs} observations)",
@@ -1644,84 +1817,67 @@ def write_results_md(
     ]
     tbl_47 = block("tbl_4_7_counts", "\n".join(tbl_47_lines))
 
-    # ---- s5_2_1_respondents ----
+    # ---- tbl_5_1_respondents ----
     freq_df = desc.get("freq_demographics", pd.DataFrame())
     inst_rows = freq_df[freq_df["field"] == "institution_type"] if not freq_df.empty else pd.DataFrame()
     aum_rows  = freq_df[freq_df["field"] == "aum_category"]    if not freq_df.empty else pd.DataFrame()
 
     resp_lines = [
-        f"The final analysis sample comprises {n_total} respondents "
-        f"yielding {n_obs} scenario-level observations across three blocks.",
+        "**Table 5.1**",
         "",
-        f"Table 5.1 presents the demographic profile of the achieved sample. "
-        f"Respondents report a mean of {_round4(desc['exp_mean'])} years of experience "
-        f"(median = {_round4(desc['exp_median'])}, SD = {_round4(desc['exp_sd'])}, "
-        f"range = {_round4(desc['exp_min'])}–{_round4(desc['exp_max'])}). ",
-        "",
-        "**Table 5.1: Respondent Demographics**",
+        "*Respondent Demographics*",
         "",
         "| Characteristic | Metric | Value |",
         "|---|---|---|",
-        f"| Years of experience | Mean | {_round4(desc['exp_mean'])} |",
-        f"| Years of experience | Median | {_round4(desc['exp_median'])} |",
-        f"| Years of experience | SD | {_round4(desc['exp_sd'])} |",
-        f"| Years of experience | Range | {_round4(desc['exp_min'])}–{_round4(desc['exp_max'])} |",
     ]
+    for r in desc.get("exp_freq", []):
+        resp_lines.append(f"| Years of experience | {r['label']} | {r['count']} ({r['pct']}%) |")
     for _, row in inst_rows.iterrows():
         resp_lines.append(f"| Institution type | {row['value']} | {row['count']} ({row['pct']}%) |")
     for _, row in aum_rows.iterrows():
         resp_lines.append(f"| AUM category | {row['value']} | {row['count']} ({row['pct']}%) |")
-    resp_lines.append("")
-    resp_lines.append("![Respondent demographics](figures/fig_demographics.png)")
-    s521 = block("s5_2_1_respondents", "\n".join(resp_lines))
+    resp_lines += ["", f"*Note.* N = {n_total} respondents."]
+    tbl_5_1 = block("tbl_5_1_respondents", "\n".join(resp_lines))
 
-    # ---- s5_2_2_data ----
-    nrs_s = desc.get("nrs_summary", pd.DataFrame())
-    mc = desc.get("manipulation_check", {})
-    mc_str = "; ".join(f"{k}: {v}" for k, v in mc.items()) if mc else "N/A"
-    ur_mean = _round4(desc.get("usefulness_mean", np.nan))
-    ur_med  = _round4(desc.get("usefulness_median", np.nan))
-    ur_sd   = _round4(desc.get("usefulness_sd", np.nan))
+    # ---- fig_5_1_demographics ----
+    fig_5_1 = block("fig_5_1_demographics", "\n".join([
+        "**Figure 5.1**",
+        "",
+        "*Sample Composition by Institution Type and AUM Category*",
+        "",
+        "![Respondent demographics](figures/fig_demographics.png)",
+        "",
+        f"*Note.* N = {n_total} respondents. Original figure by the author.",
+    ]))
 
-    s522_lines = []
-    if not nrs_s.empty:
-        ov = nrs_s[nrs_s["condition"] == "overall"].iloc[0]
-        c0 = nrs_s[nrs_s["condition"] == "ShowSC=0"].iloc[0]
-        c1 = nrs_s[nrs_s["condition"] == "ShowSC=1"].iloc[0]
-        s522_lines += [
-            f"Across all {n_obs} observations, the mean NRS is {_round4(ov['mean'])} "
-            f"(median = {_round4(ov['median'])}, SD = {_round4(ov['sd'])}, "
-            f"range = {int(ov['min'])}–{int(ov['max'])}). "
-            f"In the control condition (ShowSC = 0), the mean NRS is {_round4(c0['mean'])} "
-            f"(SD = {_round4(c0['sd'])}, n = {int(c0['n'])}). "
-            f"In the treatment condition (ShowSC = 1), the mean NRS is {_round4(c1['mean'])} "
-            f"(SD = {_round4(c1['sd'])}, n = {int(c1['n'])}). "
-            f"The mean NRS difference (ShowSC=1 minus ShowSC=0) is {_round4(desc.get('nrs_mean_diff', np.nan))}.",
-            "",
-        ]
-    sc_s = desc.get("scen_summary", pd.DataFrame())
-    if not sc_s.empty:
-        sc_row = sc_s[sc_s["metric"] == "sc_total"]
-        if len(sc_row) > 0:
-            r = sc_row.iloc[0]
-            s522_lines.append(
-                f"SC_total is a standardised PCA composite score (first principal component of "
-                f"AC_e, SE_e, AI_e, and ES_raw). By construction, the sample mean is approximately zero. "
-                f"The meaningful descriptive statistics are the range "
-                f"(min = {_round4(r['min'])}, max = {_round4(r['max'])}) and standard deviation "
-                f"(SD = {_round4(r['sd'])}), which characterise the spread of shock intensity "
-                f"across the twenty-four scenarios. "
-                f"Manipulation check responses: {mc_str}. "
-                f"For ShowSC = 1 respondents, the mean usefulness rating is {ur_mean} "
-                f"(median = {ur_med}, SD = {ur_sd})."
-            )
-    s522_lines += [
+    # ---- fig_5_2_nrs_distribution / fig_5_3_nrs_by_condition / fig_5_4_sc_distribution ----
+    fig_5_2 = block("fig_5_2_nrs_distribution", "\n".join([
+        "**Figure 5.2**",
+        "",
+        "*Distribution of Net Risk Stance Responses*",
         "",
         "![NRS distribution](figures/fig_nrs_distribution.png)",
+        "",
+        f"*Note.* N = {n_obs} scenario-level observations. Original figure by the author.",
+    ]))
+    fig_5_3 = block("fig_5_3_nrs_by_condition", "\n".join([
+        "**Figure 5.3**",
+        "",
+        "*Net Risk Stance Distribution by Experimental Condition*",
+        "",
         "![NRS by condition](figures/fig_nrs_by_condition.png)",
+        "",
+        "*Note.* Control (ShowSC = 0) versus treatment (ShowSC = 1) conditions. Original figure by the author.",
+    ]))
+    fig_5_4 = block("fig_5_4_sc_distribution", "\n".join([
+        "**Figure 5.4**",
+        "",
+        "*Distribution of the SC_total Composite Shock Score*",
+        "",
         "![SC_total distribution](figures/fig_sc_distribution.png)",
-    ]
-    s522 = block("s5_2_2_data", "\n".join(s522_lines))
+        "",
+        "*Note.* SC_total is the first principal component of the four standardised Shock Score components. Original figure by the author.",
+    ]))
 
     # ---- s5_3_scenarios ----
     scen_tbl_cols = [
@@ -1734,38 +1890,32 @@ def write_results_md(
     if "sc_total" in scen_tbl.columns:
         scen_tbl["sc_total"] = pd.to_numeric(scen_tbl["sc_total"], errors="coerce").round(4)
     s523_lines = [
-        "Table 5.2 documents the final scenario selection across the three survey blocks.",
-        "", _md_table(scen_tbl), "",
+        "**Table 5.3**",
+        "",
+        "*Final Scenario Selection Across Survey Blocks*",
+        "",
+        _md_table(scen_tbl),
+        "",
     ]
-    s523 = block("s5_3_scenarios", "\n".join(s523_lines))
+    tbl_5_3 = block("tbl_5_3_scenarios", "\n".join(s523_lines))
 
     # Inject residual normality from H1 into norm dict for use in s5_4_normality block
     norm["residual_normality"] = h1.get("residual_normality", {})
 
-    # ---- s5_4_normality ----
+    # ---- tbl_5_4_nrs_freq / tbl_5_5_icc / tbl_5_6_residuals ----
     freq_df          = norm.get("freq_df", pd.DataFrame())
-    clt              = norm.get("clt_applies", False)
     n_resp_norm      = norm.get("n_respondents", 0)
     icc_per_block    = norm.get("icc_per_block", {})
-    icc_per_scenario = norm.get("icc_per_scenario", {})
     n_per_block      = norm.get("n_per_block", {})
     resid_norm       = norm.get("residual_normality", {})
 
-    s54_lines = []
-
-    # --- Table 5.4a: NRS Frequency Distribution ---
-    s54_lines += [
-        "The NRS is a seven-point ordered categorical scale. Because the scale is bounded "
-        "and ordinal, normality testing on raw responses is not appropriate; the standard "
-        "assumption required for OLS inference concerns residual normality (reported in "
-        "Table 5.4c below), not the marginal distribution of the dependent variable. "
-        "Table 5.4a presents the frequency distribution of NRS responses across scale "
-        "points, overall and by experimental condition.",
+    # --- Table 5.4: NRS Frequency Distribution ---
+    freq_lines = [
+        "**Table 5.4**",
         "",
-        "**Table 5.4a** *NRS Response Frequency Distribution*",
+        "*NRS Response Frequency Distribution*",
         "",
     ]
-
     if not freq_df.empty:
         groups = ["Overall", "ShowSC=0 (Control)", "ShowSC=1 (Treatment)"]
         header = "| NRS | " + " | ".join([f"N ({g})" for g in groups]) + \
@@ -1783,35 +1933,21 @@ def write_results_md(
                 p_val = float(freq_df.loc[mask, "pct"].values[0]) if mask.any() else 0.0
                 row_data.append(f"{p_val:.2f}%")
             rows.append("| " + " | ".join(row_data) + " |")
-        s54_lines += rows
+        freq_lines += rows
         total_overall = int(freq_df[freq_df["group"] == "Overall"]["count"].sum())
-        s54_lines.append("")
-        s54_lines.append(
+        freq_lines += [
+            "",
             f"*Note.* NRS responses on a 7-point scale (1 = Strongly reduce concentration, "
             f"7 = Strongly increase concentration). N = {n_resp_norm} respondents, "
-            f"{total_overall} total observations. Percentages may not sum to 100% due to rounding."
-        )
+            f"{total_overall} total observations. Percentages may not sum to 100% due to rounding.",
+        ]
+    tbl_5_4 = block("tbl_5_4_nrs_freq", "\n".join(freq_lines))
 
-    s54_lines += [
+    # --- Table 5.5: ICC(2,1) Inter-rater Reliability by Block ---
+    icc_lines = [
+        "**Table 5.5**",
         "",
-        f"Central limit theorem applicability: the sample comprises {n_resp_norm} respondents, "
-        f"{'exceeding' if clt else 'below'} the N = 30 threshold. "
-        f"{'Parametric inference is therefore warranted.' if clt else 'Given the small sample size, parametric inference should be interpreted with caution.'}",
-        "",
-    ]
-
-    # --- Table 5.4b: ICC(2,1) Inter-rater Reliability by Block ---
-    s54_lines += [
-        "Inter-rater reliability is assessed using the intraclass correlation "
-        "coefficient ICC(2,1) — two-way random effects, single measures, absolute "
-        "agreement (Koo & Mae, 2016). For each block, mean NRS per scenario is "
-        "computed separately for counterbalancing Version 1 and Version 2 respondents. "
-        "ICC(2,1) is then computed treating scenarios as targets and versions as raters. "
-        "This tests whether V1 and V2 respondents agree on the relative ordering and "
-        "absolute level of NRS across scenarios within a block, which is the appropriate "
-        "reliability question for a heterogeneous-scenario instrument.",
-        "",
-        "**Table 5.4b** *Instrument Reliability – Mean ICC(2,1) by Block*",
+        "*Instrument Reliability – Mean ICC(2,1) by Block*",
         "",
         "| Block | N respondents | Mean ICC(2,1) | Threshold (≥ 0.70) | Assessment |",
         "|-------|--------------|---------------|---------------------|------------|",
@@ -1824,35 +1960,39 @@ def write_results_md(
         n_str   = str(n_blk) if n_blk > 0 else "Not yet available"
         if isinstance(icc_val, float) and np.isnan(icc_val):
             if n_blk == 0:
-                s54_lines.append(
+                icc_lines.append(
                     f"| Block {blk} | {n_str} | — | — | Pending full sample |"
                 )
             else:
-                s54_lines.append(
+                icc_lines.append(
                     f"| Block {blk} | {n_str} | — | — | "
                     f"Could not compute (check version column) |"
                 )
         else:
             meets = icc_val >= threshold_icc
-            s54_lines.append(
+            icc_lines.append(
                 f"| Block {blk} | {n_str} | {icc_val:.4f} | "
                 f"{'Above' if meets else 'Below'} | "
                 f"{'Acceptable' if meets else 'Sub-threshold'} |"
             )
-    s54_lines += [
+    icc_lines += [
         "",
         "*Note.* ICC(2,1) computed per block using mean NRS per scenario × version "
         "(V1/V2) as the data structure; scenarios are targets, versions are raters. "
         "Threshold of ICC ≥ 0.70 follows Koo and Mae (2016). "
         "Blocks with no respondents in the current sample are marked as pending.",
+    ]
+    tbl_5_5 = block("tbl_5_5_icc", "\n".join(icc_lines))
+
+    # --- Table 5.6: Residual Normality ---
+    resid_lines = [
+        "**Table 5.6**",
+        "",
+        "*OLS Residual Normality – Primary H1 Regression*",
         "",
     ]
-
-    # --- Table 5.4c: Residual Normality ---
     if resid_norm:
-        s54_lines += [
-            "**Table 5.4c** *OLS Residual Normality – Primary H1 Regression*",
-            "",
+        resid_lines += [
             "| | Shapiro-Wilk W | p-value | Normality rejected (α = 0.05) |",
             "|---|---|---|---|",
             f"| Primary H1 residuals | {_round4(resid_norm.get('w', np.nan))} | "
@@ -1864,17 +2004,10 @@ def write_results_md(
             f"Residual normality is the relevant OLS assumption; the marginal distribution "
             f"of NRS is not required to be normal. HC3 heteroscedasticity-consistent "
             f"standard errors are applied regardless of this result.",
-            "",
         ]
     else:
-        s54_lines += [
-            "**Table 5.4c** *OLS Residual Normality – Primary H1 Regression*",
-            "",
-            "*(To be populated once H1 regression is computed.)*",
-            "",
-        ]
-
-    s54 = block("s5_4_normality", "\n".join(s54_lines))
+        resid_lines += ["*(To be populated once H1 regression is computed.)*"]
+    tbl_5_6 = block("tbl_5_6_residuals", "\n".join(resid_lines))
 
     # ---- s5_5_1_h1_main ----
     primary = h1.get("primary", {})
@@ -1894,42 +2027,49 @@ def write_results_md(
         "SE_type": primary.get("clustering", "HC3"),
     }])
     s551_main_lines = [
-        conc.get("h1_narrative", ""),
+        "**Table 5.7**",
         "",
-        "**Table 5.3: H1 Primary Regression Result**",
+        "*H1 Primary Regression Result*",
         "",
         _md_table(main_tbl_df),
         "",
     ]
-    s551_main = block("s5_5_1_h1_main", "\n".join(s551_main_lines))
+    tbl_5_7 = block("tbl_5_7_h1_main", "\n".join(s551_main_lines))
 
-    # ---- s5_5_1_h1_robustness ----
-    s551_rob_lines = ["**Table 5.4: H1 Robustness Specification Results**", ""]
+    # ---- tbl_5_8_h1_robustness ----
+    s551_rob_lines = ["**Table 5.8**", "", "*H1 Robustness Specification Results*", ""]
     if not rob_df.empty:
         s551_rob_lines += [_md_table(rob_df), ""]
-    s551_rob = block("s5_5_1_h1_robustness", "\n".join(s551_rob_lines))
+    tbl_5_8 = block("tbl_5_8_h1_robustness", "\n".join(s551_rob_lines))
 
-    # ---- s5_5_2_h2 ----
+    # ---- tbl_5_9_h2_results ----
     n_sortino_elig = h2.get("n_sortino_eligible", 0)
     n_b_pairs_     = h2.get("n_option_b_pairs", 0)
-    s552_lines = [conc.get("h2_narrative", ""), "", "**Table 5.5: H2 Portfolio Analysis Results**", ""]
     opt_b_reg = h2.get("opt_b_reg", pd.DataFrame())
+    s552_lines = ["**Table 5.9**", "", "*H2 Portfolio Analysis Results*", ""]
     if not opt_b_reg.empty:
         s552_lines += [_md_table(opt_b_reg), ""]
     s552_lines.append(
-        f"**Note on Sortino ratio:** The Sortino ratio is computed only for respondent-condition "
-        f"pairs that yield at least one negative portfolio return. In the current sample, this "
-        f"applies to {n_sortino_elig} of {n_b_pairs_} respondent-condition pairs."
+        f"*Note.* The Sortino ratio is computed only for respondent-condition pairs that yield "
+        f"at least one negative portfolio return; in the current sample this applies to "
+        f"{n_sortino_elig} of {n_b_pairs_} respondent-condition pairs. The collective portfolios "
+        f"in the descriptive Option A analysis are constructed from the same respondent pool, so "
+        f"no causal inference should be drawn from Option A alone; it is presented for "
+        f"institutional illustration only."
     )
-    s552_lines += [
+    tbl_5_9 = block("tbl_5_9_h2_results", "\n".join(s552_lines))
+
+    # ---- fig_5_7_sharpe ----
+    fig_5_7 = block("fig_5_7_sharpe", "\n".join([
+        "**Figure 5.7**",
         "",
-        "**Non-independence warning (Option A):** The collective portfolios in the descriptive "
-        "Option A analysis are constructed from the same respondent pool. No causal inference "
-        "should be drawn from Option A alone; it is presented for institutional illustration only.",
+        "*Sharpe Ratio Comparison Across Experimental Conditions*",
         "",
         "![Sharpe comparison](figures/fig_sharpe_comparison.png)",
-    ]
-    s552 = block("s5_5_2_h2", "\n".join(s552_lines))
+        "",
+        "*Note.* Sharpe ratios computed per respondent-condition pair from NRS-weighted simulated "
+        "portfolio returns. Original figure by the author.",
+    ]))
 
     # ---- fig_h2_nrs_sc_split ----
     _h2_opt_b = h2.get("opt_b_reg", pd.DataFrame())
@@ -1944,8 +2084,8 @@ def write_results_md(
             _h2_tau   = _round4(_pr.iloc[0].get("tau",  np.nan))
             _h2_p_fig = str(_pr.iloc[0].get("p", "N/A"))
     _h2_verdict_fig = conc.get("h2_verdict", "Not supported").lower()
-    s_fig_h2_split = block("fig_h2_nrs_sc_split", "\n".join([
-        "*Figure 5.4*",
+    fig_5_8 = block("fig_5_8_nrs_sc_split", "\n".join([
+        "**Figure 5.8**",
         "",
         "*Mean NRS by SC_total Quintile and Experimental Condition*",
         "",
@@ -1961,350 +2101,36 @@ def write_results_md(
         f"Original figure by the author.",
     ]))
 
-    # ---- s5_6_1_impact ----
-    if np.isnan(_beta1):
-        _impact_effect_sentence = "The regression estimate for SC_total could not be computed."
-    elif _h1_supp and _beta1 < 0:
-        _impact_effect_sentence = (
-            f"The statistically significant negative association (beta1 = {_round4(_beta1)}) "
-            f"indicates that higher shock intensity shifts managers toward reduced risk exposure "
-            f"(lower NRS), consistent with loss-aversion predictions from prospect theory "
-            f"(Kahneman and Tversky, 1979)."
-        )
-    elif _h1_supp and _beta1 > 0:
-        _impact_effect_sentence = (
-            f"The statistically significant positive association (beta1 = {_round4(_beta1)}) "
-            f"indicates that higher shock intensity shifts managers toward elevated risk exposure "
-            f"(higher NRS), potentially reflecting attention-based overreaction or overconfidence biases."
-        )
-    else:
-        _impact_effect_sentence = (
-            f"The association between SC_total and NRS is not statistically significant in the "
-            f"current sample (beta1 = {_round4(_beta1)}, p = {h1.get('primary', {}).get('p', np.nan)}). "
-            f"The absence of significance may reflect insufficient statistical power, heterogeneous "
-            f"response patterns, or genuine non-linearity that a linear model does not capture."
-        )
-
-    _construct_validity = (
-        f"Because SC_total is a novel composite constructed in this thesis, the statistically "
-        f"significant coefficient beta1 also constitutes empirical evidence of construct validity "
-        f"— the index systematically predicts NRS in the theoretically expected direction across "
-        f"all robustness specifications. "
-    ) if _h1_supp else ""
-
-    _spec5_row = rob_df[rob_df["spec"] == "spec_5_direction_b3"] if not rob_df.empty else pd.DataFrame()
-    if not _spec5_row.empty:
-        _b3 = _spec5_row.iloc[0]["beta1"]
-        _p3 = _spec5_row.iloc[0]["p"]
-        _b3_sign = "+" if not (isinstance(_b3, float) and np.isnan(_b3)) and _b3 >= 0 else ""
-        _spec5_sentence = (
-            f"The direction-interaction specification (Spec 5) does not yield a statistically "
-            f"significant asymmetry between positive- and negative-sentiment events in the current "
-            f"sample (beta3 = {_b3_sign}{_round4(_b3)}, p = {_p3}); "
-            f"the direction-asymmetry hypothesis is noted as an avenue for future research."
-        )
-    else:
-        _spec5_sentence = (
-            "The direction-interaction specification (Spec 5) could not be estimated in the current "
-            "sample; the direction-asymmetry hypothesis is noted as an avenue for future research."
-        )
-
-    _spec3_row = rob_df[rob_df["spec"] == "spec_3_component_es_raw"] if not rob_df.empty else pd.DataFrame()
-    _aln_rate_561 = (alignment or {}).get("overall_alignment_rate", np.nan)
-    if not _spec3_row.empty and not (isinstance(_aln_rate_561, float) and np.isnan(_aln_rate_561)):
-        _b_es = _spec3_row.iloc[0]["beta1"]
-        _p_es = _spec3_row.iloc[0]["p"]
-        _b_es_sign = "+" if not (isinstance(_b_es, float) and np.isnan(_b_es)) and _b_es >= 0 else ""
-        _spec3_para = (
-            f"\n\nThe component decomposition (Spec 3) discloses a specific sign heterogeneity in "
-            f"the ES_raw coefficient (beta = {_b_es_sign}{_round4(_b_es)}, p = {_p_es}), which "
-            f"runs counter to the direction of the composite effect. This finding is consistent with "
-            f"a contrarian-resolution mechanism: managers who recognise an event as belonging to a "
-            f"high-severity category may judge that market expectations have already incorporated the "
-            f"elevated uncertainty, and therefore increase rather than reduce risk exposure. This "
-            f"interpretation is corroborated by the NRS–sentiment alignment diagnostic reported in "
-            f"Section 5.6.1.1, which shows that the overall alignment rate of {_round4(_aln_rate_561)} "
-            f"is substantially below the 0.50 threshold indicative of directional consistency. Both "
-            f"results – the ES_raw sign anomaly and the sub-threshold alignment rate – point to a "
-            f"respondent population that does not simply follow the sentiment signal but applies "
-            f"category-level contextual adjustment when forming risk-stance decisions. This finding "
-            f"constitutes a nuanced addition to the primary H1 result and is noted as an avenue for "
-            f"future research on component-level behavioural mechanisms."
-        )
-    else:
-        _spec3_para = ""
-
-    s561 = block("s5_6_1_impact", (
-        f"The results are evaluated against the behavioural finance literature suggesting that "
-        f"external information shocks exert a systematic influence on portfolio managers' "
-        f"risk-stance decisions. {_impact_effect_sentence} "
-        f"{_construct_validity}"
-        f"This result is interpreted cautiously given the sample composition and potential "
-        f"survivorship effects in the volunteer sample. {_spec5_sentence}"
-        f"{_spec3_para}"
-    ))
-
-    # ---- s5_6_2_incremental ----
-    if _h2_supp and not np.isnan(_tau):
-        if _tau > 0:
-            _incremental_sentence = (
-                "The results support the incremental value of the Shock Score dashboard: "
-                "dashboard exposure is associated with statistically significantly better portfolio "
-                "outcomes (tau > 0), consistent with structured decision support moderating "
-                "behavioural biases during information shocks."
-            )
-        else:
-            _incremental_sentence = (
-                "The results are statistically significant but the treatment effect is negative "
-                "(tau < 0), indicating that dashboard exposure is associated with worse portfolio "
-                "outcomes in the current sample. This unexpected result warrants further "
-                "investigation before deployment is considered."
-            )
-    else:
-        _incremental_sentence = (
-            "The results do not support a statistically significant incremental effect of the "
-            "Shock Score dashboard on portfolio outcomes in the current sample. "
-            "Validation on a larger, fully recruited professional sample is the recommended next step."
-        )
-
-    if not np.isnan(_ret_diff):
-        if _ret_diff > 0:
-            _option_a_sentence = (
-                f"The Option A collective portfolio analysis (descriptive only; non-independence caveat applies) "
-                f"shows a positive return differential of {_round4(_ret_diff)}% in favour of the treatment "
-                f"condition, corresponding to a dollar impact of ${_dollar_v:,.0f} on an assumed AUM of $100M."
-            )
-        else:
-            _option_a_sentence = (
-                f"The Option A collective portfolio analysis (descriptive only; non-independence caveat applies) "
-                f"shows a non-positive return differential of {_round4(_ret_diff)}% for the treatment condition, "
-                f"corresponding to a dollar impact of ${_dollar_v:,.0f} on an assumed AUM of $100M. "
-                f"The treatment portfolio did not outperform the control portfolio in the descriptive collective analysis."
-            )
-    else:
-        _option_a_sentence = "The Option A collective return differential could not be computed."
-
-    s562 = block("s5_6_2_incremental", (
-        f"The incremental effect of the Shock Score dashboard (ShowSC) on simulated portfolio "
-        f"outcomes is evaluated through the Option B individual-portfolio regression. "
-        f"{_incremental_sentence} "
-        f"{_option_a_sentence} "
-        f"This figure is presented for descriptive illustration and is subject to the "
-        f"non-independence caveat noted in Section 5.5.2."
-    ))
-
-    # ---- s5_7_interim ----
-    if _h1_supp:
-        _h1_interim = (
-            f"**support for the alternative hypothesis H1ₐ was found** "
-            f"(β₁ = {_round4(_beta1)}, p = {primary.get('p', 'N/A')}; "
-            f"direction: {'risk-reducing' if _h1_dir == 'negative' else 'risk-taking'})"
-        )
-    else:
-        _h1_interim = (
-            f"**the null hypothesis H1₀ was not rejected** "
-            f"(β₁ = {_round4(_beta1)}, p = {primary.get('p', 'N/A')})"
-        )
-
-    if _h2_supp and not np.isnan(_tau):
-        if _tau > 0:
-            _h2_interim = (
-                f"**support for the alternative hypothesis H2ₐ was found** "
-                f"(τ = {_round4(_tau)}, p = {_h2_p_str}; direction: performance-improving)"
-            )
-        else:
-            _h2_interim = (
-                f"**support for the alternative hypothesis H2ₐ was found but with a negative treatment effect** "
-                f"(τ = {_round4(_tau)}, p = {_h2_p_str}; see caution in Section 5.6.2)"
-            )
-    else:
-        _h2_interim = (
-            f"**the null hypothesis H2₀ was not rejected** "
-            f"(τ = {_round4(_tau)}, p = {_h2_p_str})"
-        )
-
-    if not np.isnan(_sharpe_tau):
-        _sharpe_dir = "positive" if _sharpe_tau > 0 else "negative"
-        _sharpe_sig = "reaching" if isinstance(_sharpe_p_val, (int, float)) and not np.isnan(_sharpe_p_val) and _sharpe_p_val < 0.05 else "not reaching"
-        _sharpe_sentence = (
-            f" On the secondary Sharpe ratio outcome, the treatment effect is directionally "
-            f"{_sharpe_dir} (τ = {_round4(_sharpe_tau)}, p = {_sharpe_p_str}), "
-            f"{_sharpe_sig} statistical significance in the current sample."
-        )
-    else:
-        _sharpe_sentence = ""
-
-    s57 = block("s5_7_interim", (
-        f"The interim conclusions for Chapter 5 are as follows. "
-        f"H1 – that SC_total is significantly associated with NRS: {_h1_interim}. "
-        f"H2 – that the Shock Score dashboard moderates the risk-return profile of simulated portfolios: "
-        f"{_h2_interim} in the Option B individual-portfolio regression.{_sharpe_sentence} "
-        f"Both findings are contingent on the current sample composition and are subject to revision "
-        f"upon completion of the full survey. Robustness checks for H1 and the Option A descriptive "
-        f"analysis for H2 are consistent in direction with the primary results."
-    ))
-
-    # ---- s5_8_conclusion ----
-    s58 = block("s5_8_conclusion", (
-        f"Chapter 5 has presented the empirical results of the within-subject survey experiment "
-        f"designed to examine the influence of external information shocks on equity portfolio "
-        f"manager decision-making and the moderating effect of the Shock Score decision-support tool. "
-        f"Descriptive statistics characterise the achieved sample and the SC_total distribution "
-        f"across the twenty-four scenarios. Normality assessments confirm "
-        f"{'that parametric inference is appropriate given the sample size.' if norm.get('clt_applies') else 'that the sample size warrants caution in parametric inference.'} "
-        f"{'Support for the alternative hypothesis H1ₐ was found' if conc['h1_supported'] else 'The null hypothesis H1₀ was not rejected'}; "
-        f"{'support for the alternative hypothesis H2ₐ was found' if conc['h2_supported'] else 'the null hypothesis H2₀ was not rejected'} "
-        f"– both evaluated at the α = 0.05 significance level. "
-        f"Chapter 6 synthesises these findings within the broader research context "
-        f"and develops recommendations for practice."
-    ))
-
-    # ---- s6_2_summary ----
-    s62 = block("s6_2_summary", (
-        f"The primary research contributes empirical evidence on two hypotheses. "
-        f"H1 posits that SC_total – a PCA-based composite of article count, sentiment extremity, "
-        f"attention intensity, and event-type severity – is a statistically significant predictor "
-        f"of portfolio managers' Net Risk Stance. The evidence {('supports' if conc['h1_supported'] else 'does not support')} this hypothesis "
-        f"(β₁ = {_round4(primary.get('beta1', np.nan))}, p = {primary.get('p', 'N/A')}). "
-        f"H2 posits that exposure to the Shock Score dashboard improves the risk-return profile "
-        f"of simulated portfolios. The Option B individual-portfolio regression {('supports' if conc['h2_supported'] else 'does not support')} "
-        f"this hypothesis at the α = 0.05 level. "
-        f"These findings are based on {n_total} respondents ({n_obs} observations)."
-    ))
-
-    # ---- s6_3_conclusions ----
-    s63 = block("s6_3_conclusions", (
-        f"This research set out to investigate whether external financial information shocks cause "
-        f"systematic shifts in equity portfolio managers' decision-making, and whether a structured "
-        f"decision-support tool – the Shock Score – can moderate those responses. "
-        f"The evidence {'is consistent with' if conc['h1_supported'] else 'does not strongly support'} "
-        f"the proposition that shock intensity, as measured by SC_total, is associated with changes "
-        f"in risk stance. The evidence {'is consistent with' if conc['h2_supported'] else 'does not strongly support'} "
-        f"the proposition that the Shock Score dashboard improves portfolio-level outcomes. "
-        f"Collectively, the results are "
-        f"{'directionally consistent with the thesis framework and provide a basis for cautious optimism about structured decision support in professional investment contexts.' if (conc['h1_supported'] or conc['h2_supported']) else 'inconclusive in the current sample. Replication with a larger, fully real respondent pool is the primary recommended next step.'}"
-    ))
-
-    # ---- s6_4_recommendations ----
-    if _h1_supp:
-        _rec_manager = (
-            "The results are consistent with the view that information shock intensity is "
-            "associated with shifts in risk stance. Managers are encouraged to adopt structured "
-            "pre-commitment protocols for periods of elevated shock intensity, as operationalised "
-            "by the Monitor, Review, and Halt thresholds embedded in the Shock Score dashboard. "
-            "The dashboard's three-tier protocol structure provides an operationally tractable "
-            "debiasing mechanism that does not require extensive behavioural training to implement."
-        )
-    else:
-        _rec_manager = (
-            "While the current evidence does not establish a statistically significant association "
-            "between shock intensity and risk stance, behavioural finance theory and directional "
-            "evidence suggest that structured pre-commitment protocols may be prudent during periods "
-            "of elevated shock intensity. The Monitor, Review, and Halt thresholds operationalise "
-            "this in a tractable, low-training format."
-        )
-
-    if _h2_supp and not np.isnan(_tau) and _tau > 0:
-        _rec_deployment = (
-            "The current evidence is consistent with the value of the Shock Score dashboard in "
-            "moderating portfolio managers' responses to information shocks. Prior to full deployment, "
-            "the dashboard should be validated on a larger, independently recruited sample of "
-            "professional portfolio managers with a pre-registered design and a target N >= 100 "
-            "verified professionals. Platform integration (e.g., embedding the dashboard in existing "
-            "OMS or EMS interfaces) is recommended over standalone survey administration for "
-            "ecological validity."
-        )
-    elif _h2_supp and not np.isnan(_tau) and _tau < 0:
-        _rec_deployment = (
-            "The current evidence does not support deployment: the treatment effect is statistically "
-            "significant but negative, indicating that dashboard exposure is associated with worse "
-            "portfolio outcomes in the current sample. Further investigation is required before any "
-            "deployment recommendation is made. A redesign and validation on a larger independent "
-            "sample is the recommended next step."
-        )
-    else:
-        _rec_deployment = (
-            "Prior to deployment, the Shock Score dashboard should be validated on a larger, "
-            "independently recruited sample of professional portfolio managers. The current "
-            "study's limitations – including the sample size and volunteer composition – should be "
-            "addressed through a pre-registered replication with a target N >= 100 verified "
-            "professionals. Platform integration (e.g., OMS or EMS interfaces) is recommended "
-            "over standalone survey administration for ecological validity."
-        )
-
-    s64 = block("s6_4_recommendations", (
-        f"**For individual portfolio managers.** {_rec_manager}\n\n"
-        f"**For risk governance.** Risk committees and Chief Investment Officers may consider "
-        f"integrating real-time shock monitoring – indexed by a composite such as SC_total – "
-        f"into existing risk oversight frameworks. The Shock Score provides a transparent, "
-        f"auditable rationale for discretionary trading restrictions during high-intensity events, "
-        f"supporting governance accountability without removing managerial discretion.\n\n"
-        f"**For institutional deployment.** {_rec_deployment}"
-    ))
-
-    # ---- s5_diagnostic_alignment ----
+    # ---- tbl_5_10_alignment ----
     alignment = alignment or {}
     aln_df   = alignment.get("alignment_df", pd.DataFrame())
-    aln_rate = alignment.get("overall_alignment_rate", np.nan)
     if not aln_df.empty:
         _aln_lines = [
-            f"As a diagnostic check, the alignment between respondents' NRS direction "
-            f"(buy: NRS > 4; sell: NRS < 4; neutral: NRS = 4) and the sentiment-expected "
-            f"direction (Negative sentiment expected sell; Positive expected buy) is assessed "
-            f"across all {n_obs} observations.",
+            "**Table 5.10**",
             "",
-            f"Overall alignment rate: {_round4(aln_rate)} "
-            f"({int(aln_df.loc[aln_df['group'] == 'overall', 'n_aligned'].iloc[0]) if 'overall' in aln_df['group'].values else 'N/A'} "
-            f"of {int(aln_df.loc[aln_df['group'] == 'overall', 'n'].iloc[0]) if 'overall' in aln_df['group'].values else 'N/A'} observations).",
-            "",
-            "**Table 5.6: NRS–Sentiment Alignment by Group**",
+            "*NRS–Sentiment Alignment by Group*",
             "",
             _md_table(aln_df),
         ]
-        s5_diag = block("s5_diagnostic_alignment", "\n".join(_aln_lines))
-
-        # Derive lowest-rate sentiment category for post-figure paragraph
-        sent_rows = aln_df[aln_df["group"].str.startswith("sentiment=")]
-        if not sent_rows.empty:
-            _min_row = sent_rows.loc[sent_rows["alignment_rate"].idxmin()]
-            _min_cat = _min_row["group"].replace("sentiment=", "")
-            _min_rate = _round4(_min_row["alignment_rate"])
-        else:
-            _min_cat, _min_rate = "N/A", "N/A"
-
-        _es_positive = (
-            not _spec3_row.empty and
-            not (isinstance(_spec3_row.iloc[0]["beta1"], float) and np.isnan(_spec3_row.iloc[0]["beta1"])) and
-            _spec3_row.iloc[0]["beta1"] > 0
-        )
-        _es_spec3_sentence = (
-            "The finding aligns with the positive ES_raw coefficient in Spec 3 and collectively "
-            "suggests that respondents in this sample engage in category-level contextual reasoning "
-            "rather than sentiment-anchored decision-making."
-        ) if _es_positive else (
-            "Collectively, this pattern suggests that respondents in this sample engage in "
-            "category-level contextual reasoning rather than sentiment-anchored decision-making."
-        )
-
-        s5_diag_post = block("s5_diagnostic_alignment_post", (
-            f"An alignment rate above 0.50 indicates that respondents' risk-stance direction is "
-            f"more often consistent with the implied sentiment direction than not. Rates substantially "
-            f"below 0.50 would suggest systematic contrarian reactions or misalignment between the "
-            f"shock characterisation and respondent interpretation. The observed overall alignment "
-            f"rate of {_round4(aln_rate)} falls substantially below this threshold across all "
-            f"sentiment categories, with the lowest rate recorded for {_min_cat}-sentiment events "
-            f"({_min_rate}). This pattern is consistent with managers exercising contrarian judgment "
-            f"– treating confirmed negative news as a buying opportunity at reduced valuations – "
-            f"rather than mechanically following the directional signal. {_es_spec3_sentence}"
-        ))
+        tbl_5_10 = block("tbl_5_10_alignment", "\n".join(_aln_lines))
     else:
-        s5_diag = block("s5_diagnostic_alignment",
-                        "Alignment diagnostic could not be computed (missing sentiment_direction or nrs column).")
-        s5_diag_post = block("s5_diagnostic_alignment_post",
-                             "Alignment diagnostic post-figure interpretation could not be computed.")
+        tbl_5_10 = block(
+            "tbl_5_10_alignment",
+            "**Table 5.10**\n\n*NRS–Sentiment Alignment by Group*\n\n"
+            "*(Alignment diagnostic could not be computed.)*",
+        )
 
-    # Assemble file
-    sections = [tbl_47, s521, s522, s523, s54, s551_main, s551_rob, s552, s_fig_h2_split, s561, s5_diag, s5_diag_post, s562, s57, s58, s62, s63, s64]
+    # Assemble file (atomic blocks in document order; narrative lives in thesis.md)
+    sections = [
+        tbl_47,
+        tbl_5_1, fig_5_1,
+        fig_5_2, fig_5_3, fig_5_4,
+        tbl_5_3,
+        tbl_5_4, tbl_5_5, tbl_5_6,
+        tbl_5_7, tbl_5_8,
+        tbl_5_9, fig_5_7, fig_5_8,
+        tbl_5_10,
+    ]
     lines.extend(sections)
 
     RESULTS_MD_PATH.write_text("\n\n".join(lines), encoding="utf-8")
@@ -2440,6 +2266,13 @@ def main() -> None:
 
     print("\nComputing NRS/sentiment alignment diagnostic...")
     alignment = compute_nrs_sentiment_alignment(df)
+
+    if not args.skip_figures:
+        print("\nRebuilding forest / scatter / alignment figures...")
+        _fig_component_forest(h1.get("robustness", pd.DataFrame()))
+        _fig_sc_vs_horizon_return(scenarios, horizon_returns)
+        _fig_alignment_rates(alignment.get("alignment_df", pd.DataFrame()),
+                             alignment.get("overall_alignment_rate", np.nan))
 
     print("\nComputing PCA diagnostics...")
     compute_pca_diagnostics()

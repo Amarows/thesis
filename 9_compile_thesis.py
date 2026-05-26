@@ -18,7 +18,8 @@ from pathlib import Path
 
 from config import (
     THESIS_PATH, THESIS_RESULTS_PATH as RESULTS_MD_PATH,
-    THESIS_FINAL_PATH, REFERENCES_PATH, REFERENCE_DOCX, DOCX_OUTPUT, TABLES_DIR,
+    THESIS_FINAL_PATH, REFERENCES_APA_PATH, REFERENCE_DOCX,
+    DOCX_OUTPUT, TABLES_DIR,
     append_run_log, _sha256_file,
 )
 
@@ -55,17 +56,10 @@ def load_pca_block() -> str | None:
     ld   = d["loadings"]
     n    = d["n_scenarios"]
 
-    all_positive = all(v > 0 for v in ld.values())
-    sign_note = (
-        "All four components load positively on PC1, confirming that the composite "
-        "represents a common factor of shock intensity rather than a contrast between components."
-        if all_positive else
-        "The loading signs indicate a mixed pattern; interpretation of the composite should "
-        "account for the direction of individual component relationships."
-    )
-
     lines = [
-        "**Table 5.x: SC_total PCA Diagnostics — First Principal Component**",
+        "**Table 5.2**",
+        "",
+        "*SC_total PCA Diagnostics — First Principal Component*",
         "",
         "| Metric | Value |",
         "|--------|-------|",
@@ -77,47 +71,46 @@ def load_pca_block() -> str | None:
         f"| Loading — Event-Type Severity (ES_raw) | {ld['ES_raw']:.4f} |",
         f"| Scenarios used | {n} |",
         "",
-        f"The eigenvalue of {ev:.4f} {'exceeds' if ev > 1.0 else 'does not exceed'} 1.0"
-        f"{', satisfying the Kaiser criterion ([Jolliffe & Cadima, 2016](https://doi.org/10.1098/rsta.2015.0202)).' if ev > 1.0 else ', falling short of the Kaiser criterion.'} "
-        f"The first principal component explains {vpct:.2f}% of the total variance across the four inputs. "
-        f"{sign_note}",
+        "*Note.* PC1 = first principal component of the four standardised Shock Score components.",
     ]
     return "\n".join(lines)
 
 
 def load_references() -> str:
-    """Parse references.md table and return an APA-formatted, alphabetically sorted reference list."""
-    if not REFERENCES_PATH.exists():
+    """Parse references_apa.md and return its pre-formatted APA entries, sorted alphabetically.
+
+    Reads the markdown table in references_apa.md and emits the ready-made
+    `apa_formatted` column for each entry, sorted alphabetically (by author surname).
+    """
+    if not REFERENCES_APA_PATH.exists():
         return ""
 
-    entries: list[tuple[str, str]] = []
+    lines = REFERENCES_APA_PATH.read_text(encoding="utf-8").splitlines()
 
-    for line in REFERENCES_PATH.read_text(encoding="utf-8").splitlines():
+    apa_col: int | None = None
+    entries: list[str] = []
+
+    for line in lines:
         line = line.strip()
-        if not line.startswith("|") or line.startswith("|--") or line.startswith("| Author"):
+        if not line.startswith("|"):
             continue
-        parts = [p.strip() for p in line.strip("|").split("|")]
-        if len(parts) < 3:
+        cells = [c.strip() for c in line.strip("|").split("|")]
+        # Header row: locate the apa_formatted column.
+        if apa_col is None:
+            if "apa_formatted" in cells:
+                apa_col = cells.index("apa_formatted")
             continue
-        author_year, url, title = parts[0], parts[1], parts[2]
-        if not author_year or not title:
+        # Separator row (| --- | --- | ...).
+        if all(set(c) <= {"-", ":"} and c for c in cells):
             continue
-
-        m = re.match(r"^(.*),\s*(\d{4})\s*$", author_year)
-        if not m:
+        if apa_col >= len(cells):
             continue
-        authors, year = m.group(1).strip(), m.group(2)
+        entry = cells[apa_col].strip()
+        if entry:
+            entries.append(entry)
 
-        url = url.strip()
-        url_part = f" {url}" if url and url != "[internal document]" else ""
-        title_clean = title.strip().rstrip(".")
-        entry = f"{authors} ({year}). *{title_clean}*." + url_part
-
-        sort_key = re.split(r"[,\s&]", authors)[0].lower()
-        entries.append((sort_key, entry))
-
-    entries.sort(key=lambda x: x[0])
-    return "\n\n".join(e[1] for e in entries)
+    entries.sort(key=str.lower)
+    return "\n\n".join(entries)
 
 
 def merge(thesis_text: str, results_blocks: dict[str, str]) -> tuple[str, int, list[str]]:
@@ -145,6 +138,45 @@ def merge(thesis_text: str, results_blocks: dict[str, str]) -> tuple[str, int, l
             not_found.append(f"[no placeholder in thesis.md for: {sid}]")
 
     return merged, n_replaced, not_found
+
+
+# Captures an APA label line ("**Figure X.X**" / "**Table X.X**") and the
+# italic title line that immediately follows it. Single-asterisk lookahead
+# avoids matching bold-italic (***...***) runs.
+LABEL_PATTERN = re.compile(
+    r"\*\*((?:Figure|Table)\s+\d+\.\d+)\*\*"   # bold label
+    r"\s*\n+"                                    # blank line(s)
+    r"\*((?!\*).+?)\*",                          # italic title (single asterisks)
+    re.MULTILINE,
+)
+
+
+def _format_list(items: list[tuple[str, str]]) -> str:
+    """Render label/title pairs as a fixed-width, aligned list.
+
+    Entries are separated by a blank line so each becomes its own paragraph;
+    otherwise pandoc soft-wraps the consecutive lines into one block in DOCX.
+    """
+    if not items:
+        return "_No items found._"
+    max_label_len = max(len(label) for label, _ in items)
+    return "\n\n".join(
+        f"{label:<{max_label_len}}    {title}" for label, title in items
+    )
+
+
+def build_label_lists(merged: str) -> tuple[str, str]:
+    """Extract Table and Figure labels+titles from merged text, in document order.
+
+    Returns (tables_markdown, figures_markdown).
+    """
+    figures: list[tuple[str, str]] = []
+    tables:  list[tuple[str, str]] = []
+    for m in LABEL_PATTERN.finditer(merged):
+        label = m.group(1).strip()
+        title = m.group(2).strip()
+        (figures if label.startswith("Figure") else tables).append((label, title))
+    return _format_list(tables), _format_list(figures)
 
 
 def main() -> None:
@@ -183,9 +215,9 @@ def main() -> None:
     references_content = load_references()
     if references_content:
         results_blocks["references"] = references_content
-        print(f"  references (from references.md, {references_content.count(chr(10) + chr(10)) + 1} entries)")
+        print(f"  references (from references_apa.md, {references_content.count(chr(10) + chr(10)) + 1} entries)")
     else:
-        print("  WARNING: references.md not found or empty — references placeholder will not be replaced.")
+        print("  WARNING: references_apa.md not found or empty — references placeholder will not be replaced.")
 
     # Merge
     merged, n_replaced, not_found = merge(thesis_text, results_blocks)
@@ -194,6 +226,21 @@ def main() -> None:
     # which resolves in the results/ context but breaks at the repo root.
     # Replace all ](figures/ with ](results/figures/ in the compiled output.
     merged = merged.replace("](figures/", "](results/figures/")
+
+    # Pass 2 – derive List of Tables / List of Figures from the merged text
+    # (they depend on compiled content, so cannot live in thesis_results.md).
+    tables_md, figures_md = build_label_lists(merged)
+    merged = merged.replace(
+        "<!-- PLACEHOLDER:list_of_tables -->\n[To be populated by 9_compile_thesis.py]\n<!-- /PLACEHOLDER:list_of_tables -->",
+        tables_md,
+    )
+    merged = merged.replace(
+        "<!-- PLACEHOLDER:list_of_figures -->\n[To be populated by 9_compile_thesis.py]\n<!-- /PLACEHOLDER:list_of_figures -->",
+        figures_md,
+    )
+    # These two placeholders are intentionally filled in Pass 2, not from
+    # thesis_results.md, so drop them from the unmatched-placeholder report.
+    not_found = [x for x in not_found if x not in ("list_of_tables", "list_of_figures")]
 
     # Write output
     THESIS_FINAL_PATH.write_text(merged, encoding="utf-8")
@@ -240,7 +287,7 @@ def main() -> None:
         inputs=[
             {"file": str(THESIS_PATH),       "sha256": _sha256_file(THESIS_PATH)},
             {"file": str(RESULTS_MD_PATH),   "sha256": _sha256_file(RESULTS_MD_PATH)},
-            {"file": str(REFERENCES_PATH),   "sha256": _sha256_file(REFERENCES_PATH)},
+            {"file": str(REFERENCES_APA_PATH), "sha256": _sha256_file(REFERENCES_APA_PATH)},
         ],
         outputs=[
             {"file": str(THESIS_FINAL_PATH), "rows": None,

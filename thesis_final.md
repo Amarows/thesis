@@ -35,12 +35,77 @@ The Shock Score, developed and evaluated in this thesis, represents an attempt t
 
 The research draws on the behavioral finance literature, quantitative methods in financial economics, and applied survey design. It is intended to contribute both to academic understanding of decision-making under uncertainty and to the practical toolkit available to investment risk professionals.
 
+# List of Tables
 
-# To be added via TOC
+Table 3.1     Systematic Gap Mapping in Information Shock Decision Support
 
-- Table of Contents
-- List of Tables
-- List of Figures
+Table 3.2     Shock Score Benchmarking Against Existing Measures
+
+Table 4.1     Portfolio Universe
+
+Table 4.2     Secondary Data Sources
+
+Table 4.3     Scenario Selection Balance Constraints
+
+Table 4.4     Shock Score Components
+
+Table 4.5     Shock Score Dashboard Components
+
+Table 4.6     Counterbalancing Design
+
+Table 4.7     Survey Response Summary
+
+Table 4.8     Pilot Feedback Questions
+
+Table 5.1     Respondent Demographics
+
+Table 5.2     SC_total PCA Diagnostics — First Principal Component
+
+Table 5.3     Final Scenario Selection Across Survey Blocks
+
+Table 5.4     NRS Response Frequency Distribution
+
+Table 5.5     Instrument Reliability – Mean ICC(2,1) by Block
+
+Table 5.6     OLS Residual Normality – Primary H1 Regression
+
+Table 5.7     H1 Primary Regression Result
+
+Table 5.8     H1 Robustness Specification Results
+
+Table 5.9     H2 Portfolio Analysis Results
+
+Table 5.10    NRS–Sentiment Alignment by Group
+
+# List of Figures
+
+Figure 2.1    Intraday Price Movement of Meta Platforms Inc. on 2 February 2026 Following the Release of Quarterly Earnings Results, Illustrating a Short-Horizon Market Reaction to an External Information Shock
+
+Figure 2.2    Causal Logic of the Study Design
+
+Figure 4.1    Conceptual Framework – Research Design Operationalization
+
+Figure 4.2    Shock Score Composite Construction
+
+Figure 4.3    Example Scenario Presentation in the Treatment Condition
+
+Figure 5.1    Sample Composition by Institution Type and AUM Category
+
+Figure 5.2    Distribution of Net Risk Stance Responses
+
+Figure 5.3    Net Risk Stance Distribution by Experimental Condition
+
+Figure 5.4    Distribution of the SC_total Composite Shock Score
+
+Figure 5.5    SC_total Composite Shock Score Versus Actual Realized Horizon Return Across 24 Scenarios
+
+Figure 5.6    Forest Plot of OLS Regression Coefficients for the Four SC_total Components
+
+Figure 5.7    Sharpe Ratio Comparison Across Experimental Conditions
+
+Figure 5.8    Mean NRS by SC_total Quintile and Experimental Condition
+
+Figure 5.9    NRS–Sentiment Alignment Rate by Sentiment Category
 
 # List of Abbreviations and Acronyms
 
@@ -348,6 +413,7 @@ Exact conventions for $r_f$, $\text{MAR}$, sampling frequency, and annualization
 Assumptions describe the conditions under which the research design supports valid interpretation. These assumptions are not treated as established facts but as prerequisites for empirical evaluation and inference.
 
 The study assumes that:
+
 - the timing of external information shocks can be identified and aligned consistently with the decision window represented in the survey scenarios and portfolio outcome evaluation. The study further assumes that the event-level shock characteristics used to construct SC_total and persistence are computed consistently across events and do not rely on ex post outcome information that would compromise interpretation.
 
 - respondents interpret the decision task consistently and that the Net Risk Stance scale captures intended exposure adjustment in a comparable way across respondents and scenarios. Scenario order is counterbalanced consistent with within-subject design conventions established by [Charness et al., 2012](https://doi.org/10.1016/j.jebo.2011.08.009) to mitigate systematic learning and order effects. The design further assumes that respondents' decisions reflect their intended stance under the scenario constraints and are not materially distorted by survey fatigue or strategic responding ([Krosnick, 1999](https://doi.org/10.1146/annurev.psych.50.1.537)).
@@ -1134,16 +1200,19 @@ This chapter presents the empirical analysis and findings of the study. The chap
 
 The final analysis sample comprises 53 respondents yielding 424 scenario-level observations across three blocks.
 
-Table 5.1 presents the demographic profile of the achieved sample. Respondents report a mean of 5.1250 years of experience (median = 5.7500, SD = 3.4731, range = 1.0000–8.0000). 
+Table 5.1 presents the demographic profile of the achieved sample. Experience is recorded as ordinal bands rather than a continuous count: most respondents report 11–20 years of experience (35; 66.04%), followed by 6–10 years (12; 22.64%), with the remaining six respondents distributed across the More than 20 (4; 7.55%), Less than 2 (1; 1.89%), and 2–5 (1; 1.89%) bands.
 
-**Table 5.1: Respondent Demographics**
+**Table 5.1**
+
+*Respondent Demographics*
 
 | Characteristic | Metric | Value |
 |---|---|---|
-| Years of experience | Mean | 5.1250 |
-| Years of experience | Median | 5.7500 |
-| Years of experience | SD | 3.4731 |
-| Years of experience | Range | 1.0000–8.0000 |
+| Years of experience | Less than 2 | 1 (1.89%) |
+| Years of experience | 2–5 | 1 (1.89%) |
+| Years of experience | 6–10 | 12 (22.64%) |
+| Years of experience | 11–20 | 35 (66.04%) |
+| Years of experience | More than 20 | 4 (7.55%) |
 | Institution type | Asset manager | 31 (58.49%) |
 | Institution type | Family office | 6 (11.32%) |
 | Institution type | Other | 5 (9.43%) |
@@ -1157,7 +1226,15 @@ Table 5.1 presents the demographic profile of the achieved sample. Respondents r
 | AUM category | Less than $50M | 3 (5.66%) |
 | AUM category | $50M–$500M | 2 (3.77%) |
 
+*Note.* N = 53 respondents.
+
+**Figure 5.1**
+
+*Sample Composition by Institution Type and AUM Category*
+
 ![Respondent demographics](results/figures/fig_demographics.png)
+
+*Note.* N = 53 respondents. Original figure by the author.
 
 
 ### 5.2.2 Descriptive Analysis of Data
@@ -1166,16 +1243,38 @@ Across all 424 observations, the mean NRS is 4.0519 (median = 4.0000, SD = 1.384
 
 SC_total is a standardised PCA composite score (first principal component of AC_e, SE_e, AI_e, and ES_raw). By construction, the sample mean is approximately zero. The meaningful descriptive statistics are the range (min = -2.1832, max = 4.7132) and standard deviation (SD = 1.4501), which characterise the spread of shock intensity across the twenty-four scenarios. Manipulation check responses: Yes: 53. For ShowSC = 1 respondents, the mean usefulness rating is 3.1509 (median = 3.0000, SD = 0.7695).
 
+**Figure 5.2**
+
+*Distribution of Net Risk Stance Responses*
+
 ![NRS distribution](results/figures/fig_nrs_distribution.png)
+
+*Note.* N = 424 scenario-level observations. Original figure by the author.
+
+**Figure 5.3**
+
+*Net Risk Stance Distribution by Experimental Condition*
+
 ![NRS by condition](results/figures/fig_nrs_by_condition.png)
+
+*Note.* Control (ShowSC = 0) versus treatment (ShowSC = 1) conditions. Original figure by the author.
+
+**Figure 5.4**
+
+*Distribution of the SC_total Composite Shock Score*
+
 ![SC_total distribution](results/figures/fig_sc_distribution.png)
+
+*Note.* SC_total is the first principal component of the four standardised Shock Score components. Original figure by the author.
 
 
 ### 5.2.3 SC_total Construct: PCA Diagnostics
 
 The validity of SC_total as a composite measure depends on whether the four components share sufficient common variation to condense into a coherent single dimension. Table 5.2 reports the PCA diagnostics for the first principal component used to construct SC_total: the eigenvalue, the proportion of total variance explained, and the component loadings for each of the four inputs.
 
-**Table 5.x: SC_total PCA Diagnostics — First Principal Component**
+**Table 5.2**
+
+*SC_total PCA Diagnostics — First Principal Component*
 
 | Metric | Value |
 |--------|-------|
@@ -1187,13 +1286,17 @@ The validity of SC_total as a composite measure depends on whether the four comp
 | Loading — Event-Type Severity (ES_raw) | 0.2944 |
 | Scenarios used | 24 |
 
-The eigenvalue of 2.1027 exceeds 1.0, satisfying the Kaiser criterion ([Jolliffe & Cadima, 2016](https://doi.org/10.1098/rsta.2015.0202)). The first principal component explains 50.38% of the total variance across the four inputs. All four components load positively on PC1, confirming that the composite represents a common factor of shock intensity rather than a contrast between components.
+*Note.* PC1 = first principal component of the four standardised Shock Score components.
 
 The eigenvalue of 2.1027 exceeds 1.0, satisfying the Kaiser criterion ([Jolliffe & Cadima, 2016](https://doi.org/10.1098/rsta.2015.0202)). The first principal component explains 50.38% of the total variance across the four inputs. All four components load positively on PC1, confirming that the composite represents a common factor of shock intensity rather than a contrast between components.
 
 ## 5.3 Scenario Selection Outcomes
 
-Table 5.2 documents the final scenario selection across the three survey blocks.
+Table 5.3 documents the final scenario selection across the three survey blocks.
+
+**Table 5.3**
+
+*Final Scenario Selection Across Survey Blocks*
 
 | scenario_id | block_id | ticker | company_name | gics_sector | event_date | event_type | sc_total | horizon_bucket | sentiment_direction |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1222,7 +1325,7 @@ Table 5.2 documents the final scenario selection across the three survey blocks.
 | B3_S07 | 3 | MCD | McDonald's | Consumer Discretionary | 2025-11-05 | earnings | 1.6822 | Intraday | Neutral |
 | B3_S08 | 3 | AMAT | Applied Materials | Information Technology | 2025-08-15 | analyst | 4.7132 | Intraday | Neutral |
 
-**Figure 5.1**
+**Figure 5.5**
 
 *SC_total Composite Shock Score Versus Actual Realized Horizon Return Across 24 Scenarios*
 
@@ -1235,9 +1338,11 @@ Shock Time (ET) records the 30-minute bar to which the shock is assigned (e.g., 
 
 ## 5.4 Tests for Normality and Reliability
 
-The NRS is a seven-point ordered categorical scale. Because the scale is bounded and ordinal, normality testing on raw responses is not appropriate; the standard assumption required for OLS inference concerns residual normality (reported in Table 5.4c below), not the marginal distribution of the dependent variable. Table 5.4a presents the frequency distribution of NRS responses across scale points, overall and by experimental condition.
+The NRS is a seven-point ordered categorical scale. Because the scale is bounded and ordinal, normality testing on raw responses is not appropriate; the standard assumption required for OLS inference concerns residual normality (reported in Table 5.6 below), not the marginal distribution of the dependent variable. Table 5.4 presents the frequency distribution of NRS responses across scale points, overall and by experimental condition.
 
-**Table 5.4a** *NRS Response Frequency Distribution*
+**Table 5.4**
+
+*NRS Response Frequency Distribution*
 
 | NRS | N (Overall) | N (ShowSC=0 (Control)) | N (ShowSC=1 (Treatment)) | % (Overall) | % (ShowSC=0 (Control)) | % (ShowSC=1 (Treatment)) |
 |---|---|---|---|---|---|---|
@@ -1255,7 +1360,9 @@ Central limit theorem applicability: the sample comprises 53 respondents, exceed
 
 Inter-rater reliability is assessed using the intraclass correlation coefficient ICC(2,1) — two-way random effects, single measures, absolute agreement (Koo & Mae, 2016). For each block, mean NRS per scenario is computed separately for counterbalancing Version 1 and Version 2 respondents. ICC(2,1) is then computed treating scenarios as targets and versions as raters. This tests whether V1 and V2 respondents agree on the relative ordering and absolute level of NRS across scenarios within a block, which is the appropriate reliability question for a heterogeneous-scenario instrument.
 
-**Table 5.4b** *Instrument Reliability – Mean ICC(2,1) by Block*
+**Table 5.5**
+
+*Instrument Reliability – Mean ICC(2,1) by Block*
 
 | Block | N respondents | Mean ICC(2,1) | Threshold (≥ 0.70) | Assessment |
 |-------|--------------|---------------|---------------------|------------|
@@ -1265,7 +1372,9 @@ Inter-rater reliability is assessed using the intraclass correlation coefficient
 
 *Note.* ICC(2,1) computed per block using mean NRS per scenario × version (V1/V2) as the data structure; scenarios are targets, versions are raters. Threshold of ICC ≥ 0.70 follows Koo and Mae (2016). Blocks with no respondents in the current sample are marked as pending.
 
-**Table 5.4c** *OLS Residual Normality – Primary H1 Regression*
+**Table 5.6**
+
+*OLS Residual Normality – Primary H1 Regression*
 
 | | Shapiro-Wilk W | p-value | Normality rejected (α = 0.05) |
 |---|---|---|---|
@@ -1297,9 +1406,11 @@ Fail to reject H1₀ if the two-tailed p-value associated with β₁ is greater 
 
 **Step 5. Arrive at a decision.**
 
-At the α = 0.05 level of significance, support for the alternative hypothesis H1ₐ was found. The OLS regression of SC_total on Net Risk Stance (NRS) – controlling for the ShowSC treatment indicator, years of experience, and block fixed effects – yields β₁ = -0.4874 (robust SE = 0.0551, t = -8.8452, p = <0.0001, 95% CI [-0.5954, -0.3794]). Higher shock intensity is associated with lower mean NRS responses, indicating a risk-reducing shift in portfolio managers' stance. Robustness checks using quintile dummies, respondent fixed effects, decomposed components, and an interaction term are reported in Table 5.4.
+At the α = 0.05 level of significance, support for the alternative hypothesis H1ₐ was found. The OLS regression of SC_total on Net Risk Stance (NRS) – controlling for the ShowSC treatment indicator, years of experience, and block fixed effects – yields β₁ = -0.4874 (robust SE = 0.0551, t = -8.8452, p = <0.0001, 95% CI [-0.5954, -0.3794]). Higher shock intensity is associated with lower mean NRS responses, indicating a risk-reducing shift in portfolio managers' stance. Robustness checks using quintile dummies, respondent fixed effects, decomposed components, and an interaction term are reported in Table 5.8.
 
-**Table 5.3: H1 Primary Regression Result**
+**Table 5.7**
+
+*H1 Primary Regression Result*
 
 | Covariate | β₁ | SE | t | p | CI_lo | CI_hi | R² | N_obs | N_resp | SE_type |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1309,7 +1420,7 @@ The decomposed component specification (Spec 3) reveals a notable sign heterogen
 
 The direction-interaction specification (Spec 5) further decomposes the SC_total effect by sentiment direction. The main effect for positive-sentiment events is β₁ = −0.4283 (p < 0.0001), indicating a risk-reducing response even when the accompanying news is positive. The interaction term SC_total × D_neg = +0.1954 (p = 0.5957) is not statistically significant, indicating that no reliable asymmetry between positive- and negative-sentiment events can be established in the current sample. The compound effect for negative-sentiment events is β₁ + β₃ = −0.4283 + 0.1954 = −0.2329, which remains risk-reducing in direction. The absence of a significant direction-interaction implies that the risk-reducing effect of SC_total does not differ materially by sentiment polarity at the current sample size. The Spec 5 result is treated as exploratory and the direction-asymmetry hypothesis is noted as a priority for replication on a larger sample.
 
-**Figure 5.2**
+**Figure 5.6**
 
 *Forest Plot of OLS Regression Coefficients for the Four SC_total Components*
 
@@ -1317,7 +1428,9 @@ The direction-interaction specification (Spec 5) further decomposes the SC_total
 
 *Note.* Spec 3 decomposition, N = 424, HC3 robust standard errors, block fixed effects and ShowSC controlled. Blue markers indicate statistically significant risk-reducing effects; grey indicates non-significance. Horizontal lines represent 95% confidence intervals. Original figure by the author.
 
-**Table 5.4: H1 Robustness Specification Results**
+**Table 5.8**
+
+*H1 Robustness Specification Results*
 
 | spec | note | beta1 | se | t | p | ci_lo | ci_hi | r2 | n_obs | clustering |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1355,7 +1468,9 @@ Fail to reject H2₀ if the two-tailed p-value associated with τ is greater tha
 
 At the α = 0.05 level of significance, the evidence fails to reject the null hypothesis H2₀. Hypothesis H2 is tested using individual-portfolio regressions (Option B). Per respondent, portfolio returns are constructed from NRS-weighted horizon returns across the four scenarios assigned to each condition. The estimated treatment effect on portfolio return is τ = -0.1584 (robust SE = 0.4826, t = -0.3281, p = 0.7428, 95% CI [-1.1043, 0.7876]; Cohen's d = -0.0591). No statistically significant difference in portfolio outcomes between the treatment and control conditions was found. Validation on a larger professional sample is recommended. The collective portfolio analysis (Option A, descriptive only; **caution: both portfolios draw from the same respondent pool – inference is non-independent**) yields a return of 1.8986% for the control condition and 1.4642% for the treatment condition, corresponding to a return differential of -0.4344%. On an assumed AUM of $100M, the ShowSC=1 collective portfolio generated a dollar return differential of $-434,400 relative to the ShowSC=0 portfolio over the evaluation window.
 
-**Table 5.5: H2 Portfolio Analysis Results**
+**Table 5.9**
+
+*H2 Portfolio Analysis Results*
 
 | method | outcome | tau | se | t | p | ci_lo | ci_hi | cohens_d | r2 | n | h2_supported |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1363,13 +1478,17 @@ At the α = 0.05 level of significance, the evidence fails to reject the null hy
 | option_b_individual | sharpe_ratio | 0.879 | 1.6994 | 0.5173 | 0.6050 | -2.4516 | 4.2097 | 0.0712 | 0.5366 | 106 | False |
 | option_b_individual | sortino_ratio | 9.4847 | 36.2226 | 0.2618 | 0.7934 | -61.5102 | 80.4797 | 0.1011 | 0.0027 | 29 | False |
 
-**Note on Sortino ratio:** The Sortino ratio is computed only for respondent-condition pairs that yield at least one negative portfolio return. In the current sample, this applies to 97 of 106 respondent-condition pairs.
+*Note.* The Sortino ratio is computed only for respondent-condition pairs that yield at least one negative portfolio return; in the current sample this applies to 97 of 106 respondent-condition pairs. The collective portfolios in the descriptive Option A analysis are constructed from the same respondent pool, so no causal inference should be drawn from Option A alone; it is presented for institutional illustration only.
 
-**Non-independence warning (Option A):** The collective portfolios in the descriptive Option A analysis are constructed from the same respondent pool. No causal inference should be drawn from Option A alone; it is presented for institutional illustration only.
+**Figure 5.7**
+
+*Sharpe Ratio Comparison Across Experimental Conditions*
 
 ![Sharpe comparison](results/figures/fig_sharpe_comparison.png)
 
-*Figure 5.4*
+*Note.* Sharpe ratios computed per respondent-condition pair from NRS-weighted simulated portfolio returns. Original figure by the author.
+
+**Figure 5.8**
 
 *Mean NRS by SC_total Quintile and Experimental Condition*
 
@@ -1391,7 +1510,9 @@ As a diagnostic check, the alignment between respondents' NRS direction (buy: NR
 
 Overall alignment rate: 0.2618 (111 of 424 observations).
 
-**Table 5.6: NRS–Sentiment Alignment by Group**
+**Table 5.10**
+
+*NRS–Sentiment Alignment by Group*
 
 | group | n | n_aligned | alignment_rate |
 | --- | --- | --- | --- |
@@ -1406,7 +1527,7 @@ Overall alignment rate: 0.2618 (111 of 424 observations).
 | sentiment=Strongly Negative | 15 | 1 | 0.0667 |
 | sentiment=Strongly Positive | 57 | 12 | 0.2105 |
 
-**Figure 5.3**
+**Figure 5.9**
 
 *NRS–Sentiment Alignment Rate by Sentiment Category*
 
@@ -1571,189 +1692,189 @@ The empirical evidence accumulated in this study suggests that behavioral decisi
 
 # References
 
-Angelova et al. (2023). *Algorithmic recommendations and human discretion. NBER WP*. https://doi.org/10.3386/w31747
+Angelova, V., Dobbie, W., & Yang, C. (2023). *Algorithmic recommendations and human discretion*. National Bureau of Economic Research. https://doi.org/10.3386/w31747
 
-Azimi (2019). *Are Professional Investors Prone to Behavioral Biases? Evidence from Mutual Fund Managers*. https://doi.org/10.2139/ssrn.3462776
+Azimi, M. (2019). Are professional investors prone to behavioral biases? evidence from mutual fund managers. *SSRN Electronic Journal*. https://doi.org/10.2139/ssrn.3462776
 
-Baker & Wurgler (2007). *Investor Sentiment in the Stock Market*. https://doi.org/10.1257/jep.21.2.129
+Baker, M., & Wurgler, J. (2006). Investor sentiment and the cross‐section of stock returns. *The Journal of Finance*, *61*(4), 1645–1680. https://doi.org/10.1111/j.1540-6261.2006.00885.x
 
-Baker & Dellaert (2018). *Regulating Robo Advice Across the Financial Services Industry*. https://dx.doi.org/10.2139/ssrn.2932189
+Baker, M., & Wurgler, J. (2007). Investor sentiment in the stock market. *Journal of Economic Perspectives*, *21*(2), 129–151. https://doi.org/10.1257/jep.21.2.129
 
-Baker et al. (2020). *COVID-Induced Economic Uncertainty*. https://doi.org/10.3386/w26983
+Baker, S., Bloom, N., Davis, S., & Terry, S. (2020). *Covid-induced economic uncertainty*. National Bureau of Economic Research. https://doi.org/10.3386/w26983
 
-Baker & Wurgler (2006). *Investor sentiment and the cross-section of stock returns*. https://doi.org/10.1111/j.1540-6261.2006.00885.x
+Baker, T. (2017). Regulating robo advice across the financial services industry. *SSRN Electronic Journal*. https://doi.org/10.2139/ssrn.2932189
 
-Barber & Odean (2001). *Boys will be Boys: Gender, Overconfidence, and Common Stock Investment*. https://doi.org/10.1162/003355301556400
+Barber, B. M., & Odean, T. (2000). Trading is hazardous to your wealth: The common stock investment performance of individual investors. *SSRN Electronic Journal*. https://doi.org/10.2139/ssrn.219228
 
-Barber & Odean (2000). *Trading Is Hazardous to Your Wealth: The Common Stock Investment Performance of Individual Investors*. https://dx.doi.org/10.2139/ssrn.219228
+Barber, B. M., & Odean, T. (2001). Boys will be boys: Gender, overconfidence, and common stock investment. *The Quarterly Journal of Economics*, *116*(1), 261–292. https://doi.org/10.1162/003355301556400
 
-Barber & Odean (2008). *All that glitters: The effect of attention and news on the buying behavior of individual and institutional investors*. https://doi.org/10.1093/rfs/hhm079
+Barber, B. M., & Odean, T. (2008). All that glitters: The effect of attention and news on the buying behavior of individual and institutional investors. *Review of Financial Studies*, *21*(2), 785–818. https://doi.org/10.1093/rfs/hhm079
 
-Barberis & Thaler (2002). *A Survey of Behavioral Finance*. https://dx.doi.org/10.2139/ssrn.327880
+Barberis, N., & Thaler, R. H. (2002). A survey of behavioral finance. *SSRN Electronic Journal*. https://doi.org/10.2139/ssrn.327880
 
-Baruník & Křehlík (2018). *Measuring the Frequency Dynamics of Financial Connectedness and Systemic Risk**. https://doi.org/10.1093/jjfinec/nby001
+Baruník, J., & Křehlík, T. (2018). Measuring the frequency dynamics of financial connectedness and systemic risk*. *Journal of Financial Econometrics*, *16*(2), 271–296. https://doi.org/10.1093/jjfinec/nby001
 
-Ben-David et al. (2013). *Managerial Miscalibration**. https://doi.org/10.1093/qje/qjt023
+Ben-David, I., Graham, J. R., & Harvey, C. R. (2013). Managerial miscalibration*. *The Quarterly Journal of Economics*, *128*(4), 1547–1584. https://doi.org/10.1093/qje/qjt023
 
-Ben-Rephael et al. (2024). *Mind the Gap: The Non-Fundamental Role of Earnings Days*. https://dx.doi.org/10.2139/ssrn.3966758
+Ben-Rephael, A., Hitzemann, S., & Xiao, Y. (2021). Investor (mis)reaction, biased beliefs, and the mispricing cycle. *SSRN Electronic Journal*. https://doi.org/10.2139/ssrn.3966758
 
-Bergkvist & Rossiter (2007). *The predictive validity of multiple-item versus single-item measures of the same constructs*. https://doi.org/10.1509/jmkr.44.2.175
+Bergkvist, L., & Rossiter, J. R. (2007). The predictive validity of multiple-item versus single-item measures of the same constructs. *Journal of Marketing Research*, *44*(2), 175–184. https://doi.org/10.1509/jmkr.44.2.175
 
-Bhandari et al. (2008). *Debiasing investors with decision support systems: An experimental investigation*. https://doi.org/10.1016/j.dss.2008.07.010
+Bhandari, G., Hassanein, K., & Deaves, R. (2008). Debiasing investors with decision support systems: An experimental investigation. *Decision Support Systems*, *46*(1), 399–410. https://doi.org/10.1016/j.dss.2008.07.010
 
-Bianchi et al. (2022). *Robo-Advising: Less AI and More XAI?*. https://dx.doi.org/10.2139/ssrn.3825110
+Bianchi, M., & Briere, M. (2021). Robo-advising: Less ai and more xai?. *SSRN Electronic Journal*. https://doi.org/10.2139/ssrn.3825110
 
-Bikhchandani et al. (1992). *A Theory of Fads, Fashion, Custom, and Cultural Change as Informational Cascades*. https://doi.org/10.1086/261849
+Bikhchandani, S., & Sharma, S. (2000). Herd behavior in financial markets. *IMF Staff Papers*, *47*(3), 279–310. https://doi.org/10.2307/3867650
 
-Bikhchandani & Sharma (2000). *Herd Behavior in Financial Markets*. https://doi.org/10.2307/3867650
+Bikhchandani, S., Hirshleifer, D., & Welch, I. (1992). A theory of fads, fashion, custom, and cultural change as informational cascades. *Journal of Political Economy*, *100*(5), 992–1026. https://doi.org/10.1086/261849
 
-Brown et al. (2014). *Analyst Recommendations, Mutual Fund Herding, and Overreaction in Stock Prices*. https://doi.org/10.1287/mnsc.2013.1751
+Brown, N. C., Wei, K. D., & Wermers, R. (2014). Analyst recommendations, mutual fund herding, and overreaction in stock prices. *Management Science*, *60*(1), 1–20. https://doi.org/10.1287/mnsc.2013.1751
 
-Cameron, Gelbach & Miller (2011). *Robust Inference with Multiway Clustering*. https://doi.org/10.1198/jbes.2010.07136
+Cameron, A. C., Gelbach, J. B., & Miller, D. L. (2011). Robust inference with multiway clustering. *Journal of Business &amp; Economic Statistics*, *29*(2), 238–249. https://doi.org/10.1198/jbes.2010.07136
 
-Charness et al. (2012). *Experimental methods: Between-subject and within-subject design*. https://doi.org/10.1016/j.jebo.2011.08.009
+Charness, G., Gneezy, U., & Kuhn, M. A. (2012). Experimental methods: Between-subject and within-subject design. *Journal of Economic Behavior &amp; Organization*, *81*(1), 1–8. https://doi.org/10.1016/j.jebo.2011.08.009
 
-Chen et al. (2024). *Do professionals believe in bad luck? Evidence from fund manager risk-taking*. http://doi.org/10.2139/ssrn.4942370
+Chen, S., Li, J., Rau, P. R., & Yan, C. (2024). *Animal spirits: Superstitious behavior by mutual fund managers*. https://doi.org/10.2139/ssrn.4942370
 
-Coates & Herbert (2008). *Endogenous steroids and financial risk taking on a London trading floor*. https://doi.org/10.1073/pnas.0704025105
+Coates, J. M., & Herbert, J. (2008). Endogenous steroids and financial risk taking on a london trading floor. *Proceedings of the National Academy of Sciences*, *105*(16), 6167–6172. https://doi.org/10.1073/pnas.0704025105
 
-Cochrane (2005). *Asset pricing (Rev. ed.)*. https://books.google.com/books/about/Asset_Pricing.html?id=20pmeMaKNwsC
+Cochrane, J. H. (2005). *Asset pricing* (Rev. ed.). Princeton University Press.
 
-Cremers et al. (2021). *Short‐Term Institutions, Analyst Recommendations, and Mispricing: The Role of Higher Order Beliefs*. https://doi.org/10.1111/1475-679X.12352
+Cremers, M., Pareek, A., & Sautner, Z. (2021). Short‐term institutions, analyst recommendations, and mispricing: The role of higher order beliefs. *Journal of Accounting Research*, *59*(3), 911–958. https://doi.org/10.1111/1475-679x.12352
 
-Da et al. (2011). *In Search of Attention*. https://doi.org/10.1111/j.1540-6261.2011.01679.x
+Da, Z., Engelberg, J., & Gao, P. (2011). In search of attention. *The Journal of Finance*, *66*(5), 1461–1499. https://doi.org/10.1111/j.1540-6261.2011.01679.x
 
-Da, Engelberg & Gao (2015). *The Sum of All FEARS: Investor Sentiment and Asset Prices*. https://doi.org/10.1093/rfs/hhu072
+Da, Z., Engelberg, J., & Gao, P. (2015). The sum of all fears investor sentiment and asset prices. *Review of Financial Studies*, *28*(1), 1–32. https://doi.org/10.1093/rfs/hhu072
 
-Daniel et al. (1998). *Investor Psychology and Security Market Under‐ and Overreactions*. https://doi.org/10.1111/0022-1082.00077
+Daniel, K., Hirshleifer, D., & Subrahmanyam, A. (1998). Investor psychology and security market under‐ and overreactions. *The Journal of Finance*, *53*(6), 1839–1885. https://doi.org/10.1111/0022-1082.00077
 
-De Bondt & Thaler (1985). *Does the Stock Market Overreact?*. https://doi.org/10.1111/j.1540-6261.1985.tb05004.x
+De BONDT, W. F. M., & Thaler, R. (1985). Does the stock market overreact?. *The Journal of Finance*, *40*(3), 793–805. https://doi.org/10.1111/j.1540-6261.1985.tb05004.x
 
-DeMiguel, Garlappi & Uppal (2009). *Versus Naive Diversification: How Inefficient Is the 1/N Portfolio Strategy?*. https://doi.org/10.1093/rfs/hhm075
+DeMiguel, V., Garlappi, L., & Uppal, R. (2009). Optimal versus naive diversification: How inefficient is the 1/<i>n</i>portfolio strategy?. *Review of Financial Studies*, *22*(5), 1915–1953. https://doi.org/10.1093/rfs/hhm075
 
-Doronila (2024). *Is Likert Scale 'Still In' in 2024?*. https://dx.doi.org/10.2139/ssrn.5877342
+Doronila, R. A. (2025). *Is likert scale 'still in' in 2024?*. https://doi.org/10.2139/ssrn.5877342
 
-Elkind et al. (2022). *When Do Investors Freak Out? Machine Learning Predictions of Panic Selling*. https://doi.org/10.3905/JFDS.2021.1.085
+Elkind, D., Kaminski, K., Lo, A. W., Siah, K. W., & Wong, C. H. (2022). When do investors freak out? machine learning predictions of panic selling. *The Journal of Financial Data Science*, *4*(1), 11–39. https://doi.org/10.3905/jfds.2021.1.085
 
-Engelberg & Parsons (2009). *The Causal Impact of Media in Financial Markets*. https://doi.org/10.2139/ssrn.1462416
+Engelberg, J., & Parsons, C. A. (2009). The causal impact of media in financial markets. *SSRN Electronic Journal*. https://doi.org/10.2139/ssrn.1462416
 
-Fama (1970). *Efficient capital markets: A review of theory and empirical work*. https://doi.org/10.1111/j.1540-6261.1970.tb00518.x
+Frazzini, A. (2006). The disposition effect and underreaction to news. *The Journal of Finance*, *61*(4), 2017–2046. https://doi.org/10.1111/j.1540-6261.2006.00896.x
 
-Frazzini (2006). *The Disposition Effect and Underreaction to News*. https://doi.org/10.1111/j.1540-6261.2006.00896.x
+French, K. R., & Roll, R. (1986). Stock return variances. *Journal of Financial Economics*, *17*(1), 5–26. https://doi.org/10.1016/0304-405x(86)90004-8
 
-French & Roll (1986). *Stock return variances: The arrival of information and the reaction of traders*. https://doi.org/10.1016/0304-405X(86)90004-8
+Gervais, S., & Odean, T. (2001). Learning to be overconfident. *Review of Financial Studies*, *14*(1), 1–27. https://doi.org/10.1093/rfs/14.1.1
 
-Gervais & Odean (2001). *Learning to Be Overconfident*. https://doi.org/10.1093/rfs/14.1.1
+Goodell, J. W., Kumar, S., Rao, P., & Verma, S. (2023). Emotions and stock market anomalies: A systematic review. *Journal of Behavioral and Experimental Finance*, *37*, 100722. https://doi.org/10.1016/j.jbef.2022.100722
 
-Goodell et al. (2023). *Emotions and stock market anomalies: A systematic review*. https://doi.org/10.1016/j.jbef.2022.100722
+Grinblatt, M., & Keloharju, M. (2001). What makes investors trade?. *The Journal of Finance*, *56*(2), 589–616. https://doi.org/10.1111/0022-1082.00338
 
-Grinblatt & Keloharju (2001). *What Makes Investors Trade?*. https://doi.org/10.1111/0022-1082.00338
+Harvey, C. R., Mazzoleni, M., & Melone, A. (2025). The unintended consequences of rebalancing. *SSRN Electronic Journal*. https://doi.org/10.2139/ssrn.5122748
 
-Harvey et al. (2025). *The Unintended Consequences of Rebalancing*. https://doi.org/10.2139/ssrn.5122748
+Henderson, V., Hobson, D., & Tse, A. S. (2018). Probability weighting, stop-loss and the disposition effect. *Journal of Economic Theory*, *178*, 360–397. https://doi.org/10.1016/j.jet.2018.10.002
 
-Henderson et al. (2018). *Probability weighting, stop-loss and the disposition effect*. https://doi.org/10.1016/j.jet.2018.10.002
+Hirshleifer, D. (2015). Behavioral finance. *Annual Review of Financial Economics*, *7*(1), 133–159. https://doi.org/10.1146/annurev-financial-092214-043752
 
-Hirshleifer (2015). *Behavioral Finance*. https://doi.org/10.1146/annurev-financial-092214-043752
+Hodgkinson, G. P., Bown, N. J., Maule, A. J., Glaister, K. W., & Pearman, A. D. (1999). Breaking the frame: An analysis of strategic cognition and decision making under uncertainty. *Strategic Management Journal*, *20*(10), 977–985. https://doi.org/10.1002/(SICI)1097-0266(199910)20:10<977::AID-SMJ58>3.0.CO;2-X
 
-Hodgkinson et al. (1999). *Breaking the frame: an analysis of strategic cognition and decision making under uncertainty*. https://onlinelibrary.wiley.com/doi/10.1002/%28SICI%291097-0266%28199910%2920%3A10%3C977%3A%3AAID-SMJ58%3E3.0.CO%3B2-X
+Huber, C., Huber, J., & Kirchler, M. (2021). Market shocks and professionals’ investment behavior – Evidence from the COVID-19 crash. *Journal of Banking & Finance*, *133*, Article 106247. https://doi.org/10.1016/j.jbankfin.2021.106247
 
-Huber et al. (2021). *Market shocks and professionals' investment behavior – Evidence from the COVID-19 crash (Working Paper 2020-11)*. https://www2.uibk.ac.at/downloads/c9821000/wpaper/2020-11.pdf
+Huber, C., Huber, J., & Kirchler, M. (2022). Volatility shocks and investment behavior. *Journal of Economic Behavior &amp; Organization*, *194*, 56–70. https://doi.org/10.1016/j.jebo.2021.12.007
 
-Huber et al. (2022). *Volatility shocks and investment behavior*. https://doi.org/10.1016/j.jebo.2021.12.007
+Jiang, G. J., & Zhu, K. X. (2017). Information shocks and short-term market underreaction. *Journal of Financial Economics*, *124*(1), 43–64. https://doi.org/10.1016/j.jfineco.2016.06.006
 
-Jiang & Zhu (2016). *Information Shocks and Short-Term Market Underreaction*. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2891216
+Jiang, H., & Verardo, M. (2018). Does herding behavior reveal skill? an analysis of mutual fund performance. *The Journal of Finance*, *73*(5), 2229–2269. https://doi.org/10.1111/jofi.12699
 
-Jiang & Verardo (2018). *Does Herding Behavior Reveal Skill? An Analysis of Mutual Fund Performance*. https://doi.org/10.1111/jofi.12699
+Jolliffe, I. T., & Cadima, J. (2016). Principal component analysis: A review and recent developments. *Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences*, *374*(2065), 20150202. https://doi.org/10.1098/rsta.2015.0202
 
-Jolliffe & Cadima (2016). *Principal component analysis: a review and recent developments*. https://doi.org/10.1098/rsta.2015.0202
+Jung, D., Dorner, V., Glaser, F., & Morana, S. (2018). Robo-advisory. *Business &amp; Information Systems Engineering*, *60*(1), 81–86. https://doi.org/10.1007/s12599-018-0521-9
 
-Jung et al. (2018). *Robo-Advisory*. https://doi.org/10.1007/s12599-018-0521-9
+Kahneman, D. (2003). Maps of bounded rationality: Psychology for behavioral economics. *American Economic Review*, *93*(5), 1449–1475. https://doi.org/10.1257/000282803322655392
 
-Kahneman & Tversky (1979). *Prospect Theory: An Analysis of Decision under Risk*. https://doi.org/10.2307/1914185
+Kahneman, D. (2011). *Thinking, fast and slow*. Farrar, Straus and Giroux.
 
-Kahneman et al. (2021). *Noise: How to Overcome the High, Hidden Cost of Inconsistent Decision Making*. https://www.worldcat.org/oclc/1242782025
+Kahneman, D., & Lovallo, D. (1993). Timid choices and bold forecasts: A cognitive perspective on risk taking. *Management Science*, *39*(1), 17–31. https://doi.org/10.1287/mnsc.39.1.17
 
-Kahneman & Lovallo (1993). *Timid Choices and Bold Forecasts: A Cognitive Perspective on Risk Taking*. https://doi.org/10.1287/mnsc.39.1.17
+Kahneman, D., & Tversky, A. (1979). Prospect theory: An analysis of decision under risk. *Econometrica*, *47*(2), 263. https://doi.org/10.2307/1914185
 
-Kahneman (2011). *Thinking, fast and slow*. https://www.worldcat.org/oclc/706020998
+Kahneman, D., Sibony, O., & Sunstein, C. R. (2021). *Noise: A flaw in human judgment*. Little, Brown Spark.
 
-Kahneman (2003). *Maps of bounded rationality: Psychology for behavioral economics*. https://doi.org/10.1257/000282803322655392
+Koo, T. K., & Li, M. Y. (2016). A guideline of selecting and reporting intraclass correlation coefficients for reliability research. *Journal of Chiropractic Medicine*, *15*(2), 155–163. https://doi.org/10.1016/j.jcm.2016.02.012
 
-Koo & Li (2016). *A Guideline of Selecting and Reporting Intraclass Correlation Coefficients for Reliability Research*. https://doi.org/10.1016/j.jcm.2016.02.012
+Krosnick, J. A. (1999). Survey research. *Annual Review of Psychology*, *50*(1), 537–567. https://doi.org/10.1146/annurev.psych.50.1.537
 
-Krosnick (1999). *Survey research*. https://doi.org/10.1146/annurev.psych.50.1.537
+Lim, T. (2026). Emotion-aware decision support system for real-time financial sentiment and behavior-based trading risk advisory. *Journal of Behavioral Finance*, 1–24. https://doi.org/10.1080/15427560.2025.2609644
 
-Lim (2026). *Emotion-Aware Decision Support System for Real-Time Financial Sentiment and Behavior-Based Trading Risk Advisory*. https://doi.org/10.1080/15427560.2025.2609644
+LLffler, G. (2016). Rating reports: Do investors get the text message?. *SSRN Electronic Journal*. https://doi.org/10.2139/ssrn.2802570
 
-Lo et al. (2005). *Fear and Greed in Financial Markets: A Clinical Study of Day-Traders*. https://doi.org/10.1257/000282805774670095
+Lo, A. W. (2004). The adaptive markets hypothesis. *The Journal of Portfolio Management*, *30*(5), 15–29. https://doi.org/10.3905/jpm.2004.442611
 
-Lo & Repin (2002). *The Psychophysiology of Real-Time Financial Risk Processing*. https://doi.org/10.1162/089892902317361877
+Lo, A. W., & Repin, D. V. (2002). The psychophysiology of real-time financial risk processing. *Journal of Cognitive Neuroscience*, *14*(3), 323–339. https://doi.org/10.1162/089892902317361877
 
-Lo (2004). *The Adaptive Markets Hypothesis: Market Efficiency from an Evolutionary Perspective*. https://doi.org/10.3905/jpm.2004.442611
+Lo, A. W., Repin, D. V., & Steenbarger, B. N. (2005). Fear and greed in financial markets: A clinical study of day-traders. *American Economic Review*, *95*(2), 352–359. https://doi.org/10.1257/000282805774670095
 
-Loewenstein et al. (2001). *Risk as Feelings*. https://doi.org/10.1037/0033-2909.127.2.267
+Loewenstein, G. F., Weber, E. U., Hsee, C. K., & Welch, N. (2001). Risk as feelings.. *Psychological Bulletin*, *127*(2), 267–286. https://doi.org/10.1037/0033-2909.127.2.267
 
-Löffler et al. (2021). *Negative news and the stock market impact of tone in rating reports*. https://doi.org/10.2139/ssrn.2802570
+MacKinnon, J. G., & White, H. (1985). Some heteroskedasticity-consistent covariance matrix estimators with improved finite sample properties. *Journal of Econometrics*, *29*(3), 305–325. https://doi.org/10.1016/0304-4076(85)90158-7
 
-MacKinnon & White (1985). *Some heteroskedasticity-consistent covariance matrix estimators with improved finite sample properties*. https://doi.org/10.1016/0304-4076(85)90158-7
+Malkiel, B. G., & Fama, E. F. (1970). Efficient capital markets: A review of theory and empirical work*. *The Journal of Finance*, *25*(2), 383–417. https://doi.org/10.1111/j.1540-6261.1970.tb00518.x
 
-March & Shapira (1987). *Managerial Perspectives on Risk and Risk Taking*. https://doi.org/10.1287/mnsc.33.11.1404
+March, J. G., & Shapira, Z. (1987). Managerial perspectives on risk and risk taking. *Management Science*, *33*(11), 1404–1418. https://doi.org/10.1287/mnsc.33.11.1404
 
-Meng et al. (2024). *Information shocks and short-term market overreaction: The role of investor attention*. https://doi.org/10.1016/j.irfa.2024.103219
+Meng, Y., Li, X., & Xiong, X. (2024). Information shocks and short-term market overreaction: The role of investor attention. *International Review of Financial Analysis*, *93*, 103219. https://doi.org/10.1016/j.irfa.2024.103219
 
-Moore & Healy (2008). *The trouble with overconfidence*. https://doi.org/10.1037/0033-295X.115.2.502
+Moore, D. A., & Healy, P. J. (2008). The trouble with overconfidence.. *Psychological Review*, *115*(2), 502–517. https://doi.org/10.1037/0033-295x.115.2.502
 
-Neel (2024). *Country-Level Loss Aversion and the Market Response to Earnings News*. https://dx.doi.org/10.2139/ssrn.4768248
+Neel, M. (2024). Country-level loss aversion and the market response to earnings news. *SSRN Electronic Journal*. https://doi.org/10.2139/ssrn.4768248
 
-Odean (1999). *Do Investors Trade Too Much?*. https://doi.org/10.1257/aer.89.5.1279
+Odean, T. (1999). Do investors trade too much?. *American Economic Review*, *89*(5), 1279–1298. https://doi.org/10.1257/aer.89.5.1279
 
-Parasuraman & Manzey (2010). *Complacency and Bias in Human Use of Automation: An Attentional Integration*. https://doi.org/10.1177/0018720810376055
+Parasuraman, R., & Manzey, D. H. (2010). Complacency and bias in human use of automation: An attentional integration. *Human Factors: The Journal of the Human Factors and Ergonomics Society*, *52*(3), 381–410. https://doi.org/10.1177/0018720810376055
 
-Peng & Xiong (2006). *Investor attention, overconfidence and category learning*. https://doi.org/10.1016/j.jfineco.2005.05.003
+Peng, L., & Xiong, W. (2006). Investor attention, overconfidence and category learning. *Journal of Financial Economics*, *80*(3), 563–602. https://doi.org/10.1016/j.jfineco.2005.05.003
 
-Petersen (2009). *Estimating Standard Errors in Finance Panel Data Sets: Comparing Approaches*. https://doi.org/10.1093/rfs/hhn053
+Petersen, M. A. (2009). Estimating standard errors in finance panel data sets: Comparing approaches. *Review of Financial Studies*, *22*(1), 435–480. https://doi.org/10.1093/rfs/hhn053
 
-RavenPack (2011). *Introducing The RavenPack Sentiment Index*. https://www.ravenpack.com/research/introducing-ravenpack-sentiment-index
+RavenPack. (2011). *Introducing the RavenPack sentiment index* (RavenPack Research Series No. 2). https://www.ravenpack.com/research/introducing-ravenpack-sentiment-index
 
-Rigobon (2003). *Identification Through Heteroskedasticity*. https://doi.org/10.1162/003465303772815727
+Rigobon, R. (2003). Identification through heteroskedasticity. *Review of Economics and Statistics*, *85*(4), 777–792. https://doi.org/10.1162/003465303772815727
 
-Rudin (2019). *Stop explaining black box machine learning models for high stakes decisions and use interpretable models instead*. https://doi.org/10.1038/s42256-019-0048-x
+Rudin, C. (2019). Stop explaining black box machine learning models for high stakes decisions and use interpretable models instead. *Nature Machine Intelligence*, *1*(5), 206–215. https://doi.org/10.1038/s42256-019-0048-x
 
-Sharpe (1966). *Mutual fund performance*. https://doi.org/10.1086/294846
+Sharpe, W. F. (1966). Mutual fund performance. *The Journal of Business*, *39*(S1), 119. https://doi.org/10.1086/294846
 
-Shefrin (2002). *Beyond Greed And Fear*. https://doi.org/10.1093/oso/9780195304213.001.0001
+Shefrin, H. (2007). *Beyond greed and fear*. Oxford University PressNew York, NY. https://doi.org/10.1093/oso/9780195304213.001.0001
 
-SIFMA (2025). *Capital Markets Fact Book 2025*. https://www.sifma.org/research/statistics/fact-book
+SIFMA. (2025). *Capital markets fact book 2025*. Securities Industry and Financial Markets Association. https://www.sifma.org/research/statistics/fact-book
 
-Simon (1955). *A Behavioral Model of Rational Choice*. https://doi.org/10.2307/1884852
+Simon, H. A. (1955). A behavioral model of rational choice. *The Quarterly Journal of Economics*, *69*(1), 99. https://doi.org/10.2307/1884852
 
-Song et al. (2015). *An Extreme Firm-Specific News Sentiment Asymmetry Based Trading Strategy*. https://dx.doi.org/10.2139/ssrn.2631135
+Song, Q., Liu, A., Yang, S. Y., Deane, A., & Datta, K. (2015). An extreme firm-specific news sentiment asymmetry based trading strategy. *SSRN Electronic Journal*. https://doi.org/10.2139/ssrn.2631135
 
-Sortino & van der Meer (1991). *Downside risk*. https://doi.org/10.3905/jpm.1991.409343
+Sortino, F. A., & van der Meer, R. (1991). Downside risk. *The Journal of Portfolio Management*, *17*(4), 27–31. https://doi.org/10.3905/jpm.1991.409343
 
-Statman (2019). *Behavioral Finance: The Second Generation*. https://doi.org/10.2139/ssrn.3668963
+Statman, M. (2019). Behavioral finance: The second generation. *SSRN Electronic Journal*. https://doi.org/10.2139/ssrn.3668963
 
-Swiss Business School (2026). *Master's Thesis Handbook AY 2025-26, C.S.4. v1.8*.
+Swiss Business School. (2026). *Master’s thesis handbook AY 2025–26* (C.S.4. v1.8) [Unpublished internal document]. Swiss Business School.
 
-Tetlock (2007). *Giving Content to Investor Sentiment: The Role of Media in the Stock Market*. https://doi.org/10.1111/j.1540-6261.2007.01232.x
+Tetlock, P. C. (2007). Giving content to investor sentiment: The role of media in the stock market. *The Journal of Finance*, *62*(3), 1139–1168. https://doi.org/10.1111/j.1540-6261.2007.01232.x
 
-Thaler & Benartzi (2004). *Save more tomorrow: Using behavioral economics to increase employee saving*. https://doi.org/10.1086/380085
+Thaler, R. H., & Benartzi, S. (2004). Save more tomorrow™: Using behavioral economics to increase employee saving. *Journal of Political Economy*, *112*(S1), S164–S187. https://doi.org/10.1086/380085
 
-Thaler & Sunstein (2008). *Nudge: Improving decisions about health, wealth, and happiness*. https://www.worldcat.org/oclc/191578377
+Thaler, R. H., & Sunstein, C. R. (2008). *Nudge: Improving decisions about health, wealth, and happiness*. Yale University Press.
 
-Tversky & Kahneman (1974). *Judgment under Uncertainty: Heuristics and Biases*. https://doi.org/10.1126/science.185.4157.1124
+Tversky, A., & Kahneman, D. (1974). Judgment under uncertainty: Heuristics and biases. *Science*, *185*(4157), 1124–1131. https://doi.org/10.1126/science.185.4157.1124
 
-Weber, Siebenmorgen & Weber (2005). *Asset Risk: How Name Recognition and the Format of Historic Volatility Information Affect Risk Perception and Investment Decisions*. https://psycnet.apa.org/doi/10.1111/j.1539-6924.2005.00627.x
+Weber, E. U., Siebenmorgen, N., & Weber, M. (2005). Communicating asset risk: How name recognition and the format of historic volatility information affect risk perception and investment decisions. *Risk Analysis*, *25*(3), 597–609. https://doi.org/10.1111/j.1539-6924.2005.00627.x
 
-Wennberg et al. (2016). *Variable risk preferences in new firm growth and survival*. https://doi.org/10.1016/j.jbusvent.2016.05.001
+Wennberg, K., Delmar, F., & McKelvie, A. (2016). Variable risk preferences in new firm growth and survival. *Journal of Business Venturing*, *31*(4), 408–427. https://doi.org/10.1016/j.jbusvent.2016.05.001
 
-Wiseman & Gomez-Mejia (1998). *A Behavioral Agency Model of Managerial Risk Taking*. https://doi.org/10.5465/AMR.1998.192967
+Wiseman, R. M., & Gomez-Mejia, L. R. (1998). A behavioral agency model of managerial risk taking. *The Academy of Management Review*, *23*(1), 133. https://doi.org/10.2307/259103
 
-Yang et al. (2020). *FinBERT: A pretrained language model for financial communications*. https://arxiv.org/abs/2006.08097
+Yang, Y., UY, M. C. S., & Huang, A. (2020). *FinBERT: A pretrained language model for financial communications* [Preprint]. arXiv. https://doi.org/10.48550/arXiv.2006.08097
 
 # Appendix 1. Thesis Proposal Approval Form
 
-![theis_approval_form.png](documents/theis_approval_form.png)
+![](documents/theis_approval_form.png)
 
 # Appendix 2. AI Disclosure Statement
 
@@ -1932,7 +2053,7 @@ Shock severity: magnitude of the price and news signal relative to historical no
 
 **Company:** Merck & Co. (MRK)  ·   Shock: -0.39%  ·  Health Care  ·  2025-10-30
 
-![chart_B2_S01.png](survey/charts/chart_B2_S01.png)
+![](survey/charts/chart_B2_S01.png)
 
 **News headline:** Meta Tumbles 10%, Google Marks Historic Rally: What's Moving Markets Thursday?
 
@@ -1941,7 +2062,7 @@ Covered by 10 financial news sources.
 
 **Market context:** Price before event: USD 87.0 | Price 2 hours post-event: USD 86 | Reaction: -0.39%
 
-![dashboard_B2_S01.png](survey/dashboards/dashboard_B2_S01.png)
+![](survey/dashboards/dashboard_B2_S01.png)
 
 *Note: In Version 1 (ShowSC = 1), the Shock Score dashboard was displayed here, showing the composite score, sentiment direction, severity level, persistence horizon, and protocol recommendation. In Version 2 (ShowSC = 0), this panel was not shown.*
 
@@ -1958,7 +2079,7 @@ Covered by 10 financial news sources.
 
 **Company:** Johnson & Johnson (JNJ)  ·   Shock: +1.08%  ·  Health Care  ·  2025-12-15
 
-![chart_B2_S02.png](survey/charts/chart_B2_S02.png)
+![](survey/charts/chart_B2_S02.png)
 
 **News headline:** Johnson & Johnson Wins FDA Nod For First Precision Combo For Mutated Prostate Cancer
 
