@@ -264,6 +264,10 @@ def _format_author(author: dict) -> str:
     family = author.get("family", "").strip()
     if not family:
         return author.get("name", "Unknown Author")
+    # CrossRef sometimes returns all-caps surnames (e.g. "TETLOCK"); title-case
+    # those while leaving correctly-cased names (McDonald, van der Meer) intact.
+    if family.isupper():
+        family = family.title()
     if given:
         initials = " ".join(f"{p[0]}." for p in given.split() if p)
         return f"{family}, {initials}"

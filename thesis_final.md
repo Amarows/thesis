@@ -1629,7 +1629,7 @@ Angelova, V., Dobbie, W., & Yang, C. (2023). *Algorithmic recommendations and hu
 
 Azimi, M. (2019). Are professional investors prone to behavioral biases? evidence from mutual fund managers. *SSRN Electronic Journal*. https://doi.org/10.2139/ssrn.3462776
 
-BAKER, M., & WURGLER, J. (2006). Investor sentiment and the cross‐section of stock returns. *The Journal of Finance*, *61*(4), 1645–1680. https://doi.org/10.1111/j.1540-6261.2006.00885.x
+Baker, M., & Wurgler, J. (2006). Investor sentiment and the cross‐section of stock returns. *The Journal of Finance*, *61*(4), 1645–1680. https://doi.org/10.1111/j.1540-6261.2006.00885.x
 
 Baker, M., & Wurgler, J. (2007). Investor sentiment in the stock market. *Journal of Economic Perspectives*, *21*(2), 129–151. https://doi.org/10.1257/jep.21.2.129
 
@@ -1673,15 +1673,15 @@ Coates, J. M., & Herbert, J. (2008). Endogenous steroids and financial risk taki
 
 Cochrane, J. H. (2005). *Asset pricing* (Rev. ed.). Princeton University Press.
 
-CREMERS, M., PAREEK, A., & SAUTNER, Z. (2021). Short‐term institutions, analyst recommendations, and mispricing: The role of higher order beliefs. *Journal of Accounting Research*, *59*(3), 911–958. https://doi.org/10.1111/1475-679x.12352
+Cremers, M., Pareek, A., & Sautner, Z. (2021). Short‐term institutions, analyst recommendations, and mispricing: The role of higher order beliefs. *Journal of Accounting Research*, *59*(3), 911–958. https://doi.org/10.1111/1475-679x.12352
 
-DA, Z., ENGELBERG, J., & GAO, P. (2011). In search of attention. *The Journal of Finance*, *66*(5), 1461–1499. https://doi.org/10.1111/j.1540-6261.2011.01679.x
+Da, Z., Engelberg, J., & Gao, P. (2011). In search of attention. *The Journal of Finance*, *66*(5), 1461–1499. https://doi.org/10.1111/j.1540-6261.2011.01679.x
 
 Da, Z., Engelberg, J., & Gao, P. (2015). The sum of all fears investor sentiment and asset prices. *Review of Financial Studies*, *28*(1), 1–32. https://doi.org/10.1093/rfs/hhu072
 
 Daniel, K., Hirshleifer, D., & Subrahmanyam, A. (1998). Investor psychology and security market under‐ and overreactions. *The Journal of Finance*, *53*(6), 1839–1885. https://doi.org/10.1111/0022-1082.00077
 
-De BONDT, W. F. M., & THALER, R. (1985). Does the stock market overreact?. *The Journal of Finance*, *40*(3), 793–805. https://doi.org/10.1111/j.1540-6261.1985.tb05004.x
+De BONDT, W. F. M., & Thaler, R. (1985). Does the stock market overreact?. *The Journal of Finance*, *40*(3), 793–805. https://doi.org/10.1111/j.1540-6261.1985.tb05004.x
 
 DeMiguel, V., Garlappi, L., & Uppal, R. (2009). Optimal versus naive diversification: How inefficient is the 1/<i>n</i>portfolio strategy?. *Review of Financial Studies*, *22*(5), 1915–1953. https://doi.org/10.1093/rfs/hhm075
 
@@ -1691,7 +1691,7 @@ Elkind, D., Kaminski, K., Lo, A. W., Siah, K. W., & Wong, C. H. (2022). When do 
 
 Engelberg, J., & Parsons, C. A. (2009). The causal impact of media in financial markets. *SSRN Electronic Journal*. https://doi.org/10.2139/ssrn.1462416
 
-FRAZZINI, A. (2006). The disposition effect and underreaction to news. *The Journal of Finance*, *61*(4), 2017–2046. https://doi.org/10.1111/j.1540-6261.2006.00896.x
+Frazzini, A. (2006). The disposition effect and underreaction to news. *The Journal of Finance*, *61*(4), 2017–2046. https://doi.org/10.1111/j.1540-6261.2006.00896.x
 
 French, K. R., & Roll, R. (1986). Stock return variances. *Journal of Financial Economics*, *17*(1), 5–26. https://doi.org/10.1016/0304-405x(86)90004-8
 
@@ -1715,7 +1715,7 @@ Huber, C., Huber, J., & Kirchler, M. (2022). Volatility shocks and investment be
 
 Jiang, G. J., & Zhu, K. X. (2017). Information shocks and short-term market underreaction. *Journal of Financial Economics*, *124*(1), 43–64. https://doi.org/10.1016/j.jfineco.2016.06.006
 
-JIANG, H., & VERARDO, M. (2018). Does herding behavior reveal skill? an analysis of mutual fund performance. *The Journal of Finance*, *73*(5), 2229–2269. https://doi.org/10.1111/jofi.12699
+Jiang, H., & Verardo, M. (2018). Does herding behavior reveal skill? an analysis of mutual fund performance. *The Journal of Finance*, *73*(5), 2229–2269. https://doi.org/10.1111/jofi.12699
 
 Jolliffe, I. T., & Cadima, J. (2016). Principal component analysis: A review and recent developments. *Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences*, *374*(2065), 20150202. https://doi.org/10.1098/rsta.2015.0202
 
@@ -1789,7 +1789,7 @@ Statman, M. (2019). Behavioral finance: The second generation. *SSRN Electronic 
 
 Swiss Business School. (2026). *Master’s thesis handbook AY 2025–26* (C.S.4. v1.8) [Unpublished internal document]. Swiss Business School.
 
-TETLOCK, P. C. (2007). Giving content to investor sentiment: The role of media in the stock market. *The Journal of Finance*, *62*(3), 1139–1168. https://doi.org/10.1111/j.1540-6261.2007.01232.x
+Tetlock, P. C. (2007). Giving content to investor sentiment: The role of media in the stock market. *The Journal of Finance*, *62*(3), 1139–1168. https://doi.org/10.1111/j.1540-6261.2007.01232.x
 
 Thaler, R. H., & Benartzi, S. (2004). Save more tomorrow™: Using behavioral economics to increase employee saving. *Journal of Political Economy*, *112*(S1), S164–S187. https://doi.org/10.1086/380085
 
