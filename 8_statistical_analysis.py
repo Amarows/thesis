@@ -15,6 +15,7 @@ import argparse
 import glob
 import json
 import os
+import re
 import sys
 import warnings
 
@@ -25,6 +26,7 @@ from sklearn.preprocessing import StandardScaler as _StandardScaler
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.patches import Patch
 import numpy as np
 import pandas as pd
 from scipy import stats
@@ -370,7 +372,7 @@ def compute_descriptives(df: pd.DataFrame, skip_figures: bool = False) -> dict:
 
     # --- Respondent level ---
     resp_cols = [
-        "respondent_id", "years_experience",
+        "respondent_id", "years_experience", "years_experience_label",
         "aum_category", "institution_type", "investment_mandate",
         "geographic_focus", "discretionary_authority", "certifications",
     ]
@@ -386,6 +388,34 @@ def compute_descriptives(df: pd.DataFrame, skip_figures: bool = False) -> dict:
     desc["exp_sd"]        = round(exp.std(), 4)
     desc["exp_min"]       = round(exp.min(), 4)
     desc["exp_max"]       = round(exp.max(), 4)
+
+    # Experience is an ordinal categorical band. The numeric years_experience
+    # column is unreliable (most rows are NaN), so the label column is
+    # authoritative and is reported as an ordered frequency distribution.
+    _EXP_ORDER = ["less than 2", "2-5", "6-10", "11-20", "more than 20"]
+    _EXP_DISPLAY = {
+        "less than 2": "Less than 2", "2-5": "2–5", "6-10": "6–10",
+        "11-20": "11–20", "more than 20": "More than 20",
+    }
+
+    def _norm_exp_label(s: object) -> str:
+        return re.sub(r"[-‐‑‒–—―−﹣－]", "-", str(s)).strip().lower()
+
+    exp_freq_rows = []
+    if "years_experience_label" in rdf.columns:
+        vc_exp = rdf["years_experience_label"].value_counts(dropna=False)
+        ordered = sorted(
+            vc_exp.items(),
+            key=lambda kv: _EXP_ORDER.index(_norm_exp_label(kv[0]))
+            if _norm_exp_label(kv[0]) in _EXP_ORDER else 99,
+        )
+        for lbl, cnt in ordered:
+            disp = "Unknown" if pd.isna(lbl) else _EXP_DISPLAY.get(_norm_exp_label(lbl), str(lbl))
+            exp_freq_rows.append({
+                "label": disp, "count": int(cnt),
+                "pct": round(cnt / n_total_resp * 100, 2),
+            })
+    desc["exp_freq"] = exp_freq_rows
 
     # Frequency tables for categorical fields
     cat_fields = [
@@ -512,12 +542,18 @@ def _fig_demographics(rdf: pd.DataFrame, desc: dict) -> None:
     fig, axes = plt.subplots(1, 2, figsize=(12, 5))
     ax1, ax2 = axes
 
-    # Experience histogram
-    exp = pd.to_numeric(rdf["years_experience"], errors="coerce").dropna()
-    ax1.hist(exp, bins=max(5, int(len(exp) ** 0.5)), color="#2c7bb6", edgecolor="white")
+    # Experience by band (categorical; the numeric column is unreliable)
+    exp_freq = desc.get("exp_freq", [])
+    if exp_freq:
+        labels = [r["label"] for r in exp_freq]
+        counts = [r["count"] for r in exp_freq]
+        ax1.bar(labels, counts, color="#2c7bb6", edgecolor="white")
+        ax1.set_ylabel("Count")
+        ax1.set_title("(a) Distribution of respondent experience")
+        ax1.tick_params(axis="x", labelrotation=20)
+        for _lbl in ax1.get_xticklabels():
+            _lbl.set_ha("right")
     ax1.set_xlabel("Years of experience")
-    ax1.set_ylabel("Count")
-    ax1.set_title("(a) Distribution of respondent experience")
     _apa_style(ax1)
 
     # Institution type bar chart
@@ -562,18 +598,28 @@ def _fig_nrs_by_condition(sc0: pd.Series, sc1: pd.Series) -> None:
 
 
 def _fig_sc_distribution(scen_df: pd.DataFrame) -> None:
-    sc = pd.to_numeric(scen_df["sc_total"], errors="coerce").dropna()
-    fig, ax = plt.subplots(figsize=(8, 5))
-    ax.hist(sc, bins=10, color="#abd9e9", edgecolor="#2c7bb6", density=True)
+    work = scen_df.copy()
+    work["sc_total"] = pd.to_numeric(work["sc_total"], errors="coerce")
+    work = work.dropna(subset=["sc_total"])
+    sc = work["sc_total"]
+
+    fig, ax = plt.subplots(figsize=(9, 6))
+    counts, edges, _ = ax.hist(sc, bins=10, color="#abd9e9", edgecolor="#2c7bb6", density=True)
     # Normal overlay
     x = np.linspace(sc.min() - 1, sc.max() + 1, 200)
     ax.plot(x, stats.norm.pdf(x, sc.mean(), sc.std()), color="#d7191c", linewidth=2, label="Normal")
-    # Label points
-    if "ticker" in scen_df.columns:
-        for _, row in scen_df.dropna(subset=["sc_total"]).iterrows():
-            ax.annotate(row["ticker"], (float(row["sc_total"]), 0),
-                        textcoords="offset points", xytext=(0, 5),
-                        fontsize=6, ha="center", rotation=45)
+
+    # List each bin's scenarios as a vertical column inside the bar, instead of
+    # labelling every point at y=0 (which overlapped badly around the mode).
+    if "ticker" in work.columns:
+        bin_idx = np.clip(np.digitize(sc.to_numpy(), edges[1:-1]), 0, len(edges) - 2)
+        work = work.assign(_bin=bin_idx)
+        for b, grp in work.groupby("_bin"):
+            center = (edges[b] + edges[b + 1]) / 2
+            tickers = grp.sort_values("sc_total")["ticker"].astype(str).tolist()
+            ax.text(center, 0.005, "\n".join(tickers), fontsize=6.5, ha="center",
+                    va="bottom", color="black", linespacing=1.3)
+
     ax.set_xlabel("SC_total")
     ax.set_ylabel("Density")
     ax.set_title("SC_total distribution across scenarios")
@@ -1430,6 +1476,155 @@ def _fig_h2_nrs_by_sc(df: pd.DataFrame) -> None:
 
 
 # ---------------------------------------------------------------------------
+# Group B figures — rebuilt from data (forest, scatter, alignment bars).
+# Reproduce the previously-static results/figures PNGs at run time.
+# ---------------------------------------------------------------------------
+
+def _fig_component_forest(rob_df: pd.DataFrame) -> None:
+    """Forest plot of the four Spec 3 SC_total component coefficients with 95% CIs."""
+    if rob_df.empty or "spec" not in rob_df.columns:
+        return
+
+    # (y-axis label, robustness spec row) ordered bottom (y=0) to top.
+    components = [
+        ("AC_e\n(Article Count)",       "spec_3_component_ac_e"),
+        ("SE_e\n(Sentiment Extremity)", "spec_3_component_se_e"),
+        ("AI_e\n(Attention Intensity)", "spec_3_component_ai_e"),
+        ("ES_raw\n(Event Severity)",    "spec_3_component_es_raw"),
+    ]
+    C_DOWN, C_UP, C_NS = "#2c7bb6", "#d7191c", "#999999"
+
+    fig, ax = plt.subplots(figsize=(11, 6))
+    yticks, ylabels = [], []
+    for y, (ylabel, spec) in enumerate(components):
+        row = rob_df[rob_df["spec"] == spec]
+        if row.empty:
+            continue
+        r = row.iloc[0]
+        beta = float(r["beta1"]); lo = float(r["ci_lo"]); hi = float(r["ci_hi"])
+        p = _parse_p(r["p"])
+        sig = (not np.isnan(p)) and p < 0.05
+        color = C_NS if not sig else (C_DOWN if beta < 0 else C_UP)
+
+        ax.errorbar(beta, y, xerr=[[beta - lo], [hi - beta]], fmt="o", color=color,
+                    markersize=13, elinewidth=2.5, capsize=0, zorder=3)
+        label = f"β = {beta:+.4f} [{lo:.4f}, {hi:.4f}] {'**' if sig else 'ns'}"
+        # Default: label to the right of the CI. The bottom row (AC_e) is labelled
+        # to the left so it clears the lower-right legend (issue 1).
+        if spec == "spec_3_component_ac_e":
+            ax.annotate(label, (lo, y), xytext=(-10, 0), textcoords="offset points",
+                        ha="right", va="center", color=color, fontsize=10)
+        else:
+            ax.annotate(label, (hi, y), xytext=(10, 0), textcoords="offset points",
+                        ha="left", va="center", color=color, fontsize=10)
+        yticks.append(y); ylabels.append(ylabel)
+
+    if not yticks:
+        plt.close(fig)
+        return
+
+    ax.axvline(0, color="black", linestyle="--", linewidth=1, zorder=1)
+    ax.set_yticks(yticks); ax.set_yticklabels(ylabels)
+    ax.set_ylim(-0.6, len(components) - 0.4)
+    ax.set_xlabel("OLS Coefficient (β) with 95% Confidence Interval")
+
+    handles = [
+        Patch(facecolor=C_DOWN, label="Significant, risk-reducing (p < 0.05)"),
+        Patch(facecolor=C_UP,   label="Significant, risk-increasing (p < 0.05)"),
+        Patch(facecolor=C_NS,   label="Not significant"),
+    ]
+    ax.legend(handles=handles, loc="lower right", frameon=False)
+    _apa_style(ax)
+
+    # Pad the x-range so value labels are not clipped (more room on the right).
+    x0, x1 = ax.get_xlim()
+    span = x1 - x0
+    ax.set_xlim(x0 - 0.15 * span, x1 + 0.32 * span)
+
+    fig.tight_layout()
+    fig.savefig(FIGURES_DIR / "fig_component_forest.png", dpi=150, bbox_inches="tight")
+    plt.close(fig)
+
+
+def _fig_sc_vs_horizon_return(scenarios: pd.DataFrame, horizon_returns: pd.DataFrame) -> None:
+    """Scatter of realized horizon return vs SC_total (one point per scenario, by block)."""
+    if scenarios.empty or horizon_returns.empty:
+        return
+    sdf = scenarios[["scenario_id", "ticker", "block_id", "sc_total"]].copy()
+    hr = horizon_returns.reset_index()[["scenario_id", "horizon_return_pct"]]
+    m = sdf.merge(hr, on="scenario_id", how="inner")
+    m["sc_total"]           = pd.to_numeric(m["sc_total"], errors="coerce")
+    m["horizon_return_pct"] = pd.to_numeric(m["horizon_return_pct"], errors="coerce")
+    m = m.dropna(subset=["sc_total", "horizon_return_pct"])
+    if len(m) < 3:
+        return
+
+    block_colors = {1: "#2c7bb6", 2: "#1b9e77", 3: "#b8860b"}
+    fig, ax = plt.subplots(figsize=(12, 7.5))
+
+    ax.axhline(0, color="grey", linewidth=0.8, zorder=1)
+    ax.axvline(0, color="grey", linewidth=0.8, zorder=1)
+
+    x = m["sc_total"].to_numpy(); y = m["horizon_return_pct"].to_numpy()
+    slope, intercept = np.polyfit(x, y, 1)
+    xs = np.linspace(x.min(), x.max(), 100)
+    ax.plot(xs, slope * xs + intercept, color="#d7191c", linestyle="--", linewidth=1.8,
+            label=f"Linear trend (β = {slope:.2f}%/unit SC_total)", zorder=2)
+
+    for b in sorted(m["block_id"].dropna().unique()):
+        sub = m[m["block_id"] == b]
+        color = block_colors.get(int(b), "#666666")
+        ax.scatter(sub["sc_total"], sub["horizon_return_pct"], s=130, color=color,
+                   edgecolor="white", linewidth=1.0, label=f"Block {int(b)}", zorder=3)
+        for _, row in sub.iterrows():
+            ax.annotate(str(row["ticker"]),
+                        (float(row["sc_total"]), float(row["horizon_return_pct"])),
+                        xytext=(5, 5), textcoords="offset points", fontsize=8, color=color)
+
+    ax.set_xlabel("SC_total (composite Shock Score)")
+    ax.set_ylabel("Actual horizon return (%)")
+    ax.legend(loc="upper right")
+    _apa_style(ax)
+    fig.tight_layout()
+    fig.savefig(FIGURES_DIR / "fig_sc_vs_horizon_return.png", dpi=150, bbox_inches="tight")
+    plt.close(fig)
+
+
+def _fig_alignment_rates(alignment_df: pd.DataFrame, overall_rate: float) -> None:
+    """Horizontal bar chart of NRS–sentiment alignment rate by sentiment category."""
+    if alignment_df.empty or "group" not in alignment_df.columns:
+        return
+    sent = alignment_df[alignment_df["group"].str.startswith("sentiment=")].copy()
+    if sent.empty:
+        return
+    sent["category"] = sent["group"].str.replace("sentiment=", "", regex=False)
+    sent = sent.sort_values("alignment_rate", ascending=True)
+
+    fig, ax = plt.subplots(figsize=(11, 6))
+    y = np.arange(len(sent))
+    rates = sent["alignment_rate"].to_numpy()
+    ax.barh(y, rates, color="#c0392b", zorder=3)
+    for yi, rate in zip(y, rates):
+        ax.annotate(f"{rate:.4f}", (rate, yi), xytext=(6, 0), textcoords="offset points",
+                    va="center", ha="left", fontsize=10)
+    ax.set_yticks(y); ax.set_yticklabels(sent["category"].tolist())
+
+    ax.axvline(0.50, color="black", linestyle="--", linewidth=2,
+               label="Directional consistency threshold (0.50)", zorder=2)
+    if not (overall_rate is None or (isinstance(overall_rate, float) and np.isnan(overall_rate))):
+        ax.axvline(overall_rate, color="grey", linestyle=":", linewidth=1.5,
+                   label=f"Overall alignment rate ({overall_rate:.4f})", zorder=2)
+
+    ax.set_xlim(0, 0.62)
+    ax.set_xlabel("Alignment Rate (proportion of observations)")
+    ax.legend(loc="lower right")
+    _apa_style(ax)
+    fig.tight_layout()
+    fig.savefig(FIGURES_DIR / "fig_alignment_rates.png", dpi=150, bbox_inches="tight")
+    plt.close(fig)
+
+
+# ---------------------------------------------------------------------------
 # Section 7 – Conclusions engine
 # ---------------------------------------------------------------------------
 
@@ -1634,11 +1829,9 @@ def write_results_md(
         "",
         "| Characteristic | Metric | Value |",
         "|---|---|---|",
-        f"| Years of experience | Mean | {_round4(desc['exp_mean'])} |",
-        f"| Years of experience | Median | {_round4(desc['exp_median'])} |",
-        f"| Years of experience | SD | {_round4(desc['exp_sd'])} |",
-        f"| Years of experience | Range | {_round4(desc['exp_min'])}–{_round4(desc['exp_max'])} |",
     ]
+    for r in desc.get("exp_freq", []):
+        resp_lines.append(f"| Years of experience | {r['label']} | {r['count']} ({r['pct']}%) |")
     for _, row in inst_rows.iterrows():
         resp_lines.append(f"| Institution type | {row['value']} | {row['count']} ({row['pct']}%) |")
     for _, row in aum_rows.iterrows():
@@ -2073,6 +2266,13 @@ def main() -> None:
 
     print("\nComputing NRS/sentiment alignment diagnostic...")
     alignment = compute_nrs_sentiment_alignment(df)
+
+    if not args.skip_figures:
+        print("\nRebuilding forest / scatter / alignment figures...")
+        _fig_component_forest(h1.get("robustness", pd.DataFrame()))
+        _fig_sc_vs_horizon_return(scenarios, horizon_returns)
+        _fig_alignment_rates(alignment.get("alignment_df", pd.DataFrame()),
+                             alignment.get("overall_alignment_rate", np.nan))
 
     print("\nComputing PCA diagnostics...")
     compute_pca_diagnostics()

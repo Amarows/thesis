@@ -1134,7 +1134,7 @@ This chapter presents the empirical analysis and findings of the study. The chap
 
 The final analysis sample comprises 53 respondents yielding 424 scenario-level observations across three blocks.
 
-Table 5.1 presents the demographic profile of the achieved sample. Respondents report a mean of 5.1250 years of experience (median = 5.7500, SD = 3.4731, range = 1.0000–8.0000).
+Table 5.1 presents the demographic profile of the achieved sample. Experience is recorded as ordinal bands rather than a continuous count: most respondents report 11–20 years of experience (35; 66.04%), followed by 6–10 years (12; 22.64%), with the remaining six respondents distributed across the More than 20 (4; 7.55%), Less than 2 (1; 1.89%), and 2–5 (1; 1.89%) bands.
 
 **Table 5.1**
 
@@ -1142,10 +1142,11 @@ Table 5.1 presents the demographic profile of the achieved sample. Respondents r
 
 | Characteristic | Metric | Value |
 |---|---|---|
-| Years of experience | Mean | 5.1250 |
-| Years of experience | Median | 5.7500 |
-| Years of experience | SD | 3.4731 |
-| Years of experience | Range | 1.0000–8.0000 |
+| Years of experience | Less than 2 | 1 (1.89%) |
+| Years of experience | 2–5 | 1 (1.89%) |
+| Years of experience | 6–10 | 12 (22.64%) |
+| Years of experience | 11–20 | 35 (66.04%) |
+| Years of experience | More than 20 | 4 (7.55%) |
 | Institution type | Asset manager | 31 (58.49%) |
 | Institution type | Family office | 6 (11.32%) |
 | Institution type | Other | 5 (9.43%) |
