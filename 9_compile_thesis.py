@@ -140,6 +140,41 @@ def merge(thesis_text: str, results_blocks: dict[str, str]) -> tuple[str, int, l
     return merged, n_replaced, not_found
 
 
+# Captures an APA label line ("**Figure X.X**" / "**Table X.X**") and the
+# italic title line that immediately follows it. Single-asterisk lookahead
+# avoids matching bold-italic (***...***) runs.
+LABEL_PATTERN = re.compile(
+    r"\*\*((?:Figure|Table)\s+\d+\.\d+)\*\*"   # bold label
+    r"\s*\n+"                                    # blank line(s)
+    r"\*((?!\*).+?)\*",                          # italic title (single asterisks)
+    re.MULTILINE,
+)
+
+
+def _format_list(items: list[tuple[str, str]]) -> str:
+    """Render label/title pairs as a fixed-width, aligned plain-text list."""
+    if not items:
+        return "_No items found._"
+    max_label_len = max(len(label) for label, _ in items)
+    return "\n".join(
+        f"{label:<{max_label_len}}    {title}" for label, title in items
+    )
+
+
+def build_label_lists(merged: str) -> tuple[str, str]:
+    """Extract Table and Figure labels+titles from merged text, in document order.
+
+    Returns (tables_markdown, figures_markdown).
+    """
+    figures: list[tuple[str, str]] = []
+    tables:  list[tuple[str, str]] = []
+    for m in LABEL_PATTERN.finditer(merged):
+        label = m.group(1).strip()
+        title = m.group(2).strip()
+        (figures if label.startswith("Figure") else tables).append((label, title))
+    return _format_list(tables), _format_list(figures)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--no-pandoc", action="store_true",
@@ -187,6 +222,21 @@ def main() -> None:
     # which resolves in the results/ context but breaks at the repo root.
     # Replace all ](figures/ with ](results/figures/ in the compiled output.
     merged = merged.replace("](figures/", "](results/figures/")
+
+    # Pass 2 – derive List of Tables / List of Figures from the merged text
+    # (they depend on compiled content, so cannot live in thesis_results.md).
+    tables_md, figures_md = build_label_lists(merged)
+    merged = merged.replace(
+        "<!-- PLACEHOLDER:list_of_tables -->\n[To be populated by 9_compile_thesis.py]\n<!-- /PLACEHOLDER:list_of_tables -->",
+        tables_md,
+    )
+    merged = merged.replace(
+        "<!-- PLACEHOLDER:list_of_figures -->\n[To be populated by 9_compile_thesis.py]\n<!-- /PLACEHOLDER:list_of_figures -->",
+        figures_md,
+    )
+    # These two placeholders are intentionally filled in Pass 2, not from
+    # thesis_results.md, so drop them from the unmatched-placeholder report.
+    not_found = [x for x in not_found if x not in ("list_of_tables", "list_of_figures")]
 
     # Write output
     THESIS_FINAL_PATH.write_text(merged, encoding="utf-8")

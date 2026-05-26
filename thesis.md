@@ -42,6 +42,18 @@ The research draws on the behavioral finance literature, quantitative methods in
 - List of Tables
 - List of Figures
 
+# List of Tables
+
+<!-- PLACEHOLDER:list_of_tables -->
+[To be populated by 9_compile_thesis.py]
+<!-- /PLACEHOLDER:list_of_tables -->
+
+# List of Figures
+
+<!-- PLACEHOLDER:list_of_figures -->
+[To be populated by 9_compile_thesis.py]
+<!-- /PLACEHOLDER:list_of_figures -->
+
 # List of Abbreviations and Acronyms
 
 | Abbreviation | Definition |
@@ -348,6 +360,7 @@ Exact conventions for $r_f$, $\text{MAR}$, sampling frequency, and annualization
 Assumptions describe the conditions under which the research design supports valid interpretation. These assumptions are not treated as established facts but as prerequisites for empirical evaluation and inference.
 
 The study assumes that:
+
 - the timing of external information shocks can be identified and aligned consistently with the decision window represented in the survey scenarios and portfolio outcome evaluation. The study further assumes that the event-level shock characteristics used to construct SC_total and persistence are computed consistently across events and do not rely on ex post outcome information that would compromise interpretation.
 
 - respondents interpret the decision task consistently and that the Net Risk Stance scale captures intended exposure adjustment in a comparable way across respondents and scenarios. Scenario order is counterbalanced consistent with within-subject design conventions established by [Charness et al., 2012](https://doi.org/10.1016/j.jebo.2011.08.009) to mitigate systematic learning and order effects. The design further assumes that respondents' decisions reflect their intended stance under the scenario constraints and are not materially distorted by survey fatigue or strategic responding ([Krosnick, 1999](https://doi.org/10.1146/annurev.psych.50.1.537)).
@@ -1485,7 +1498,7 @@ The empirical evidence accumulated in this study suggests that behavioral decisi
 
 # Appendix 1. Thesis Proposal Approval Form
 
-![theis_approval_form.png](documents/theis_approval_form.png)
+![](documents/theis_approval_form.png)
 
 # Appendix 2. AI Disclosure Statement
 
@@ -1664,7 +1677,7 @@ Shock severity: magnitude of the price and news signal relative to historical no
 
 **Company:** Merck & Co. (MRK)  ·   Shock: -0.39%  ·  Health Care  ·  2025-10-30
 
-![chart_B2_S01.png](survey/charts/chart_B2_S01.png)
+![](survey/charts/chart_B2_S01.png)
 
 **News headline:** Meta Tumbles 10%, Google Marks Historic Rally: What's Moving Markets Thursday?
 
@@ -1673,7 +1686,7 @@ Covered by 10 financial news sources.
 
 **Market context:** Price before event: USD 87.0 | Price 2 hours post-event: USD 86 | Reaction: -0.39%
 
-![dashboard_B2_S01.png](survey/dashboards/dashboard_B2_S01.png)
+![](survey/dashboards/dashboard_B2_S01.png)
 
 *Note: In Version 1 (ShowSC = 1), the Shock Score dashboard was displayed here, showing the composite score, sentiment direction, severity level, persistence horizon, and protocol recommendation. In Version 2 (ShowSC = 0), this panel was not shown.*
 
@@ -1690,7 +1703,7 @@ Covered by 10 financial news sources.
 
 **Company:** Johnson & Johnson (JNJ)  ·   Shock: +1.08%  ·  Health Care  ·  2025-12-15
 
-![chart_B2_S02.png](survey/charts/chart_B2_S02.png)
+![](survey/charts/chart_B2_S02.png)
 
 **News headline:** Johnson & Johnson Wins FDA Nod For First Precision Combo For Mutated Prostate Cancer
 
