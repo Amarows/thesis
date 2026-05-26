@@ -55,17 +55,10 @@ def load_pca_block() -> str | None:
     ld   = d["loadings"]
     n    = d["n_scenarios"]
 
-    all_positive = all(v > 0 for v in ld.values())
-    sign_note = (
-        "All four components load positively on PC1, confirming that the composite "
-        "represents a common factor of shock intensity rather than a contrast between components."
-        if all_positive else
-        "The loading signs indicate a mixed pattern; interpretation of the composite should "
-        "account for the direction of individual component relationships."
-    )
-
     lines = [
-        "**Table 5.x: SC_total PCA Diagnostics — First Principal Component**",
+        "**Table 5.2**",
+        "",
+        "*SC_total PCA Diagnostics — First Principal Component*",
         "",
         "| Metric | Value |",
         "|--------|-------|",
@@ -77,10 +70,7 @@ def load_pca_block() -> str | None:
         f"| Loading — Event-Type Severity (ES_raw) | {ld['ES_raw']:.4f} |",
         f"| Scenarios used | {n} |",
         "",
-        f"The eigenvalue of {ev:.4f} {'exceeds' if ev > 1.0 else 'does not exceed'} 1.0"
-        f"{', satisfying the Kaiser criterion ([Jolliffe & Cadima, 2016](https://doi.org/10.1098/rsta.2015.0202)).' if ev > 1.0 else ', falling short of the Kaiser criterion.'} "
-        f"The first principal component explains {vpct:.2f}% of the total variance across the four inputs. "
-        f"{sign_note}",
+        "*Note.* PC1 = first principal component of the four standardised Shock Score components.",
     ]
     return "\n".join(lines)
 
