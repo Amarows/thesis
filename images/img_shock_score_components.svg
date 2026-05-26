@@ -1,4 +1,5 @@
-<svg width="680" height="300" viewBox="0 0 680 300" xmlns="http://www.w3.org/2000/svg">
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="680px" height="300px" viewBox="0 0 680 300" xmlns="http://www.w3.org/2000/svg">
 <title>Shock Score composite construction diagram</title>
 <desc>Four event-level components feed into PCA to produce SC_total composite index</desc>
 <defs>
