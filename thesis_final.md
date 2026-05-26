@@ -1134,9 +1134,11 @@ This chapter presents the empirical analysis and findings of the study. The chap
 
 The final analysis sample comprises 53 respondents yielding 424 scenario-level observations across three blocks.
 
-Table 5.1 presents the demographic profile of the achieved sample. Respondents report a mean of 5.1250 years of experience (median = 5.7500, SD = 3.4731, range = 1.0000–8.0000). 
+Table 5.1 presents the demographic profile of the achieved sample. Respondents report a mean of 5.1250 years of experience (median = 5.7500, SD = 3.4731, range = 1.0000–8.0000).
 
-**Table 5.1: Respondent Demographics**
+**Table 5.1**
+
+*Respondent Demographics*
 
 | Characteristic | Metric | Value |
 |---|---|---|
@@ -1157,7 +1159,15 @@ Table 5.1 presents the demographic profile of the achieved sample. Respondents r
 | AUM category | Less than $50M | 3 (5.66%) |
 | AUM category | $50M–$500M | 2 (3.77%) |
 
+*Note.* N = 53 respondents.
+
+**Figure 5.1**
+
+*Sample Composition by Institution Type and AUM Category*
+
 ![Respondent demographics](results/figures/fig_demographics.png)
+
+*Note.* N = 53 respondents. Original figure by the author.
 
 
 ### 5.2.2 Descriptive Analysis of Data
@@ -1166,16 +1176,38 @@ Across all 424 observations, the mean NRS is 4.0519 (median = 4.0000, SD = 1.384
 
 SC_total is a standardised PCA composite score (first principal component of AC_e, SE_e, AI_e, and ES_raw). By construction, the sample mean is approximately zero. The meaningful descriptive statistics are the range (min = -2.1832, max = 4.7132) and standard deviation (SD = 1.4501), which characterise the spread of shock intensity across the twenty-four scenarios. Manipulation check responses: Yes: 53. For ShowSC = 1 respondents, the mean usefulness rating is 3.1509 (median = 3.0000, SD = 0.7695).
 
+**Figure 5.2**
+
+*Distribution of Net Risk Stance Responses*
+
 ![NRS distribution](results/figures/fig_nrs_distribution.png)
+
+*Note.* N = 424 scenario-level observations. Original figure by the author.
+
+**Figure 5.3**
+
+*Net Risk Stance Distribution by Experimental Condition*
+
 ![NRS by condition](results/figures/fig_nrs_by_condition.png)
+
+*Note.* Control (ShowSC = 0) versus treatment (ShowSC = 1) conditions. Original figure by the author.
+
+**Figure 5.4**
+
+*Distribution of the SC_total Composite Shock Score*
+
 ![SC_total distribution](results/figures/fig_sc_distribution.png)
+
+*Note.* SC_total is the first principal component of the four standardised Shock Score components. Original figure by the author.
 
 
 ### 5.2.3 SC_total Construct: PCA Diagnostics
 
 The validity of SC_total as a composite measure depends on whether the four components share sufficient common variation to condense into a coherent single dimension. Table 5.2 reports the PCA diagnostics for the first principal component used to construct SC_total: the eigenvalue, the proportion of total variance explained, and the component loadings for each of the four inputs.
 
-**Table 5.x: SC_total PCA Diagnostics — First Principal Component**
+**Table 5.2**
+
+*SC_total PCA Diagnostics — First Principal Component*
 
 | Metric | Value |
 |--------|-------|
@@ -1187,13 +1219,17 @@ The validity of SC_total as a composite measure depends on whether the four comp
 | Loading — Event-Type Severity (ES_raw) | 0.2944 |
 | Scenarios used | 24 |
 
-The eigenvalue of 2.1027 exceeds 1.0, satisfying the Kaiser criterion ([Jolliffe & Cadima, 2016](https://doi.org/10.1098/rsta.2015.0202)). The first principal component explains 50.38% of the total variance across the four inputs. All four components load positively on PC1, confirming that the composite represents a common factor of shock intensity rather than a contrast between components.
+*Note.* PC1 = first principal component of the four standardised Shock Score components.
 
 The eigenvalue of 2.1027 exceeds 1.0, satisfying the Kaiser criterion ([Jolliffe & Cadima, 2016](https://doi.org/10.1098/rsta.2015.0202)). The first principal component explains 50.38% of the total variance across the four inputs. All four components load positively on PC1, confirming that the composite represents a common factor of shock intensity rather than a contrast between components.
 
 ## 5.3 Scenario Selection Outcomes
 
-Table 5.2 documents the final scenario selection across the three survey blocks.
+Table 5.3 documents the final scenario selection across the three survey blocks.
+
+**Table 5.3**
+
+*Final Scenario Selection Across Survey Blocks*
 
 | scenario_id | block_id | ticker | company_name | gics_sector | event_date | event_type | sc_total | horizon_bucket | sentiment_direction |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1222,7 +1258,7 @@ Table 5.2 documents the final scenario selection across the three survey blocks.
 | B3_S07 | 3 | MCD | McDonald's | Consumer Discretionary | 2025-11-05 | earnings | 1.6822 | Intraday | Neutral |
 | B3_S08 | 3 | AMAT | Applied Materials | Information Technology | 2025-08-15 | analyst | 4.7132 | Intraday | Neutral |
 
-**Figure 5.1**
+**Figure 5.5**
 
 *SC_total Composite Shock Score Versus Actual Realized Horizon Return Across 24 Scenarios*
 
@@ -1235,9 +1271,11 @@ Shock Time (ET) records the 30-minute bar to which the shock is assigned (e.g., 
 
 ## 5.4 Tests for Normality and Reliability
 
-The NRS is a seven-point ordered categorical scale. Because the scale is bounded and ordinal, normality testing on raw responses is not appropriate; the standard assumption required for OLS inference concerns residual normality (reported in Table 5.4c below), not the marginal distribution of the dependent variable. Table 5.4a presents the frequency distribution of NRS responses across scale points, overall and by experimental condition.
+The NRS is a seven-point ordered categorical scale. Because the scale is bounded and ordinal, normality testing on raw responses is not appropriate; the standard assumption required for OLS inference concerns residual normality (reported in Table 5.6 below), not the marginal distribution of the dependent variable. Table 5.4 presents the frequency distribution of NRS responses across scale points, overall and by experimental condition.
 
-**Table 5.4a** *NRS Response Frequency Distribution*
+**Table 5.4**
+
+*NRS Response Frequency Distribution*
 
 | NRS | N (Overall) | N (ShowSC=0 (Control)) | N (ShowSC=1 (Treatment)) | % (Overall) | % (ShowSC=0 (Control)) | % (ShowSC=1 (Treatment)) |
 |---|---|---|---|---|---|---|
@@ -1255,7 +1293,9 @@ Central limit theorem applicability: the sample comprises 53 respondents, exceed
 
 Inter-rater reliability is assessed using the intraclass correlation coefficient ICC(2,1) — two-way random effects, single measures, absolute agreement (Koo & Mae, 2016). For each block, mean NRS per scenario is computed separately for counterbalancing Version 1 and Version 2 respondents. ICC(2,1) is then computed treating scenarios as targets and versions as raters. This tests whether V1 and V2 respondents agree on the relative ordering and absolute level of NRS across scenarios within a block, which is the appropriate reliability question for a heterogeneous-scenario instrument.
 
-**Table 5.4b** *Instrument Reliability – Mean ICC(2,1) by Block*
+**Table 5.5**
+
+*Instrument Reliability – Mean ICC(2,1) by Block*
 
 | Block | N respondents | Mean ICC(2,1) | Threshold (≥ 0.70) | Assessment |
 |-------|--------------|---------------|---------------------|------------|
@@ -1265,7 +1305,9 @@ Inter-rater reliability is assessed using the intraclass correlation coefficient
 
 *Note.* ICC(2,1) computed per block using mean NRS per scenario × version (V1/V2) as the data structure; scenarios are targets, versions are raters. Threshold of ICC ≥ 0.70 follows Koo and Mae (2016). Blocks with no respondents in the current sample are marked as pending.
 
-**Table 5.4c** *OLS Residual Normality – Primary H1 Regression*
+**Table 5.6**
+
+*OLS Residual Normality – Primary H1 Regression*
 
 | | Shapiro-Wilk W | p-value | Normality rejected (α = 0.05) |
 |---|---|---|---|
@@ -1297,9 +1339,11 @@ Fail to reject H1₀ if the two-tailed p-value associated with β₁ is greater 
 
 **Step 5. Arrive at a decision.**
 
-At the α = 0.05 level of significance, support for the alternative hypothesis H1ₐ was found. The OLS regression of SC_total on Net Risk Stance (NRS) – controlling for the ShowSC treatment indicator, years of experience, and block fixed effects – yields β₁ = -0.4874 (robust SE = 0.0551, t = -8.8452, p = <0.0001, 95% CI [-0.5954, -0.3794]). Higher shock intensity is associated with lower mean NRS responses, indicating a risk-reducing shift in portfolio managers' stance. Robustness checks using quintile dummies, respondent fixed effects, decomposed components, and an interaction term are reported in Table 5.4.
+At the α = 0.05 level of significance, support for the alternative hypothesis H1ₐ was found. The OLS regression of SC_total on Net Risk Stance (NRS) – controlling for the ShowSC treatment indicator, years of experience, and block fixed effects – yields β₁ = -0.4874 (robust SE = 0.0551, t = -8.8452, p = <0.0001, 95% CI [-0.5954, -0.3794]). Higher shock intensity is associated with lower mean NRS responses, indicating a risk-reducing shift in portfolio managers' stance. Robustness checks using quintile dummies, respondent fixed effects, decomposed components, and an interaction term are reported in Table 5.8.
 
-**Table 5.3: H1 Primary Regression Result**
+**Table 5.7**
+
+*H1 Primary Regression Result*
 
 | Covariate | β₁ | SE | t | p | CI_lo | CI_hi | R² | N_obs | N_resp | SE_type |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1309,7 +1353,7 @@ The decomposed component specification (Spec 3) reveals a notable sign heterogen
 
 The direction-interaction specification (Spec 5) further decomposes the SC_total effect by sentiment direction. The main effect for positive-sentiment events is β₁ = −0.4283 (p < 0.0001), indicating a risk-reducing response even when the accompanying news is positive. The interaction term SC_total × D_neg = +0.1954 (p = 0.5957) is not statistically significant, indicating that no reliable asymmetry between positive- and negative-sentiment events can be established in the current sample. The compound effect for negative-sentiment events is β₁ + β₃ = −0.4283 + 0.1954 = −0.2329, which remains risk-reducing in direction. The absence of a significant direction-interaction implies that the risk-reducing effect of SC_total does not differ materially by sentiment polarity at the current sample size. The Spec 5 result is treated as exploratory and the direction-asymmetry hypothesis is noted as a priority for replication on a larger sample.
 
-**Figure 5.2**
+**Figure 5.6**
 
 *Forest Plot of OLS Regression Coefficients for the Four SC_total Components*
 
@@ -1317,7 +1361,9 @@ The direction-interaction specification (Spec 5) further decomposes the SC_total
 
 *Note.* Spec 3 decomposition, N = 424, HC3 robust standard errors, block fixed effects and ShowSC controlled. Blue markers indicate statistically significant risk-reducing effects; grey indicates non-significance. Horizontal lines represent 95% confidence intervals. Original figure by the author.
 
-**Table 5.4: H1 Robustness Specification Results**
+**Table 5.8**
+
+*H1 Robustness Specification Results*
 
 | spec | note | beta1 | se | t | p | ci_lo | ci_hi | r2 | n_obs | clustering |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1355,7 +1401,9 @@ Fail to reject H2₀ if the two-tailed p-value associated with τ is greater tha
 
 At the α = 0.05 level of significance, the evidence fails to reject the null hypothesis H2₀. Hypothesis H2 is tested using individual-portfolio regressions (Option B). Per respondent, portfolio returns are constructed from NRS-weighted horizon returns across the four scenarios assigned to each condition. The estimated treatment effect on portfolio return is τ = -0.1584 (robust SE = 0.4826, t = -0.3281, p = 0.7428, 95% CI [-1.1043, 0.7876]; Cohen's d = -0.0591). No statistically significant difference in portfolio outcomes between the treatment and control conditions was found. Validation on a larger professional sample is recommended. The collective portfolio analysis (Option A, descriptive only; **caution: both portfolios draw from the same respondent pool – inference is non-independent**) yields a return of 1.8986% for the control condition and 1.4642% for the treatment condition, corresponding to a return differential of -0.4344%. On an assumed AUM of $100M, the ShowSC=1 collective portfolio generated a dollar return differential of $-434,400 relative to the ShowSC=0 portfolio over the evaluation window.
 
-**Table 5.5: H2 Portfolio Analysis Results**
+**Table 5.9**
+
+*H2 Portfolio Analysis Results*
 
 | method | outcome | tau | se | t | p | ci_lo | ci_hi | cohens_d | r2 | n | h2_supported |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1363,13 +1411,17 @@ At the α = 0.05 level of significance, the evidence fails to reject the null hy
 | option_b_individual | sharpe_ratio | 0.879 | 1.6994 | 0.5173 | 0.6050 | -2.4516 | 4.2097 | 0.0712 | 0.5366 | 106 | False |
 | option_b_individual | sortino_ratio | 9.4847 | 36.2226 | 0.2618 | 0.7934 | -61.5102 | 80.4797 | 0.1011 | 0.0027 | 29 | False |
 
-**Note on Sortino ratio:** The Sortino ratio is computed only for respondent-condition pairs that yield at least one negative portfolio return. In the current sample, this applies to 97 of 106 respondent-condition pairs.
+*Note.* The Sortino ratio is computed only for respondent-condition pairs that yield at least one negative portfolio return; in the current sample this applies to 97 of 106 respondent-condition pairs. The collective portfolios in the descriptive Option A analysis are constructed from the same respondent pool, so no causal inference should be drawn from Option A alone; it is presented for institutional illustration only.
 
-**Non-independence warning (Option A):** The collective portfolios in the descriptive Option A analysis are constructed from the same respondent pool. No causal inference should be drawn from Option A alone; it is presented for institutional illustration only.
+**Figure 5.7**
+
+*Sharpe Ratio Comparison Across Experimental Conditions*
 
 ![Sharpe comparison](results/figures/fig_sharpe_comparison.png)
 
-*Figure 5.4*
+*Note.* Sharpe ratios computed per respondent-condition pair from NRS-weighted simulated portfolio returns. Original figure by the author.
+
+**Figure 5.8**
 
 *Mean NRS by SC_total Quintile and Experimental Condition*
 
@@ -1391,7 +1443,9 @@ As a diagnostic check, the alignment between respondents' NRS direction (buy: NR
 
 Overall alignment rate: 0.2618 (111 of 424 observations).
 
-**Table 5.6: NRS–Sentiment Alignment by Group**
+**Table 5.10**
+
+*NRS–Sentiment Alignment by Group*
 
 | group | n | n_aligned | alignment_rate |
 | --- | --- | --- | --- |
@@ -1406,7 +1460,7 @@ Overall alignment rate: 0.2618 (111 of 424 observations).
 | sentiment=Strongly Negative | 15 | 1 | 0.0667 |
 | sentiment=Strongly Positive | 57 | 12 | 0.2105 |
 
-**Figure 5.3**
+**Figure 5.9**
 
 *NRS–Sentiment Alignment Rate by Sentiment Category*
 
