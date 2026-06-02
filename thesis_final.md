@@ -1173,12 +1173,12 @@ A two-asset allocation is assumed (scenario stock plus risk-free cash). The neut
 
 ### 4.5.2 Inference and Clustering
 
-Observations are clustered by manager and by event. Two-way clustering by manager and event is the preferred approach ([Cameron, Gelbach & Miller, 2011](https://doi.org/10.1198/jbes.2010.07136); [Petersen, 2009](https://doi.org/10.1093/rfs/hhn053)), simultaneously addressing cross-sectional correlation (multiple managers per event) and serial correlation (multiple events per manager). HC3 heteroskedasticity-robust standard errors are applied throughout; HC3 offers a finite-sample improvement over HC1/HC2 for small-to-medium samples ([MacKinnon & White, 1985](https://doi.org/10.1016/0304-4076(85)90158-7)). Block fixed effects (block_2, block_3 dummies relative to block_1) absorb between-block heterogeneity in scenario difficulty and respondent composition.
+Observations are clustered by manager and by event. Two-way clustering by manager and event is the preferred approach ([Cameron, Gelbach & Miller, 2011](https://doi.org/10.1198/jbes.2010.07136); [Petersen, 2009](https://doi.org/10.1093/rfs/hhn053)), simultaneously addressing cross-sectional correlation (multiple managers per event) and serial correlation (multiple events per manager). Two-way cluster-robust standard errors are applied as the primary inference approach; HC3 heteroskedasticity-robust standard errors, which offer a finite-sample improvement over HC1/HC2 for small-to-medium samples ([MacKinnon & White, 1985](https://doi.org/10.1016/0304-4076(85)90158-7)), are retained as a robustness specification. Block fixed effects (block_2, block_3 dummies relative to block_1) absorb between-block heterogeneity in scenario difficulty and respondent composition.
 
 
 ## 4.6 Chapter Conclusion
 
-This chapter documented the research data, instrument design, and primary data collection process. The positivist, quasi-experimental, within-subject design (Section 4.2) links information shocks, decision-support treatment, and portfolio outcomes. The market and events data (Section 4.3) draw on 24 U.S. equities from the S&P 500 across three blocks, with intraday prices and news from Interactive Brokers and Benzinga covering January 2025 – April 2026; a three-stage screening algorithm produces candidate events that meet balance constraints on intensity, directionality, event type, and market regime, and the four standardised components are aggregated into SC_total via PCA. The survey instrument (Section 4.4) is a four-section Google Forms questionnaire with eight scenarios per respondent under a Latin square counterbalanced design (six distinct forms), measuring NRS on the seven-point scale, with a target of 100 valid completions. The analytical framework (Section 4.5) specifies the H1 and H2 regressions and the two-way clustering and HC3 inference approach.
+This chapter documented the research data, instrument design, and primary data collection process. The positivist, quasi-experimental, within-subject design (Section 4.2) links information shocks, decision-support treatment, and portfolio outcomes. The market and events data (Section 4.3) draw on 24 U.S. equities from the S&P 500 across three blocks, with intraday prices and news from Interactive Brokers and Benzinga covering January 2025 – April 2026; a three-stage screening algorithm produces candidate events that meet balance constraints on intensity, directionality, event type, and market regime, and the four standardised components are aggregated into SC_total via PCA. The survey instrument (Section 4.4) is a four-section Google Forms questionnaire with eight scenarios per respondent under a Latin square counterbalanced design (six distinct forms), measuring NRS on the seven-point scale, with a target of 100 valid completions. The analytical framework (Section 4.5) specifies the H1 and H2 regressions and the inference approach, with two-way cluster-robust standard errors as primary and HC3 retained for robustness.
 
 Chapter 5 applies these specifications to the survey data, testing H1 and H2 alongside descriptive, normality, and reliability assessments.
 
@@ -1356,7 +1356,7 @@ The NRS is a seven-point ordered categorical scale. Because the scale is bounded
 
 *Note.* NRS responses on a 7-point scale (1 = Strongly reduce concentration, 7 = Strongly increase concentration). N = 53 respondents, 424 total observations. Percentages may not sum to 100% due to rounding.
 
-Central limit theorem applicability: the sample comprises 53 respondents, exceeding the N = 30 threshold. Parametric inference is therefore warranted.
+The normality of the data used in hypothesis testing is assessed statistically rather than inferred from sample size. Because the dependent variable is a bounded seven-point ordinal scale, its marginal distribution is not expected to be normal and is not required to be; the assumption relevant to ordinary least squares inference concerns the regression residuals. A Shapiro-Wilk test applied to the residuals of the primary H1 specification rejects the null hypothesis of normality (W = 0.9849, p = 0.0002; Table 5.6), so the residuals are treated as statistically non-normal. This result, rather than the number of observations or an appeal to the central limit theorem, determines the choice of inference method. Exact small-sample t and F inference would require normally distributed residuals and is therefore not relied upon here. Inference is instead based on the asymptotic normality of the ordinary least squares coefficient estimator combined with two-way cluster-robust standard errors, clustered by manager and by event, which remain valid under non-normal, heteroscedastic, and within-cluster-correlated errors ([MacKinnon & White, 1985](https://doi.org/10.1016/0304-4076(85)90158-7); [Cameron, Gelbach & Miller, 2011](https://doi.org/10.1198/jbes.2010.07136); [Petersen, 2009](https://doi.org/10.1093/rfs/hhn053)). The validity of this approach rests on the number of clusters rather than on the distribution of the residuals, so the statistical rejection of residual normality does not undermine the hypothesis tests reported below.
 
 Inter-rater reliability is assessed using the intraclass correlation coefficient ICC(2,1) — two-way random effects, single measures, absolute agreement (Koo & Mae, 2016). For each block, mean NRS per scenario is computed separately for counterbalancing Version 1 and Version 2 respondents. ICC(2,1) is then computed treating scenarios as targets and versions as raters. This tests whether V1 and V2 respondents agree on the relative ordering and absolute level of NRS across scenarios within a block, which is the appropriate reliability question for a heterogeneous-scenario instrument.
 
@@ -1380,7 +1380,7 @@ Inter-rater reliability is assessed using the intraclass correlation coefficient
 |---|---|---|---|
 | Primary H1 residuals | 0.9849 | 0.0002 | Yes |
 
-*Note.* Shapiro-Wilk test applied to OLS residuals from the primary H1 regression specification (N = 424 observations). Residual normality is the relevant OLS assumption; the marginal distribution of NRS is not required to be normal. HC3 heteroscedasticity-consistent standard errors are applied regardless of this result.
+*Note.* Shapiro-Wilk test applied to OLS residuals from the primary H1 regression specification (N = 424 observations). Residual normality is the relevant OLS assumption; the marginal distribution of NRS is not required to be normal. Inference for the primary specification uses two-way cluster-robust standard errors (clustered by respondent and scenario), whose validity does not depend on residual normality.
 
 ## 5.5 Hypothesis Testing
 
@@ -1394,11 +1394,11 @@ H1ₐ: The intensity of external financial information shocks has a statisticall
 
 **Step 2. Select a level of significance.**
 
-The analysis is conducted at the five percent level of significance (α = 0.05), consistent with SBS research standards (Swiss Business School, 2026).
+The analysis is conducted at the conventional five percent level of significance (α = 0.05).
 
 **Step 3. Identify the test statistic.**
 
-The primary test statistic is the t-ratio on the SC_total coefficient (β₁) in the OLS regression specified in Section 4.5.1. The regression is estimated with HC3 heteroscedasticity-robust standard errors and block fixed effects. Under the null hypothesis, β₁ = 0 and the t-ratio follows an approximately normal distribution given the sample size of N = 424 observations.
+The primary test statistic is the t-ratio on the SC_total coefficient (β₁) in the OLS regression specified in Section 4.5.1. The regression is estimated with two-way cluster-robust standard errors, clustered by manager and by event, with block fixed effects; HC3 heteroscedasticity-robust standard errors are retained as a robustness specification (Section 4.5.2). Under the null hypothesis, β₁ = 0; as set out in Section 5.4, inference relies on the asymptotic normality of the coefficient estimator under cluster-robust standard errors rather than on an assumption of normally distributed residuals.
 
 **Step 4. Formulate a decision rule.**
 
@@ -1406,7 +1406,7 @@ Fail to reject H1₀ if the two-tailed p-value associated with β₁ is greater 
 
 **Step 5. Arrive at a decision.**
 
-At the α = 0.05 level of significance, support for the alternative hypothesis H1ₐ was found. The OLS regression of SC_total on Net Risk Stance (NRS) – controlling for the ShowSC treatment indicator, years of experience, and block fixed effects – yields β₁ = -0.4874 (robust SE = 0.0551, t = -8.8452, p = <0.0001, 95% CI [-0.5954, -0.3794]). Higher shock intensity is associated with lower mean NRS responses, indicating a risk-reducing shift in portfolio managers' stance. Robustness checks using quintile dummies, respondent fixed effects, decomposed components, and an interaction term are reported in Table 5.8.
+At the α = 0.05 level of significance, the null hypothesis H1₀ is rejected in favour of the alternative hypothesis H1ₐ. The OLS regression of SC_total on Net Risk Stance (NRS) – controlling for the ShowSC treatment indicator, years of experience, and block fixed effects – yields β₁ = -0.4874 (two-way cluster-robust SE = 0.1532, t = -3.1825, p = 0.0015, 95% CI [-0.7876, -0.1872]). Higher shock intensity is associated with lower mean NRS responses, indicating a risk-reducing shift in portfolio managers' stance. The cluster-robust standard error (0.1532) is materially larger than the HC3 standard error (0.0551) because it accounts for the strong within-manager and within-event correlation present in the panel (block-level intraclass correlations of 0.8425, 0.9026, and 0.9369; Table 5.5); the more conservative clustered estimate is therefore the appropriate basis for inference, and the null is rejected even under this wider interval. Robustness checks using quintile dummies, respondent fixed effects, decomposed components, and an interaction term are reported in Table 5.8.
 
 **Table 5.7**
 
@@ -1545,7 +1545,7 @@ The incremental effect of the Shock Score dashboard (ShowSC) on simulated portfo
 
 ## 5.7 Interim Conclusions
 
-The interim conclusions for Chapter 5 are as follows. H1 – that SC_total is significantly associated with NRS: **support for the alternative hypothesis H1ₐ was found** (β₁ = -0.4874, p = <0.0001; direction: risk-reducing). H2 – that the Shock Score dashboard moderates the risk-return profile of simulated portfolios: **the null hypothesis H2₀ was not rejected** (τ = -0.1584, p = 0.7428) in the Option B individual-portfolio regression. On the secondary Sharpe ratio outcome, the treatment effect is directionally positive (τ = 0.8790, p = 0.6050), not reaching statistical significance in the current sample. Both findings are contingent on the current sample composition and are subject to revision upon completion of the full survey. Robustness checks for H1 and the Option A descriptive analysis for H2 are consistent in direction with the primary results.
+The interim conclusions for Chapter 5 are as follows. H1 – that SC_total is significantly associated with NRS: **the null hypothesis H1₀ was rejected in favour of the alternative H1ₐ** (β₁ = -0.4874, p = 0.0015; direction: risk-reducing). H2 – that the Shock Score dashboard moderates the risk-return profile of simulated portfolios: **the null hypothesis H2₀ was not rejected** (τ = -0.1584, p = 0.7428) in the Option B individual-portfolio regression. On the secondary Sharpe ratio outcome, the treatment effect is directionally positive (τ = 0.8790, p = 0.6050), not reaching statistical significance in the current sample. Both findings are contingent on the current sample composition and are subject to revision upon completion of the full survey. Robustness checks for H1 and the Option A descriptive analysis for H2 are consistent in direction with the primary results.
 
 ## 5.8 Chapter Conclusion
 
@@ -1585,7 +1585,7 @@ Third, decision-support tools have been developed to mitigate behavioral bias at
 
 ### 6.2.2 Summary of Primary Research
 
-The primary research contributes empirical evidence on two hypotheses. H1 posits that SC_total – a PCA-based composite of article count, sentiment extremity, attention intensity, and event-type severity – is a statistically significant predictor of portfolio managers' Net Risk Stance. The evidence supports this hypothesis (β₁ = -0.4874, p = <0.0001). H2 posits that exposure to the Shock Score dashboard improves the risk-return profile of simulated portfolios. The Option B individual-portfolio regression does not support this hypothesis at the α = 0.05 level. These findings are based on 53 respondents (424 observations).
+The primary research contributes empirical evidence on two hypotheses. H1 posits that SC_total – a PCA-based composite of article count, sentiment extremity, attention intensity, and event-type severity – is a statistically significant predictor of portfolio managers' Net Risk Stance. The evidence supports this hypothesis: the null is rejected in favour of the alternative (β₁ = -0.4874, p = 0.0015). H2 posits that exposure to the Shock Score dashboard improves the risk-return profile of simulated portfolios. The Option B individual-portfolio regression does not support this hypothesis at the α = 0.05 level. These findings are based on 53 respondents (424 observations).
 
 ## 6.3 Overall Conclusions
 

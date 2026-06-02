@@ -158,7 +158,7 @@
 |---|---|---|---|
 | Primary H1 residuals | 0.9849 | 0.0002 | Yes |
 
-*Note.* Shapiro-Wilk test applied to OLS residuals from the primary H1 regression specification (N = 424 observations). Residual normality is the relevant OLS assumption; the marginal distribution of NRS is not required to be normal. HC3 heteroscedasticity-consistent standard errors are applied regardless of this result.
+*Note.* Shapiro-Wilk test applied to OLS residuals from the primary H1 regression specification (N = 424 observations). Residual normality is the relevant OLS assumption; the marginal distribution of NRS is not required to be normal. Inference for the primary specification uses two-way cluster-robust standard errors (clustered by respondent and scenario), whose validity does not depend on residual normality.
 <!-- RESULTS:END:tbl_5_6_residuals -->
 
 <!-- RESULTS:BEGIN:tbl_5_7_h1_main -->

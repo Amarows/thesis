@@ -2039,8 +2039,9 @@ def write_results_md(
             f"*Note.* Shapiro-Wilk test applied to OLS residuals from the primary H1 "
             f"regression specification (N = {resid_norm.get('n', '—')} observations). "
             f"Residual normality is the relevant OLS assumption; the marginal distribution "
-            f"of NRS is not required to be normal. HC3 heteroscedasticity-consistent "
-            f"standard errors are applied regardless of this result.",
+            f"of NRS is not required to be normal. Inference for the primary "
+            f"specification uses two-way cluster-robust standard errors (clustered by "
+            f"respondent and scenario), whose validity does not depend on residual normality.",
         ]
     else:
         resid_lines += ["*(To be populated once H1 regression is computed.)*"]
