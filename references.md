@@ -90,3 +90,12 @@
 | MacKinnon & White, 1985     | https://doi.org/10.1016/0304-4076(85)90158-7                                       | Some heteroskedasticity-consistent covariance matrix estimators with improved finite sample properties           |                            |
 | Koo & Li, 2016              | https://doi.org/10.1016/j.jcm.2016.02.012                                          | A Guideline of Selecting and Reporting Intraclass Correlation Coefficients for Reliability Research              |                            |
 | Rigobon, 2003               | https://doi.org/10.1162/003465303772815727                                          | Identification Through Heteroskedasticity                                                                        | rigobon2003.pdf            |
+| Markowitz, 1952              | https://doi.org/10.1111/j.1540-6261.1952.tb01525.x | Portfolio Selection | |
+| Saunders et al., 2019        | | Research Methods for Business Students (8th ed.) | |
+| Shadish et al., 2002         | | Experimental and Quasi-Experimental Designs for Generalized Causal Inference | |
+| Dietvorst et al., 2015       | https://doi.org/10.1037/xge0000033 | Algorithm Aversion: People Erroneously Avoid Algorithms After Seeing Them Err | |
+| Interactive Brokers, 2026    | https://www.interactivebrokers.co.uk | Historical market data [Data set] | |
+| Benzinga, 2026               | https://www.benzinga.com | Benzinga news [Data set] | |
+| Yahoo Finance, 2026          | https://finance.yahoo.com | Historical market data [Data set] | |
+| Anthropic, 2026              | https://www.anthropic.com | Claude (Sonnet) [Large language model] | |
+| S&P Dow Jones Indices, 2026  | https://www.spglobal.com/spdji/en/indices/equity/sp-500/ | S&P 500 [Index] | |
