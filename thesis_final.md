@@ -1414,7 +1414,7 @@ At the α = 0.05 level of significance, support for the alternative hypothesis H
 
 | Covariate | β₁ | SE | t | p | CI_lo | CI_hi | R² | N_obs | N_resp | SE_type |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| SC_total | -0.4874 | 0.0551 | -8.8452 | <0.0001 | -0.5954 | -0.3794 | 0.3571 | 424 | 53 | HC3 |
+| SC_total | -0.4874 | 0.1532 | -3.1825 | 0.0015 | -0.7876 | -0.1872 | 0.3571 | 424 | 53 | two-way cluster (respondent, scenario) |
 
 The decomposed component specification (Spec 3) reveals a notable sign heterogeneity among the four Shock Score components. Sentiment Extremity (SE_e: β = −1.2904, p < 0.0001) and Attention Intensity (AI_e: β = −0.5668, p < 0.0001) are both significantly negative, consistent with the risk-reducing direction observed in the primary SC_total result. Article Count (AC_e: β = +0.0235, p = 0.1585) is statistically non-significant. Event-Type Severity (ES_raw: β = +0.3102, p < 0.0001), however, enters with a positive sign, indicating that higher category-level severity is associated with an increase in NRS, contrary to the direction of the composite effect. This result is interpreted as a contrarian-resolution pattern: when managers recognize that an event belongs to a historically high-volatility category (e.g., earnings), they may treat elevated category severity as a signal that price adjustment is already priced into expectations, thereby increasing rather than reducing risk exposure. This interpretation is consistent with the contrarian-alignment pattern identified in Section 5.6.1.1, where overall NRS–sentiment alignment rates fall well below 0.50. The positive ES_raw coefficient does not invalidate the primary H1 finding; SC_total integrates all four components through PCA and its composite effect remains robustly negative. The sign heterogeneity is reported for transparency and as an avenue for future research on component-level behavioral mechanisms.
 
@@ -1443,6 +1443,7 @@ The direction-interaction specification (Spec 5) further decomposes the SC_total
 | spec_4_interaction | SC_total × ShowSC interaction | -0.0067 | 0.083 | -0.0806 | 0.9358 | -0.1694 | 0.1561 | 0.3571 | 424 | HC3 |
 | spec_5_direction_b1 | SC_total main effect (positive events) | -0.4283 | 0.0603 | -7.1072 | <0.0001 | -0.5464 | -0.3102 | 0.3701 | 424 | HC3 |
 | spec_5_direction_b3 | SC_total × D_neg amplification (negative events) | 0.1954 | 0.3684 | 0.5305 | 0.5957 | -0.5266 | 0.9174 | 0.3701 | 424 | HC3 |
+| spec_6_hc3 | Primary specification with HC3 SEs | -0.4874 | 0.0551 | -8.8452 | <0.0001 | -0.5954 | -0.3794 | 0.3571 | 424 | HC3 |
 
 ### 5.5.2 Testing of Hypothesis H2
 

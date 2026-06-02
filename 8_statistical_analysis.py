@@ -880,14 +880,6 @@ def run_h1_regression(df: pd.DataFrame) -> dict:
     X = sm.add_constant(X)
     y = reg["nrs"].astype(float)
 
-    # Try two-way cluster-robust SE via linearmodels
-    TWO_WAY = False
-    try:
-        from linearmodels.panel import PanelOLS
-        TWO_WAY = True
-    except ImportError:
-        pass
-
     def _fit_ols_hc3(X_: pd.DataFrame, y_: pd.Series) -> dict:
         model = sm.OLS(y_, X_).fit(cov_type="HC3")
         sc_idx = list(X_.columns).index("sc_total") if "sc_total" in X_.columns else None
@@ -911,7 +903,40 @@ def run_h1_regression(df: pd.DataFrame) -> dict:
                 "r2": round(model.rsquared, 4), "n_obs": int(model.nobs),
                 "clustering": "HC3"}
 
-    primary = _fit_ols_hc3(X, y)
+    def _fit_ols_cluster2(X_: pd.DataFrame, y_: pd.Series, groups_: np.ndarray) -> dict:
+        model = sm.OLS(y_, X_).fit(
+            cov_type="cluster",
+            cov_kwds={"groups": groups_},
+        )
+        sc_idx = list(X_.columns).index("sc_total") if "sc_total" in X_.columns else None
+        if sc_idx is None:
+            return {"model": model, "beta1": np.nan, "se": np.nan, "t": np.nan,
+                    "p": np.nan, "ci_lo": np.nan, "ci_hi": np.nan,
+                    "r2": round(model.rsquared, 4), "n_obs": int(model.nobs),
+                    "clustering": "two-way cluster (respondent, scenario)"}
+        beta = model.params.iloc[sc_idx]
+        se   = model.bse.iloc[sc_idx]
+        t    = model.tvalues.iloc[sc_idx]
+        p    = model.pvalues.iloc[sc_idx]
+        ci   = model.conf_int().iloc[sc_idx]
+
+        # Determine P-value display string
+        p_str = _round4(p)
+
+        return {"model": model, "beta1": round(beta, 4), "se": round(se, 4),
+                "t": round(t, 4), "p": p_str,
+                "ci_lo": round(ci[0], 4), "ci_hi": round(ci[1], 4),
+                "r2": round(model.rsquared, 4), "n_obs": int(model.nobs),
+                "clustering": "two-way cluster (respondent, scenario)"}
+
+    # Primary: two-way cluster-robust SEs on respondent_id and scenario_id.
+    # Encode group labels as integer codes – statsmodels' two-way clustering
+    # cannot .view() an object-dtype array; codes preserve group membership.
+    cluster_groups = np.column_stack([
+        pd.factorize(df.loc[reg.index, "respondent_id"])[0],
+        pd.factorize(df.loc[reg.index, "scenario_id"])[0],
+    ])
+    primary = _fit_ols_cluster2(X, y, cluster_groups)
     primary["n_respondents"] = df["respondent_id"].nunique() if "respondent_id" in df.columns else np.nan
     primary["n_scenarios"]   = df["scenario_id"].nunique() if "scenario_id" in df.columns else np.nan
     h1["primary"] = primary
@@ -1150,6 +1175,18 @@ def run_h1_regression(df: pd.DataFrame) -> dict:
     except Exception as e:
         rob_rows.append({"spec": "spec_5_direction_b1", "note": str(e)})
         rob_rows.append({"spec": "spec_5_direction_b3", "note": str(e)})
+
+    # Spec 6: HC3 SEs on the primary specification (demoted from primary to robustness)
+    try:
+        hc3_fit = _fit_ols_hc3(X, y)
+        rob_rows.append({
+            "spec": "spec_6_hc3", "note": "Primary specification with HC3 SEs",
+            "beta1": hc3_fit["beta1"], "se": hc3_fit["se"], "t": hc3_fit["t"],
+            "p": hc3_fit["p"], "ci_lo": hc3_fit["ci_lo"], "ci_hi": hc3_fit["ci_hi"],
+            "r2": hc3_fit["r2"], "n_obs": hc3_fit["n_obs"], "clustering": "HC3",
+        })
+    except Exception as e:
+        rob_rows.append({"spec": "spec_6_hc3", "note": str(e)})
 
     rob_df = pd.DataFrame(rob_rows)
     h1["robustness"] = rob_df

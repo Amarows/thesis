@@ -8,3 +8,4 @@ spec_3_component_es_raw,Component: es_raw,0.3102,0.0328,9.4635,<0.0001,0.246,0.3
 spec_4_interaction,SC_total × ShowSC interaction,-0.0067,0.083,-0.0806,0.9358,-0.1694,0.1561,0.3571,424,HC3
 spec_5_direction_b1,SC_total main effect (positive events),-0.4283,0.0603,-7.1072,<0.0001,-0.5464,-0.3102,0.3701,424,HC3
 spec_5_direction_b3,SC_total × D_neg amplification (negative events),0.1954,0.3684,0.5305,0.5957,-0.5266,0.9174,0.3701,424,HC3
+spec_6_hc3,Primary specification with HC3 SEs,-0.4874,0.0551,-8.8452,<0.0001,-0.5954,-0.3794,0.3571,424,HC3

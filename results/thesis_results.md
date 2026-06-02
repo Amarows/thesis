@@ -168,7 +168,7 @@
 
 | Covariate | β₁ | SE | t | p | CI_lo | CI_hi | R² | N_obs | N_resp | SE_type |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| SC_total | -0.4874 | 0.0551 | -8.8452 | <0.0001 | -0.5954 | -0.3794 | 0.3571 | 424 | 53 | HC3 |
+| SC_total | -0.4874 | 0.1532 | -3.1825 | 0.0015 | -0.7876 | -0.1872 | 0.3571 | 424 | 53 | two-way cluster (respondent, scenario) |
 
 <!-- RESULTS:END:tbl_5_7_h1_main -->
 
@@ -188,6 +188,7 @@
 | spec_4_interaction | SC_total × ShowSC interaction | -0.0067 | 0.083 | -0.0806 | 0.9358 | -0.1694 | 0.1561 | 0.3571 | 424 | HC3 |
 | spec_5_direction_b1 | SC_total main effect (positive events) | -0.4283 | 0.0603 | -7.1072 | <0.0001 | -0.5464 | -0.3102 | 0.3701 | 424 | HC3 |
 | spec_5_direction_b3 | SC_total × D_neg amplification (negative events) | 0.1954 | 0.3684 | 0.5305 | 0.5957 | -0.5266 | 0.9174 | 0.3701 | 424 | HC3 |
+| spec_6_hc3 | Primary specification with HC3 SEs | -0.4874 | 0.0551 | -8.8452 | <0.0001 | -0.5954 | -0.3794 | 0.3571 | 424 | HC3 |
 
 <!-- RESULTS:END:tbl_5_8_h1_robustness -->
 
