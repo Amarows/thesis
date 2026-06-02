@@ -35,13 +35,6 @@ The Shock Score, developed and evaluated in this thesis, represents an attempt t
 
 The research draws on the behavioral finance literature, quantitative methods in financial economics, and applied survey design. It is intended to contribute both to academic understanding of decision-making under uncertainty and to the practical toolkit available to investment risk professionals.
 
-
-# To be added via TOC
-
-- Table of Contents
-- List of Tables
-- List of Figures
-
 # List of Tables
 
 <!-- PLACEHOLDER:list_of_tables -->
