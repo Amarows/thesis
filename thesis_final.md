@@ -314,7 +314,7 @@ The first link in this pathway concerns the relationship between external inform
 
 The second link concerns the potential role of structured decision support in moderating emotional and behavioral responses to information shocks. The Shock Score, an original composite indicator developed in this thesis and formally defined in section 2.6.3, is designed to quantify the emotional and informational intensity of an external information shock and to present this information to managers through an interpretable dashboard. The dashboard incorporates sentiment direction, information shock severity, a persistence horizon estimate, and a rules-based pre-commitment protocol. The rationale for this design draws on evidence that pre-commitment mechanisms and structured decision rules can reduce emotional reactivity in professional investment contexts ([Henderson et al., 2018](https://doi.org/10.1016/j.jet.2018.10.002); [Statman, 2019](https://doi.org/10.2139/ssrn.3668963)), and that transparent, rule-based decision support — where an algorithmic indicator informs but does not replace human judgment — improves decision consistency in advisory settings ([Bianchi et al., 2022](https://dx.doi.org/10.2139/ssrn.3825110)). Cross-domain evidence further indicates that discretionary human overrides of algorithmic recommendations typically degrade rather than improve decision accuracy, motivating the advisory rather than override-based design of the Shock Score dashboard ([Angelova et al., 2023](https://doi.org/10.3386/w31747)).
 
-The third link concerns the downstream consequence: whether moderated decision responses are associated with changes in portfolio risk-return characteristics. Portfolio outcomes are evaluated through simulation using risk-adjusted performance measures, as defined in section 2.3.2. This link is model-dependent and subject to the limitations acknowledged in section 2.8.3.
+The third link concerns the downstream consequence: whether moderated decision responses are associated with changes in portfolio risk-return characteristics. Portfolio outcomes are evaluated through simulation using risk-adjusted performance measures, as defined in section 2.3.2. This link is model-dependent and subject to the limitations acknowledged in section 2.8.
 
 These three links form the causal logic that the study evaluates. An information shock produces behavioral activation, which drives a decision response (the Net Risk Stance), which in turn feeds the simulated portfolio outcome. The Shock Score dashboard enters this chain as a moderator: by structuring interpretation at the moment of information shock, it is expected to alter the decision response and, through that channel, the downstream outcome. Figure 2.3 represents this logic schematically.
 
@@ -422,9 +422,7 @@ The study assumes that:
 
 ## 2.8 Limitations
 
-
 Limitations define boundaries on measurement, inference, and generalizability. They clarify what the study can and cannot conclude from the data and design.
-
 
 Emotional intensity is not observed directly in this study and is proxied through four observable shock characteristics — Article Count, Sentiment Extremity, Attention Intensity, and Event-Type Severity — aggregated into SC_total via principal component analysis (components and construction defined in Section 4.3.5; PCA method per [Jolliffe & Cadima, 2016](https://doi.org/10.1098/rsta.2015.0202)). Each component captures a distinct dimension of the informational stimulus that behavioral research associates with heightened investor attention and affective response ([Loewenstein et al., 2001](https://doi.org/10.1037/0033-2909.127.2.267); [Barber & Odean, 2008](https://doi.org/10.1093/rfs/hhm079)). The Shock Score as a composite proxy for emotional intensity is a novel construct introduced in this thesis; its construct validity is an empirical question evaluated in Chapter 5 through its explanatory power over Net Risk Stance responses. The effectiveness of the persistence score and pre-commitment protocol components additionally depends on predefined thresholds, which may not be universally optimal across all event types and market regimes.
 
@@ -736,7 +734,7 @@ Primary data are collected through an online scenario-based survey of active equ
 
 ### 4.2.1 Research Paradigm
 
-The study adopts a positivist, deductive, theory-testing paradigm (Saunders et al., 2019): hypotheses derived from behavioral finance and the decision-support literature (Chapters 2 and 3) are evaluated against primary data collected under controlled conditions. The design is quasi-experimental and within-subject ([Charness et al., 2012](https://doi.org/10.1016/j.jebo.2011.08.009)). Each participant serves as their own control by responding to scenarios under both conditions (ShowSC = 0 and ShowSC = 1), which controls for stable individual differences in risk appetite and decision style, increases statistical power relative to a between-subjects design -- important given the difficulty of recruiting professional managers -- and reflects the applied question of whether the same manager's behavior changes when given access to the tool. Scenario-based stimuli replace live market events, enabling standardized presentation and controlled manipulation of the treatment at the cost of some artificiality; the gap between stated intentions and actual trading behavior is acknowledged in Section 2.8.2. A Latin square counterbalanced block design (Section 4.4.4) mitigates within-subject confounds by ensuring no scenario is systematically associated with one condition and by distributing order effects across respondents.
+The study adopts a positivist, deductive, theory-testing paradigm (Saunders et al., 2019): hypotheses derived from behavioral finance and the decision-support literature (Chapters 2 and 3) are evaluated against primary data collected under controlled conditions. The design is quasi-experimental and within-subject ([Charness et al., 2012](https://doi.org/10.1016/j.jebo.2011.08.009)). Each participant serves as their own control by responding to scenarios under both conditions (ShowSC = 0 and ShowSC = 1), which controls for stable individual differences in risk appetite and decision style, increases statistical power relative to a between-subjects design -- important given the difficulty of recruiting professional managers -- and reflects the applied question of whether the same manager's behavior changes when given access to the tool. Scenario-based stimuli replace live market events, enabling standardized presentation and controlled manipulation of the treatment at the cost of some artificiality; the gap between stated intentions and actual trading behavior is acknowledged in Section 2.8. A Latin square counterbalanced block design (Section 4.4.4) mitigates within-subject confounds by ensuring no scenario is systematically associated with one condition and by distributing order effects across respondents.
 
 The research is positioned as applied research focused on professional decision-making (Section 2.2). It makes no claims about market efficiency; it evaluates whether decision support is associated with changes in manager responses and simulated portfolio outcomes.
 
@@ -759,7 +757,7 @@ The framework proceeds in three stages. First, an external information shock is 
 
 Second, the manager encounters the scenario through the survey. The treatment condition adds the four-signal Shock Score dashboard (Section 4.3.6); the control condition omits it. The manager then records the seven-point Net Risk Stance, which serves as the dependent variable for H1 and the mediating behavioral response for H2.
 
-Third, stated NRS responses are translated into portfolio weight adjustments and evaluated against realized returns within a simulation framework, producing Sharpe and Sortino ratios as the H2 dependent variables. ShowSC is the H2 independent variable. NRS is directly observed; portfolio outcomes are model-dependent and therefore jointly conditional on the behavioral treatment effect and the adequacy of the simulation, as noted in Section 2.8.3.
+Third, stated NRS responses are translated into portfolio weight adjustments and evaluated against realized returns within a simulation framework, producing Sharpe and Sortino ratios as the H2 dependent variables. ShowSC is the H2 independent variable. NRS is directly observed; portfolio outcomes are model-dependent and therefore jointly conditional on the behavioral treatment effect and the adequacy of the simulation, as noted in Section 2.8.
 
 
 ## 4.3 Market and Events Data
@@ -768,7 +766,7 @@ Third, stated NRS responses are translated into portfolio weight adjustments and
 
 The portfolio universe is restricted to U.S.-listed equities. The U.S. market accounts for roughly half of global equity capitalisation and offers unmatched depth and liquidity ([SIFMA, 2025](https://www.sifma.org/research/statistics/fact-book)), ensuring all constituents are plausible holdings for the target respondent population. A single-market restriction also eliminates cross-jurisdiction confounds (trading hours, regulatory regimes, currency), aligns with Benzinga's most comprehensive coverage (Section 4.3.3), and supplies the S&P 500 as a single consistent benchmark for the event screening algorithm (Section 4.3.4). Stocks are drawn from the S&P 500 ([S&P Dow Jones Indices, 2026](https://www.spglobal.com/spdji/en/indices/equity/sp-500/)) using selection criteria that balance ecological validity (the extent to which the experimental scenarios resemble the real-world conditions under which managers actually decide), internal validity, and respondent experience.
 
-The top 10 constituents by market capitalisation (Apple, Microsoft, NVIDIA, Amazon, Alphabet, Meta, Berkshire Hathaway, Broadcom, Tesla, Eli Lilly) are excluded: managers typically hold strong priors or active positions in these names, which would introduce a familiarity-bias confound (Weber, Siebenmorgen, & Weber, 2005). Remaining S&P 500 constituents are familiar enough for generalist managers to evaluate without research yet ordinary enough that personal views are unlikely to dominate the response. Company names are not masked, as anonymisation would substantially reduce ecological validity; scenario instructions direct respondents to react to the information presented rather than to prior views. Residual familiarity effects are acknowledged in Section 2.8.2.
+The top 10 constituents by market capitalisation (Apple, Microsoft, NVIDIA, Amazon, Alphabet, Meta, Berkshire Hathaway, Broadcom, Tesla, Eli Lilly) are excluded: managers typically hold strong priors or active positions in these names, which would introduce a familiarity-bias confound (Weber, Siebenmorgen, & Weber, 2005). Remaining S&P 500 constituents are familiar enough for generalist managers to evaluate without research yet ordinary enough that personal views are unlikely to dominate the response. Company names are not masked, as anonymisation would substantially reduce ecological validity; scenario instructions direct respondents to react to the information presented rather than to prior views. Residual familiarity effects are acknowledged in Section 2.8.
 
 Twenty-four unique stocks populate the scenario slots across three blocks of eight, with each stock appearing in exactly one block so that blocks function as independent mini-experiments. Candidate stocks – that is, the S&P 500 constituents remaining after the top-10 exclusion described above – must additionally meet three requirements: (i) adequate news coverage, operationalised as at least one Benzinga article per week on average; (ii) sector diversification across at least 8 GICS sectors, with no sector contributing more than 4 or fewer than 1 of the 24 stocks, to avoid expertise-based response heterogeneity; and (iii) sufficient average daily trading volume to make portfolio adjustments professionally plausible.
 
@@ -1064,7 +1062,7 @@ The target sample size was 100 valid completed questionnaires, exceeding the SBS
 
 Sampling is purposive with snowball referral, as no comprehensive frame exists for this specialised population. Recruitment uses direct outreach through a professional network, targeted LinkedIn messaging, CFA and CAIA association channels, and firm-level distribution requests; recruited participants are invited to forward the survey to qualifying colleagues.
 
-Non-probability sampling limits generalisability: voluntary participants may over-represent those with interest in behavioral finance or decision-support tools (acknowledged in Section 2.8.2). Sample representativeness is characterised in Section 5.2.1 against available industry benchmarks.
+Non-probability sampling limits generalisability: voluntary participants may over-represent those with interest in behavioral finance or decision-support tools (acknowledged in Section 2.8). Sample representativeness is characterised in Section 5.2.1 against available industry benchmarks.
 
 
 ### 4.4.8 Survey Administration and Response Rates
@@ -1955,7 +1953,7 @@ Student initial that the item has been checked:
 
 # Appendix 4. Survey Questionnaire (Block 2 – Representative Example)
 
-This appendix presents the survey instrument as administered to respondents. The full survey comprised three blocks of eight scenarios each (24 scenarios in total), deployed as six separate Google Forms (three blocks times two counterbalancing versions). Block 1 is reproduced here as a representative example; Blocks 2 and 3 follow an identical structure with different scenarios.
+This appendix presents the survey instrument as administered to respondents. The full survey comprised three blocks of eight scenarios each (24 scenarios in total), deployed as six separate Google Forms (three blocks times two counterbalancing versions). Block 2 is reproduced here as a representative example; Blocks 1 and 3 follow an identical structure with different scenarios.
 
 Each block was administered in two versions. In Version 1, respondents in Group A received the Shock Score dashboard alongside the scenario information (ShowSC = 1); respondents in Group B received scenario information only (ShowSC = 0). Version 2 reversed the assignment. The Shock Score dashboard design is documented in Chapter 4. 
 
@@ -2037,7 +2035,7 @@ Each block was administered in two versions. In Version 1, respondents in Group 
 
 For the purposes of this survey, assume you manage a long-only equal-weighted equity portfolio with 24 stocks. "Reduce exposure" means reducing or selling the position; "increase exposure" means adding to it. 
 
-This block presents eight scenarios, each showing a real market event affecting one stock in the portfolio. Assume only the stock shown is subject to the shock; the remaining 35 holdings move in line with the broad market index that day.
+This block presents eight scenarios, each showing a real market event affecting one stock in the portfolio. Assume only the stock shown is subject to the shock; the remaining 23 holdings move in line with the broad market index that day.
 
 Each scenario contains:
 
@@ -2114,4 +2112,4 @@ Reported by multiple sources.
 
 ---
 
-*End of Block 1. Upon completion, respondents were thanked and provided with a contact address for questions. Blocks 2 and 3 were administered as separate survey links.*
+*End of Block 2. Upon completion, respondents were thanked and provided with a contact address for questions. Blocks 1 and 3 were administered as separate survey links.*
