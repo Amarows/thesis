@@ -366,9 +366,15 @@ The study assumes that:
 Limitations define boundaries on measurement, inference, and generalizability. They clarify what the study can and cannot conclude from the data and design.
 
 
+### 2.8.1 Measurement and Construct Validity
+
 Emotional intensity is not observed directly in this study and is proxied through four observable shock characteristics — Article Count, Sentiment Extremity, Attention Intensity, and Event-Type Severity — aggregated into SC_total via principal component analysis (components and construction defined in Section 4.3.5; PCA method per [Jolliffe & Cadima, 2016](https://doi.org/10.1098/rsta.2015.0202)). Each component captures a distinct dimension of the informational stimulus that behavioral research associates with heightened investor attention and affective response ([Loewenstein et al., 2001](https://doi.org/10.1037/0033-2909.127.2.267); [Barber & Odean, 2008](https://doi.org/10.1093/rfs/hhm079)). The Shock Score as a composite proxy for emotional intensity is a novel construct introduced in this thesis; its construct validity is an empirical question evaluated in Chapter 5 through its explanatory power over Net Risk Stance responses. The effectiveness of the persistence score and pre-commitment protocol components additionally depends on predefined thresholds, which may not be universally optimal across all event types and market regimes.
 
+### 2.8.2 Generalizability and External Validity
+
 Findings may not generalize beyond the defined portfolio universe, event types, and time horizon represented by the use cases. The effectiveness of the Shock Score and the associated pre-commitment protocol may vary across market regimes, volatility environments, and institutional contexts. The within-subject experimental setting evaluates intended decision responses under controlled scenarios and may differ from real-world behavior under organizational constraints, transaction costs, and liquidity considerations.
+
+### 2.8.3 Simulation Dependence of Portfolio Outcomes
 
 The study evaluates portfolio risk-return outcomes through simulation rather than through observation of actual trading ([Charness et al., 2012](https://doi.org/10.1016/j.jebo.2011.08.009)). Managers provide stated decision responses via the survey instrument; these responses are then translated into portfolio weight adjustments and evaluated against realized market returns within a simulation framework. As with any design relying on stated rather than revealed preferences, the relationship between reported intentions and actual behavior introduces a potential validity constraint ([Huber et al., 2022](https://doi.org/10.1016/j.jebo.2021.12.007)). As a result, the portfolio outcome findings for H2 are jointly conditional on two elements: (a) the behavioral effect of the Shock Score on stated decisions, and (b) the adequacy of the simulation model that maps stated decisions to portfolio returns. If the translation rules, rebalancing assumptions, or return-attribution conventions do not adequately represent how stated intentions would manifest in live portfolio management, the portfolio-level results may over- or understate the true effect of decision support. Figure 2.2 illustrates the boundary between directly observed data and model-dependent inference. The simulation design, including all translation rules and rebalancing conventions, is fully specified in Chapter 4 to enable independent assessment of these assumptions.
 
@@ -1553,7 +1559,7 @@ Student initial that the item has been checked:
 
 # Appendix 4. Survey Questionnaire (Block 2 – Representative Example)
 
-This appendix presents the survey instrument as administered to respondents. The full survey comprised three blocks of eight scenarios each (24 scenarios in total), deployed as six separate Google Forms (three blocks times two counterbalancing versions). Block 1 is reproduced here as a representative example; Blocks 2 and 3 follow an identical structure with different scenarios.
+This appendix presents the survey instrument as administered to respondents. The full survey comprised three blocks of eight scenarios each (24 scenarios in total), deployed as six separate Google Forms (three blocks times two counterbalancing versions). Block 2 is reproduced here as a representative example; Blocks 1 and 3 follow an identical structure with different scenarios.
 
 Each block was administered in two versions. In Version 1, respondents in Group A received the Shock Score dashboard alongside the scenario information (ShowSC = 1); respondents in Group B received scenario information only (ShowSC = 0). Version 2 reversed the assignment. The Shock Score dashboard design is documented in Chapter 4. 
 
@@ -1635,7 +1641,7 @@ Each block was administered in two versions. In Version 1, respondents in Group 
 
 For the purposes of this survey, assume you manage a long-only equal-weighted equity portfolio with 24 stocks. "Reduce exposure" means reducing or selling the position; "increase exposure" means adding to it. 
 
-This block presents eight scenarios, each showing a real market event affecting one stock in the portfolio. Assume only the stock shown is subject to the shock; the remaining 35 holdings move in line with the broad market index that day.
+This block presents eight scenarios, each showing a real market event affecting one stock in the portfolio. Assume only the stock shown is subject to the shock; the remaining 23 holdings move in line with the broad market index that day.
 
 Each scenario contains:
 
@@ -1712,4 +1718,4 @@ Reported by multiple sources.
 
 ---
 
-*End of Block 1. Upon completion, respondents were thanked and provided with a contact address for questions. Blocks 2 and 3 were administered as separate survey links.*
+*End of Block 2. Upon completion, respondents were thanked and provided with a contact address for questions. Blocks 1 and 3 were administered as separate survey links.*
