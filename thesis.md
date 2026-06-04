@@ -49,33 +49,33 @@ The research draws on the behavioral finance literature, quantitative methods in
 
 # List of Abbreviations and Acronyms
 
-| Abbreviation | Definition |
-|---|---|
-| $\mathrm{AC}_e$ | Article Count – number of distinct news articles attributed to the shock bar for event *e*; Shock Score component |
-| $\mathrm{AI}_e$ | Attention Intensity – abnormal trading volume on the event day relative to the trailing mean; Shock Score component |
-| API | Application Programming Interface |
-| AUM | Assets Under Management |
-| $D_{\mathrm{neg}}$ | Binary indicator equal to 1 for negative-sentiment shock events |
-| DistilBERT | Distilled Bidirectional Encoder Representations from Transformers – compact transformer model used for behavioral classification |
-| $\mathrm{ES}_e$ | Event-Type Severity – shock-bar price impact relative to baseline intraday volatility; Shock Score component |
-| $\mathrm{ES}_{\mathrm{raw}}$ | Unstandardized Event-Type Severity value used in the decomposed component specification |
-| FEARS | Financial and Economic Attitudes Revealed by Search – Google-search-based investor sentiment index (Da et al., 2015) |
-| FinBERT | Finance-domain pre-trained BERT model used for article-level sentiment scoring (Yang et al., 2020) |
-| GICS | Global Industry Classification Standard |
-| HC3 | Heteroskedasticity-Consistent standard error estimator, finite-sample variant 3 |
-| IBKR | Interactive Brokers |
-| ICC | Intraclass Correlation Coefficient |
-| LLM | Large Language Model |
-| MAR | Minimum Acceptable Return |
-| NRS | Net Risk Stance – seven-point scale capturing the direction and intensity of a manager's intended portfolio exposure adjustment |
-| $P_e$ | Persistence score for event *e* – operationalizes the expected decision-relevance horizon of the information shock |
-| PC1 | First Principal Component |
-| PCA | Principal Component Analysis |
-| RF | Risk-free rate |
+| Abbreviation                   | Definition |
+|--------------------------------|---|
+| $\mathrm{AC}_e$                | Article Count – number of distinct news articles attributed to the shock bar for event *e*; Shock Score component |
+| $\mathrm{AI}_e$                | Attention Intensity – abnormal trading volume on the event day relative to the trailing mean; Shock Score component |
+| API                            | Application Programming Interface |
+| AUM                            | Assets Under Management |
+| $D_{\mathrm{neg}}$             | Binary indicator equal to 1 for negative-sentiment shock events |
+| DistilBERT                     | Distilled Bidirectional Encoder Representations from Transformers – compact transformer model used for behavioral classification |
+| $\mathrm{ES}_e$                | Event-Type Severity – shock-bar price impact relative to baseline intraday volatility; Shock Score component |
+| $\mathrm{ES}_{\mathrm{raw}}$   | Unstandardized Event-Type Severity value used in the decomposed component specification |
+| FEARS                          | Financial and Economic Attitudes Revealed by Search – Google-search-based investor sentiment index (Da et al., 2015) |
+| FinBERT                        | Finance-domain pre-trained BERT model used for article-level sentiment scoring (Yang et al., 2020) |
+| GICS                           | Global Industry Classification Standard |
+| HC3                            | Heteroskedasticity-Consistent standard error estimator, finite-sample variant 3 |
+| IBKR                           | Interactive Brokers |
+| ICC                            | Intraclass Correlation Coefficient |
+| LLM                            | Large Language Model |
+| MAR                            | Minimum Acceptable Return |
+| NRS                            | Net Risk Stance – seven-point scale capturing the direction and intensity of a manager's intended portfolio exposure adjustment |
+| $P_e$                          | Persistence score for event *e* – operationalizes the expected decision-relevance horizon of the information shock |
+| PC1                            | First Principal Component |
+| PCA                            | Principal Component Analysis |
+| RF                             | Risk-free rate |
 | $\mathrm{SC}_{\mathrm{total}}$ | Shock Score composite – PCA-based first principal component of the four standardized Shock Score components |
-| $\mathrm{SE}_e$ | Sentiment Extremity – maximum absolute FinBERT sentiment score across event-day articles; Shock Score component |
-| ShowSC | Treatment indicator: ShowSC = 1 if the Shock Score dashboard is displayed; ShowSC = 0 if withheld |
-| T_e | Intensity trigger variable mapping the Shock Score to a pre-commitment protocol tier |
+| $\mathrm{SE}_e$                | Sentiment Extremity – maximum absolute FinBERT sentiment score across event-day articles; Shock Score component |
+| ShowSC                         | Treatment indicator: ShowSC = 1 if the Shock Score dashboard is displayed; ShowSC = 0 if withheld |
+| $\mathrm{T}_e$                 | Intensity trigger variable mapping the Shock Score to a pre-commitment protocol tier |
 
 # Executive Summary
 
@@ -265,6 +265,7 @@ The three objectives below are aligned with this chain. Section 2.3.1 addresses 
 The first objective is to assess whether external financial information shocks are associated with systematic shifts in managers' immediate decision response, and whether those responses are in turn associated with changes in portfolio risk–return characteristics. Decision response is collected through primary data as a single-item, seven-point Net Risk Stance (NRS) scale, developed for this study and following established Likert-type measurement conventions ([Doronila, 2025](https://dx.doi.org/10.2139/ssrn.5877342)), capturing the direction and intensity of intended exposure adjustment in response to an information shock scenario. A single-item measure is appropriate because the construct, directional portfolio adjustment intention, is concrete and unidimensional, and survey parsimony is critical when administering multiple scenarios to time-constrained professionals ([Bergkvist & Rossiter, 2007](https://doi.org/10.1509/jmkr.44.2.175)). Portfolio outcomes are evaluated using risk-adjusted performance measures, with Sharpe ratio ([Sharpe, 1966](https://doi.org/10.1086/294846)) and Sortino ratio ([Sortino & van der Meer, 1991](https://doi.org/10.3905/jpm.1991.409343)) specified as primary metrics, with precise computation conventions defined in Chapter 4.
 
 Net Risk Stance response scale (single item, seven points):
+
 1. Strongly reduce exposure  
 2. Reduce exposure  
 3. Slightly reduce exposure  

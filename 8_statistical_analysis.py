@@ -620,9 +620,9 @@ def _fig_sc_distribution(scen_df: pd.DataFrame) -> None:
             ax.text(center, 0.005, "\n".join(tickers), fontsize=6.5, ha="center",
                     va="bottom", color="black", linespacing=1.3)
 
-    ax.set_xlabel("SC_total")
+    ax.set_xlabel("Shock Score")
     ax.set_ylabel("Density")
-    ax.set_title("SC_total distribution across scenarios")
+    ax.set_title("Shock Score distribution across scenarios")
     ax.legend()
     _apa_style(ax)
     fig.tight_layout()
@@ -990,7 +990,7 @@ def run_h1_regression(df: pd.DataFrame) -> dict:
         X_r1 = sm.add_constant(X_r1)
         m_r1 = sm.OLS(y, X_r1).fit(cov_type="HC3")
         rob_rows.append({
-            "spec": "spec_1_quintiles", "note": "SC_total quintile dummies",
+            "spec": "spec_1_quintiles", "note": "Shock Score quintile dummies",
             "beta1": "see quintile coefficients", "se": np.nan, "t": np.nan,
             "p": np.nan, "ci_lo": np.nan, "ci_hi": np.nan,
             "r2": round(m_r1.rsquared, 4), "n_obs": int(m_r1.nobs), "clustering": "HC3",
@@ -1116,7 +1116,7 @@ def run_h1_regression(df: pd.DataFrame) -> dict:
         p_ = m_r4.pvalues.get("sc_x_showsc", np.nan)
         ci_ = m_r4.conf_int().loc["sc_x_showsc"] if "sc_x_showsc" in m_r4.conf_int().index else [np.nan, np.nan]
         rob_rows.append({
-            "spec": "spec_4_interaction", "note": "SC_total × ShowSC interaction",
+            "spec": "spec_4_interaction", "note": "Shock Score × ShowSC interaction",
             "beta1": round(b, 4), "se": round(se_, 4), "t": round(t_, 4),
             "p": _round4(p_), "ci_lo": round(ci_[0], 4), "ci_hi": round(ci_[1], 4),
             "r2": round(m_r4.rsquared, 4), "n_obs": int(m_r4.nobs), "clustering": "HC3",
@@ -1154,7 +1154,7 @@ def run_h1_regression(df: pd.DataFrame) -> dict:
         p1 = m_r5.pvalues.get("sc_total", np.nan)
         ci1 = m_r5.conf_int().loc["sc_total"] if "sc_total" in m_r5.conf_int().index else [np.nan, np.nan]
         rob_rows.append({
-            "spec": "spec_5_direction_b1", "note": "SC_total main effect (positive events)",
+            "spec": "spec_5_direction_b1", "note": "Shock Score main effect (positive events)",
             "beta1": round(b1, 4), "se": round(se1, 4), "t": round(t1, 4),
             "p": _round4(p1), "ci_lo": round(ci1[0], 4), "ci_hi": round(ci1[1], 4),
             "r2": round(m_r5.rsquared, 4), "n_obs": int(m_r5.nobs), "clustering": "HC3",
@@ -1167,7 +1167,7 @@ def run_h1_regression(df: pd.DataFrame) -> dict:
         p3 = m_r5.pvalues.get("sc_x_dneg", np.nan)
         ci3 = m_r5.conf_int().loc["sc_x_dneg"] if "sc_x_dneg" in m_r5.conf_int().index else [np.nan, np.nan]
         rob_rows.append({
-            "spec": "spec_5_direction_b3", "note": "SC_total × D_neg amplification (negative events)",
+            "spec": "spec_5_direction_b3", "note": "Shock Score × negative-sentiment amplification (negative events)",
             "beta1": round(b3, 4), "se": round(se3, 4), "t": round(t3, 4),
             "p": _round4(p3), "ci_lo": round(ci3[0], 4), "ci_hi": round(ci3[1], 4),
             "r2": round(m_r5.rsquared, 4), "n_obs": int(m_r5.nobs), "clustering": "HC3",
@@ -1501,7 +1501,7 @@ def _fig_h2_nrs_by_sc(df: pd.DataFrame) -> None:
                         means.values + sems.values, alpha=0.15, color=sty["color"], zorder=2)
 
     ax.axhline(4, color="grey", linestyle=":", linewidth=0.8)
-    ax.set_xlabel("SC_total (quintile mean)")
+    ax.set_xlabel("Shock Score (quintile mean)")
     ax.set_ylabel("Mean NRS")
     ax.set_ylim(3, 5)
     ax.set_yticks([3.0, 3.5, 4.0, 4.5, 5.0])
@@ -1524,10 +1524,10 @@ def _fig_component_forest(rob_df: pd.DataFrame) -> None:
 
     # (y-axis label, robustness spec row) ordered bottom (y=0) to top.
     components = [
-        ("AC_e\n(Article Count)",       "spec_3_component_ac_e"),
-        ("SE_e\n(Sentiment Extremity)", "spec_3_component_se_e"),
-        ("AI_e\n(Attention Intensity)", "spec_3_component_ai_e"),
-        ("ES_raw\n(Event Severity)",    "spec_3_component_es_raw"),
+        ("Article Count",       "spec_3_component_ac_e"),
+        ("Sentiment Extremity", "spec_3_component_se_e"),
+        ("Attention Intensity", "spec_3_component_ai_e"),
+        ("Event-Type Severity",    "spec_3_component_es_raw"),
     ]
     C_DOWN, C_UP, C_NS = "#2c7bb6", "#d7191c", "#999999"
 
@@ -1606,7 +1606,7 @@ def _fig_sc_vs_horizon_return(scenarios: pd.DataFrame, horizon_returns: pd.DataF
     slope, intercept = np.polyfit(x, y, 1)
     xs = np.linspace(x.min(), x.max(), 100)
     ax.plot(xs, slope * xs + intercept, color="#d7191c", linestyle="--", linewidth=1.8,
-            label=f"Linear trend (β = {slope:.2f}%/unit SC_total)", zorder=2)
+            label=f"Linear trend (β = {slope:.2f}%/unit Shock Score)", zorder=2)
 
     for b in sorted(m["block_id"].dropna().unique()):
         sub = m[m["block_id"] == b]
@@ -1618,7 +1618,7 @@ def _fig_sc_vs_horizon_return(scenarios: pd.DataFrame, horizon_returns: pd.DataF
                         (float(row["sc_total"]), float(row["horizon_return_pct"])),
                         xytext=(5, 5), textcoords="offset points", fontsize=8, color=color)
 
-    ax.set_xlabel("SC_total (composite Shock Score)")
+    ax.set_xlabel("Composite Shock Score")
     ax.set_ylabel("Actual horizon return (%)")
     ax.legend(loc="upper right")
     _apa_style(ax)
@@ -1909,11 +1909,11 @@ def write_results_md(
     fig_5_4 = block("fig_5_4_sc_distribution", "\n".join([
         "**Figure 5.4**",
         "",
-        "*Distribution of the SC_total Composite Shock Score*",
+        "*Distribution of the Composite Shock Score*",
         "",
-        "![SC_total distribution](figures/fig_sc_distribution.png)",
+        "![Shock Score distribution](figures/fig_sc_distribution.png)",
         "",
-        "*Note.* SC_total is the first principal component of the four standardised Shock Score components. Original figure by the author.",
+        "*Note.* The Shock Score is the first principal component of the four standardised components. Original figure by the author.",
     ]))
 
     # ---- s5_3_scenarios ----
@@ -2052,7 +2052,7 @@ def write_results_md(
     rob_df  = h1.get("robustness", pd.DataFrame())
 
     main_tbl_df = pd.DataFrame([{
-        "Covariate": "SC_total",
+        "Covariate": "Shock Score",
         "β₁":   primary.get("beta1", np.nan),
         "SE":   primary.get("se",    np.nan),
         "t":    primary.get("t",     np.nan),
@@ -2125,11 +2125,11 @@ def write_results_md(
     fig_5_8 = block("fig_5_8_nrs_sc_split", "\n".join([
         "**Figure 5.8**",
         "",
-        "*Mean NRS by SC_total Quintile and Experimental Condition*",
+        "*Mean NRS by Shock Score Quintile and Experimental Condition*",
         "",
-        "![Mean NRS by SC_total quintile and ShowSC condition](figures/fig_h2_nrs_by_sc.png)",
+        "![Mean NRS by Shock Score quintile and ShowSC condition](figures/fig_h2_nrs_by_sc.png)",
         "",
-        f"*Note.* Each point represents the mean Net Risk Stance (NRS) within a SC_total quintile, "
+        f"*Note.* Each point represents the mean Net Risk Stance (NRS) within a Shock Score quintile, "
         f"separately for the control (ShowSC = 0, dashed) and treatment (ShowSC = 1, solid) conditions. "
         f"Shaded bands show ±1 standard error. Error bars that substantially overlap across conditions "
         f"indicate that the Shock Score dashboard does not systematically alter risk-stance responses. "

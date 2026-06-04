@@ -59,7 +59,7 @@ Table 4.8     Pilot Feedback Questions
 
 Table 5.1     Respondent Demographics
 
-Table 5.2     SC_total PCA Diagnostics — First Principal Component
+Table 5.2     Shock Score PCA Diagnostics — First Principal Component
 
 Table 5.3     Final Scenario Selection Across Survey Blocks
 
@@ -95,7 +95,7 @@ Figure 5.2    Distribution of Net Risk Stance Responses
 
 Figure 5.3    Net Risk Stance Distribution by Experimental Condition
 
-Figure 5.4    Distribution of the SC_total Composite Shock Score
+Figure 5.4    Distribution of the Composite Shock Score
 
 Figure 5.5    Composite Shock Score Versus Actual Realized Horizon Return Across 24 Scenarios
 
@@ -103,7 +103,7 @@ Figure 5.6    Forest Plot of OLS Regression Coefficients for the Four Shock Scor
 
 Figure 5.7    Sharpe Ratio Comparison Across Experimental Conditions
 
-Figure 5.8    Mean NRS by SC_total Quintile and Experimental Condition
+Figure 5.8    Mean NRS by Shock Score Quintile and Experimental Condition
 
 Figure 5.9    NRS–Sentiment Alignment Rate by Sentiment Category
 
@@ -1240,11 +1240,11 @@ $\mathrm{SC}_{\mathrm{total}}$ is a standardised PCA composite score (first prin
 
 **Figure 5.4**
 
-*Distribution of the SC_total Composite Shock Score*
+*Distribution of the Composite Shock Score*
 
-![SC_total distribution](results/figures/fig_sc_distribution.png)
+![Shock Score distribution](results/figures/fig_sc_distribution.png)
 
-*Note.* SC_total is the first principal component of the four standardised Shock Score components. Original figure by the author.
+*Note.* The Shock Score is the first principal component of the four standardised components. Original figure by the author.
 
 
 ### 5.2.3 Shock Score Construct: PCA Diagnostics
@@ -1253,16 +1253,16 @@ The validity of $\mathrm{SC}_{\mathrm{total}}$ as a composite measure depends on
 
 **Table 5.2**
 
-*SC_total PCA Diagnostics — First Principal Component*
+*Shock Score PCA Diagnostics — First Principal Component*
 
 | Metric | Value |
 |--------|-------|
 | Eigenvalue (PC1) | 2.1027 |
 | Variance explained | 50.38% |
-| Loading — Article Count (AC_e) | 0.6120 |
-| Loading — Sentiment Extremity (SE_e) | 0.3990 |
-| Loading — Attention Intensity (AI_e) | 0.6161 |
-| Loading — Event-Type Severity (ES_raw) | 0.2944 |
+| Loading — Article Count | 0.6120 |
+| Loading — Sentiment Extremity | 0.3990 |
+| Loading — Attention Intensity | 0.6161 |
+| Loading — Event-Type Severity | 0.2944 |
 | Scenarios used | 24 |
 
 *Note.* PC1 = first principal component of the four standardised Shock Score components.
@@ -1393,7 +1393,7 @@ At the α = 0.05 level of significance, the null hypothesis H1₀ is rejected in
 
 | Covariate | β₁ | SE | t | p | CI_lo | CI_hi | R² | N_obs | N_resp | SE_type |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| SC_total | -0.4874 | 0.1532 | -3.1825 | 0.0015 | -0.7876 | -0.1872 | 0.3571 | 424 | 53 | two-way cluster (respondent, scenario) |
+| Shock Score | -0.4874 | 0.1532 | -3.1825 | 0.0015 | -0.7876 | -0.1872 | 0.3571 | 424 | 53 | two-way cluster (respondent, scenario) |
 
 The decomposed component specification (Spec 3) reveals a notable sign heterogeneity among the four Shock Score components. Sentiment Extremity ($\mathrm{SE}_e$: β = −1.2904, p < 0.0001) and Attention Intensity ($\mathrm{AI}_e$: β = −0.5668, p < 0.0001) are both significantly negative, consistent with the risk-reducing direction observed in the primary $\mathrm{SC}_{\mathrm{total}}$ result. Article Count ($\mathrm{AC}_e$: β = +0.0235, p = 0.1585) is statistically non-significant. Event-Type Severity ($\mathrm{ES}_{\mathrm{raw}}$: β = +0.3102, p < 0.0001), however, enters with a positive sign, indicating that higher category-level severity is associated with an increase in NRS, contrary to the direction of the composite effect. This result is interpreted as a contrarian-resolution pattern ([De Bondt & Thaler, 1985](https://doi.org/10.1111/j.1540-6261.1985.tb05004.x); [Daniel et al., 1998](https://doi.org/10.1111/0022-1082.00077)): when managers recognize that an event belongs to a historically high-volatility category (e.g., earnings), they may treat elevated category severity as a signal that price adjustment is already priced into expectations, thereby increasing rather than reducing risk exposure. This interpretation is consistent with the contrarian-alignment pattern identified in Section 5.6.1.1 ([Meng et al., 2024](https://doi.org/10.1016/j.irfa.2024.103219)), where overall NRS–sentiment alignment rates fall well below 0.50. The positive $\mathrm{ES}_{\mathrm{raw}}$ coefficient does not invalidate the primary H1 finding; $\mathrm{SC}_{\mathrm{total}}$ integrates all four components through PCA and its composite effect remains robustly negative. The sign heterogeneity is reported for transparency and as an avenue for future research on component-level behavioral mechanisms.
 
@@ -1413,15 +1413,15 @@ The direction-interaction specification (Spec 5) further decomposes the $\mathrm
 
 | spec | note | beta1 | se | t | p | ci_lo | ci_hi | r2 | n_obs | clustering |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| spec_1_quintiles | SC_total quintile dummies | see quintile coefficients |  |  | nan |  |  | 0.3715 | 424 | HC3 |
+| spec_1_quintiles | Shock Score quintile dummies | see quintile coefficients |  |  | nan |  |  | 0.3715 | 424 | HC3 |
 | spec_2_within | Respondent FE (within) | -0.1846 | 0.0549 | -3.3604 | 0.0008 | -0.2922 | -0.0769 | 0.0356 | 424 | HC3 |
 | spec_3_component_ac_e | Component: ac_e | 0.0235 | 0.0167 | 1.4101 | 0.1585 | -0.0092 | 0.0562 | 0.5372 | 424 | HC3 |
 | spec_3_component_se_e | Component: se_e | -1.2904 | 0.1684 | -7.6624 | <0.0001 | -1.6204 | -0.9603 | 0.5372 | 424 | HC3 |
 | spec_3_component_ai_e | Component: ai_e | -0.5668 | 0.0771 | -7.3553 | <0.0001 | -0.7178 | -0.4158 | 0.5372 | 424 | HC3 |
 | spec_3_component_es_raw | Component: es_raw | 0.3102 | 0.0328 | 9.4635 | <0.0001 | 0.246 | 0.3745 | 0.5372 | 424 | HC3 |
-| spec_4_interaction | SC_total × ShowSC interaction | -0.0067 | 0.083 | -0.0806 | 0.9358 | -0.1694 | 0.1561 | 0.3571 | 424 | HC3 |
-| spec_5_direction_b1 | SC_total main effect (positive events) | -0.4283 | 0.0603 | -7.1072 | <0.0001 | -0.5464 | -0.3102 | 0.3701 | 424 | HC3 |
-| spec_5_direction_b3 | SC_total × D_neg amplification (negative events) | 0.1954 | 0.3684 | 0.5305 | 0.5957 | -0.5266 | 0.9174 | 0.3701 | 424 | HC3 |
+| spec_4_interaction | Shock Score × ShowSC interaction | -0.0067 | 0.083 | -0.0806 | 0.9358 | -0.1694 | 0.1561 | 0.3571 | 424 | HC3 |
+| spec_5_direction_b1 | Shock Score main effect (positive events) | -0.4283 | 0.0603 | -7.1072 | <0.0001 | -0.5464 | -0.3102 | 0.3701 | 424 | HC3 |
+| spec_5_direction_b3 | Shock Score × negative-sentiment amplification (negative events) | 0.1954 | 0.3684 | 0.5305 | 0.5957 | -0.5266 | 0.9174 | 0.3701 | 424 | HC3 |
 | spec_6_hc3 | Primary specification with HC3 SEs | -0.4874 | 0.0551 | -8.8452 | <0.0001 | -0.5954 | -0.3794 | 0.3571 | 424 | HC3 |
 
 ### 5.5.2 Testing of Hypothesis H2
@@ -1470,11 +1470,11 @@ At the α = 0.05 level of significance, the evidence fails to reject the null hy
 
 **Figure 5.8**
 
-*Mean NRS by SC_total Quintile and Experimental Condition*
+*Mean NRS by Shock Score Quintile and Experimental Condition*
 
-![Mean NRS by SC_total quintile and ShowSC condition](results/figures/fig_h2_nrs_by_sc.png)
+![Mean NRS by Shock Score quintile and ShowSC condition](results/figures/fig_h2_nrs_by_sc.png)
 
-*Note.* Each point represents the mean Net Risk Stance (NRS) within a SC_total quintile, separately for the control (ShowSC = 0, dashed) and treatment (ShowSC = 1, solid) conditions. Shaded bands show ±1 standard error. Error bars that substantially overlap across conditions indicate that the Shock Score dashboard does not systematically alter risk-stance responses. The near-parallel trajectories are consistent with the H2 result being not supported (τ = -0.1584, p = 0.7428). The dotted horizontal line marks the NRS neutral point (4 = maintain exposure). Original figure by the author.
+*Note.* Each point represents the mean Net Risk Stance (NRS) within a Shock Score quintile, separately for the control (ShowSC = 0, dashed) and treatment (ShowSC = 1, solid) conditions. Shaded bands show ±1 standard error. Error bars that substantially overlap across conditions indicate that the Shock Score dashboard does not systematically alter risk-stance responses. The near-parallel trajectories are consistent with the H2 result being not supported (τ = -0.1584, p = 0.7428). The dotted horizontal line marks the NRS neutral point (4 = maintain exposure). Original figure by the author.
 
 ## 5.6 Results Interpretation
 
