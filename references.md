@@ -59,7 +59,7 @@
 | Sharpe, 1966                 | https://doi.org/10.1086/294846                                                     | Mutual fund performance.                                                                                         | 
 | Sortino & van der Meer, 1991 | https://doi.org/10.3905/jpm.1991.409343                                            | Downside risk. | sortino1991.pdf           |
 | Baker & Wurgler, 2006        | https://doi.org/10.1111/j.1540-6261.2006.00885.x                                   | Investor sentiment and the cross-section of stock returns                                                        | baker2006.pdf               
-| Doronila, 2024               | https://dx.doi.org/10.2139/ssrn.5877342                                            | Is Likert Scale 'Still In' in 2024? | ssrn-5877342.pdf            |                            |
+| Doronila, 2025               | https://dx.doi.org/10.2139/ssrn.5877342                                            | Is Likert Scale 'Still In' in 2024? | ssrn-5877342.pdf            |                            |
 | Charness et al., 2012        | https://doi.org/10.1016/j.jebo.2011.08.009                                         | Experimental methods: Between-subject and within-subject design                                                  | charness2012.pdf            
 | Krosnick, 1999               | https://doi.org/10.1146/annurev.psych.50.1.537                                     | Survey research.                                                                                                 
 | Fama, 1970                   | https://doi.org/10.1111/j.1540-6261.1970.tb00518.x| Efficient capital markets: A review of theory and empirical work                                                 | fama1970.pdf                
@@ -90,3 +90,12 @@
 | MacKinnon & White, 1985     | https://doi.org/10.1016/0304-4076(85)90158-7                                       | Some heteroskedasticity-consistent covariance matrix estimators with improved finite sample properties           |                            |
 | Koo & Li, 2016              | https://doi.org/10.1016/j.jcm.2016.02.012                                          | A Guideline of Selecting and Reporting Intraclass Correlation Coefficients for Reliability Research              |                            |
 | Rigobon, 2003               | https://doi.org/10.1162/003465303772815727                                          | Identification Through Heteroskedasticity                                                                        | rigobon2003.pdf            |
+| Markowitz, 1952              | https://doi.org/10.1111/j.1540-6261.1952.tb01525.x | Portfolio Selection | |
+| Saunders et al., 2019        | | Research Methods for Business Students (8th ed.) | |
+| Shadish et al., 2002         | | Experimental and Quasi-Experimental Designs for Generalized Causal Inference | |
+| Dietvorst et al., 2015       | https://doi.org/10.1037/xge0000033 | Algorithm Aversion: People Erroneously Avoid Algorithms After Seeing Them Err | |
+| Interactive Brokers, 2026    | https://www.interactivebrokers.co.uk | Historical market data [Data set] | |
+| Benzinga, 2026               | https://www.benzinga.com | Benzinga news [Data set] | |
+| Yahoo Finance, 2026          | https://finance.yahoo.com | Historical market data [Data set] | |
+| Anthropic, 2026              | https://www.anthropic.com | Claude (Sonnet) [Large language model] | |
+| S&P Dow Jones Indices, 2026  | https://www.spglobal.com/spdji/en/indices/equity/sp-500/ | S&P 500 [Index] | |

@@ -48,7 +48,7 @@
 
 *Sample Composition by Institution Type and AUM Category*
 
-![Respondent demographics](figures/fig_demographics.png)
+![](figures/fig_demographics.png)
 
 *Note.* N = 53 respondents. Original figure by the author.
 <!-- RESULTS:END:fig_5_1_demographics -->
@@ -58,7 +58,7 @@
 
 *Distribution of Net Risk Stance Responses*
 
-![NRS distribution](figures/fig_nrs_distribution.png)
+![](figures/fig_nrs_distribution.png)
 
 *Note.* N = 424 scenario-level observations. Original figure by the author.
 <!-- RESULTS:END:fig_5_2_nrs_distribution -->
@@ -68,7 +68,7 @@
 
 *Net Risk Stance Distribution by Experimental Condition*
 
-![NRS by condition](figures/fig_nrs_by_condition.png)
+![](figures/fig_nrs_by_condition.png)
 
 *Note.* Control (ShowSC = 0) versus treatment (ShowSC = 1) conditions. Original figure by the author.
 <!-- RESULTS:END:fig_5_3_nrs_by_condition -->
@@ -76,11 +76,11 @@
 <!-- RESULTS:BEGIN:fig_5_4_sc_distribution -->
 **Figure 5.4**
 
-*Distribution of the SC_total Composite Shock Score*
+*Distribution of the Composite Shock Score*
 
-![SC_total distribution](figures/fig_sc_distribution.png)
+![](figures/fig_sc_distribution.png)
 
-*Note.* SC_total is the first principal component of the four standardised Shock Score components. Original figure by the author.
+*Note.* The Shock Score is the first principal component of the four standardised components. Original figure by the author.
 <!-- RESULTS:END:fig_5_4_sc_distribution -->
 
 <!-- RESULTS:BEGIN:tbl_5_3_scenarios -->
@@ -158,7 +158,7 @@
 |---|---|---|---|
 | Primary H1 residuals | 0.9849 | 0.0002 | Yes |
 
-*Note.* Shapiro-Wilk test applied to OLS residuals from the primary H1 regression specification (N = 424 observations). Residual normality is the relevant OLS assumption; the marginal distribution of NRS is not required to be normal. HC3 heteroscedasticity-consistent standard errors are applied regardless of this result.
+*Note.* Shapiro-Wilk test applied to OLS residuals from the primary H1 regression specification (N = 424 observations). Residual normality is the relevant OLS assumption; the marginal distribution of NRS is not required to be normal. Inference for the primary specification uses two-way cluster-robust standard errors (clustered by respondent and scenario), whose validity does not depend on residual normality.
 <!-- RESULTS:END:tbl_5_6_residuals -->
 
 <!-- RESULTS:BEGIN:tbl_5_7_h1_main -->
@@ -168,7 +168,7 @@
 
 | Covariate | β₁ | SE | t | p | CI_lo | CI_hi | R² | N_obs | N_resp | SE_type |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| SC_total | -0.4874 | 0.0551 | -8.8452 | <0.0001 | -0.5954 | -0.3794 | 0.3571 | 424 | 53 | HC3 |
+| Shock Score | -0.4874 | 0.1532 | -3.1825 | 0.0015 | -0.7876 | -0.1872 | 0.3571 | 424 | 53 | two-way cluster (respondent, scenario) |
 
 <!-- RESULTS:END:tbl_5_7_h1_main -->
 
@@ -179,15 +179,16 @@
 
 | spec | note | beta1 | se | t | p | ci_lo | ci_hi | r2 | n_obs | clustering |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| spec_1_quintiles | SC_total quintile dummies | see quintile coefficients |  |  | nan |  |  | 0.3715 | 424 | HC3 |
+| spec_1_quintiles | Shock Score quintile dummies | see quintile coefficients |  |  | nan |  |  | 0.3715 | 424 | HC3 |
 | spec_2_within | Respondent FE (within) | -0.1846 | 0.0549 | -3.3604 | 0.0008 | -0.2922 | -0.0769 | 0.0356 | 424 | HC3 |
 | spec_3_component_ac_e | Component: ac_e | 0.0235 | 0.0167 | 1.4101 | 0.1585 | -0.0092 | 0.0562 | 0.5372 | 424 | HC3 |
 | spec_3_component_se_e | Component: se_e | -1.2904 | 0.1684 | -7.6624 | <0.0001 | -1.6204 | -0.9603 | 0.5372 | 424 | HC3 |
 | spec_3_component_ai_e | Component: ai_e | -0.5668 | 0.0771 | -7.3553 | <0.0001 | -0.7178 | -0.4158 | 0.5372 | 424 | HC3 |
 | spec_3_component_es_raw | Component: es_raw | 0.3102 | 0.0328 | 9.4635 | <0.0001 | 0.246 | 0.3745 | 0.5372 | 424 | HC3 |
-| spec_4_interaction | SC_total × ShowSC interaction | -0.0067 | 0.083 | -0.0806 | 0.9358 | -0.1694 | 0.1561 | 0.3571 | 424 | HC3 |
-| spec_5_direction_b1 | SC_total main effect (positive events) | -0.4283 | 0.0603 | -7.1072 | <0.0001 | -0.5464 | -0.3102 | 0.3701 | 424 | HC3 |
-| spec_5_direction_b3 | SC_total × D_neg amplification (negative events) | 0.1954 | 0.3684 | 0.5305 | 0.5957 | -0.5266 | 0.9174 | 0.3701 | 424 | HC3 |
+| spec_4_interaction | Shock Score × ShowSC interaction | -0.0067 | 0.083 | -0.0806 | 0.9358 | -0.1694 | 0.1561 | 0.3571 | 424 | HC3 |
+| spec_5_direction_b1 | Shock Score main effect (positive events) | -0.4283 | 0.0603 | -7.1072 | <0.0001 | -0.5464 | -0.3102 | 0.3701 | 424 | HC3 |
+| spec_5_direction_b3 | Shock Score × negative-sentiment amplification (negative events) | 0.1954 | 0.3684 | 0.5305 | 0.5957 | -0.5266 | 0.9174 | 0.3701 | 424 | HC3 |
+| spec_6_hc3 | Primary specification with HC3 SEs | -0.4874 | 0.0551 | -8.8452 | <0.0001 | -0.5954 | -0.3794 | 0.3571 | 424 | HC3 |
 
 <!-- RESULTS:END:tbl_5_8_h1_robustness -->
 
@@ -210,7 +211,7 @@
 
 *Sharpe Ratio Comparison Across Experimental Conditions*
 
-![Sharpe comparison](figures/fig_sharpe_comparison.png)
+![](figures/fig_sharpe_comparison.png)
 
 *Note.* Sharpe ratios computed per respondent-condition pair from NRS-weighted simulated portfolio returns. Original figure by the author.
 <!-- RESULTS:END:fig_5_7_sharpe -->
@@ -218,11 +219,11 @@
 <!-- RESULTS:BEGIN:fig_5_8_nrs_sc_split -->
 **Figure 5.8**
 
-*Mean NRS by SC_total Quintile and Experimental Condition*
+*Mean NRS by Shock Score Quintile and Experimental Condition*
 
-![Mean NRS by SC_total quintile and ShowSC condition](figures/fig_h2_nrs_by_sc.png)
+![](figures/fig_h2_nrs_by_sc.png)
 
-*Note.* Each point represents the mean Net Risk Stance (NRS) within a SC_total quintile, separately for the control (ShowSC = 0, dashed) and treatment (ShowSC = 1, solid) conditions. Shaded bands show ±1 standard error. Error bars that substantially overlap across conditions indicate that the Shock Score dashboard does not systematically alter risk-stance responses. The near-parallel trajectories are consistent with the H2 result being not supported (τ = -0.1584, p = 0.7428). The dotted horizontal line marks the NRS neutral point (4 = maintain exposure). Original figure by the author.
+*Note.* Each point represents the mean Net Risk Stance (NRS) within a Shock Score quintile, separately for the control (ShowSC = 0, dashed) and treatment (ShowSC = 1, solid) conditions. Shaded bands show ±1 standard error. Error bars that substantially overlap across conditions indicate that the Shock Score dashboard does not systematically alter risk-stance responses. The near-parallel trajectories are consistent with the H2 result being not supported (τ = -0.1584, p = 0.7428). The dotted horizontal line marks the NRS neutral point (4 = maintain exposure). Original figure by the author.
 <!-- RESULTS:END:fig_5_8_nrs_sc_split -->
 
 <!-- RESULTS:BEGIN:tbl_5_10_alignment -->
