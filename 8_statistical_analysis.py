@@ -1879,7 +1879,7 @@ def write_results_md(
         "",
         "*Sample Composition by Institution Type and AUM Category*",
         "",
-        "![Respondent demographics](figures/fig_demographics.png)",
+        "![](figures/fig_demographics.png)",
         "",
         f"*Note.* N = {n_total} respondents. Original figure by the author.",
     ]))
@@ -1890,7 +1890,7 @@ def write_results_md(
         "",
         "*Distribution of Net Risk Stance Responses*",
         "",
-        "![NRS distribution](figures/fig_nrs_distribution.png)",
+        "![](figures/fig_nrs_distribution.png)",
         "",
         f"*Note.* N = {n_obs} scenario-level observations. Original figure by the author.",
     ]))
@@ -1899,7 +1899,7 @@ def write_results_md(
         "",
         "*Net Risk Stance Distribution by Experimental Condition*",
         "",
-        "![NRS by condition](figures/fig_nrs_by_condition.png)",
+        "![](figures/fig_nrs_by_condition.png)",
         "",
         "*Note.* Control (ShowSC = 0) versus treatment (ShowSC = 1) conditions. Original figure by the author.",
     ]))
@@ -1908,7 +1908,7 @@ def write_results_md(
         "",
         "*Distribution of the Composite Shock Score*",
         "",
-        "![Shock Score distribution](figures/fig_sc_distribution.png)",
+        "![](figures/fig_sc_distribution.png)",
         "",
         "*Note.* The Shock Score is the first principal component of the four standardised components. Original figure by the author.",
     ]))
@@ -2100,7 +2100,7 @@ def write_results_md(
         "",
         "*Sharpe Ratio Comparison Across Experimental Conditions*",
         "",
-        "![Sharpe comparison](figures/fig_sharpe_comparison.png)",
+        "![](figures/fig_sharpe_comparison.png)",
         "",
         "*Note.* Sharpe ratios computed per respondent-condition pair from NRS-weighted simulated "
         "portfolio returns. Original figure by the author.",
@@ -2124,7 +2124,7 @@ def write_results_md(
         "",
         "*Mean NRS by Shock Score Quintile and Experimental Condition*",
         "",
-        "![Mean NRS by Shock Score quintile and ShowSC condition](figures/fig_h2_nrs_by_sc.png)",
+        "![](figures/fig_h2_nrs_by_sc.png)",
         "",
         f"*Note.* Each point represents the mean Net Risk Stance (NRS) within a Shock Score quintile, "
         f"separately for the control (ShowSC = 0, dashed) and treatment (ShowSC = 1, solid) conditions. "

@@ -48,7 +48,7 @@
 
 *Sample Composition by Institution Type and AUM Category*
 
-![Respondent demographics](figures/fig_demographics.png)
+![](figures/fig_demographics.png)
 
 *Note.* N = 53 respondents. Original figure by the author.
 <!-- RESULTS:END:fig_5_1_demographics -->
@@ -58,7 +58,7 @@
 
 *Distribution of Net Risk Stance Responses*
 
-![NRS distribution](figures/fig_nrs_distribution.png)
+![](figures/fig_nrs_distribution.png)
 
 *Note.* N = 424 scenario-level observations. Original figure by the author.
 <!-- RESULTS:END:fig_5_2_nrs_distribution -->
@@ -68,7 +68,7 @@
 
 *Net Risk Stance Distribution by Experimental Condition*
 
-![NRS by condition](figures/fig_nrs_by_condition.png)
+![](figures/fig_nrs_by_condition.png)
 
 *Note.* Control (ShowSC = 0) versus treatment (ShowSC = 1) conditions. Original figure by the author.
 <!-- RESULTS:END:fig_5_3_nrs_by_condition -->
@@ -78,7 +78,7 @@
 
 *Distribution of the Composite Shock Score*
 
-![Shock Score distribution](figures/fig_sc_distribution.png)
+![](figures/fig_sc_distribution.png)
 
 *Note.* The Shock Score is the first principal component of the four standardised components. Original figure by the author.
 <!-- RESULTS:END:fig_5_4_sc_distribution -->
@@ -211,7 +211,7 @@
 
 *Sharpe Ratio Comparison Across Experimental Conditions*
 
-![Sharpe comparison](figures/fig_sharpe_comparison.png)
+![](figures/fig_sharpe_comparison.png)
 
 *Note.* Sharpe ratios computed per respondent-condition pair from NRS-weighted simulated portfolio returns. Original figure by the author.
 <!-- RESULTS:END:fig_5_7_sharpe -->
@@ -221,7 +221,7 @@
 
 *Mean NRS by Shock Score Quintile and Experimental Condition*
 
-![Mean NRS by Shock Score quintile and ShowSC condition](figures/fig_h2_nrs_by_sc.png)
+![](figures/fig_h2_nrs_by_sc.png)
 
 *Note.* Each point represents the mean Net Risk Stance (NRS) within a Shock Score quintile, separately for the control (ShowSC = 0, dashed) and treatment (ShowSC = 1, solid) conditions. Shaded bands show ±1 standard error. Error bars that substantially overlap across conditions indicate that the Shock Score dashboard does not systematically alter risk-stance responses. The near-parallel trajectories are consistent with the H2 result being not supported (τ = -0.1584, p = 0.7428). The dotted horizontal line marks the NRS neutral point (4 = maintain exposure). Original figure by the author.
 <!-- RESULTS:END:fig_5_8_nrs_sc_split -->
