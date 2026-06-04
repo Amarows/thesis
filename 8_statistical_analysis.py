@@ -574,7 +574,6 @@ def _fig_nrs_distribution(nrs: pd.Series) -> None:
     ax.hist(nrs, bins=7, range=(0.5, 7.5), color="#2c7bb6", edgecolor="white")
     ax.set_xlabel("Net Risk Stance (NRS)")
     ax.set_ylabel("Frequency")
-    ax.set_title("Distribution of NRS responses")
     ax.set_xticks(range(1, 8))
     _apa_style(ax)
     fig.tight_layout()
@@ -590,7 +589,6 @@ def _fig_nrs_by_condition(sc0: pd.Series, sc1: pd.Series) -> None:
                     boxprops=dict(facecolor="#abd9e9", color="#2c7bb6"),
                     medianprops=dict(color="#d7191c", linewidth=2))
     ax.set_ylabel("Net Risk Stance (NRS)")
-    ax.set_title("NRS by condition")
     _apa_style(ax)
     fig.tight_layout()
     fig.savefig(FIGURES_DIR / "fig_nrs_by_condition.png", dpi=150, bbox_inches="tight")
@@ -622,7 +620,6 @@ def _fig_sc_distribution(scen_df: pd.DataFrame) -> None:
 
     ax.set_xlabel("Shock Score")
     ax.set_ylabel("Density")
-    ax.set_title("Shock Score distribution across scenarios")
     ax.legend()
     _apa_style(ax)
     fig.tight_layout()
