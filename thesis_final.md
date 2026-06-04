@@ -109,33 +109,33 @@ Figure 5.9    NRS–Sentiment Alignment Rate by Sentiment Category
 
 # List of Abbreviations and Acronyms
 
-| Abbreviation | Definition |
-|---|---|
-| $\mathrm{AC}_e$ | Article Count – number of distinct news articles attributed to the shock bar for event *e*; Shock Score component |
-| $\mathrm{AI}_e$ | Attention Intensity – abnormal trading volume on the event day relative to the trailing mean; Shock Score component |
-| API | Application Programming Interface |
-| AUM | Assets Under Management |
-| $D_{\mathrm{neg}}$ | Binary indicator equal to 1 for negative-sentiment shock events |
-| DistilBERT | Distilled Bidirectional Encoder Representations from Transformers – compact transformer model used for behavioral classification |
-| $\mathrm{ES}_e$ | Event-Type Severity – shock-bar price impact relative to baseline intraday volatility; Shock Score component |
-| $\mathrm{ES}_{\mathrm{raw}}$ | Unstandardized Event-Type Severity value used in the decomposed component specification |
-| FEARS | Financial and Economic Attitudes Revealed by Search – Google-search-based investor sentiment index (Da et al., 2015) |
-| FinBERT | Finance-domain pre-trained BERT model used for article-level sentiment scoring (Yang et al., 2020) |
-| GICS | Global Industry Classification Standard |
-| HC3 | Heteroskedasticity-Consistent standard error estimator, finite-sample variant 3 |
-| IBKR | Interactive Brokers |
-| ICC | Intraclass Correlation Coefficient |
-| LLM | Large Language Model |
-| MAR | Minimum Acceptable Return |
-| NRS | Net Risk Stance – seven-point scale capturing the direction and intensity of a manager's intended portfolio exposure adjustment |
-| $P_e$ | Persistence score for event *e* – operationalizes the expected decision-relevance horizon of the information shock |
-| PC1 | First Principal Component |
-| PCA | Principal Component Analysis |
-| RF | Risk-free rate |
+| Abbreviation                   | Definition |
+|--------------------------------|---|
+| $\mathrm{AC}_e$                | Article Count – number of distinct news articles attributed to the shock bar for event *e*; Shock Score component |
+| $\mathrm{AI}_e$                | Attention Intensity – abnormal trading volume on the event day relative to the trailing mean; Shock Score component |
+| API                            | Application Programming Interface |
+| AUM                            | Assets Under Management |
+| $D_{\mathrm{neg}}$             | Binary indicator equal to 1 for negative-sentiment shock events |
+| DistilBERT                     | Distilled Bidirectional Encoder Representations from Transformers – compact transformer model used for behavioral classification |
+| $\mathrm{ES}_e$                | Event-Type Severity – shock-bar price impact relative to baseline intraday volatility; Shock Score component |
+| $\mathrm{ES}_{\mathrm{raw}}$   | Unstandardized Event-Type Severity value used in the decomposed component specification |
+| FEARS                          | Financial and Economic Attitudes Revealed by Search – Google-search-based investor sentiment index (Da et al., 2015) |
+| FinBERT                        | Finance-domain pre-trained BERT model used for article-level sentiment scoring (Yang et al., 2020) |
+| GICS                           | Global Industry Classification Standard |
+| HC3                            | Heteroskedasticity-Consistent standard error estimator, finite-sample variant 3 |
+| IBKR                           | Interactive Brokers |
+| ICC                            | Intraclass Correlation Coefficient |
+| LLM                            | Large Language Model |
+| MAR                            | Minimum Acceptable Return |
+| NRS                            | Net Risk Stance – seven-point scale capturing the direction and intensity of a manager's intended portfolio exposure adjustment |
+| $P_e$                          | Persistence score for event *e* – operationalizes the expected decision-relevance horizon of the information shock |
+| PC1                            | First Principal Component |
+| PCA                            | Principal Component Analysis |
+| RF                             | Risk-free rate |
 | $\mathrm{SC}_{\mathrm{total}}$ | Shock Score composite – PCA-based first principal component of the four standardized Shock Score components |
-| $\mathrm{SE}_e$ | Sentiment Extremity – maximum absolute FinBERT sentiment score across event-day articles; Shock Score component |
-| ShowSC | Treatment indicator: ShowSC = 1 if the Shock Score dashboard is displayed; ShowSC = 0 if withheld |
-| T_e | Intensity trigger variable mapping the Shock Score to a pre-commitment protocol tier |
+| $\mathrm{SE}_e$                | Sentiment Extremity – maximum absolute FinBERT sentiment score across event-day articles; Shock Score component |
+| ShowSC                         | Treatment indicator: ShowSC = 1 if the Shock Score dashboard is displayed; ShowSC = 0 if withheld |
+| $\mathrm{T}_e$                 | Intensity trigger variable mapping the Shock Score to a pre-commitment protocol tier |
 
 # Executive Summary
 
@@ -325,6 +325,7 @@ The three objectives below are aligned with this chain. Section 2.3.1 addresses 
 The first objective is to assess whether external financial information shocks are associated with systematic shifts in managers' immediate decision response, and whether those responses are in turn associated with changes in portfolio risk–return characteristics. Decision response is collected through primary data as a single-item, seven-point Net Risk Stance (NRS) scale, developed for this study and following established Likert-type measurement conventions ([Doronila, 2025](https://dx.doi.org/10.2139/ssrn.5877342)), capturing the direction and intensity of intended exposure adjustment in response to an information shock scenario. A single-item measure is appropriate because the construct, directional portfolio adjustment intention, is concrete and unidimensional, and survey parsimony is critical when administering multiple scenarios to time-constrained professionals ([Bergkvist & Rossiter, 2007](https://doi.org/10.1509/jmkr.44.2.175)). Portfolio outcomes are evaluated using risk-adjusted performance measures, with Sharpe ratio ([Sharpe, 1966](https://doi.org/10.1086/294846)) and Sortino ratio ([Sortino & van der Meer, 1991](https://doi.org/10.3905/jpm.1991.409343)) specified as primary metrics, with precise computation conventions defined in Chapter 4.
 
 Net Risk Stance response scale (single item, seven points):
+
 1. Strongly reduce exposure  
 2. Reduce exposure  
 3. Slightly reduce exposure  
@@ -1057,7 +1058,7 @@ Several design features minimise confounds. Scenario descriptions use neutral fr
 
 The target population consists of active equity portfolio managers with authority to make discretionary or advisory investment decisions (a discretionary mandate authorises the manager to execute trades on the client's behalf without prior approval of each transaction, whereas an advisory mandate limits the manager to recommending trades that the client must approve), matching the equity focus of the Shock Score and the U.S.-listed portfolio universe (Section 4.3.1). Inclusion criteria: a current role involving portfolio-level equity decision-making, at least two years of professional portfolio management experience, and English fluency. All discretionary authority levels (full, partial/committee, advisory) are eligible; authority level is recorded as a regression control (Section 4.5).
 
-The target sample size was 100 valid completed questionnaires, exceeding the SBS minimum of 50; at eight scenarios per manager, this target corresponds to 800 scenario-level observations. A power analysis for the primary H1 specification indicated that 80–100 managers would be sufficient to detect a small-to-medium effect (Cohen's $f^2 \approx 0.05$) at $\alpha = 0.05$ with power 0.80, given the repeated-measures structure. The realised sample fell short of this target, at 53 respondents and 424 scenario-level observations (Section 5.2.1); the resulting constraint on the power of the H2 test is discussed in Section 5.8.2.
+The target sample size was 50 valid completed questionnaires; at eight scenarios per manager, this target corresponds to 800 scenario-level observations. A power analysis for the primary H1 specification indicated that 80–100 managers would be sufficient to detect a small-to-medium effect (Cohen's $f^2 \approx 0.05$) at $\alpha = 0.05$ with power 0.80, given the repeated-measures structure. The realised sample fell short of this target, at 53 respondents and 424 scenario-level observations (Section 5.2.1); the resulting constraint on the power of the H2 test is discussed in Section 5.8.2.
 
 Sampling is purposive with snowball referral, as no comprehensive frame exists for this specialised population. Recruitment uses direct outreach through a professional network, targeted LinkedIn messaging, CFA and CAIA association channels, and firm-level distribution requests; recruited participants are invited to forward the survey to qualifying colleagues.
 
@@ -1211,7 +1212,7 @@ The final analysis sample comprises 53 respondents yielding 424 scenario-level o
 
 *Sample Composition by Institution Type and AUM Category*
 
-![Respondent demographics](results/figures/fig_demographics.png)
+![](results/figures/fig_demographics.png)
 
 *Note.* N = 53 respondents. Original figure by the author.
 
@@ -1226,7 +1227,7 @@ $\mathrm{SC}_{\mathrm{total}}$ is a standardised PCA composite score (first prin
 
 *Distribution of Net Risk Stance Responses*
 
-![NRS distribution](results/figures/fig_nrs_distribution.png)
+![](results/figures/fig_nrs_distribution.png)
 
 *Note.* N = 424 scenario-level observations. Original figure by the author.
 
@@ -1234,7 +1235,7 @@ $\mathrm{SC}_{\mathrm{total}}$ is a standardised PCA composite score (first prin
 
 *Net Risk Stance Distribution by Experimental Condition*
 
-![NRS by condition](results/figures/fig_nrs_by_condition.png)
+![](results/figures/fig_nrs_by_condition.png)
 
 *Note.* Control (ShowSC = 0) versus treatment (ShowSC = 1) conditions. Original figure by the author.
 
@@ -1242,7 +1243,7 @@ $\mathrm{SC}_{\mathrm{total}}$ is a standardised PCA composite score (first prin
 
 *Distribution of the Composite Shock Score*
 
-![Shock Score distribution](results/figures/fig_sc_distribution.png)
+![](results/figures/fig_sc_distribution.png)
 
 *Note.* The Shock Score is the first principal component of the four standardised components. Original figure by the author.
 
@@ -1464,7 +1465,7 @@ At the α = 0.05 level of significance, the evidence fails to reject the null hy
 
 *Sharpe Ratio Comparison Across Experimental Conditions*
 
-![Sharpe comparison](results/figures/fig_sharpe_comparison.png)
+![](results/figures/fig_sharpe_comparison.png)
 
 *Note.* Sharpe ratios computed per respondent-condition pair from NRS-weighted simulated portfolio returns. Original figure by the author.
 
@@ -1472,7 +1473,7 @@ At the α = 0.05 level of significance, the evidence fails to reject the null hy
 
 *Mean NRS by Shock Score Quintile and Experimental Condition*
 
-![Mean NRS by Shock Score quintile and ShowSC condition](results/figures/fig_h2_nrs_by_sc.png)
+![](results/figures/fig_h2_nrs_by_sc.png)
 
 *Note.* Each point represents the mean Net Risk Stance (NRS) within a Shock Score quintile, separately for the control (ShowSC = 0, dashed) and treatment (ShowSC = 1, solid) conditions. Shaded bands show ±1 standard error. Error bars that substantially overlap across conditions indicate that the Shock Score dashboard does not systematically alter risk-stance responses. The near-parallel trajectories are consistent with the H2 result being not supported (τ = -0.1584, p = 0.7428). The dotted horizontal line marks the NRS neutral point (4 = maintain exposure). Original figure by the author.
 
