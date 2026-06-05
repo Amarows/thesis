@@ -1881,7 +1881,7 @@ def write_results_md(
         "",
         "![](figures/fig_demographics.png)",
         "",
-        f"*Note.* N = {n_total} respondents. Original figure by the author.",
+        f"*Note.* N = {n_total} respondents. Original figure created for this study.",
     ]))
 
     # ---- fig_5_2_nrs_distribution / fig_5_3_nrs_by_condition / fig_5_4_sc_distribution ----
@@ -1892,7 +1892,7 @@ def write_results_md(
         "",
         "![](figures/fig_nrs_distribution.png)",
         "",
-        f"*Note.* N = {n_obs} scenario-level observations. Original figure by the author.",
+        f"*Note.* N = {n_obs} scenario-level observations. Original figure created for this study.",
     ]))
     fig_5_3 = block("fig_5_3_nrs_by_condition", "\n".join([
         "**Figure 5.3**",
@@ -1901,7 +1901,7 @@ def write_results_md(
         "",
         "![](figures/fig_nrs_by_condition.png)",
         "",
-        "*Note.* Control (ShowSC = 0) versus treatment (ShowSC = 1) conditions. Original figure by the author.",
+        "*Note.* Control (ShowSC = 0) versus treatment (ShowSC = 1) conditions. Original figure created for this study.",
     ]))
     fig_5_4 = block("fig_5_4_sc_distribution", "\n".join([
         "**Figure 5.4**",
@@ -1910,7 +1910,7 @@ def write_results_md(
         "",
         "![](figures/fig_sc_distribution.png)",
         "",
-        "*Note.* The Shock Score is the first principal component of the four standardised components. Original figure by the author.",
+        "*Note.* The Shock Score is the first principal component of the four standardized components. Original figure created for this study.",
     ]))
 
     # ---- s5_3_scenarios ----
@@ -2103,7 +2103,7 @@ def write_results_md(
         "![](figures/fig_sharpe_comparison.png)",
         "",
         "*Note.* Sharpe ratios computed per respondent-condition pair from NRS-weighted simulated "
-        "portfolio returns. Original figure by the author.",
+        "portfolio returns. Original figure created for this study.",
     ]))
 
     # ---- fig_h2_nrs_sc_split ----
@@ -2133,7 +2133,7 @@ def write_results_md(
         f"The near-parallel trajectories are consistent with the H2 result being {_h2_verdict_fig} "
         f"(τ = {_h2_tau}, p = {_h2_p_fig}). "
         f"The dotted horizontal line marks the NRS neutral point (4 = maintain exposure). "
-        f"Original figure by the author.",
+        f"Original figure created for this study.",
     ]))
 
     # ---- tbl_5_10_alignment ----
@@ -2214,7 +2214,7 @@ def print_summary(desc: dict, h1: dict, h2: dict, conc: dict,
 # ---------------------------------------------------------------------------
 
 def compute_pca_diagnostics() -> dict:
-    """Refit PCA on z-standardised components from the authoritative shock score CSV and save diagnostics."""
+    """Refit PCA on z-standardized components from the authoritative shock score CSV and save diagnostics."""
     ss = pd.read_csv(SHOCK_SCORE_PATH)
 
     z_cols  = ["ac_z", "se_z", "ai_z", "es_z"]

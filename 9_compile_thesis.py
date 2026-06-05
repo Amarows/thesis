@@ -71,7 +71,7 @@ def load_pca_block() -> str | None:
         f"| Loading — Event-Type Severity | {ld['ES_raw']:.4f} |",
         f"| Scenarios used | {n} |",
         "",
-        "*Note.* PC1 = first principal component of the four standardised Shock Score components.",
+        "*Note.* PC1 = first principal component of the four standardized Shock Score components.",
     ]
     return "\n".join(lines)
 
