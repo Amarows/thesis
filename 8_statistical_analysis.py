@@ -2048,25 +2048,59 @@ def write_results_md(
     primary = h1.get("primary", {})
     rob_df  = h1.get("robustness", pd.DataFrame())
 
-    main_tbl_df = pd.DataFrame([{
-        "Covariate": "Shock Score",
-        "β₁":   primary.get("beta1", np.nan),
-        "SE":   primary.get("se",    np.nan),
-        "t":    primary.get("t",     np.nan),
-        "p":    primary.get("p",     ""),
-        "CI_lo": primary.get("ci_lo", np.nan),
-        "CI_hi": primary.get("ci_hi", np.nan),
-        "R²":   primary.get("r2",    np.nan),
-        "N_obs":  primary.get("n_obs",          ""),
-        "N_resp": primary.get("n_respondents",   ""),
-        "SE_type": primary.get("clustering", "HC3"),
-    }])
+    # Full primary regression table (substantive coefficients; reference/collinear rows dropped)
+    _covariate_labels = {
+        "const": "Constant",
+        "sc_total": "Shock Score",
+        "show_sc": "ShowSC (dashboard shown)",
+        "exp_<5yr": "Experience < 5 years",
+        "mand_Multi-asset": "Mandate: Multi-asset",
+        "mand_Other": "Mandate: Other",
+        "evt_analyst": "Event type: Analyst",
+        "evt_management": "Event type: Management",
+        "scenario_position": "Scenario position",
+        "block_2": "Block 2",
+        "block_3": "Block 3",
+    }
+    primary_model = primary.get("model")
+    if primary_model is not None:
+        main_rows_tbl = []
+        for cov in primary_model.params.index:
+            se = primary_model.bse[cov]
+            if pd.isna(se):
+                continue  # drop reference / collinear categories with no estimable SE
+            main_rows_tbl.append({
+                "Covariate": _covariate_labels.get(cov, cov),
+                "β":     round(primary_model.params[cov], 4),
+                "SE":    round(se, 4),
+                "t":     round(primary_model.tvalues[cov], 4),
+                "p":     _round4(primary_model.pvalues[cov]),
+                "CI_lo": round(primary_model.conf_int().loc[cov, 0], 4),
+                "CI_hi": round(primary_model.conf_int().loc[cov, 1], 4),
+            })
+        main_tbl_df = pd.DataFrame(main_rows_tbl)
+    else:
+        main_tbl_df = pd.DataFrame([{
+            "Covariate": "Shock Score",
+            "β":     primary.get("beta1", np.nan),
+            "SE":    primary.get("se",    np.nan),
+            "t":     primary.get("t",     np.nan),
+            "p":     primary.get("p",     ""),
+            "CI_lo": primary.get("ci_lo", np.nan),
+            "CI_hi": primary.get("ci_hi", np.nan),
+        }])
+
     s551_main_lines = [
         "**Table 5.7**",
         "",
         "*H1 Primary Regression Result*",
         "",
         _md_table(main_tbl_df),
+        "",
+        f"*Note.* Dependent variable: Net Risk Stance. N = {primary.get('n_obs', '')} "
+        f"observations from {primary.get('n_respondents', '')} respondents; "
+        f"R² = {primary.get('r2', np.nan)}. Standard errors: "
+        f"{primary.get('clustering', 'HC3')}. Reference categories omitted.",
         "",
     ]
     tbl_5_7 = block("tbl_5_7_h1_main", "\n".join(s551_main_lines))

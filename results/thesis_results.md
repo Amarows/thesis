@@ -166,9 +166,21 @@
 
 *H1 Primary Regression Result*
 
-| Covariate | β₁ | SE | t | p | CI_lo | CI_hi | R² | N_obs | N_resp | SE_type |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Shock Score | -0.4874 | 0.1532 | -3.1825 | 0.0015 | -0.7876 | -0.1872 | 0.3571 | 424 | 53 | two-way cluster (respondent, scenario) |
+| Covariate | β | SE | t | p | CI_lo | CI_hi |
+| --- | --- | --- | --- | --- | --- | --- |
+| Constant | 4.1293 | 0.4522 | 9.1322 | <0.0001 | 3.243 | 5.0155 |
+| Shock Score | -0.4874 | 0.1532 | -3.1825 | 0.0015 | -0.7876 | -0.1872 |
+| ShowSC (dashboard shown) | -0.0787 | 0.1166 | -0.6755 | 0.4994 | -0.3072 | 0.1497 |
+| Experience < 5 years | -0.059 | 0.4253 | -0.1388 | 0.8896 | -0.8926 | 0.7746 |
+| Mandate: Multi-asset | -0.1284 | 0.2422 | -0.53 | 0.5961 | -0.6032 | 0.3464 |
+| Mandate: Other | -0.9713 | 0.0461 | -21.0737 | <0.0001 | -1.0617 | -0.881 |
+| Event type: Analyst | -1.0947 | 0.4327 | -2.5298 | 0.0114 | -1.9428 | -0.2466 |
+| Event type: Management | -1.7726 | 0.4719 | -3.7564 | 0.0002 | -2.6974 | -0.8477 |
+| Scenario position | 0.1929 | 0.0651 | 2.9615 | 0.0031 | 0.0652 | 0.3206 |
+| Block 2 | 0.0609 | 0.3837 | 0.1587 | 0.8739 | -0.6911 | 0.8129 |
+| Block 3 | 0.0469 | 0.5124 | 0.0915 | 0.9271 | -0.9575 | 1.0513 |
+
+*Note.* Dependent variable: Net Risk Stance. N = 424 observations from 53 respondents; R² = 0.3571. Standard errors: two-way cluster (respondent, scenario). Reference categories omitted.
 
 <!-- RESULTS:END:tbl_5_7_h1_main -->
 
