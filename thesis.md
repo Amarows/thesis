@@ -1548,7 +1548,7 @@ The findings of this study carry implications for two United Nations Sustainable
 
 ### 6.8.1 SDG 8 – Decent Work and Economic Growth
 
-SDG 8 calls for sustained, inclusive, and sustainable economic growth and productive employment. Target 8.10 specifically addresses the need to strengthen the capacity of domestic financial institutions to expand access to financial services, and more broadly the SDG 8 framework recognizes that efficient and stable financial markets are a prerequisite for productive capital allocation and long-term economic development.
+SDG 8 calls for sustained, inclusive, and sustainable economic growth and productive employment. Target 8.10 specifically addresses the need to strengthen the capacity of domestic financial institutions to expand access to financial services, and more broadly the SDG 8 framework recognizes that efficient and stable financial markets are a prerequisite for productive capital allocation and long-term economic development ([United Nations, 2015](https://sdgs.un.org/2030agenda)).
 
 The present study addresses a well-documented source of inefficiency in financial markets: systematic behavioral bias in the decision-making of professional equity portfolio managers during information shock events. The evidence base established in Chapter 3 demonstrated that overreaction, loss aversion, herding, and attention-driven trading around news events contribute to price overshooting, excessive short-term volatility, and suboptimal portfolio rebalancing. These effects aggregate across managers to produce market-level inefficiencies that distort the allocation of capital away from its highest-value uses, with downstream consequences for investment, employment, and growth.
 
@@ -1556,7 +1556,7 @@ The Shock Score framework developed in this thesis is designed to attenuate thes
 
 ### 6.8.2 SDG 10 – Reduced Inequalities
 
-SDG 10 targets the reduction of inequality within and among countries, including through ensuring equal opportunity and reducing disparities in access to financial services and information. Target 10.5 specifically calls for improved regulation and monitoring of global financial markets, and Target 10.b addresses the need for development finance that supports productive capacity.
+SDG 10 targets the reduction of inequality within and among countries, including through ensuring equal opportunity and reducing disparities in access to financial services and information. Target 10.5 specifically calls for improved regulation and monitoring of global financial markets, and Target 10.b addresses the need for development finance that supports productive capacity ([United Nations, 2015](https://sdgs.un.org/2030agenda)).
 
 A structural inequality exists in contemporary financial markets between institutional investors and individual retail participants. Professional portfolio managers at large institutions have access to sophisticated analytical infrastructure, real-time data feeds, proprietary research, and experienced risk management teams. Retail investors and smaller market participants, by contrast, make portfolio decisions with limited tools and no structured framework for processing the significance of market-moving events. This informational asymmetry contributes to systematic performance disadvantages for non-professional investors during periods of market stress, when the consequences of behavioral bias are most severe.
 

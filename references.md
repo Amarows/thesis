@@ -99,3 +99,4 @@
 | Yahoo Finance, 2026          | https://finance.yahoo.com | Historical market data [Data set] | |
 | Anthropic, 2026              | https://www.anthropic.com | Claude (Sonnet) [Large language model] | |
 | S&P Dow Jones Indices, 2026  | https://www.spglobal.com/spdji/en/indices/equity/sp-500/ | S&P 500 [Index] | |
+| United Nations, 2015         | https://sdgs.un.org/2030agenda | Transforming Our World: The 2030 Agenda for Sustainable Development | |
