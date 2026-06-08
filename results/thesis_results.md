@@ -154,11 +154,20 @@
 
 *OLS Residual Normality – Primary H1 Regression*
 
-| | Shapiro-Wilk W | p-value | Normality rejected (α = 0.05) |
-|---|---|---|---|
-| Primary H1 residuals | 0.9849 | 0.0002 | Yes |
+| | Skewness | Excess kurtosis | Shapiro-Wilk W | p-value | Normality rejected (α = 0.05) |
+|---|---|---|---|---|---|
+| Raw NRS response | -0.1846 | -0.2561 | 0.9455 | <0.0001 | Yes |
+| Primary H1 residuals | 0.0205 | 0.5096 | 0.9849 | 0.0002 | Yes |
 
-*Note.* Shapiro-Wilk test applied to OLS residuals from the primary H1 regression specification (N = 424 observations). Residual normality is the relevant OLS assumption; the marginal distribution of NRS is not required to be normal. Inference for the primary specification uses two-way cluster-robust standard errors (clustered by respondent and scenario), whose validity does not depend on residual normality.
+*Note.* N = 424 observations. Skewness and excess kurtosis are sample-adjusted (bias-corrected) estimates; excess kurtosis follows the Fisher convention (normal = 0). The Shapiro-Wilk test is applied to the OLS residuals of the primary H1 regression and, separately, to the raw NRS responses. Residual normality is the relevant OLS assumption; the marginal distribution of the bounded seven-point NRS scale is not required to be normal. Inference for the primary specification uses two-way cluster-robust standard errors (clustered by respondent and scenario), whose validity does not depend on residual normality.
+
+**Figure 5.6**
+
+*Residual-Normality Diagnostics for the Primary H1 Regression*
+
+![](figures/fig_residual_normality.png)
+
+*Note.* Panel (a) shows the distribution of the primary H1 OLS residuals (N = 424) with a fitted normal density overlaid; panel (b) is a normal quantile-quantile plot of the same residuals against the theoretical normal quantiles. Near-linear alignment in panel (b) and the approximately symmetric histogram in panel (a) indicate only mild departures from normality. Original figure created for this study.
 <!-- RESULTS:END:tbl_5_6_residuals -->
 
 <!-- RESULTS:BEGIN:tbl_5_7_h1_main -->
@@ -219,7 +228,7 @@
 <!-- RESULTS:END:tbl_5_9_h2_results -->
 
 <!-- RESULTS:BEGIN:fig_5_7_sharpe -->
-**Figure 5.7**
+**Figure 5.8**
 
 *Sharpe Ratio Comparison Across Experimental Conditions*
 
@@ -229,7 +238,7 @@
 <!-- RESULTS:END:fig_5_7_sharpe -->
 
 <!-- RESULTS:BEGIN:fig_5_8_nrs_sc_split -->
-**Figure 5.8**
+**Figure 5.9**
 
 *Mean NRS by Shock Score Quintile and Experimental Condition*
 

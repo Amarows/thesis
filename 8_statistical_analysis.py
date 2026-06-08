@@ -938,19 +938,29 @@ def run_h1_regression(df: pd.DataFrame) -> dict:
     primary["n_scenarios"]   = df["scenario_id"].nunique() if "scenario_id" in df.columns else np.nan
     h1["primary"] = primary
 
-    # Residual normality test (Shapiro-Wilk on primary OLS residuals)
+    # Distributional diagnostics on the primary OLS residuals and the raw NRS
+    # response: skewness, excess kurtosis (Fisher convention; normal = 0), and
+    # the Shapiro-Wilk test. Values stored unrounded; formatted at display time.
     resid_norm = {}
     primary_model = primary.get("model")
     if primary_model is not None:
-        residuals = primary_model.resid
+        residuals = np.asarray(primary_model.resid, dtype=float)
+        nrs_vals  = np.asarray(primary_model.model.endog, dtype=float)
         if len(residuals) >= 3:
             try:
-                w_stat, p_val = stats.shapiro(residuals)
+                w_stat, p_val         = stats.shapiro(residuals)
+                nrs_w_stat, nrs_p_val = stats.shapiro(nrs_vals)
                 resid_norm = {
-                    "w":        round(float(w_stat), 4),
-                    "p":        round(float(p_val), 4),
-                    "n":        int(len(residuals)),
-                    "rejected": bool(p_val < 0.05),
+                    "skew":         float(stats.skew(residuals, bias=False)),
+                    "kurtosis":     float(stats.kurtosis(residuals, fisher=True, bias=False)),
+                    "w":            float(w_stat),
+                    "p":            float(p_val),
+                    "n":            int(len(residuals)),
+                    "rejected":     bool(p_val < 0.05),
+                    "nrs_skew":     float(stats.skew(nrs_vals, bias=False)),
+                    "nrs_kurtosis": float(stats.kurtosis(nrs_vals, fisher=True, bias=False)),
+                    "nrs_w":        float(nrs_w_stat),
+                    "nrs_p":        float(nrs_p_val),
                 }
             except Exception:
                 resid_norm = {}
@@ -959,8 +969,8 @@ def run_h1_regression(df: pd.DataFrame) -> dict:
         pd.DataFrame([{
             "test":               "Shapiro-Wilk",
             "scope":              "primary H1 OLS residuals",
-            "statistic":          resid_norm["w"],
-            "p":                  resid_norm["p"],
+            "statistic":          round(resid_norm["w"], 4),
+            "p":                  round(resid_norm["p"], 4),
             "n":                  resid_norm["n"],
             "normality_rejected": resid_norm["rejected"],
         }]).to_csv(TABLES_DIR / "tbl_normality.csv", index=False)
@@ -1580,6 +1590,42 @@ def _fig_component_forest(rob_df: pd.DataFrame) -> None:
     plt.close(fig)
 
 
+def _fig_residual_normality(primary_model) -> None:
+    """Two-panel residual-normality diagnostic for the primary H1 regression:
+    (a) residual histogram with fitted normal density, (b) normal Q-Q plot."""
+    if primary_model is None:
+        return
+    residuals = np.asarray(primary_model.resid, dtype=float)
+    if len(residuals) < 3:
+        return
+
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+    # (a) Histogram with fitted normal density
+    ax1.hist(residuals, bins=12, color="#abd9e9", edgecolor="#2c7bb6", density=True)
+    x = np.linspace(residuals.min() - 0.5, residuals.max() + 0.5, 200)
+    ax1.plot(x, stats.norm.pdf(x, residuals.mean(), residuals.std()),
+             color="#d7191c", linewidth=2, label="Normal")
+    ax1.set_xlabel("Residual")
+    ax1.set_ylabel("Density")
+    ax1.set_title("(a) Residual distribution with fitted normal")
+    ax1.legend()
+    _apa_style(ax1)
+
+    # (b) Normal Q-Q plot
+    (osm, osr), (slope, intercept, _) = stats.probplot(residuals, dist="norm")
+    ax2.scatter(osm, osr, s=18, color="#2c7bb6", alpha=0.7, zorder=3)
+    ax2.plot(osm, slope * osm + intercept, color="#d7191c", linewidth=2, zorder=2)
+    ax2.set_xlabel("Theoretical quantiles")
+    ax2.set_ylabel("Ordered residuals")
+    ax2.set_title("(b) Normal Q-Q plot of residuals")
+    _apa_style(ax2)
+
+    fig.tight_layout()
+    fig.savefig(FIGURES_DIR / "fig_residual_normality.png", dpi=150, bbox_inches="tight")
+    plt.close(fig)
+
+
 def _fig_sc_vs_horizon_return(scenarios: pd.DataFrame, horizon_returns: pd.DataFrame) -> None:
     """Scatter of realized horizon return vs SC_total (one point per scenario, by block)."""
     if scenarios.empty or horizon_returns.empty:
@@ -2026,19 +2072,43 @@ def write_results_md(
         "",
     ]
     if resid_norm:
+        nrs_rejected = bool(resid_norm.get("nrs_p", 1.0) < 0.05)
         resid_lines += [
-            "| | Shapiro-Wilk W | p-value | Normality rejected (α = 0.05) |",
-            "|---|---|---|---|",
-            f"| Primary H1 residuals | {_round4(resid_norm.get('w', np.nan))} | "
+            "| | Skewness | Excess kurtosis | Shapiro-Wilk W | p-value | Normality rejected (α = 0.05) |",
+            "|---|---|---|---|---|---|",
+            f"| Raw NRS response | {_round4(resid_norm.get('nrs_skew', np.nan))} | "
+            f"{_round4(resid_norm.get('nrs_kurtosis', np.nan))} | "
+            f"{_round4(resid_norm.get('nrs_w', np.nan))} | "
+            f"{_round4(resid_norm.get('nrs_p', np.nan))} | "
+            f"{'Yes' if nrs_rejected else 'No'} |",
+            f"| Primary H1 residuals | {_round4(resid_norm.get('skew', np.nan))} | "
+            f"{_round4(resid_norm.get('kurtosis', np.nan))} | "
+            f"{_round4(resid_norm.get('w', np.nan))} | "
             f"{_round4(resid_norm.get('p', np.nan))} | "
             f"{'Yes' if resid_norm.get('rejected') else 'No'} |",
             "",
-            f"*Note.* Shapiro-Wilk test applied to OLS residuals from the primary H1 "
-            f"regression specification (N = {resid_norm.get('n', '—')} observations). "
-            f"Residual normality is the relevant OLS assumption; the marginal distribution "
-            f"of NRS is not required to be normal. Inference for the primary "
-            f"specification uses two-way cluster-robust standard errors (clustered by "
-            f"respondent and scenario), whose validity does not depend on residual normality.",
+            f"*Note.* N = {resid_norm.get('n', '—')} observations. Skewness and excess "
+            f"kurtosis are sample-adjusted (bias-corrected) estimates; excess kurtosis "
+            f"follows the Fisher convention (normal = 0). The Shapiro-Wilk test is applied "
+            f"to the OLS residuals of the primary H1 regression and, separately, to the "
+            f"raw NRS responses. Residual normality is the relevant OLS assumption; the "
+            f"marginal distribution of the bounded seven-point NRS scale is not required "
+            f"to be normal. Inference for the primary specification uses two-way "
+            f"cluster-robust standard errors (clustered by respondent and scenario), whose "
+            f"validity does not depend on residual normality.",
+            "",
+            "**Figure 5.6**",
+            "",
+            "*Residual-Normality Diagnostics for the Primary H1 Regression*",
+            "",
+            "![](figures/fig_residual_normality.png)",
+            "",
+            f"*Note.* Panel (a) shows the distribution of the primary H1 OLS residuals "
+            f"(N = {resid_norm.get('n', '—')}) with a fitted normal density overlaid; "
+            f"panel (b) is a normal quantile-quantile plot of the same residuals against "
+            f"the theoretical normal quantiles. Near-linear alignment in panel (b) and the "
+            f"approximately symmetric histogram in panel (a) indicate only mild departures "
+            f"from normality. Original figure created for this study.",
         ]
     else:
         resid_lines += ["*(To be populated once H1 regression is computed.)*"]
@@ -2130,7 +2200,7 @@ def write_results_md(
 
     # ---- fig_5_7_sharpe ----
     fig_5_7 = block("fig_5_7_sharpe", "\n".join([
-        "**Figure 5.7**",
+        "**Figure 5.8**",
         "",
         "*Sharpe Ratio Comparison Across Experimental Conditions*",
         "",
@@ -2154,7 +2224,7 @@ def write_results_md(
             _h2_p_fig = str(_pr.iloc[0].get("p", "N/A"))
     _h2_verdict_fig = conc.get("h2_verdict", "Not supported").lower()
     fig_5_8 = block("fig_5_8_nrs_sc_split", "\n".join([
-        "**Figure 5.8**",
+        "**Figure 5.9**",
         "",
         "*Mean NRS by Shock Score Quintile and Experimental Condition*",
         "",
@@ -2339,6 +2409,7 @@ def main() -> None:
     if not args.skip_figures:
         print("\nRebuilding forest / scatter / alignment figures...")
         _fig_component_forest(h1.get("robustness", pd.DataFrame()))
+        _fig_residual_normality(h1.get("primary", {}).get("model"))
         _fig_sc_vs_horizon_return(scenarios, horizon_returns)
         _fig_alignment_rates(alignment.get("alignment_df", pd.DataFrame()),
                              alignment.get("overall_alignment_rate", np.nan))

@@ -1308,7 +1308,7 @@ The decomposed component specification (Spec 3) reveals a notable sign heterogen
 
 The direction-interaction specification (Spec 5) further decomposes the $\mathrm{SC}_{\mathrm{total}}$ effect by sentiment direction. The main effect for positive-sentiment events is β₁ = −0.4283 (p < 0.0001), indicating a risk-reducing response even when the accompanying news is positive. The interaction term $\mathrm{SC}_{\mathrm{total}}$ × $D_{\mathrm{neg}}$ = +0.1954 (p = 0.5957) is not statistically significant, indicating that no reliable asymmetry between positive- and negative-sentiment events can be established in the current sample. The compound effect for negative-sentiment events is β₁ + β₃ = −0.4283 + 0.1954 = −0.2329, which remains risk-reducing in direction. The absence of a significant direction-interaction implies that the risk-reducing effect of $\mathrm{SC}_{\mathrm{total}}$ does not differ materially by sentiment polarity at the current sample size. The Spec 5 result is treated as exploratory and the direction-asymmetry hypothesis is noted as a priority for replication on a larger sample.
 
-**Figure 5.6**
+**Figure 5.7**
 
 *Forest Plot of OLS Regression Coefficients for the Four Shock Score Components*
 
@@ -1372,7 +1372,7 @@ Overall alignment rate: 0.2618 (111 of 424 observations).
 [To be populated by 8_statistical_analysis.py]
 <!-- /PLACEHOLDER:tbl_5_10_alignment -->
 
-**Figure 5.9**
+**Figure 5.10**
 
 *NRS–Sentiment Alignment Rate by Sentiment Category*
 
@@ -1447,7 +1447,7 @@ The primary research contributes empirical evidence on two hypotheses. H1 posits
 
 The study's central, robust conclusion concerns measurement. The intensity of an external information shock, captured by the Shock Score ($\mathrm{SC}_{\mathrm{total}}$), is a statistically significant predictor of how professional managers adjust risk: higher intensity is associated with a risk-reducing shift in Net Risk Stance (β₁ = -0.4874, p = 0.0015). The practical value of this result lies in its direction of inference. The Shock Score is built from observable market and news data and is independent of the manager's response; it does not act on the decision, but anticipates it. Knowing the measured intensity of a shock, one can predict how a typical manager is likely to interpret the event and lean on risk – a capability with direct application to risk oversight and pre-trade monitoring. The risk-reducing direction is consistent with situational risk aversion under stress, documented in Chapter 3 among experienced professionals ([Huber et al., 2021](https://www2.uibk.ac.at/downloads/c9821000/wpaper/2020-11.pdf); [March & Shapira, 1987](https://doi.org/10.1287/mnsc.33.11.1404)): facing an intense shock, managers tend to de-risk – even when the news is favorable – rather than to overreact in the direction of the news.
 
-The composite, however, conceals meaningful structure, and decomposing it is itself a contribution. The four components do not act uniformly on Net Risk Stance (Section 5.5.1, Figure 5.6). Sentiment extremity (β = -1.2904) and attention intensity (β = -0.5668) carry the risk-reducing effect: the more extreme the sentiment and the more abnormal the trading attention, the more managers pull back. Event-type severity enters with the opposite sign (β = +0.3102): when managers recognize an event as belonging to a familiar high-severity category, such as scheduled earnings, they appear to treat the move as already anticipated and lean slightly toward risk. Article count has no significant effect. The practical lesson is that not all shock signals carry the same meaning – sentiment and attention drive caution, whereas event severity and news volume do not – and a decision aid should weight them accordingly.
+The composite, however, conceals meaningful structure, and decomposing it is itself a contribution. The four components do not act uniformly on Net Risk Stance (Section 5.5.1, Figure 5.7). Sentiment extremity (β = -1.2904) and attention intensity (β = -0.5668) carry the risk-reducing effect: the more extreme the sentiment and the more abnormal the trading attention, the more managers pull back. Event-type severity enters with the opposite sign (β = +0.3102): when managers recognize an event as belonging to a familiar high-severity category, such as scheduled earnings, they appear to treat the move as already anticipated and lean slightly toward risk. Article count has no significant effect. The practical lesson is that not all shock signals carry the same meaning – sentiment and attention drive caution, whereas event severity and news volume do not – and a decision aid should weight them accordingly.
 
 [//]: # ( again, add more intuitive interpretation for b2. Also tell me from which specific table (p = 0.4994) comes from).
 
