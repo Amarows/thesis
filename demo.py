@@ -44,7 +44,7 @@ s6_process.run(dry_run=False)
 
 
 import importlib
-print("\n>>> STARTING STAGE 7: AUGMENT SURVEY DATA")
+print("\n>>> STARTING STAGE 7: Verify SURVEY DATA")
 s7_augment = importlib.import_module("7_verification")
 s7_augment.main()
 
