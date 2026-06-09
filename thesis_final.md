@@ -470,7 +470,7 @@ Taken together, the studies reviewed below are interpreted in this thesis as imp
 
 ## 3.2 Behavioral Biases in Investment Decision-Making
 
-### 3.2.1 Behavioral biases driving overreaction under uncertainty
+### 3.2.1 Behavioral Biases Driving Overreaction Under Uncertainty
 
 Behavioral finance theory documented how cognitive biases such as overconfidence ([Moore & Healy, 2008](https://doi.org/10.1037/0033-295X.115.2.502); [Barber & Odean, 2001](https://doi.org/10.1162/003355301556400)), loss aversion ([Kahneman & Tversky, 1979](https://doi.org/10.2307/1914185)), the disposition effect ([Frazzini, 2006](https://doi.org/10.1111/j.1540-6261.2006.00896.x)), and emotional trading ([Lo et al., 2005](https://doi.org/10.1257/000282805774670095)) shape investor behavior and amplify short-term market reactions to information shocks. Professional investors, despite their expertise, are not immune to these cognitive shortcuts and biases that affect human judgment under uncertainty ([Hirshleifer, 2015](https://doi.org/10.1146/annurev-financial-092214-043752); [Barberis & Thaler, 2002](https://dx.doi.org/10.2139/ssrn.327880)). Several prevalent biases, including **overconfidence**, **availability and recency bias**, **herding**, and **emotional/physiological biases**, can cause expert decision-makers to react in ways that amplify short-term market volatility and overreact to financial information shocks. The following paragraphs discuss each bias and its impact on short-term market dynamics.
 
@@ -485,7 +485,7 @@ Herding describes the tendency of investors to mimic the actions of others inste
 
 Beyond cognitive heuristics, emotional and physiological factors can heavily influence investors' judgment under stress. Professional decision-makers are not emotionless agents; feelings such as fear, greed, anxiety, or over-excitement can bias choices, particularly during market shocks. [Lo et al., 2005](https://doi.org/10.1257/000282805774670095) documented that acute stress and arousal can impair decision-making even in expert traders ([Coates & Herbert, 2008](https://doi.org/10.1073/pnas.0704025105)). During periods of market turmoil, fear can trigger a physiological stress response that inclines investors to flee from risk. Elevated cortisol levels have been shown to correspond with such conditions; under high cortisol, traders become more risk-averse, potentially intensifying sell-offs ([Coates & Herbert, 2008](https://doi.org/10.1073/pnas.0704025105)). Evidence further indicated that traders exhibiting highly intense emotional reactions tend to make poorer trading decisions and achieve worse outcomes on average ([Lo et al., 2005](https://doi.org/10.1257/000282805774670095)). Overall, emotional and physiological biases contribute to short-term market instability by driving overreactions to information shocks. This study treats emotional bias as a latent driver of deviation from neutral risk stance; the Shock Score is intended to provide a stabilizing informational anchor at the point when information is consumed and a decision response is forming.
 
-### 3.2.2 Loss aversion and asymmetric responses to negative information
+### 3.2.2 Loss Aversion and Asymmetric Responses to Negative Information
 
 Prospect theory, as developed by Kahneman and Tversky, posited that individuals exhibit loss aversion, meaning that losses are experienced more intensely than gains of equal magnitude ([Kahneman & Tversky, 1979](https://doi.org/10.2307/1914185)). This framework shapes how decision-makers respond to financial news information shocks.
 
@@ -498,14 +498,14 @@ Neel (2024) provided cross-country evidence that institutional investors operati
 Taken together, these findings are synthesized in this thesis to support the assumption that negative financial information shocks tend to provoke more immediate and emotionally amplified responses than positive information shocks, thereby increasing the likelihood of short-term overreaction and subsequent reversal dynamics. This asymmetry is reflected in the study design through the inclusion of both positive and negative information shocks across scenarios, allowing H1 to be tested across the full directional range of the Net Risk Stance variable.
 
 
-### 3.2.3 The disposition effect and emotion-driven trading behavior
+### 3.2.3 The Disposition Effect and Emotion-Driven Trading Behavior
 
 The disposition effect refers to the tendency of investors to sell assets that have performed well while retaining assets that have incurred losses, a behavior leading to suboptimal portfolio rebalancing. While initially documented among retail investors, [Frazzini (2006)](https://doi.org/10.1111/j.1540-6261.2006.00896.x) and [Grinblatt and Keloharju (2001)](https://doi.org/10.1111/0022-1082.00338) documented that the disposition effect is also present among professional decision-makers, including institutional investors. Using detailed trading records, [Grinblatt and Keloharju (2001)](https://doi.org/10.1111/0022-1082.00338) showed that investors are more likely to sell winning positions than losing ones, even after controlling for tax considerations and liquidity needs. Similarly, [Frazzini (2006)](https://doi.org/10.1111/j.1540-6261.2006.00896.x) found that the disposition effect contributes to underreaction to news and predictable return patterns, consistent with investors holding losing positions too long and realizing losses too slowly. These findings indicated that regret avoidance and emotional attachment to losses can interfere with rational rebalancing decisions even in institutional settings.
 
 [Daniel et al., 1998](https://doi.org/10.1111/0022-1082.00077) modeled how overreaction driven by overconfidence can produce short-horizon return predictability, while [Frazzini, 2006](https://doi.org/10.1111/j.1540-6261.2006.00896.x) documented that the disposition effect produces underreaction to news: investors hold losing positions and realize gains prematurely, leading to post-announcement price drift. These two channels represent complementary behavioral mechanisms through which information shocks distort price adjustment. In the latter interpretation, emotionally salient losses increase the tendency to hold losing positions longer, while salient gains increase the tendency to realize winners prematurely, thereby embedding short-horizon decision errors into portfolio turnover and performance outcomes. Empirical evidence supports this mechanism: Da, Engelberg, and Gao (2011) showed that attention-driven trading around news events increases turnover in attention-grabbing stocks, consistent with a stronger propensity to trade recent winners and delayed adjustment in losers ([Da et al., 2011](https://doi.org/10.1111/j.1540-6261.2011.01679.x)). As a result, emotion-driven trading following information shocks not only amplifies short-term volatility but also induces systematic rebalancing inefficiencies consistent with the disposition effect. In this study, the disposition effect represents a potential source of asymmetric bias in the Net Risk Stance variable, where managers may respond differently to positive and negative information shocks independent of their objective severity as measured by the Shock Score.
 
 
-### 3.2.4 Overreaction and subsequent reversals following public news
+### 3.2.4 Overreaction and Subsequent Reversals Following Public News
 
 [De Bondt & Thaler, 1985](https://doi.org/10.1111/j.1540-6261.1985.tb05004.x) and Daniel et al. (1998) showed that stock prices can overshoot in response to public information shocks, leading to short-term reversals that are consistent with behavioral overreaction rather than immediate convergence to fundamental value. Using event-based analysis, [Meng et al. (2024)](https://doi.org/10.1016/j.irfa.2024.103219) documented that sharp price movements following public news often exceed what can be justified by fundamentals and are partially corrected in the days that follow, consistent with investor overreaction rather than efficient price adjustment.
 
@@ -517,7 +517,7 @@ Professional traders and institutional investors can amplify these misreactions.
 
 Systematic rebalancing flows further transmit these information shocks into prices. Harvey, Mazzoleni, and Melone (2025) showed that mechanical rebalancing by large asset managers generates statistically significant short-term price pressure; for example, when portfolios become overweight equities, subsequent selling pressure depresses equity returns by approximately 17 basis points on the following day ([Harvey et al., 2025](https://doi.org/10.2139/ssrn.5122748)). Taken together, the evidence indicated that news-driven overreactions by institutional investors produce transient mispricings and heightened volatility, creating pressure on portfolio allocation and rebalancing decisions.
 
-### 3.2.5 Portfolio implications of behavioral biases
+### 3.2.5 Portfolio Implications of Behavioral Biases
 
 [Barberis & Thaler, 2002](https://dx.doi.org/10.2139/ssrn.327880) and [Hirshleifer, 2015](https://doi.org/10.1146/annurev-financial-092214-043752) documented that behavioral biases—particularly overconfidence, availability heuristics, herding, and loss aversion—distort professional investors' judgment during information shocks. These biases impair rational processing of news, leading to **overreactions in asset prices** characterized by short-term volatility spikes and predictable reversals. Even experienced institutional investors are not immune: emotional and cognitive biases alter risk perceptions, induce crowd behavior, and lead to premature or delayed trading decisions.
 
@@ -530,7 +530,7 @@ In sum, research across these studies indicated that behavioral biases shape sho
 
 This section examines how behavioral biases persist in professional investment decision-making despite training and experience. Research by [Simon, 1955](https://doi.org/10.2307/1884852) and [Kahneman & Lovallo, 1993](https://doi.org/10.1287/mnsc.39.1.17) established that cognitive capacity constraints are structural rather than correctible through expertise alone, while empirical studies — including [Ben-David et al., 2013](https://doi.org/10.1093/qje/qjt023) and [Huber et al., 2022](https://doi.org/10.1016/j.jebo.2021.12.007) — documented that professional decision-makers exhibit systematic biases in risk perception and portfolio behavior. The subsections below review the persistence of these biases, situational shifts in risk preference, and procyclical portfolio decisions under market stress.
 
-### 3.3.1 Persistence of behavioral bias among experienced professionals
+### 3.3.1 Persistence of Behavioral Bias Among Experienced Professionals
 
 The professional investment context is governed by real-world constraints — bounded rationality, organizational pressure, and framing effects — under which even experienced experts make predictably biased decisions despite training ([Simon, 1955](https://doi.org/10.2307/1884852); [Kahneman, 2003](https://doi.org/10.1257/000282803322655392)). Even seasoned, well-incentivized managers rely on heuristic shortcuts in decision-making, underscoring the limits of human rationality. Bounded rationality, a concept introduced by Simon (1955), posited that individuals face inherent constraints in cognitive capacity and information processing and therefore satisfice (seek a good-enough option) rather than optimally solve complex problems. In practice, this means that even professional managers with extensive training cannot exhaustively evaluate all alternatives or anticipate every possible outcome. Instead, they rely on experience-based rules of thumb and intuitive judgments, particularly under time pressure. While such heuristics facilitate decision-making, they also embed systematic biases, such as overconfidence or anchoring, that persist despite expertise.
 
@@ -548,7 +548,7 @@ Knowing about cognitive biases is not sufficient to guarantee unbiased decisions
 
 These biases often intensify during market downturns, despite managers' professional training. [Huber et al. (2022)](https://doi.org/10.1016/j.jebo.2021.12.007) found that during the COVID-19 market crash, finance professionals significantly reduced their allocations to risky assets even though fundamentals and price expectations remained unchanged, a pattern consistent with heightened situational risk aversion under stress. This suggests that acute stress during sharp market declines can override deliberative planning, amplifying situational risk preferences even among experienced decision-makers.
 
-### 3.3.3 Procyclical portfolio decisions under stress
+### 3.3.3 Procyclical Portfolio Decisions Under Stress
 
 The situational biases documented above translate into observable portfolio-level decision patterns. Herding and trend-chasing can creep into rebalancing practices, and stress can push professionals toward procyclical behavior consistent with 'buying high and selling low.' [Lo and Repin (2002)](https://doi.org/10.1162/089892902317361877) showed through physiological measurement that emotional arousal and stress measurably affect professional traders' real-time risk processing, helping explain panic-like trading under pressure.
 
@@ -691,9 +691,7 @@ The table below systematically compares the Shock Score against representative m
 
 *Note.* Based on [Baker & Wurgler, 2006](https://doi.org/10.1111/j.1540-6261.2006.00885.x), [Da, Engelberg & Gao, 2015](https://doi.org/10.1093/rfs/hhu072), RavenPack (2011), Statman (2019), and the present study design. Classification reflects primary intended use as reported in the cited publications.
 
-**Technical Distinction: PCA Application**
-
-While both the Baker-Wurgler index and the Shock Score use principal component analysis for dimensionality reduction, they apply PCA to fundamentally different inputs for different purposes. Baker-Wurgler aggregates market-based proxies (IPO activity, fund discounts, equity issuance) to capture aggregate investor sentiment as a predictor of future returns. The Shock Score (whose components are defined in Chapter 4) aggregates portfolio-specific news metrics to capture information shock magnitude as a trigger for behavioral interventions. This difference in both inputs and objectives means the two measures serve non-overlapping functions in portfolio management.
+**Technical Distinction: PCA Application**. While both the Baker-Wurgler index and the Shock Score use principal component analysis for dimensionality reduction, they apply PCA to fundamentally different inputs for different purposes. Baker-Wurgler aggregates market-based proxies (IPO activity, fund discounts, equity issuance) to capture aggregate investor sentiment as a predictor of future returns. The Shock Score (whose components are defined in Chapter 4) aggregates portfolio-specific news metrics to capture information shock magnitude as a trigger for behavioral interventions. This difference in both inputs and objectives means the two measures serve non-overlapping functions in portfolio management.
 
 In sum, existing measures either forecast returns (sentiment indices), describe market conditions (volatility gauges), or profile static risk preferences (behavioral tools). None operationalizes information shock intensity as a real-time behavioral risk mitigation trigger for discretionary portfolio managers. The Shock Score fills this gap by bridging real-time news analytics with behavioral governance frameworks.
 
@@ -800,7 +798,7 @@ The 24 portfolio stocks assigned to scenario blocks are listed below.
 | 23 | McDonald's | MCD | Consumer Discretionary | $237.15B | 44 | 3 |
 | 24 | Applied Materials | AMAT | Information Technology | $306.93B | 35 | 3 |
 
-Note: Market capitalization and S&P 500 rank as of portfolio construction date. The top 10 constituents by market capitalization (Apple, Microsoft, NVIDIA, Amazon, Alphabet, Meta, Berkshire Hathaway, Broadcom, Tesla, Eli Lilly) are excluded per the recognition-without-dominance criterion. Each stock is assigned to exactly one block and contributes exactly one scenario.
+*Note:* Market capitalization and S&P 500 rank as of portfolio construction date. The top 10 constituents by market capitalization (Apple, Microsoft, NVIDIA, Amazon, Alphabet, Meta, Berkshire Hathaway, Broadcom, Tesla, Eli Lilly) are excluded per the recognition-without-dominance criterion. Each stock is assigned to exactly one block and contributes exactly one scenario.
 
 The portfolio uses equal (1/N) weighting across the 24 stocks (~4.2% per stock). Equal weighting is transparent, requires no contested parameter estimates that could introduce a weighting-scheme confound, and follows a well-established benchmark in finance research (DeMiguel, Garlappi, & Uppal, 2009). The equal-weight assumption is communicated to respondents in the scenario preamble.
 
@@ -1721,9 +1719,9 @@ Barber, B. M., & Odean, T. (2008). All that glitters: The effect of attention an
 
 Barberis, N., & Thaler, R. H. (2002). A survey of behavioral finance. *SSRN Electronic Journal*. https://doi.org/10.2139/ssrn.327880
 
-Baruník, J., & Křehlík, T. (2018). Measuring the frequency dynamics of financial connectedness and systemic risk*. *Journal of Financial Econometrics*, *16*(2), 271–296. https://doi.org/10.1093/jjfinec/nby001
+Baruník, J., & Křehlík, T. (2018). Measuring the frequency dynamics of financial connectedness and systemic risk. *Journal of Financial Econometrics*, *16*(2), 271–296. https://doi.org/10.1093/jjfinec/nby001
 
-Ben-David, I., Graham, J. R., & Harvey, C. R. (2013). Managerial miscalibration*. *The Quarterly Journal of Economics*, *128*(4), 1547–1584. https://doi.org/10.1093/qje/qjt023
+Ben-David, I., Graham, J. R., & Harvey, C. R. (2013). Managerial miscalibration. *The Quarterly Journal of Economics*, *128*(4), 1547–1584. https://doi.org/10.1093/qje/qjt023
 
 Ben-Rephael, A., Hitzemann, S., & Xiao, Y. (2021). Investor (mis)reaction, biased beliefs, and the mispricing cycle. *SSRN Electronic Journal*. https://doi.org/10.2139/ssrn.3966758
 
@@ -1831,7 +1829,7 @@ Loewenstein, G. F., Weber, E. U., Hsee, C. K., & Welch, N. (2001). Risk as feeli
 
 MacKinnon, J. G., & White, H. (1985). Some heteroskedasticity-consistent covariance matrix estimators with improved finite sample properties. *Journal of Econometrics*, *29*(3), 305–325. https://doi.org/10.1016/0304-4076(85)90158-7
 
-Malkiel, B. G., & Fama, E. F. (1970). Efficient capital markets: A review of theory and empirical work*. *The Journal of Finance*, *25*(2), 383–417. https://doi.org/10.1111/j.1540-6261.1970.tb00518.x
+Malkiel, B. G., & Fama, E. F. (1970). Efficient capital markets: A review of theory and empirical work. *The Journal of Finance*, *25*(2), 383–417. https://doi.org/10.1111/j.1540-6261.1970.tb00518.x
 
 March, J. G., & Shapira, Z. (1987). Managerial perspectives on risk and risk taking. *Management Science*, *33*(11), 1404–1418. https://doi.org/10.1287/mnsc.33.11.1404
 
