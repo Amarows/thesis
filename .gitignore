@@ -7,3 +7,5 @@
 /survey/raw_responses/
 7_verification.py
 /survey/desktop.ini
+/credentials/
+__pycache__/

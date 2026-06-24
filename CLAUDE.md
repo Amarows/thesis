@@ -229,7 +229,7 @@ Sections auto-populated: `tbl_4_7_counts`, §5.2.1, §5.2.2, §5.2.3 (PCA diagno
 - **Style:** PEP 8; descriptive variable names matching thesis notation (e.g., `sc_total`, `nrs`, `show_sc`)
 - **Statistics:** No rounding during computation; final numeric results rounded to 4 decimal places
 - **Data files:** CSV for tabular data; naming convention for news: `{TICKER}_BZ_{start}_to_{end}.csv`
-- **Thesis text:** Markdown in `thesis.md`; APA citation style; en dash with spaces ( – ) for punctuation
+- **Thesis text:** Markdown in `thesis.md`; APA citation style. Dashes per APA 7: em dash (—, no spaces) for sentence breaks/separators; en dash (–, no spaces) for ranges and relationships between equals (e.g., risk–return, 165–198); hyphen (-) for compounds. No spaced dashes; never treat a hyphen inside a DOI/ISO date as a range.
 - **References:** Managed in `references.md` with local PDF copies in `papers/`
 - **Exclusion logic:** applied once, in `6_process_survey_data.py` only; `8_statistical_analysis.py` receives a clean panel and applies no further filtering
 
