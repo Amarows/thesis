@@ -1829,7 +1829,7 @@ Lo, A. W., Repin, D. V., & Steenbarger, B. N. (2005). Fear and greed in financia
 
 Loewenstein, G. F., Weber, E. U., Hsee, C. K., & Welch, N. (2001). Risk as feelings.. *Psychological Bulletin*, *127*(2), 267–286. https://doi.org/10.1037/0033-2909.127.2.267
 
-Löffler, G. (2021). Negative News and the Stock Market Impact of Tone in Rating Reports. *SSRN Electronic Journal*. https://doi.org/10.2139/ssrn.2802570
+Löffler, G., Norden, L., & Rieber, A. (2021). Negative News and the Stock Market Impact of Tone in Rating Reports. *SSRN Electronic Journal*. https://doi.org/10.2139/ssrn.2802570
 
 MacKinnon, J. G., & White, H. (1985). Some heteroskedasticity-consistent covariance matrix estimators with improved finite sample properties. *Journal of Econometrics*, *29*(3), 305–325. https://doi.org/10.1016/0304-4076(85)90158-7
 
